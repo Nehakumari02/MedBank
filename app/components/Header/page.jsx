@@ -1,10 +1,14 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import Logo from '../../../public/Images/Home/logo.png'
+
 
 const Header = () => (
-  <header className="bg-white shadow-md p-4 flex justify-between items-center">
-    <div className="text-2xl font-bold">Medbank</div>
+  <header className="h-[146px] bg-white shadow-md p-[32px] flex justify-between items-center border-b-[0.5px]">
+    <div className="flex items-center justify-center gap-[36px]"><Image src={Logo} alt='MedBankLogo' className='h-[78px] w-[82px]'>
+    </Image>
     <nav>
-      <ul className="flex space-x-4">
+      <ul className="flex items-center justify-center gap-[38px]">
         <li>
           <Link href="/">Home</Link>
         </li>
@@ -25,9 +29,15 @@ const Header = () => (
         </li>
       </ul>
     </nav>
-    <div>
-      <button className="mx-2 px-4 py-2 bg-blue-500 text-white rounded">Sign In</button>
-      <button className="px-4 py-2 bg-green-500 text-white rounded">Sign Up</button>
+    </div>
+    <div className='flex items-center justify-center gap-[16px]'>
+      <div className='flex items-center justify-center gap-[10px]'>
+        <button>JN</button>
+        <div className='border-r-[2px] h-[20px] border-black'></div>
+        <button>EN</button>
+        </div>
+      <button className="h-[40px] px-[32px] py-[12px] border-[1px] rounded-[6px] flex items-center justify-center gradient-text border-[#60B7CF]">Sign In</button>
+      <button className="h-[40px] px-[32px] py-[12px] border-[1px] rounded-[6px] flex items-center justify-center gradient-background text-white">Sign Up</button>
     </div>
   </header>
 );
