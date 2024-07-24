@@ -2,36 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root{
 
-.gradient-background {
-  background-image: linear-gradient(to bottom, #60B7CF 100%, #3E8DA7 100%, #003E5C 60%);
+  }
 }
 
-.gradient-text {
-  background-image: linear-gradient(to right, #60B7CF 100%, #3E8DA7 100%, #003E5C 60%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.gradient-border-text {
-  text-transform: uppercase;
-  color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #003E5C;
-  opacity: 35%;
-
-}
-
-.gradient-border {
-  /* Create a gradient border */
-  border: 2px solid;
-  border-image-slice: 1;
-  border-width: 2px;
-  border-image-source: linear-gradient(to right, #60B7CF 100%, #3E8DA7 100%, #003E5C 60%);
-  /* Set text color to transparent to allow gradient to show through */
-  color: transparent;
-  /* Ensure the text is not affected by the border */
-  -webkit-background-clip: text;
-  background-clip: text;
+@layer components {
+  .gradient-primary {
+      @apply bg-gradient-to-b from-[#60B7CF] from-[0%] via-[#3E8DA7] via-[60%] to-[#003d5cb7] to-[100%];
+  }
+  .gradient-primary-faded {
+      @apply bg-gradient-to-b from-[#60B7CF] from-100% via-[#3E8DA7] via-[100%] to-[#003E5C] to-60%;
+  }
+  .gradient-primary-light {
+      @apply bg-gradient-to-b from-[#60B7CF] from-100% via-[#3E8DA7] via-[100%] to-[#003E5C] to-60%;
+  }
 }
