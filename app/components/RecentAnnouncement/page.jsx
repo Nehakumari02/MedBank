@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import HomePageSectionHeader from '../HomePageSectionHeader/page';
 
 
 const RecentAnnouncement = () => {
@@ -7,12 +8,14 @@ const RecentAnnouncement = () => {
   const [showMore2, setShowMore2] = useState(false);
 
   return (
-    <section className="p-6 bg-white rounded-lg shadow-md mb-6">
-      <h2 className="text-2xl font-bold text-blue-600 mb-4">RECENT ANNOUNCEMENT</h2>
-      <p className="mb-4">
+    <section className="px-[62px] py-[100px] w-full text-[#333333] bg-[#7171710D]">
+        <HomePageSectionHeader title={"Recent Articles"} subTitle={"Recent Articles"}/>
+        <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+        <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">Recent Anouncements</span>
+        <p className="font-sans font-normal text-[20px] leading-[34px]">
         "Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company's activities, achievements, and advancements in genetic analysis."
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="p-4 bg-gray-100 rounded-lg shadow">
           <img src="/path-to-image1.jpg" alt="Announcement 1" className="mb-2 rounded" />
           <p>24-Jan-2024 12:45PM</p>
@@ -36,8 +39,9 @@ const RecentAnnouncement = () => {
           >
             {showMore2 ? "Show Less" : "Read More"}
           </button>
-        </div>
+          </div>
       </div>
+    </div>
     </section>
   );
 };

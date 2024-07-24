@@ -15,10 +15,10 @@ export default function HomePage() {
     <div className="">
       <section className="flex items-center justify-center w-full h-[651px]">
         <div className='w-[30%] h-full'>
-          <Image src={HeroImage} alt='HeroImage' className='h-full w-full'></Image>
+          <Image src={HeroImage} alt='HeroImage' className='h-full w-full object-cover'></Image>
         </div>
-        <div className='w-[70%] h-full flex items-center justify-center'>
-          <div className='h-[441px] w-[696px] flex flex-col gap-[32px]'>
+        <div className='w-[70%] px-[110px] h-full flex items-center justify-start'>
+          <div className=' w-full flex flex-col gap-[32px]'>
             <div className='flex flex-col items-start gap-[14px] text-[#333333]'>
               <span className='font-serif font-normal text-[57px] leading-[80px]'>Unlock the Power of Next- </span>
               <span className='font-serif font-normal text-[57px] leading-[80px]'>Generation Sequencing </span>
@@ -31,25 +31,25 @@ export default function HomePage() {
       </section>
       <section className="flex items-center justify-center w-full h-[518px]">
         <div className='w-[30%] h-full'>
-            <Image src={AboutUsImage} alt='AboutUsImage' className='h-full w-full'></Image>
+            <Image src={AboutUsImage} alt='AboutUsImage' className='h-full w-full object-cover'></Image>
         </div>
         <div className='w-[70%] h-full flex items-center justify-start text-[#333333]'>
-          <div className='h-[310px] w-[700px] flex flex-col gap-[32px]'>
-            <HomePageSectionHeader title={"About Us"}></HomePageSectionHeader>
-            <div className='pl-[110px]'>
-            <span className="font-sans text-[36px] font-medium leading-[42px] text-[#60B7CF]">MEDBANK</span>
+          <div className='h-[310px] w-full flex flex-col gap-[32px]'>
+            <HomePageSectionHeader title={"About Us"} subTitle={"About Us"}></HomePageSectionHeader>
+            <div className='px-[110px]'>
+            <span className="font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">MEDBANK</span>
             <p className="font-sans font-normal text-[20px] leading-[34px]">
               Welcome to Medbank, your trusted partner in genetic analysis. Learn more about our company’s mission, values, and commitment to excellence.
             </p>
-            <button className="flex items-center justify-center gap-[12px] border-none font-sans font-bold text-[18px] leading-[42px] text-[#003E5C]">Read More {ArrowRightIcon}</button>
+            <button className="flex items-center justify-center gap-[12px] border-none font-sans font-bold text-[18px] leading-[42px] gradient-primary bg-clip-text text-transparent">Read More {ArrowRightSmallIcon}</button>
           </div>
           </div>
         </div>
       </section>
       <section className="px-[62px] py-[100px] w-full text-[#333333]">
-        <HomePageSectionHeader title={"Our Strength"}/>
+        <HomePageSectionHeader title={"Our Strength"} subTitle={"Our Strength"}/>
         <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
-        <span className="flex items-start justify-start gap-[12px] font-sans text-[36px] font-medium leading-[42px] text-[#60B7CF]">EXPERTIZE {ArrowRightIcon}</span>
+        <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">EXPERTIZE {ArrowRightIcon}</span>
         <p className="font-sans font-normal text-[20px] leading-[34px]">
           At Medbank, we take pride in our strengths and capabilities that set us apart as a leader in genetic analysis. Discover how our expertise and specialized services can benefit your research projects.
         </p>
@@ -95,7 +95,7 @@ const DmIcon = <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns
 </defs>
 </svg>
 
-const ArrowRightIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+const ArrowRightIcon = <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12.33 18.794C12.541 19.0047 12.8269 19.123 13.125 19.123C13.4231 19.123 13.7091 19.0047 13.92 18.794L20.295 12.419C20.5057 12.2081 20.624 11.9222 20.624 11.624C20.624 11.3259 20.5057 11.04 20.295 10.829L13.92 4.45404C13.7068 4.25507 13.4246 4.14668 13.1331 4.15172C12.8415 4.15676 12.5632 4.27483 12.357 4.48104C12.1508 4.68726 12.0327 4.96549 12.0277 5.25708C12.0227 5.54867 12.131 5.83082 12.33 6.04404L16.785 10.499H5.62501C5.32664 10.499 5.0405 10.6176 4.82952 10.8285C4.61854 11.0395 4.50001 11.3257 4.50001 11.624C4.50001 11.9224 4.61854 12.2086 4.82952 12.4195C5.0405 12.6305 5.32664 12.749 5.62501 12.749H16.785L12.33 17.204C12.1193 17.415 12.001 17.7009 12.001 17.999C12.001 18.2972 12.1193 18.5831 12.33 18.794Z" fill="url(#paint0_linear_277_1151)"/>
 <defs>
 <linearGradient id="paint0_linear_277_1151" x1="20.624" y1="11.6373" x2="4.50001" y2="11.6373" gradientUnits="userSpaceOnUse">
@@ -105,3 +105,15 @@ const ArrowRightIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="non
 </linearGradient>
 </defs>
 </svg>
+
+const ArrowRightSmallIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.33 18.794C12.541 19.0047 12.8269 19.123 13.125 19.123C13.4231 19.123 13.7091 19.0047 13.92 18.794L20.295 12.419C20.5057 12.2081 20.624 11.9222 20.624 11.624C20.624 11.3259 20.5057 11.04 20.295 10.829L13.92 4.45404C13.7068 4.25507 13.4246 4.14668 13.1331 4.15172C12.8415 4.15676 12.5632 4.27483 12.357 4.48104C12.1508 4.68726 12.0327 4.96549 12.0277 5.25708C12.0227 5.54867 12.131 5.83082 12.33 6.04404L16.785 10.499H5.62501C5.32664 10.499 5.0405 10.6176 4.82952 10.8285C4.61854 11.0395 4.50001 11.3257 4.50001 11.624C4.50001 11.9224 4.61854 12.2086 4.82952 12.4195C5.0405 12.6305 5.32664 12.749 5.62501 12.749H16.785L12.33 17.204C12.1193 17.415 12.001 17.7009 12.001 17.999C12.001 18.2972 12.1193 18.5831 12.33 18.794Z" fill="url(#paint0_linear_277_1151)"/>
+<defs>
+<linearGradient id="paint0_linear_277_1151" x1="20.624" y1="11.6373" x2="4.50001" y2="11.6373" gradientUnits="userSpaceOnUse">
+<stop offset="0.1" stopColor="#60B7CF"/>
+<stop offset="0.745" stopColor="#3E8DA7"/>
+<stop offset="1" stopColor="#003E5C" stopOpacity="0.6"/>
+</linearGradient>
+</defs>
+</svg>
+

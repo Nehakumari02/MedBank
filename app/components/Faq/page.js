@@ -1,23 +1,28 @@
+import HomePageSectionHeader from "../HomePageSectionHeader/page";
+import FAQItem from './FAQItem'
+
 const FAQ = () => (
-    <section className="p-6 bg-white rounded-lg shadow-md mb-6">
-      <h2 className="text-2xl font-bold text-blue-600 mb-4">FAQ</h2>
-      <p className="mb-4">
-        "Have questions about Medbank's genetic analysis services? Explore our frequently asked questions to find answers to common queries. If you can't find what you're looking for, feel free to reach out to our team for personalized assistance."
-      </p>
-      <div className="space-y-4">
-        {[
+  <section className="px-[62px] py-[100px] w-full text-[#333333]">
+  <HomePageSectionHeader title={"FAQ"} subTitle={"Frequently Asked Question"}/>
+  <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+  <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">FAQ</span>
+  <p className="font-sans font-normal text-[20px] leading-[34px]">
+  "Have questions about Medbank's genetic analysis services? Explore our frequently asked questions to find answers to common queries. If you can't find what you're looking for, feel free to reach out to our team for personalized assistance."
+  </p>
+  <div className="w-full flex items-center justify-center">
+    <div className="w-[660px] flex flex-col gap-[16px]">
+    {[
           "Do I need to register with Mypage?",
           "How long does it take to deliver the products?",
           "How long do you keep samples and analysis results?",
           "What sequencer do you use?"
         ].map((question, index) => (
-          <details key={index} className="bg-gray-100 p-4 rounded">
-            <summary className="font-semibold cursor-pointer">{question}</summary>
-            <p className="mt-2">Answer to the question will be placed here.</p>
-          </details>
+          <FAQItem key={index} question={question} answer={"Answer to the question will be placed here."}></FAQItem>
         ))}
-      </div>
-    </section>
+    </div>
+  </div>
+</div>
+</section>
   );
   
   export default FAQ;
