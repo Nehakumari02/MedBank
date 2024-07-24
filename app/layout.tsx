@@ -3,6 +3,7 @@ import Header from './components/Header/page';
 import { ReactNode } from 'react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  console.log("hello")
   return (
     <html lang="en">
       <body className="text-black">

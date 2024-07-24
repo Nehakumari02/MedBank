@@ -10,12 +10,27 @@
 
 @layer components {
   .gradient-primary {
-      @apply bg-gradient-to-b from-[#60B7CF] from-[0%] via-[#3E8DA7] via-[60%] to-[#003d5cb7] to-[100%];
+      @apply bg-gradient-to-b from-[#60B7CF] from-[0%] via-[#3E8DA7] via-[70%] to-[#003d5cb7] to-[100%];
   }
-  .gradient-primary-faded {
-      @apply bg-gradient-to-b from-[#60B7CF] from-100% via-[#3E8DA7] via-[100%] to-[#003E5C] to-60%;
+  .gradient-table-head {
+      @apply bg-gradient-to-r from-[#4dbeb85f] from-0% to-[#90daee67] to-60%;
   }
   .gradient-primary-light {
       @apply bg-gradient-to-b from-[#60B7CF] from-100% via-[#3E8DA7] via-[100%] to-[#003E5C] to-60%;
   }
+}
+
+.gradient-border-text{
+  color: white;
+  opacity: 35%;
+  text-transform: uppercase;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #003E5C;
+}
+
+.dashed-gradient {
+  width: 100%;
+  border: 1px dotted;
+  border-image-source: linear-gradient(to right, #4dbeb85f, #90daee67);
+  border-image-slice: 2;
 }
