@@ -1,31 +1,36 @@
+"use client"
+
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '../../../public/Images/Home/logo.png'
 
 
-const Header = () => (
+const Header = () => {
+  const path = window.location.href.split("/")[1]||"";
+  console.log(path)
+  return(
   <header className="h-[146px] bg-white shadow-md p-[32px] flex justify-between items-center border-b-[0.5px]">
     <div className="flex items-center justify-center gap-[36px]"><Image src={Logo} alt='MedBankLogo' className='h-[78px] w-[82px]'>
     </Image>
     <nav>
       <ul className="flex items-center justify-center gap-[38px]">
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/" className={`${path===""?"border-b-[2px]":""}`}>Home</Link>
         </li>
         <li>
-          <Link href="/about">About Us</Link>
+          <Link href="/about" className={`${path==="about"?"border-b-[2px]":""}`}>About Us</Link>
         </li>
         <li>
-          <Link href="/services">Services</Link>
+          <Link href="/services" className={`${path==="services"?"border-b-[2px]":""}`}>Services</Link>
         </li>
         <li>
-          <Link href="/sample-shipping">Sample Shipping</Link>
+          <Link href="/sample-shipping" className={`${path==="sample-shipping"?"border-b-[2px]":""}`}>Sample Shipping</Link>
         </li>
         <li>
-          <Link href="/strength">Strength</Link>
+          <Link href="/strength" className={`${path==="strength"?"border-b-[2px]":""}`}>Strength</Link>
         </li>
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact" className={`${path==="contact"?"border-b-[2px]":""}`}>Contact</Link>
         </li>
       </ul>
     </nav>
@@ -36,11 +41,11 @@ const Header = () => (
         <div className='border-r-[2px] h-[20px] border-black'></div>
         <button>EN</button>
         </div>
-      <button className="h-[40px] px-[32px] py-[12px] border-[1px] rounded-[6px] flex items-center justify-center gradient-text border-[#60B7CF]">Sign In</button>
-      <button className="h-[40px] px-[32px] py-[12px] border-[1px] rounded-[6px] flex items-center justify-center gradient-background text-white">Sign Up</button>
+      <button className="h-[40px] p-[1px] rounded-[6px] flex items-center justify-center gradient-primary border-[#60B7CF]"><div className='bg-white w-full h-full px-[32px] py-[12px] rounded-[5px] flex items-center justify-center'><span className='gradient-primary bg-clip-text text-transparent'>Sign In</span></div></button>
+      <button className="h-[40px] px-[32px] py-[12px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</button>
     </div>
   </header>
 );
-
+}
 export default Header;
 
