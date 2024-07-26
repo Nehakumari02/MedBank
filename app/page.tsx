@@ -6,6 +6,7 @@ import FAQ from './components/Faq/page'
 import ContactUs from './components/ContactUs/page'
 import HomePageSectionHeader from './components/HomePageSectionHeader/page'
 import Footer from './components/Footer/page'
+import CreateAccount from './components/CreateAccount'
 import Image from 'next/image'
 import HeroImage from '../public/Images/Home/heroImage1.png'
 import AboutUsImage from '../public/Images/Home/aboutUsHome.png'
@@ -13,30 +14,30 @@ import AboutUsImage from '../public/Images/Home/aboutUsHome.png'
 export default function HomePage() {
   return (
     <div className="">
-      <section className="flex items-center justify-center w-full h-[651px]">
-        <div className='w-[30%] h-full'>
+      <section className="md:flex items-center justify-center w-full md:h-[523px] lg:h-[651px]">
+        <div className='md:w-[30%] h-full'>
           <Image src={HeroImage} alt='HeroImage' className='h-full w-full object-cover'></Image>
         </div>
-        <div className='w-[70%] px-[110px] h-full flex items-center justify-start'>
+        <div className='md:w-[70%] md:px-[50px] lg:px-[110px] h-full flex items-center justify-start'>
           <div className=' w-full flex flex-col gap-[32px]'>
             <div className='flex flex-col items-start gap-[14px] text-[#333333]'>
-              <span className='font-serif font-normal text-[57px] leading-[80px]'>Unlock the Power of Next- </span>
-              <span className='font-serif font-normal text-[57px] leading-[80px]'>Generation Sequencing </span>
-              <span className='font-serif font-normal text-[57px] leading-[80px]'>with Medbank</span>
+              <span className='font-serif font-normal md:text-[42px] lg:text-[57px] leading-[80px]'>Unlock the Power of Next- </span>
+              <span className='font-serif font-normal md:text-[42px] lg:text-[57px] leading-[80px]'>Generation Sequencing </span>
+              <span className='font-serif font-normal md:text-[42px] lg:text-[57px] leading-[80px]'>with Medbank</span>
               <p className="font-sans font-normal text-[28px] leading-[42px]">Gain deeper insights into genes, RNA, and <br /> genomes for breakthrough discoveries</p>
             </div>
             <button className="h-[40px] w-[237px] py-[10px] pl-[16px] pr-[24px] flex items-center justify-center gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">{DmIcon} Discover Our Services</button>
           </div>
         </div>
       </section>
-      <section className="flex items-center justify-center w-full h-[518px]">
-        <div className='w-[30%] h-full'>
+      <section className="md:flex items-center justify-center w-full md:h-[420px] lg:h-[518px]">
+        <div className='md:w-[30%] h-full'>
             <Image src={AboutUsImage} alt='AboutUsImage' className='h-full w-full object-cover'></Image>
         </div>
-        <div className='w-[70%] h-full flex items-center justify-start text-[#333333]'>
+        <div className='md:w-[70%] h-full flex items-center justify-start text-[#333333]'>
           <div className='h-[310px] w-full flex flex-col gap-[32px]'>
             <HomePageSectionHeader title={"About Us"} subTitle={"About Us"}></HomePageSectionHeader>
-            <div className='px-[110px]'>
+            <div className='md:px-[50px] lg:px-[110px]'>
             <span className="font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">MEDBANK</span>
             <p className="font-sans font-normal text-[20px] leading-[34px]">
               Welcome to Medbank, your trusted partner in genetic analysis. Learn more about our company’s mission, values, and commitment to excellence.
@@ -46,9 +47,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="px-[62px] py-[100px] w-full text-[#333333]">
+      <section className="md:px-[42px] lg:px-[62px] py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Our Strength"} subTitle={"Our Strength"}/>
-        <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+        <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
         <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">EXPERTIZE {ArrowRightIcon}</span>
         <p className="font-sans font-normal text-[20px] leading-[34px]">
           At Medbank, we take pride in our strengths and capabilities that set us apart as a leader in genetic analysis. Discover how our expertise and specialized services can benefit your research projects.
@@ -78,6 +79,7 @@ export default function HomePage() {
       <RecentAnnouncement></RecentAnnouncement>
       <FAQ></FAQ>
       <ContactUs></ContactUs>
+      <CreateAccount/>
       <Footer></Footer>
       
     </div>

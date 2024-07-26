@@ -2,9 +2,9 @@ import HomePageSectionHeader from "../HomePageSectionHeader/page";
 
 const PriceTable = () => (
   <>
-    <section className="px-[62px] py-[100px] w-full text-[#333333]">
+    <section className="md:px-[42px] lg:px-[62px] py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Reference Price"} subTitle={"Reference Price"}/>
-        <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+        <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
         <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">PRICE TABLE {ArrowRightIcon}</span>
         <p className="font-sans font-normal text-[20px] leading-[34px]">
         "Explore our reference prices to gain insight into the cost structure of our genetic analysis services. While actual prices may vary depending on specific project requirements, our reference prices provide an estimate of the costs involved."

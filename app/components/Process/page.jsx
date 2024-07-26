@@ -1,9 +1,9 @@
 import HomePageSectionHeader from "../HomePageSectionHeader/page";
 
 const Process = () => (
-  <section className="px-[62px] py-[100px] w-full text-[#333333]">
+  <section className="md:px-[42px] lg:px-[62px] py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Order Flow"} subTitle={"Order Flow"}/>
-        <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+        <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
         <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">PROCESS {ArrowRightIcon}</span>
         <p className="font-sans font-normal text-[20px] leading-[34px]">
         "At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you're a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services."

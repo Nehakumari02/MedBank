@@ -2,9 +2,9 @@ import HomePageSectionHeader from "../HomePageSectionHeader/page";
 import FAQItem from './FAQItem'
 
 const FAQ = () => (
-  <section className="px-[62px] py-[100px] w-full text-[#333333]">
+  <section className="md:px-[42px] lg:px-[62px] py-[100px] w-full text-[#333333]">
   <HomePageSectionHeader title={"FAQ"} subTitle={"Frequently Asked Question"}/>
-  <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+  <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
   <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">FAQ</span>
   <p className="font-sans font-normal text-[20px] leading-[34px]">
   "Have questions about Medbank's genetic analysis services? Explore our frequently asked questions to find answers to common queries. If you can't find what you're looking for, feel free to reach out to our team for personalized assistance."

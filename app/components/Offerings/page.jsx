@@ -3,11 +3,11 @@ import HomePageSectionHeader from "../HomePageSectionHeader/page";
 import OfferingsImage from '../../../public/Images/Home/servicesImage.png'
 
 const Offerings = () => (
-    <section className="flex items-center justify-center w-full h-[672px]">
-    <div className='w-[70%] h-full flex items-center justify-start text-[#333333]'>
-      <div className='h-[428px] w-full pl-[62px] pr-[20px] flex flex-col gap-[32px]'>
+    <section className="md:flex items-center justify-center w-full h-[672px]">
+    <div className='md:w-[70%] h-full flex items-center justify-start text-[#333333]'>
+      <div className='w-full md:pl-[42px] lg:pl-[62px] pr-[20px] flex flex-col gap-[32px]'>
         <HomePageSectionHeader title={"Our services"} subTitle={"Our Services"}></HomePageSectionHeader>
-        <div className='pl-[110px] flex flex-col items-start justify-start gap-[24px]'>
+        <div className='md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[24px]'>
         <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">OFFERINGS {ArrowRightIcon}</span>
         <span className="font-sans font-normal text-[20px] leading-[34px]">
         "At Medbank, we offer a comprehensive range of genetic analysis services tailored to meet your research needs. Our state-of-the-art laboratory facilities and experienced team ensure accurate and reliable results. Explore our service offerings below to discover how we can support your genetic analysis projects."
@@ -22,7 +22,7 @@ const Offerings = () => (
       </div>
       </div>
     </div>
-    <div className='w-[30%] h-full'>
+    <div className='md:w-[30%] h-full'>
         <Image src={OfferingsImage} alt='OfferingsImage' className='h-full w-full'></Image>
     </div>
   </section>
