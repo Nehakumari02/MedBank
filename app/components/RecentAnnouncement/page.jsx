@@ -1,46 +1,61 @@
 'use client';
 import { useState } from 'react';
 import HomePageSectionHeader from '../HomePageSectionHeader/page';
-
-
+import Media from '../../../public/Images/Home/Media.png'
+import Media1 from '../../../public/Images/Home/Media2.png'
+import Media2 from '../../../public/Images/Home/Media3.png'
+import Image from 'next/image';
 const RecentAnnouncement = () => {
-  const [showMore1, setShowMore1] = useState(false);
-  const [showMore2, setShowMore2] = useState(false);
 
   return (
-    <section className="px-[62px] py-[100px] w-full text-[#333333] bg-[#7171710D]">
+    <section className="md:px-[42px] lg:px-[62px] py-[100px] w-full text-[#333333] bg-[#7171710D]">
         <HomePageSectionHeader title={"Recent Articles"} subTitle={"Recent Articles"}/>
-        <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
+        <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
         <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">Recent Anouncements</span>
         <p className="font-sans font-normal text-[20px] leading-[34px]">
         "Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company's activities, achievements, and advancements in genetic analysis."
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="p-4 bg-gray-100 rounded-lg shadow">
-          <img src="/path-to-image1.jpg" alt="Announcement 1" className="mb-2 rounded" />
-          <p>24-Jan-2024 12:45PM</p>
-          <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-          {showMore1 && <p className="mt-2">Additional hidden text for the first announcement.</p>}
-          <button 
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded" 
-            onClick={() => setShowMore1(!showMore1)}
-          >
-            {showMore1 ? "Show Less" : "Read More"}
-          </button>
-        </div>
-        <div className="p-4 bg-gray-100 rounded-lg shadow">
-          <img src="/path-to-image2.jpg" alt="Announcement 2" className="mb-2 rounded" />
-          <p>24-Jan-2024 12:45PM</p>
-          <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-          {showMore2 && <p className="mt-2">Additional hidden text for the second announcement.</p>}
-          <button 
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded" 
-            onClick={() => setShowMore2(!showMore2)}
-          >
-            {showMore2 ? "Show Less" : "Read More"}
-          </button>
+        <div className='flex flex-col lg:px-[70px] md:flex-row md:flex-wrap gap-[20px] items-center md:justify-between w-full'>
+          <div className='h-[480px] w-[360px] border-[1px] rounded-lg border-[#71717133]'>
+            <Image src={Media} alt='Media' className='w-full h-[276px] rounded-tl-lg rounded-tr-lg'></Image>
+            <div className='flex flex-col items-start gap-[24px] p-[16px]'>
+              <div className='flex flex-col items-start'>
+                <span className='font-sans font-normal text-[16px] leading-[24px] text-[#333333]'>Title</span>
+                <span className='font-sans font-normal text-[14px] leading-[20px] text-[#717171]'>24 Jan 2024 12:45PM</span>
+              </div>
+              <span className='font-sans font-normal text-[14px] leading-[20px] text-[#333333]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum recusandae dignissimos quis.</span>
+              <div className='w-full flex items-center justify-end'>
+                <button className='border-[1px] rounded-full border-[#79747E] w-[131px] h-[40px] py-[10px] px-[24px] flex items-center justify-center'><span className='font-sans font-normal text-[16px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></button>
+              </div>
+            </div>
           </div>
-      </div>
+          <div className='h-[480px] w-[360px] border-[1px] rounded-lg border-[#71717133]'>
+            <Image src={Media1} alt='Media' className='w-full h-[276px] rounded-tl-lg rounded-tr-lg'></Image>
+            <div className='flex flex-col items-start gap-[24px] p-[16px]'>
+              <div className='flex flex-col items-start'>
+                <span className='font-sans font-normal text-[16px] leading-[24px] text-[#333333]'>Title</span>
+                <span className='font-sans font-normal text-[14px] leading-[20px] text-[#717171]'>24 Jan 2024 12:45PM</span>
+              </div>
+              <span className='font-sans font-normal text-[14px] leading-[20px] text-[#333333]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum recusandae dignissimos quis.</span>
+              <div className='w-full flex items-center justify-end'>
+                <button className='border-[1px] rounded-full border-[#79747E] w-[131px] h-[40px] py-[10px] px-[24px] flex items-center justify-center'><span className='font-sans font-normal text-[16px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></button>
+              </div>
+            </div>
+          </div>
+          <div className='h-[480px] w-[360px] border-[1px] rounded-lg border-[#71717133]'>
+            <Image src={Media2} alt='Media' className='w-full h-[276px] rounded-tl-lg rounded-tr-lg'></Image>
+            <div className='flex flex-col items-start gap-[24px] p-[16px]'>
+              <div className='flex flex-col items-start'>
+                <span className='font-sans font-normal text-[16px] leading-[24px] text-[#333333]'>Title</span>
+                <span className='font-sans font-normal text-[14px] leading-[20px] text-[#717171]'>24 Jan 2024 12:45PM</span>
+              </div>
+              <span className='font-sans font-normal text-[14px] leading-[20px] text-[#333333]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum recusandae dignissimos quis.</span>
+              <div className='w-full flex items-center justify-end'>
+                <button className='border-[1px] rounded-full border-[#79747E] w-[131px] h-[40px] py-[10px] px-[24px] flex items-center justify-center'><span className='font-sans font-normal text-[16px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
     </section>
   );

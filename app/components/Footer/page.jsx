@@ -1,41 +1,19 @@
 import React from 'react';
-import HomePageSectionHeader from '../HomePageSectionHeader/page';
 import Image from 'next/image';
-import logo from '../../../public/Images/Home/logo.png'
-import { log } from 'console';
 import Link from 'next/link';
+import logo from '../../../public/Images/Home/logo.png'
 
 const Footer = () => {
     
     return (
-        <footer className="px-[62px] py-[100px] ">
-            <section className="w-full text-[#333333]">
-            <HomePageSectionHeader title={"Create Account"} subTitle={"Create Account"}/>
-            <div className='pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
-            <span className="flex items-center justify-center gap-[12px] font-sans text-[36px] font-medium leading-[42px] gradient-primary bg-clip-text text-transparent">FOR GETTING YOUR SAMPLE SEQUENCED</span>
-            <p className="font-sans font-normal text-[20px] leading-[34px]">
-            Signup or Login to your account for sending samples and getting your sample sequenced.
-            </p>
-            <div className='flex gap-[12px]'>
-            <button className="h-[40px] p-[1px] rounded-[6px] flex items-center justify-center gradient-primary border-[#60B7CF]"><div className='bg-white w-full h-full px-[32px] py-[12px] rounded-[5px] flex items-center justify-center'><span className='gradient-primary bg-clip-text text-transparent'>Sign In</span></div></button>
-            <button className="h-[40px] px-[32px] py-[12px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</button>
-            </div>
-
-            <div className="w-full flex items-center justify-center">
-                
-            </div>
-            </div>
-            </section>
+        <footer className="px-[10px] lg:px-[62px] pb-[10px] lg:pb-[100px]">
         {/* Map Section */}
-        <div className="lg:pt-[80px]">
+        <div className="">
             <iframe 
             className='rounded-[12px]'
             id='map_canvas'
             width="100%" 
             height="300" 
-            frameborder="0"
-            marginheight="0" 
-            marginwidth="0" 
             loading='lazy'
             src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q=nagano+(MedBank)&amp;t=&amp;z=9&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             
@@ -43,27 +21,29 @@ const Footer = () => {
 
         {/* Footer Section */}
 
-        <div className='flex flex-col lg:flex-row gap-[23px] pt-[23px]'>
-            <div className='gradient-primary rounded-[12px] p-[1px] lg:w-[25%] lg:h-[287px] '>
+        <div className='flex flex-col md:flex-row gap-[23px] pt-[23px]'>
+            <div className='gradient-primary rounded-[12px] p-[1px] md:w-[25%] md:h-[260px] lg:h-[287px] '>
                 <div className='bg-white rounded-[11px] w-full h-full flex flex-col gap-[48px] items-center justify-center'>
                 <Image src={logo} alt='logo' className='h-[100px] w-[100px]'></Image>
-                <button className="h-[40px] w-[237px] py-[10px] pl-[16px] pr-[24px] flex items-center justify-center gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">{DmIcon} Contact Us</button>
+                <button className="h-[40px] md:w-[152px] lg:w-[237px] py-[10px] pl-[16px] pr-[24px] flex items-center justify-center gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">{DmIcon} Contact Us</button>
             </div>
             </div>
-            <div className='gradient-primary rounded-[12px] p-[1px] lg:w-[75%] lg:h-[287px]'>
+            <div className='gradient-primary rounded-[12px] p-[1px] md:w-[75%] lg:h-[287px]'>
                 <div className='bg-white rounded-[11px] w-full h-full flex items-center justify-around'>
                     <div className='flex flex-col items-start justify-start gap-[14px]'>
-                        <Link href={"/about"}>About</Link>
-                        <Link href={"/strength"}>Strength</Link>
-                        <Link href={"/service"}>Service</Link>
-                        <Link href={"/order-flow"}>Order Flow</Link>
-                        <Link href={"/sample-shipping"}>Sample Shipping</Link>
+
+
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/about"}>About</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/strength"}>Strength</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/service"}>Service</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/order-flow"}>Order Flow</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/sample-shipping"}>Sample Shipping</Link>
                     </div>
                     <div className='flex flex-col items-start justify-start gap-[14px]'>
-                        <Link href={"/privacy-policy"}>Privacy Policy</Link>
-                        <Link href={"/personal-information"}>Handling of Personal Information</Link>
-                        <Link href={"/cancellation-policy"}>Cancellation Policy</Link>
-                        <Link href={"/site-policy"}>Site Policy</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/privacy-policy"}>Privacy Policy</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/personal-information"}>Handling of Personal Information</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/cancellation-policy"}>Cancellation Policy</Link>
+                        <Link className='font-sans font-medium text-[18px] leading-[19px]' href={"/site-policy"}>Site Policy</Link>
                     </div>
                 </div>
             </div>
