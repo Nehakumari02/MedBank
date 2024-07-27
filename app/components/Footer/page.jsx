@@ -6,7 +6,7 @@ import logo from '../../../public/Images/Home/logo.png'
 const Footer = () => {
     
     return (
-        <footer className="px-[10px] lg:px-[62px] pb-[10px] lg:pb-[100px]">
+        <footer className="px-[10px] lg:px-[62px] pb-[10px] lg:pb-[40px] pt-[100px]">
         {/* Map Section */}
         <div className="">
             <iframe 

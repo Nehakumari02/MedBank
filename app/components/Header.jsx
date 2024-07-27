@@ -29,10 +29,10 @@ const Header = () => {
           <Link href="/about" className={`${path==="about"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>About Us</Link>
         </li>
         <li>
-          <Link href="/services" className={`${path==="services"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>Services</Link>
+          <Link href="/Services" className={`${path==="Services"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>Services</Link>
         </li>
         <li>
-          <Link href="/sample-shipping" className={`${path==="sample-shipping"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>Sample Shipping</Link>
+          <Link href="/SampleShipping" className={`${path==="SampleShipping"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>Sample Shipping</Link>
         </li>
         <li>
           <Link href="/strength" className={`${path==="strength"?"border-b-[2px] border-[#003E5C99] font-medium":""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal md:text-[14px] lg:text-[18px]`}>Strength</Link>
