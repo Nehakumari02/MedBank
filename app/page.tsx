@@ -80,7 +80,7 @@ export default function HomePage() {
       <FAQ></FAQ>
       <ContactUs></ContactUs>
       <CreateAccount/>
-      <Footer></Footer>
+      
       
     </div>
   );
