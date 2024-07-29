@@ -1,12 +1,11 @@
-import Offerings from './components/Offerings/page'
-import PriceTable from './components/PriceTable/page'
-import Process from './components/Process/page'
-import RecentAnnouncement from './components/RecentAnnouncement/page'
-import FAQ from './components/Faq/page'
-import ContactUs from './components/ContactUs/page'
-import HomePageSectionHeader from './components/HomePageSectionHeader/page'
-import Footer from './components/Footer/page'
-import CreateAccount from './components/CreateAccount'
+import Offerings from '../components/Offerings'
+import PriceTable from '../components/PriceTable'
+import Process from '../components/Process'
+import RecentAnnouncement from '../components/RecentAnnouncement'
+import FAQ from '../components/Faq'
+import ContactUs from '../components/ContactUs'
+import HomePageSectionHeader from '../components/HomePageSectionHeader'
+import CreateAccount from '../components/CreateAccount'
 import Image from 'next/image'
 import HeroImage from '../public/Images/Home/heroImage1.png'
 import AboutUsImage from '../public/Images/Home/aboutUsHome.png'
@@ -80,8 +79,6 @@ export default function HomePage() {
       <FAQ></FAQ>
       <ContactUs></ContactUs>
       <CreateAccount/>
-      
-      
     </div>
   );
 }
