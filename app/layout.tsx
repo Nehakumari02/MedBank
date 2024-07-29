@@ -1,16 +1,18 @@
 import './globals.css';
-// import Header from './components/Header/page';
 import { ReactNode } from 'react';
-import Header from './components/Header'
-import Footer from './components/Footer/page';
+import {cn} from '../lib/utils';
+import {DMSans} from '../lib/fonts'
+import Header from '../components/Header'
+import Footer from '../components/Footer';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  console.log("hello")
   return (
     <html lang="en">
-      <body className="text-black">
-        <Header /> 
-        
+      <body className={cn(
+        DMSans.variable,
+        "text-black"
+      )}>
+        <Header />
         <main>{children}</main>
         <Footer></Footer>
       </body>
