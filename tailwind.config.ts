@@ -11,6 +11,8 @@ const config: Config = {
       fontFamily: {
         "DM-Sans":["var(--font-DM-Sans)"],
       },
+
+      
       fontSize: {
         'display-large': ['57px', { lineHeight: '64px', letterSpacing: '-0.25px' }],
         'display-medium': ['45px', { lineHeight: '52px', letterSpacing: '0' }],
