@@ -16,9 +16,9 @@ const Header = () => {
     setMenu(!menu);
   }
   return(
-  <header className="h-[146px] bg-white shadow-md p-[32px] flex justify-between items-center gap-[10px] border-b-[0.5px]">
+  <header className="h-[60px] md:h-[146px] bg-white shadow-md p-[32px] flex justify-between items-center gap-[10px] border-b-[0.5px]">
     <div className="flex items-center justify-center md:gap-[10px] lg:gap-[36px]">
-    <Image src={Logo} alt='MedBankLogo' className='h-[78px] w-[82px]'>
+    <Image src={Logo} alt='MedBankLogo' className='h-[40px] w-[38px] md:h-[78px] md:w-[82px]'>
     </Image>
     <nav className='hidden md:block'>
       <ul className="flex flex-wrap items-center justify-start gap-[12px] lg:gap-[38px] leading-[24px] pb-[2px] font-DM-Sans tracking-tracking-0.5 font-normal md:text-[14px] lg:text-[18px]">
@@ -81,5 +81,5 @@ const Header = () => {
 export default Header;
 
 const hamBurgerIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3.75 6H20.25M3.75 12H20.25M3.75 18H20.25" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.75 6H20.25M3.75 12H20.25M3.75 18H20.25" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
