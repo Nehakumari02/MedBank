@@ -3,10 +3,10 @@ import HomePageSectionHeader2 from '../../../components/HomePageSectionHeader2'
 
 const page = () => {
     return (
-        <section className='w-full flex flex-col justify-center items-center font-sans'>
+        <section className='w-full flex flex-col justify-center items-center font-DM-Sans'>
             <div className='max-w-[1056px] w-full flex flex-col items-start'>
                 <div className='text-[#333333] pt-[60px] pl-[25px]'>
-                    <div className='font-sans font-bold text-[16px] sm:text-[28px]  md:text-[32px] leading-[36px]'>
+                    <div className='font-DM-Sans font-bold text-[16px] sm:text-[28px]  md:text-[32px] leading-[36px]'>
                         Handling of Personal Information
                     </div>
                     <div className='font-normal text-[12px] sm:text-[24px] leading-[34px] pt-[20px]'>
@@ -19,7 +19,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"1"} subTitle={"The Service Provider"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         Name: Medbank <br />
                         Address: 20 Collyer Quay #23-01 Singapore 049319 <br />
                         Representative: Yuki Okada <br />
@@ -30,7 +30,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"2"} subTitle={"Purpose of use of personal information"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         Medbank acquires personal information through legal and fair means and handles personal information for the following purposes of use. <br />
                         1 To respond to and answer inquiries made by customers to the Company. <br />
                         2 To contact and present quotations in response to quotations <br />
@@ -62,7 +62,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"3"} subTitle={"Joint Use of Personal Data"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         We will share personal data with our business partner, Setolabo.
                     </div>
                 </div>
@@ -71,7 +71,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"4"} subTitle={"Provision of Personal Data to Third Parties"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         We will not provide personal information to third parties without your consent, except as
                         otherwise provided by law or guidelines.
                     </div>
@@ -81,7 +81,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"5"} subTitle={"Disclosure of Personal Information"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         We will respond to the following requests regarding the personal information we handle. <br /> <br />
 
                         In addition, if the individual whose personal data is being used requests disclosure of
@@ -120,7 +120,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[6px]'>
                         <HomePageSectionHeader2 title={"6"} subTitle={"Voluntary nature of providing personal information"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         Whether or not you provide us with your personal information is at your discretion. However, if you do not provide us with the required items, we may not be able to provide you with our various services (e.g., request for quotation or analysis) or respond to your inquiries in an appropriate manner.
                     </div>
                 </div>
@@ -129,7 +129,7 @@ const page = () => {
                     <div className='flex flex-col text-[18px] sm:text-[28px] pb-[50px]'>
                         <HomePageSectionHeader2 title={"7"} subTitle={"Acquisition of personally identifiable information by methods that are not easily recognizable by the person in question"} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
                         Cookies and cell phone identification numbers (solid identification numbers) are used to
                         make it more convenient for you to browse our site when you visit it again, and do not
                         infringe on your privacy or have any adverse effect on your computer. <br /> <br />
