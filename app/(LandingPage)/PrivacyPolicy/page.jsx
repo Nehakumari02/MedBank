@@ -5,39 +5,39 @@ const PrivacyPolicyPage = () => {
     return (
         <section className='w-full flex flex-col justify-center items-center font-DM-Sans'>
             <div className='max-w-[1056px] w-full flex flex-col items-start'>
-                <div className='text-[#333333] pt-[60px] pl-[25px]'>
-                    <div className='font-DM-Sans font-bold text-[16px] sm:text-[32px] leading-[24px]'>
+                <div className='text-[#333333] pt-[18px] md:pt-[60px] pl-[25px]'>
+                    <div className='font-DM-Sans font-bold text-[16px] md:text-[32px] leading-[24px]'>
                         Privacy Policy (Personal Information Protection Policy)
                     </div>
-                    <div className='font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pt-[35px]'>
+                    <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[35px]'>
                         Medbank Pte. Ltd. has established the following privacy policy with respect to your personal
                         information. Medbank Pte. Ltd. has determined the following privacy policy regarding the
                         handling of customers' personal information in the services we provide.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="1"
                             subTitle="The Service Provider"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Name: Medbank <br />
                         Address: 20 Collyer Quay #23-01 Singapore 049319 <br />
                         Representative: Yuki Okada <br />
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="2"
                             subTitle="Method of obtaining personal information"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         We obtain the name of the person in charge, telephone number, e-mail address, and
                         information about the contents of the analysis when you inquire about our genetic analysis
                         service. <br />
@@ -50,116 +50,116 @@ const PrivacyPolicyPage = () => {
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="3"
                             subTitle="Safe Management of Personal Data"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         We will take reasonable and necessary safety control measures to prevent risks
                         (unauthorized access, falsification, loss, destruction, and leakage) to personal information
                         and specific personal information, and will strive to manage such information appropriately.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="4"
                             subTitle="Use of Personal Information"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Please refer to the details page regarding the handling of personal information.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="5"
                             subTitle="Compliance with Laws and Regulations Concerning Personal Information and Specified Personal Information"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         We will always be aware of and comply with laws, national guidelines, and other norms
                         regarding the handling of personal information and specified personal information.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="6"
                             subTitle="SSL (Secure Socket Layer)"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Our website is SSL-compatible, which encrypts communications between web browsers and web servers. Personal information such as name, address, and telephone number entered by the user is automatically encrypted.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="7"
                             subTitle="About Cookies"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Some pages on this site use cookies. Cookies are a function that sends data from a web
                         server to a visitor's browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="8"
                             subTitle="Continuous Improvement of Personal Information Protection Management System"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         In order to properly protect personal information and specified personal information, we will review, continuously improve, and enhance our management system for the protection of personal information, taking into consideration changes in our business activities and the social and technological environment in which we operate.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="9"
                             subTitle="Access history of this site"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         When you access this site, an access history (access log) is automatically kept. The purpose of this is to statistically analyze how the site is used and to use this information to improve future convenience. No personal information will remain in this access history.
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="10"
                             subTitle="Opinions and inquiries regarding the protection of personal information and specified personal information"
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         With regard to complaints, opinions, and inquiries about the handling of personal information and specified personal information, we will make a sincere effort to respond promptly, including fact-finding investigations. Please use My Page for complaints, opinions, and inquiries.
                     </div>
 
 
 
                 </div>
-                <div className='text-[#333333] pt-[40px]'>
-                    <div className='flex flex-col pb-[6px] text-[18px] sm:text-[28px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="11"
                             subTitle="Disclosure of Personal Information"
                         />
                     </div>
-                    <div className='max-w-full font-sans font-normal text-[12px] sm:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-full font-sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         The Company will respond to the following matters regarding the personal information it handles:<br />
                         In addition, we will respond without delay to requests from the owner of personal data to disclose records of his/her personal data to third parties. <br />
                         (1) Notification of purpose of use <br />

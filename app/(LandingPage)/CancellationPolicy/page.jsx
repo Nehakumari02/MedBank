@@ -4,7 +4,7 @@ const page = () => {
     return (
         <>
             <section className="w-full flex flex-col items-center justify-center text-[#333333] px-4">
-                <div className="max-w-screen-lg w-full pt-[60px] flex flex-col items-start gap-[24px]">
+                <div className="max-w-screen-lg w-full pt-[30px] md:pt-[60px] flex flex-col items-start gap-[24px]">
                     <h2 className="w-full leading-[24px] font-DM-Sans text-[16px] sm:text-[32px] font-medium text-start">
                         Cancellation Policy
                     </h2>
