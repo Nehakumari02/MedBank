@@ -3,7 +3,7 @@ import HomePageSectionHeader from './HomePageSectionHeader';
 
 const CreateAccount = () => {
   return (
-    <div className="md:px-[42px] lg:px-[62px] pt-[100px]">
+    <div className="hidden md:block md:px-[42px] lg:px-[62px] pt-[100px]">
         <section className="w-full text-[#333333]">
             <HomePageSectionHeader title={"Create Account"} subTitle={"Create Account"}/>
             <div className='md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[32px]'>
@@ -17,7 +17,7 @@ const CreateAccount = () => {
             </div>
 
             <div className="w-full flex items-center justify-center">
-                
+
             </div>
             </div>
             </section>
