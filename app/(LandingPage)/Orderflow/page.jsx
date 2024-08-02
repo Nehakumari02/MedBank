@@ -15,25 +15,29 @@ import Orderflow13 from '../../../public/Images/Home/Orderflow13.png'
 import Orderflow1 from '../../../public/Images/Home/Orderflow1.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import SnackBar from '../../../components/SnackBar'
 
 const page = () => {
     return (
-        <section className='w-full flex flex-col justify-center items-center'>
+        <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center'>
             <div className='max-w-[1056px] w-full flex flex-col items-start'>
-                <div className='text-[#333333] pt-[24px] md:pt-[60px] pl-[25px]'>
-                    <div className='w-[50px] font-DM-Sans font-medium text-[14px] md:text-[18px] leading-[24px]'>
+                <div className='text-[#333333] pt-[24px] md:pt-[60px]'>
+                    <div className='font-DM-Sans font-medium text-[14px] md:text-[18px] leading-[24px]'>
                         steps
                     </div>
                 </div>
 
-                <div className='text-[#333333] pt-[40px]'>
+                <div className='relative text-[#333333] pt-[10px] md:pt-[40px]'>
+                    <div  className="absolute top-[-18px] left-[-29px] md:top-[-18px] md:left-[-44px]">
+                        <SnackBar text={"Order Flow"}/>
+                    </div>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"1"} subTitle={"Registration"} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Please register as a member when you decide to place an order. <br />
                         You can view your order history on My Page.
-                        <button className="w-[50px] h-[20px] px-[32px] py-[12px] rounded-[6px] flex items-center justify-center gradient-primary text-[14px] text-white">Sign Up</button>
+                        <Link href="/Signup" className="h-[40px] w-[117px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</Link>
                     </div>
                     <br />
                     <div className='pt-[40px]'>
@@ -224,4 +228,3 @@ const page = () => {
 }
 
 export default page
-
