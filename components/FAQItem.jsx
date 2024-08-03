@@ -9,9 +9,9 @@ const FAQItem = ({ question, answer }) => {
   };
 
   return (
-    <details className="border-[1px] border-[#71717180] rounded-[12px] flex items-center justify-center p-[24px]">
+    <details className="border-[1px] border-[#71717180] rounded-[12px] flex items-center justify-center p-[10px] md:p-[24px]">
       <summary className="flex items-center justify-between font-semibold cursor-pointer" onClick={toggleAccordion}>
-        <span className='font-sans font-medium text-[16px] leading-[24px]'>{question}</span>
+        <span className='font-sans font-medium text-[12px] md:text-[16px] leading-[20px] md:leading-[24px]'>{question}</span>
         {!isOpen ? (
          <span> {plusIcon}</span>
         ) : (
