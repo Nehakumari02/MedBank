@@ -4,45 +4,45 @@ const PriceTable = () => (
   <>
     <section className="md:px-[42px] lg:px-[62px] py-[30px] md:py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Reference Price"} subTitle={"Reference Price"}/>
-        <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
+        <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">PRICE TABLE {ArrowRightIconSmall}{ArrowRightIcon}</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
         "Explore our reference prices to gain insight into the cost structure of our genetic analysis services. While actual prices may vary depending on specific project requirements, our reference prices provide an estimate of the costs involved."
         </p>
-        <div className="w-full hidden md:block">
+        <div className="px-[10px] w-[100vw] md:w-full mx-[-31px] md:mx-0 md:px-0 overflow-x-scroll md:overflow-x-auto">
         <table className="w-full">
-        <thead className="">
-          <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[80px] flex items-center justify-between px-[20px]">
-            <th className="font-sans font-normal text-[24px] leading-[40px]">Read Length</th>
-            <th className="font-sans font-normal text-[24px] leading-[40px]">Plan</th>
-            <th className="font-sans font-normal text-[24px] leading-[40px]">Data Volume</th>
-            <th className="font-sans font-normal text-[24px] leading-[40px]">Reference Price</th>
-            <th className="font-sans font-normal text-[24px] leading-[40px]">Delivery Time</th>
+        <thead className="w-[100vw]">
+          <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[60px] md:h-[80px] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Read Length</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Plan</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Data Volume</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Reference Price</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Delivery Time</th>
           </tr>
         </thead>
         <tbody className="w-full">
-          <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333]">
+          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
             <td className="">DNA <br />Sequencing</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
-          <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333]">
+          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
             <td className="">RNA <br />Sequencing</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
-          <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333]">
+          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
             <td className="">Amplicon <br />Sequencing</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
-          <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333]">
+          <tr className="h-[80px] font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
             <td className="">Human Genome <br />Sequencing</td>
             <td className=""></td>
             <td className=""></td>
@@ -55,9 +55,9 @@ const PriceTable = () => (
     </div>
     </section>
   </>
-    
+
   );
-  
+
   export default PriceTable;
 
 
@@ -71,7 +71,7 @@ const PriceTable = () => (
   </linearGradient>
   </defs>
   </svg>
-  
+
   const ArrowRightIconSmall = <svg className='md:hidden' width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M10.275 16.1623C10.4508 16.3379 10.689 16.4365 10.9375 16.4365C11.1859 16.4365 11.4242 16.3379 11.6 16.1623L16.9125 10.8498C17.088 10.6741 17.1866 10.4358 17.1866 10.1873C17.1866 9.93891 17.088 9.70063 16.9125 9.52485L11.6 4.21235C11.4223 4.04655 11.1872 3.95622 10.9442 3.96042C10.7012 3.96461 10.4693 4.06301 10.2975 4.23485C10.1256 4.4067 10.0272 4.63856 10.023 4.88155C10.0188 5.12454 10.1092 5.35967 10.275 5.53735L13.9875 9.24985H4.68747C4.43883 9.24985 4.20037 9.34862 4.02456 9.52444C3.84874 9.70025 3.74997 9.93871 3.74997 10.1873C3.74997 10.436 3.84874 10.6744 4.02456 10.8503C4.20037 11.0261 4.43883 11.1248 4.68747 11.1248H13.9875L10.275 14.8373C10.0994 15.0131 10.0008 15.2514 10.0008 15.4998C10.0008 15.7483 10.0994 15.9866 10.275 16.1623Z" fill="url(#paint0_linear_1192_6975)"/>
   <defs>
@@ -82,4 +82,3 @@ const PriceTable = () => (
   </linearGradient>
   </defs>
   </svg>
-  
