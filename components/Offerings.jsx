@@ -22,12 +22,12 @@ const Offerings = () => (
       </div>
       </div>
     </div>
-    <div className='md:w-[30%] md:h-full px-[31px] md:px-[0px]'>
+    <div className='md:w-[30%] md:h-full px-[31px] md:px-[0px] flex items-center justify-center'>
         <Image src={OfferingsImage} alt='OfferingsImage' className='h-[188px] w-[307px] object-cover md:h-full md:w-full rounded-md md:rounded-none'></Image>
     </div>
   </section>
   );
-  
+
   export default Offerings;
 
   const ArrowRightIcon = <svg className='hidden md:block' width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@ const Offerings = () => (
   </linearGradient>
   </defs>
   </svg>
-  
+
   const ArrowRightIconSmall = <svg className='md:hidden' width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M10.275 16.1623C10.4508 16.3379 10.689 16.4365 10.9375 16.4365C11.1859 16.4365 11.4242 16.3379 11.6 16.1623L16.9125 10.8498C17.088 10.6741 17.1866 10.4358 17.1866 10.1873C17.1866 9.93891 17.088 9.70063 16.9125 9.52485L11.6 4.21235C11.4223 4.04655 11.1872 3.95622 10.9442 3.96042C10.7012 3.96461 10.4693 4.06301 10.2975 4.23485C10.1256 4.4067 10.0272 4.63856 10.023 4.88155C10.0188 5.12454 10.1092 5.35967 10.275 5.53735L13.9875 9.24985H4.68747C4.43883 9.24985 4.20037 9.34862 4.02456 9.52444C3.84874 9.70025 3.74997 9.93871 3.74997 10.1873C3.74997 10.436 3.84874 10.6744 4.02456 10.8503C4.20037 11.0261 4.43883 11.1248 4.68747 11.1248H13.9875L10.275 14.8373C10.0994 15.0131 10.0008 15.2514 10.0008 15.4998C10.0008 15.7483 10.0994 15.9866 10.275 16.1623Z" fill="url(#paint0_linear_1192_6975)"/>
   <defs>
@@ -51,4 +51,3 @@ const Offerings = () => (
   </linearGradient>
   </defs>
   </svg>
-  
