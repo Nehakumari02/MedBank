@@ -130,7 +130,7 @@ const page = () => {
                 </div>
 
                 <div className='text-[#333333] pt-[32px] md:pt-[40px]'>
-                    <div className='flex flex-col text-[18px] md:text-[28px] pb-[50px]'>
+                    <div className='flex flex-col text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"7"} subTitle={"Acquisition of personally identifiable information by methods that are not easily recognizable by the person in question"} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
