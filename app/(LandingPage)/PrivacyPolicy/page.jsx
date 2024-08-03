@@ -10,7 +10,7 @@ const PrivacyPolicyPage = () => {
                     <div className="absolute top-[24px] left-[-29px] md:top-[60px] md:left-[-44px]">
                         <SnackBar text={"Privacy Policy"} />
                     </div>
-                    <div className='font-DM-Sans font-bold text-[16px] md:text-[32px] leading-[24px]'>
+                    <div className='font-DM-Sans font-bold text-[16px] md:text-[32px] leading-[24px] md:leading-[40px] lg:leading-[24px]'>
                         Privacy Policy (Personal Information Protection Policy)
                     </div>
                     <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[35px]'>
@@ -81,7 +81,7 @@ const PrivacyPolicyPage = () => {
                 </div>
 
                 <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="5"
                             subTitle="Compliance with Laws and Regulations Concerning Personal Information and Specified Personal Information"
@@ -119,7 +119,7 @@ const PrivacyPolicyPage = () => {
                 </div>
 
                 <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="8"
                             subTitle="Continuous Improvement of Personal Information Protection Management System"
@@ -143,7 +143,7 @@ const PrivacyPolicyPage = () => {
                 </div>
 
                 <div className='text-[#333333] pt-[24px] md:pt-[40px]'>
-                    <div className='flex flex-col pb-[48px] text-[18px] md:text-[28px]'>
+                    <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2
                             title="10"
                             subTitle="Opinions and inquiries regarding the protection of personal information and specified personal information"
@@ -194,6 +194,3 @@ const PrivacyPolicyPage = () => {
 }
 
 export default PrivacyPolicyPage
-
-
-
