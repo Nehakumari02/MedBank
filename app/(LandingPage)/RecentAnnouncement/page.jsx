@@ -59,14 +59,15 @@ const Page = () => {
 
             Exquisite sophisticated iconic cutting-edge laborum deserunt Addis Ababa esse bureaux cupidatat id minim. Sharp classic the best commodo nostrud delightful. Conversation aute Rochester id. Qui sunt remarkable deserunt intricate airport handsome K-pop excepteur classic esse Asia-Pacific laboris. <br /><br />
           </div>
-          <div className='flex pt-[21px] md:pt-[68px]'>
-            <div className='pr-[40px]'>
-              <Image src={Announcement2} alt='Announcement2' />
+          <div className='flex flex-col md:flex-row pt-[21px] md:pt-[68px]'>
+            <div className='md:pr-[40px] '>
+              <Image src={Announcement2} alt='Announcement2 ' />
             </div>
-            <div>
+            <div className='mt-[21px] md:mt-0 '>
               <Image src={Announcement3} alt='Announcement3' />
             </div>
           </div>
+
           <div className='font-normal text-[12px] md:text-[18px] lg:text-[20px] leading-[30px] pt-[21px] md:pt-[68px]'>
             Body text for your whole article or post. We’ll put in some lorem ipsum to show how a filled-out page might look:<br /><br />
 
