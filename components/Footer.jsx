@@ -35,15 +35,15 @@ const Footer = () => {
 
                         <Link className='' href={"/about"}>About</Link>
                         <Link className='' href={"/strength"}>Strength</Link>
-                        <Link className='' href={"/service"}>Service</Link>
-                        <Link className='' href={"/order-flow"}>Order Flow</Link>
-                        <Link className='' href={"/sample-shipping"}>Sample Shipping</Link>
+                        <Link className='' href={"/Services"}>Services</Link>
+                        <Link className='' href={"/Orderflow"}>Order Flow</Link>
+                        <Link className='' href={"/SampleShipping"}>Sample Shipping</Link>
                     </div>
                     <div className='w-[45%] flex flex-col items-start justify-start gap-[6px] md:gap-[14px]'>
-                        <Link className='' href={"/privacy-policy"}>Privacy Policy</Link>
-                        <Link className='' href={"/personal-information"}>Handling of Personal Information</Link>
-                        <Link className='' href={"/cancellation-policy"}>Cancellation Policy</Link>
-                        <Link className='' href={"/site-policy"}>Site Policy</Link>
+                        <Link className='' href={"/PrivacyPolicy"}>Privacy Policy</Link>
+                        <Link className='' href={"/Personal-Information"}>Handling of Personal Information</Link>
+                        <Link className='' href={"/CancellationPolicy"}>Cancellation Policy</Link>
+                        <Link className='' href={"/SitePolicy"}>Site Policy</Link>
                     </div>
                 </div>
             </div>
