@@ -65,7 +65,7 @@ const Header = () => {
         </Link>
         <Link href="/Signup" className="hidden h-[40px] w-[117px] rounded-[6px] md:flex items-center justify-center gradient-primary text-white">Sign Up</Link>
         <button onClick={() => handleMenu()} className='flex items-center justify-center md:hidden'>{hamBurgerIcon}</button>
-        {menu && <div className='absolute right-0 top-[40px] w-[138px] bg-white p-[12px] shadow-md'>
+        {menu && <div className='absolute right-0 z-10 top-[40px] w-[138px] bg-white p-[12px] shadow-md'>
           <ul className="flex flex-col items-start gap-[12px]">
             <li>
               <Link onClick={() => setMenu(false)} href="/" className={`${path === "" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Home</Link>
@@ -86,10 +86,10 @@ const Header = () => {
               <Link onClick={() => setMenu(false)} href="/contact" className={`${path === "contact" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Contact</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href="/signup" className={`${path === "signup" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign Up</Link>
+              <Link onClick={() => setMenu(false)} href="/Signup" className={`${path === "signup" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign Up</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href="/login" className={`${path === "login" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign In</Link>
+              <Link onClick={() => setMenu(false)} href="/Login" className={`${path === "login" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign In</Link>
             </li>
           </ul>
         </div>}

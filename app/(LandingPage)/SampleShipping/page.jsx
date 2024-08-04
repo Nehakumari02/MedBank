@@ -4,13 +4,17 @@ import SampleShipping1 from '../../../public/Images/Home/SampleShipping1.png'
 import SampleShipping2 from '../../../public/Images/Home/SampleShipping2.png'
 import SampleShipping3 from '../../../public/Images/Home/SampleShipping3.png'
 import Image from 'next/image'
+import SnackBar from '@/components/SnackBar'
 
 const page = () => {
     return (
-        <section className='w-full flex flex-col justify-center items-center '>
+        <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center '>
             <div className='w-full max-w-[1056px] flex flex-col items-start gap:[32px] md:gap-[100px] '>
                 <div>
-                    <div className='text-[#333333] pt-[15px] md:pt-[40p] lg:pt-[60px] px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px]'>
+                    <div className='relative text-[#333333] pt-[15px] md:pt-[40p] lg:pt-[60px] px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px]'>
+                        <div className="absolute top-[24px] left-[-29px] md:top-[28px] lg:top-[60px] md:left-[-44px]">
+                            <SnackBar text={"Sample Shipping"} />
+                        </div>
                         <div className='w-50px font-DM-Sans font-medium text-[14px] md:text-[18px] leading-[24px] pb-[14px]'>
                             step 1
                         </div>
