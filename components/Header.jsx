@@ -58,7 +58,7 @@ const Header = () => {
             <span className={`${language == "EN" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
-        <Link href="/login" className="hidden h-[40px] w-[108px] p-[1px] rounded-[6px] md:flex items-center justify-center gradient-primary border-[#60B7CF]">
+        <Link href="/Login" className="hidden h-[40px] w-[108px] p-[1px] rounded-[6px] md:flex items-center justify-center gradient-primary border-[#60B7CF]">
           <div className='bg-white w-full h-full rounded-[5px] flex items-center justify-center'>
             <span className='gradient-primary bg-clip-text text-transparent'>Sign In</span>
           </div>
