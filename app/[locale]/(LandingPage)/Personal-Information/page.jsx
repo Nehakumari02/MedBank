@@ -1,5 +1,5 @@
 import React from 'react'
-import HomePageSectionHeader2 from '../../../components/HomePageSectionHeader2'
+import HomePageSectionHeader2 from '../../../../components/HomePageSectionHeader2'
 import SnackBar from '@/components/SnackBar'
 
 const page = () => {
