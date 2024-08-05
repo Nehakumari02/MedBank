@@ -22,7 +22,7 @@ const page = () => {
               <div className='font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[36px]'>
                 Analyze DNA samples using next-generation sequencing technologies to uncover genetic information crucial for various research applications.
                 <br></br> <br></br>
-                DNA sequencing is a service that analyzes the provided DNA samples using a next-generation sequencer such as Novaseq X plus. The obtained fastq format sequence data can be used as sources for re-seq, genome assembly, etc. In addition, we have introduced Element Biosciences' new NGS platform, AVITI (this service is scheduled to start in the fall, 2024). If you choose this service, you will be able to achieve higher precision, lower cost, and shorter delivery times than conventional service plans.
+                DNA sequencing is a service that analyzes the provided DNA samples using a next-generation sequencer such as Novaseq X plus. The obtained fastq format sequence data can be used as sources for re-seq, genome assembly, etc. In addition, we have introduced Element Biosciences&apos; new NGS platform, AVITI (this service is scheduled to start in the fall, 2024). If you choose this service, you will be able to achieve higher precision, lower cost, and shorter delivery times than conventional service plans.
               </div>
             </div>
             <div className='flex flex-col gap-[6px] md:gap-[20px]'>

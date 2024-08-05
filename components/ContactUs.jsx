@@ -50,8 +50,8 @@ const ContactUs = () => {
               REACH OUT TO US
             </span>
             <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-              Connect with Medbank's team for inquiries, support, and
-              collaboration opportunities. We're here to assist you with your
+              Connect with Medbank&apos;s team for inquiries, support, and
+              collaboration opportunities. We&apos;re here to assist you with your
               genetic analysis needs and provide personalized guidance every
               step of the way.
             </p>
