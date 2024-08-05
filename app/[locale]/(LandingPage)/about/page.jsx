@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import About1 from '../../../public/Images/Home/About1.png'
-import About2 from '../../../public/Images/Home/About2.png'
-import About3 from '../../../public/Images/Home/About3.png'
-import About4 from '../../../public/Images/Home/About4.png'
-import About5 from '../../../public/Images/Home/About5.png'
+import About1 from '../../../../public/Images/Home/About1.png'
+import About2 from '../../../../public/Images/Home/About2.png'
+import About3 from '../../../../public/Images/Home/About3.png'
+import About4 from '../../../../public/Images/Home/About4.png'
+import About5 from '../../../../public/Images/Home/About5.png'
 import SnackBar from '@/components/SnackBar';
 import HomePageSectionHeader2 from '@/components/HomePageSectionHeader2';
 

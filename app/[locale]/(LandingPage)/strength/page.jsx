@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import strength1 from '../../../public/Images/Home/strength1.png'
-import strength2 from '../../../public/Images/Home/strength2.png'
-import strength3 from '../../../public/Images/Home/strength3.png'
-import strength4 from '../../../public/Images/Home/strength4.png'
-import strength5 from '../../../public/Images/Home/strength5.png'
-import strength6 from '../../../public/Images/Home/strength6.png'
-import strength7 from '../../../public/Images/Home/strength7.png'
-import strength8 from '../../../public/Images/Home/strength8.png'
-import strength9 from '../../../public/Images/Home/strength9.png'
-import strength10 from '../../../public/Images/Home/strength10.png'
+import strength1 from '../../../../public/Images/Home/strength1.png'
+import strength2 from '../../../../public/Images/Home/strength2.png'
+import strength3 from '../../../../public/Images/Home/strength3.png'
+import strength4 from '../../../../public/Images/Home/strength4.png'
+import strength5 from '../../../../public/Images/Home/strength5.png'
+import strength6 from '../../../../public/Images/Home/strength6.png'
+import strength7 from '../../../../public/Images/Home/strength7.png'
+import strength8 from '../../../../public/Images/Home/strength8.png'
+import strength9 from '../../../../public/Images/Home/strength9.png'
+import strength10 from '../../../../public/Images/Home/strength10.png'
 import SnackBar from '@/components/SnackBar';
 
 export default function StrengthPage() {

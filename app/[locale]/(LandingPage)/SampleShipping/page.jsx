@@ -1,8 +1,8 @@
 import React from 'react'
-import HomePageSectionHeader2 from '../../../components/HomePageSectionHeader2'
-import SampleShipping1 from '../../../public/Images/Home/SampleShipping1.png'
-import SampleShipping2 from '../../../public/Images/Home/SampleShipping2.png'
-import SampleShipping3 from '../../../public/Images/Home/SampleShipping3.png'
+import HomePageSectionHeader2 from '../../../../components/HomePageSectionHeader2'
+import SampleShipping1 from '../../../../public/Images/Home/SampleShipping1.png'
+import SampleShipping2 from '../../../../public/Images/Home/SampleShipping2.png'
+import SampleShipping3 from '../../../../public/Images/Home/SampleShipping3.png'
 import Image from 'next/image'
 import SnackBar from '@/components/SnackBar'
 
