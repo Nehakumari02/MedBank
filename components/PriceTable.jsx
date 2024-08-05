@@ -1,49 +1,52 @@
+import { useTranslations } from "next-intl";
 import HomePageSectionHeader from "./HomePageSectionHeader";
 
-const PriceTable = () => (
+const PriceTable = () =>{
+  const t = useTranslations("HomePage.PriceTable");
+  return(
   <>
     <section className="md:px-[42px] lg:px-[62px] py-[30px] md:py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Reference Price"} subTitle={"Reference Price"}/>
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">PRICE TABLE {ArrowRightIconSmall}{ArrowRightIcon}</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        &quot;Explore our reference prices to gain insight into the cost structure of our genetic analysis services. While actual prices may vary depending on specific project requirements, our reference prices provide an estimate of the costs involved.&quot;
+          {t("description")}
         </p>
         <div className="px-[10px] w-[100vw] md:w-full mx-[-31px] md:mx-0 md:px-0 overflow-x-scroll md:overflow-x-auto">
         <table className="w-full">
         <thead className="w-[100vw]">
           <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[60px] md:h-[80px] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Read Length</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Plan</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Data Volume</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Reference Price</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">Delivery Time</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table1")}</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table2")}</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table3")}</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table4")}</th>
+            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table5")}</th>
           </tr>
         </thead>
         <tbody className="w-full">
           <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">DNA <br />Sequencing</td>
+            <td className="">{t("data1")}</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
           <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">RNA <br />Sequencing</td>
+            <td className="">{t("data2")}</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
           <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">Amplicon <br />Sequencing</td>
+            <td className="">{t("data3")}</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
           </tr>
           <tr className="h-[80px] font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">Human Genome <br />Sequencing</td>
+            <td className="">{t("data4")}</td>
             <td className=""></td>
             <td className=""></td>
             <td className=""></td>
@@ -56,7 +59,7 @@ const PriceTable = () => (
     </section>
   </>
 
-  );
+  )};
 
   export default PriceTable;
 
