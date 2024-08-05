@@ -74,10 +74,10 @@ const Header = () => {
               <Link onClick={() => setMenu(false)} href="/about" className={`${path === "about" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>About Us</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href="/services" className={`${path === "services" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Services</Link>
+              <Link onClick={() => setMenu(false)} href="/Services" className={`${path === "services" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Services</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href="/sample-shipping" className={`${path === "sample-shipping" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sample Shipping</Link>
+              <Link onClick={() => setMenu(false)} href="/SampleShipping" className={`${path === "sample-shipping" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sample Shipping</Link>
             </li>
             <li>
               <Link onClick={() => setMenu(false)} href="/strength" className={`${path === "strength" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Strength</Link>
