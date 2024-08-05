@@ -85,7 +85,7 @@ const RecentAnnouncement = () => {
     <div className='md:hidden flex gap-[24px] w-[100%] overflow-y-hidden overflow-x-scroll scrollh'>
     {articles.map((article, index) => (
               <div className='flex-shrink-0 h-[374px] w-[228px] border-[1px] rounded-lg border-[#71717133]'>
-                <Image src={article.image} alt='Media' className='w-full h-[174px] rounded-tl-lg rounded-tr-lg'></Image>
+                <Image src={article.image}  alt='Media' className='w-full h-[174px] rounded-tl-lg rounded-tr-lg'></Image>
                 <div className='flex flex-col items-start gap-[12px] p-[16px]'>
                   <div className='flex flex-col items-start'>
                     <span className='font-DM-Sans font-normal text-[14px] leading-[24px] text-[#333333]'>{article.title}</span>
