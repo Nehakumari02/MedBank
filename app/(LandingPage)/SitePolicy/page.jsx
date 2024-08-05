@@ -21,7 +21,7 @@ const page = () => {
                             ・Disclaimer
                         </div>
                         <span className='font-normal font-DM-Sans text-[12px] sm:text-[24px] leading-36px'>
-                            Although we take the utmost care in posting information on Medbank's website,
+                            Although we take the utmost care in posting information on Medbank&apos;s website,
                             Medbank does not guarantee the accuracy or completeness of this information. <br />
                             Medbank reserves the right to change the information on its website at any time without
                             notice. <br />

@@ -16,7 +16,7 @@ const page = () => {
                     <div className='font-normal text-[12px] md:text-[24px] leading-[34px] pt-[20px] md:pt-[32px]'>
                         Medbank Pte. Ltd. has established the following privacy policy with respect to your personal
                         information. Medbank Pte. Ltd. has determined the following privacy policy regarding the
-                        handling of customers' personal information in the services we provide.
+                        handling of customers&apos; personal information in the services we provide.
                     </div>
                 </div>
                 <div className='text-[#333333] pt-[20px] md:pt-[32px]'>
@@ -108,7 +108,7 @@ const page = () => {
 
                         3. Method of confirming that the person making the request for disclosure is the principal or representative. <br />
                         Verified by one of the following methods <br />
-                        (1) The applicant must send us by mail or bring and present a document (such as a copy of his/her driver's license) that proves that he/she is the person in question. <br />
+                        (1) The applicant must send us by mail or bring and present a document (such as a copy of his/her driver&apos;s license) that proves that he/she is the person in question. <br />
                         (2) We will verify your personal information (telephone number, etc.) that we have in our
                         possession by comparing it with the personal information that we confirmed when we
                         received your inquiry. If a representative is applying on your behalf, please submit a
@@ -138,7 +138,7 @@ const page = () => {
                         make it more convenient for you to browse our site when you visit it again, and do not
                         infringe on your privacy or have any adverse effect on your computer. <br /> <br />
 
-                        The Company's website uses an SSL (Secure Sockets Layer) data encryption system in
+                        The Company&apos;s website uses an SSL (Secure Sockets Layer) data encryption system in
                         areas where personal information is input, and other measures are taken to ensure security.
                     </div>
                 </div>

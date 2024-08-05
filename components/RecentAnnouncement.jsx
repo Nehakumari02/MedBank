@@ -55,7 +55,7 @@ const RecentAnnouncement = () => {
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">Recent Anouncements</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        "Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company's activities, achievements, and advancements in genetic analysis."
+        &quot;Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company&apos;s activities, achievements, and advancements in genetic analysis.&quot;
         </p>
 
         <Carousel className="hidden md:block w-full">
@@ -84,7 +84,7 @@ const RecentAnnouncement = () => {
 
     <div className='md:hidden flex gap-[24px] w-[100%] overflow-y-hidden overflow-x-scroll scrollh'>
     {articles.map((article, index) => (
-              <div className='flex-shrink-0 h-[374px] w-[228px] border-[1px] rounded-lg border-[#71717133]'>
+              <div key={index} className='flex-shrink-0 h-[374px] w-[228px] border-[1px] rounded-lg border-[#71717133]'>
                 <Image src={article.image}  alt='Media' className='w-full h-[174px] rounded-tl-lg rounded-tr-lg'></Image>
                 <div className='flex flex-col items-start gap-[12px] p-[16px]'>
                   <div className='flex flex-col items-start'>

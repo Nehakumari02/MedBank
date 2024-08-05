@@ -126,7 +126,7 @@ const Page = () => {
 
        <div className='md:hidden flex gap-[24px] w-[100%] overflow-y-hidden overflow-x-scroll scrollh'>
     {articles.map((article, index) => (
-              <div className='flex-shrink-0 h-[374px] w-[228px] border-[1px] rounded-lg border-[#71717133]'>
+              <div key={index} className='flex-shrink-0 h-[374px] w-[228px] border-[1px] rounded-lg border-[#71717133]'>
                 <Image src={article.image} width alt='Media' className='w-full h-[174px] rounded-tl-lg rounded-tr-lg'></Image>
                 <div className='flex flex-col items-start gap-[12px] p-[16px]'>
                   <div className='flex flex-col items-start'>

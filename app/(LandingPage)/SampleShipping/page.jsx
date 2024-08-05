@@ -40,7 +40,7 @@ const page = () => {
                             <HomePageSectionHeader2 title={"2"} subTitle={"Labeling"}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Each sample tube should be <span className='font-medium'>clearly labeled</span> with the sample name using a permanent marker directly on the tube's surface.
+                            Each sample tube should be <span className='font-medium'>clearly labeled</span> with the sample name using a permanent marker directly on the tube&apos;s surface.
                             If the tube has a detachable cap, the label should be placed on both the cap and the tube side to ensure proper identification.
                         </div>
                     </div>
@@ -179,7 +179,7 @@ const page = () => {
                                 Contact Information
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] '>
-                                Customers are encouraged to contact Setolabo's customer support team for any questions or concerns related to sample shipping.
+                                Customers are encouraged to contact Setolabo&apos;s customer support team for any questions or concerns related to sample shipping.
                             </div>
                         </div>
                     </div>
