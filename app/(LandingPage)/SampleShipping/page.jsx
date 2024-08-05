@@ -69,7 +69,7 @@ const page = () => {
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
-                        <div className='flex flex-col pb-[40px] md:pb-[6px] text-[18px] md:text-[28px] '>
+                        <div className='flex flex-col pb-[6px] md:pb-[6px] text-[18px] md:text-[28px] '>
                             <HomePageSectionHeader2 title={"1"} subTitle={"Method 1 : Tube Box or Container"}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
@@ -78,7 +78,7 @@ const page = () => {
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
-                        <div className='flex flex-col pb-[40px] md:pb-[6px] text-[18px] md:text-[28px]'>
+                        <div className='flex flex-col pb-[6px] md:pb-[6px] text-[18px] md:text-[28px]'>
                             <HomePageSectionHeader2 title={"2"} subTitle={"Method 2 : Falcon Tubes or Similar"}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
