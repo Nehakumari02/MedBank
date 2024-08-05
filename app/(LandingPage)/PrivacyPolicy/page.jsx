@@ -10,10 +10,10 @@ const PrivacyPolicyPage = () => {
                     <div className="absolute top-[24px] left-[-29px] md:top-[60px] md:left-[-44px]">
                         <SnackBar text={"Privacy Policy"} />
                     </div>
-                    <div className='font-DM-Sans font-bold text-[16px] md:text-[32px] leading-[24px] md:leading-[40px] lg:leading-[24px]'>
+                    <div className='font-DM-Sans font-bold text-[16px] md:text-[32px] leading-[24px] md:leading-[40px]'>
                         Privacy Policy (Personal Information Protection Policy)
                     </div>
-                    <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[35px]'>
+                    <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[6px] md:pt-[35px]'>
                         Medbank Pte. Ltd. has established the following privacy policy with respect to your personal
                         information. Medbank Pte. Ltd. has determined the following privacy policy regarding the
                         handling of customers' personal information in the services we provide.

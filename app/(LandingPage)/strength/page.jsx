@@ -49,7 +49,7 @@ export default function StrengthPage() {
 
 
         <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full  '>
+          <div className='w-full h-full pb-[12px] md:pr-[23px]  '>
             <Image src={strength7} alt='strength7' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
           </div>
           <div className='w-full h-full'>
@@ -82,7 +82,7 @@ export default function StrengthPage() {
           </div>
         </div>
         <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full md:pr-[40px] '>
+          <div className='w-full h-full pb-[12px] md:pr-[23px] '>
             <Image src={strength1} alt='strength1' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
           </div>
           <div className='w-full h-full'>
@@ -113,7 +113,7 @@ export default function StrengthPage() {
           </div>
         </div>
         <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full md:pr-[40px] '>
+          <div className='w-full h-full pb-[12px] md:pr-[23px]'>
             <Image src={strength3} alt='strength3' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
           </div>
           <div className='w-full h-full'>
@@ -145,7 +145,7 @@ export default function StrengthPage() {
           </div>
         </div>
         <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full md:pr-[40px] '>
+          <div className='w-full h-full pb-[12px] md:pr-[23px] '>
             <Image src={strength5} alt='strength5' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
           </div>
           <div className='w-full h-full'>
@@ -176,7 +176,7 @@ export default function StrengthPage() {
           </div>
         </div>
         <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full md:pr-[40px] '>
+          <div className='w-full h-full pb-[12px] md:pr-[23px] '>
             <Image src={strength9} alt='strength9' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
           </div>
           <div className='w-full h-full'>

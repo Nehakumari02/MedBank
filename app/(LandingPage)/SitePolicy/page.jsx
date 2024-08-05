@@ -7,7 +7,7 @@ const page = () => {
             <section className="pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col items-center justify-center text-[#333333] px-4">
                 <div className= "relative max-w-screen-lg w-full pt-[24px] md:pt-[60px] flex flex-col items-start gap-[24px]">
                     <div className="absolute top-[28px] left-[-29px] md:top-[60px]  md:left-[-54px]">
-                        <SnackBar text={"Privacy Policy"} />
+                        <SnackBar text={"Site Policy"} />
                     </div>
                     <h2 className="text-center leading-[24px] font-DM-Sans text-[16px] sm:text-[32px] font-bold">
                         Site Policy

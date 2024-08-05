@@ -54,19 +54,18 @@ const page = () => {
         </div>
 
       </section>
-      <div className="px-[10px] md:px-[42px] lg:px-[62px] pt-[100px] w-full text-[#333333]">
+      <div className="px-[10px] md:px-[50px] lg:px-[134px] pt-[100px] w-full text-[#333333]">
         <table className="w-full">
           <thead className="">
             <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[80px] text-[10px] px-[20px] md:text-[20px] md:-[24px] flex items-center justify-between  ">
               <th className="font-sans font-normal  leading-[40px]">Read Length</th>
-              <th className="font-sans font-normal leading-[40px]">Plan</th>
               <th className="font-sans font-normal  leading-[40px]">Data Volume</th>
               <th className="font-sans font-normal  leading-[40px]">Reference Price</th>
               <th className="font-sans font-normal leading-[40px]">Delivery Time</th>
             </tr>
           </thead>
           <tbody className="w-full">
-            <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333] border-b-[4px] border-dashed">
+            <tr className=" h-[80px] font-sans font-medium text-[20px] text-[#333333] border-gradient-primary-light border-b-[4px] border-dashed ">
               <td className=""></td>
               <td className=""></td>
               <td className=""></td>
@@ -78,7 +77,7 @@ const page = () => {
               <td className=""></td>
               <td className=""></td>
             </tr>
-            <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333] border-b-[4px] border-dashed">
+            <tr className="h-[80px] font-sans font-medium text-[20px] text-[#333333] border-b-[4px] border-dashed ">
               <td className=""></td>
               <td className=""></td>
               <td className=""></td>
