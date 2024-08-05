@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Announcement1 from '../../../public/Images/Home/Announcement1.png';
-import Announcement2 from '../../../public/Images/Home/Announcement2.png';
-import Announcement3 from '../../../public/Images/Home/Announcement3.png';
-import article1 from '../../../public/Images/Home/article1.png';
-import article2 from '../../../public/Images/Home/article2.png';
-import article3 from '../../../public/Images/Home/article3.png';
-import ArticleCard from '../../../components/ArticleCard';
+import Announcement1 from '../../../../public/Images/Home/Announcement1.png';
+import Announcement2 from '../../../../public/Images/Home/Announcement2.png';
+import Announcement3 from '../../../../public/Images/Home/Announcement3.png';
+import article1 from '../../../../public/Images/Home/article1.png';
+import article2 from '../../../../public/Images/Home/article2.png';
+import article3 from '../../../../public/Images/Home/article3.png';
+import ArticleCard from '../../../../components/ArticleCard';
 import SnackBar from '@/components/SnackBar';
 
 import {
