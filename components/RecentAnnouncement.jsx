@@ -13,6 +13,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { useTranslations } from 'next-intl';
 
 const articles = [
   {
@@ -48,6 +49,7 @@ const articles = [
 ];
 
 const RecentAnnouncement = () => {
+  const t = useTranslations("HomePage.RecentAnnouncement");
 
   return (
     <section className="md:px-[42px] lg:px-[62px] py-[20px] md:py-[100px] w-full text-[#333333] bg-[#7171710D]">
@@ -55,7 +57,7 @@ const RecentAnnouncement = () => {
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">Recent Anouncements</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        &quot;Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company&apos;s activities, achievements, and advancements in genetic analysis.&quot;
+        {t("description")}
         </p>
 
         <Carousel className="hidden md:block w-full">

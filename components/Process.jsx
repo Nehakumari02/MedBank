@@ -1,46 +1,49 @@
+import { useTranslations } from "next-intl";
 import HomePageSectionHeader from "./HomePageSectionHeader";
 
-const Process = () => (
+const Process = () => {
+  const t = useTranslations("HomePage.Process");
+  return(
   <section className="md:px-[42px] lg:px-[62px] md:py-[100px] w-full text-[#333333]">
         <HomePageSectionHeader title={"Order Flow"} subTitle={"Order Flow"}/>
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">PROCESS {ArrowRightIconSmall} {ArrowRightIcon}</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        &quot;At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you&apos;re a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services.&quot;
+        {t("description")}
         </p>
         <div className="flex flex-col gap-[24px] md:gap-[42px] items-center justify-center w-full font-DM-Sans font-normal text-[12px] leading-[22px] md:text-[20px] md:leading-[42px] pb-[20px] md:pb-0">
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>1. Registration</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process1")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'> </div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>2. Complete Profile on My Page</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process2")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>3. Create New Order</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process3")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>4. Create Request Sheet</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process4")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>5. Confirmation of Quotation</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process5")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>6. Place a Formal Order</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process6")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>7. Sending Samples</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process7")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>8. Quality Check</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process8")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>9. Library Adjustment</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process9")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>10. Inspection and Analysis</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process10")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[50px] md:h-[100px] gap-[10px]">
-            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>11. Sending of Original Data and Analysis</span>
+            <span className='w-[50%] mr-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process11")}</span>
             <div className='h-[50px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>12. Sending of Invoice</span>
+            <span className='w-[50%] ml-[4px] h-[64px] text-center flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("process12")}</span>
           </div>
           <div className="flex items-center md:w-[552px] justify-center h-[50px] md:h-[100px]">
-            <span className="h-[64px] w-full flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%] px-[20px]">13. Sending of Receipt</span>
+            <span className="h-[64px] w-full flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%] px-[20px]">{t("process13")}</span>
           </div>
       </div>
 
@@ -48,7 +51,7 @@ const Process = () => (
 
       </section>
 
-  );
+  )};
 
   export default Process;
 
