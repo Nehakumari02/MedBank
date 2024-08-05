@@ -24,17 +24,17 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] ">
-            "At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields."
+            &quot;At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields.&quot&quot;
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px] '>
             Key Principles
           </span>
           <div>
             <ol className='font-DM-Sans font-medium text-[12px] md:text-[18px] lg:text-[24px] leading-8 '>
-              <li>1. Quality <span className='font-normal' >"We uphold the highest standards of quality and precision in all our services and processes, ensuring reproducible and trustworthy results."</span></li>
-              <li>2. Innovation <span className='font-normal'>"We continuously strive to innovate and adopt cutting-edge technologies and methodologies to stay at the forefront of genetic analysis."</span></li>
-              <li>3. Collaboration <span className='font-normal'> "We believe in fostering strong partnerships and collaborations with researchers, institutions, and industry partners to achieve common goals and mutual success."</span></li>
-              <li>4. Ethics<span className='font-normal'> "We conduct our business with integrity, honesty, and transparency, adhering to ethical standards and regulatory requirements at all times."</span></li>
+              <li>1. Quality <span className='font-normal' >&quot;We uphold the highest standards of quality and precision in all our services and processes, ensuring reproducible and trustworthy results.&quot;</span></li>
+              <li>2. Innovation <span className='font-normal'>&quot;We continuously strive to innovate and adopt cutting-edge technologies and methodologies to stay at the forefront of genetic analysis.&quot;</span></li>
+              <li>3. Collaboration <span className='font-normal'> &quot;We believe in fostering strong partnerships and collaborations with researchers, institutions, and industry partners to achieve common goals and mutual success.&quot;</span></li>
+              <li>4. Ethics<span className='font-normal'> &quot;We conduct our business with integrity, honesty, and transparency, adhering to ethical standards and regulatory requirements at all times.&quot;</span></li>
               <li>5. Customer Focus <span className='font-normal'></span></li>
             </ol>
           </div>

@@ -10,7 +10,7 @@ const Offerings = () => (
         <div className='px-[31px] md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[6px] md:gap-[24px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">OFFERINGS {ArrowRightIconSmall} {ArrowRightIcon}</span>
         <span className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        "At Medbank, we offer a comprehensive range of genetic analysis services tailored to meet your research needs. Our state-of-the-art laboratory facilities and experienced team ensure accurate and reliable results. Explore our service offerings below to discover how we can support your genetic analysis projects."
+        &quot;At Medbank, we offer a comprehensive range of genetic analysis services tailored to meet your research needs. Our state-of-the-art laboratory facilities and experienced team ensure accurate and reliable results. Explore our service offerings below to discover how we can support your genetic analysis projects.&quot;
         </span>
         <div className="py-[20px] md:py-[0px] w-full flex flex-wrap items-center justify-center md:justify-between gap-[10px] font-DM-Sans font-normal text-[12px] leading-[22px] md:text-[20px] md:leading-[42px] ">
           <span className="flex items-center justify-center">DNA Sequencing</span>

@@ -16,7 +16,7 @@ const PrivacyPolicyPage = () => {
                     <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[6px] md:pt-[35px]'>
                         Medbank Pte. Ltd. has established the following privacy policy with respect to your personal
                         information. Medbank Pte. Ltd. has determined the following privacy policy regarding the
-                        handling of customers' personal information in the services we provide.
+                        handling of customers&apos; personal information in the services we provide.
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@ const PrivacyPolicyPage = () => {
                     </div>
                     <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
                         Some pages on this site use cookies. Cookies are a function that sends data from a web
-                        server to a visitor's browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings.
+                        server to a visitor&apos;s browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings.
                     </div>
                 </div>
 
