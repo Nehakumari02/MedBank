@@ -302,5 +302,154 @@
             "title":"Acquisition of personally identifiable information by methods that are not easily recognizable by the person in question",
             "description":"Cookies and cell phone identification numbers (solid identification numbers) are used to make it more convenient for you to browse our site when you visit it again, and do not infringe on your privacy or have any adverse effect on your computer. <br></br> <br></br> The Company' website uses an SSL (Secure Sockets Layer) data encryption system in areas where personal information is input, and other measures are taken to ensure security."
         }
+    },
+    "Site Policy":{
+        "title":"Site Polciy",
+        "content":" Customers using the website (https://medbank.sg/) provided by Medbank (hereinafter referred to as “we” or “us”) are requested to fully read the following.",
+        "section1":{
+            "title":"・Disclaimer",
+            "content":"Although we take the utmost care in posting information on Medbank&apos;s website, Medbank does not guarantee the accuracy or completeness of this information.",
+            "content1":" Medbank reserves the right to change the information on its website at any time without notice.",
+            "content2":"Medbank and its affiliates shall not be liable for any direct or indirect loss incurred by you as a result of your use of the information or content contained in the Medbank website."
+        },
+        "section2":{
+            "title":"・Copyrights and Trademarks",
+            "content":"All text, illustrations, logos, photographs, videos, software, and all other information on this website are the copyrighted property of Medbank or third parties.",
+            "content1":"  Except for personal use or other use permitted by copyright law, you may not use (including copying, modifying, distributing, or publicly transmitting) any of this information without the prior permission of the copyright holder.",
+            "content2":"The names of our products and services appearing on our website are our trademarks."
+        },
+        "section3":{
+            "title":"・Governing Law and Court of Jurisdiction",
+            "content" : " Unless otherwise provided herein, the use of this website shall be governed by and construed in accordance with the laws of Japan.",
+            "content1": "Access to Medbank website is at the discretion of the user, and the user assumes all responsibility for the use of Medbank website.",
+            "content2":" Unless otherwise specified, the Hiroshima District Court shall be the court of first jurisdiction for all disputes related to the use of this website."
+        },
+        "section4":{
+            "title":"【Links to our website】",
+            "content" : "In principle, you are free to link to our website, regardless of whether it is for profit or not. However, please refrain from setting up links that fall under any of the following or may fall under any of the following.",
+            "content1": " Websites that include content that defames or slanders Medbank, other companies (or persons), or other organizations, or that is intended to discredit them.",
+            "content2":" Websites that infringe or may infringe intellectual property rights such as copyrights, trademarks, property, privacy, portrait rights, or other rights of Medbank, other companies (or persons), or other organizations."
+        },
+
+        "section5":{
+            
+            "content" : " Websites that make it unclear that the contents are those of Medbank website and may cause misunderstanding to third parties, such as when Medbank website is displayed within a frame.",
+            "content1": " In addition to the above items, websites that may violate laws, ordinances, regulations including rules and regulations, or public order and morals, or may interfere with the operation of Medbank website services.",
+            "content2":" It is not permitted to link to the Website by using registered trademarks such as logos and marks owned by Medbank without permission. It is not permitted to create a link in such a way as to misidentify the source of the information.",
+            "content3" : " Please note that the URL of Medbank website is subject to change without notice.",
+            "content4": " 【Others】",
+            "content5":" Please note that Medbank shall not be liable for any compensation, complaints, etc. related to the link.",
+            "content6" : " ・Prohibited Matters",
+            "content7": " The following actions are prohibited when using this website.",
+            "content8":"   ・Actions that cause or may cause annoyance, disadvantage, or damage to other users, third parties, or Medbank.",
+            "content9": " . Actions that infringe or may infringe on the property or privacy of other users, third parties, or Medbank.",
+            "content10":" ・Actions that are or may be offensive to public order and morals.",
+           
+    
+            "content11":"   ・Actions that violate or may violate laws, regulations, or ordinances.",
+            "content12":"   ・Any other actions that the Company deems inappropriate."
+
+        }
+
+
+
+    },
+    "Privacy Policy":{
+        "title":"Privacy Policy (Personal Information Protection Policy)",
+        "content":"Medbank Pte. Ltd. has established the following privacy policy with respect to your personal information. Medbank Pte. Ltd. has determined the following privacy policy regarding the handling of customers&apos; personal information in the services we provide.",
+         
+        "section1":{
+            "title":"The Service Provider",
+            "content":"Name: Medbank",
+            "content1":"Address: 20 Collyer Quay #23-01 Singapore 049319 ",
+            "content2":" Representative: Yuki Okada"
+            
+        },
+        "section2":{
+            "title":"Method of obtaining personal information",
+            "content":" We obtain the name of the person in charge, telephone number, e-mail address, and information about the contents of the analysis when you inquire about our genetic analysis service.",
+            "content1":" After that, we will obtain the name of the person in charge (including Kanji, Kana, and English), name of the facility/school, telephone number, cell phone number, email, zip code, and address at the time of mypage registration when the order is officially placed. Personal information related to sequencing and analysis may also be obtained at the time of test analysis. ",
+            "content2":" Other personal information that is necessary to provide services will be obtained."
+
+        },
+        "section3":{
+            "title":"Safe Management of Personal Data",
+            "content":"We will take reasonable and necessary safety control measures to prevent risks (unauthorized access, falsification, loss, destruction, and leakage) to personal information and specific personal information, and will strive to manage such information appropriately."
+           
+
+        },
+        "section4":{
+            "title":"Use of Personal Information",
+            "content":" Please refer to the details page regarding the handling of personal information."
+          
+
+        },
+        "section5":{
+            "title":"Compliance with Laws and Regulations Concerning Personal Information and Specified Personal Information",
+            "content":" We will always be aware of and comply with laws, national guidelines, and other norms regarding the handling of personal information and specified personal information."
+          
+
+        },
+        "section6":{
+            "title":"SSL (Secure Socket Layer)",
+            "content":"Our website is SSL-compatible, which encrypts communications between web browsers and web servers. Personal information such as name, address, and telephone number entered by the user is automatically encrypted."
+          
+
+        },
+
+        "section7":{
+            "title":"About Cookies",
+            "content":"  Some pages on this site use cookies. Cookies are a function that sends data from a web server to a visitor&apos;s browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings."
+          
+
+        },
+
+        "section8":{
+            "title":"Continuous Improvement of Personal Information Protection Management System",
+            "content":"  In order to properly protect personal information and specified personal information, we will review, continuously improve, and enhance our management system for the protection of personal information, taking into consideration changes in our business activities and the social and technological environment in which we operate."
+          
+
+        },
+        "section9":{
+            "title":"Access history of this site",
+            "content":" When you access this site, an access history (access log) is automatically kept. The purpose of this is to statistically analyze how the site is used and to use this information to improve future convenience. No personal information will remain in this access history."
+          
+
+        },
+
+        "section10":{
+            "title":"Opinions and inquiries regarding the protection of personal information and specified personal information",
+            "content":"  With regard to complaints, opinions, and inquiries about the handling of personal information and specified personal information, we will make a sincere effort to respond promptly, including fact-finding investigations. Please use My Page for complaints, opinions, and inquiries."
+          
+
+        },
+        "section11":{
+            "title":"Disclosure of Personal Information",
+            "content":"    The Company will respond to the following matters regarding the personal information it handles:",
+            "content1":"In addition, we will respond without delay to requests from the owner of personal data to disclose records of his/her personal data to third parties. ",
+            "content2":"(1) Notification of purpose of use",
+            "content3":"(2) Disclosure (including disclosure of records provided to third parties)",
+            "content4":"(3) Correction, addition, or deletion",
+            "content5":"(4) Suspension of use, deletion, or cessation of provision to third parties",
+            "content6":"The above (1) through (4) will be handled in accordance with the following procedures.",
+            "content7":"1. Contact for requests for disclosure and for complaints",
+            "content8":" Address: 20 Collyer Quay #23-01 Singapore 049319",
+            "content9":"Medbank Personal Information Protection Manager",
+            "content10":"2. Forms of Documents to be Submitted upon Request for Disclosure",
+            "content11":"There are no particular requirements regarding the form of documents to be submitted or the method of requesting disclosure.",
+            "content12":" However, in the case of an application by a representative, the application must be made in writing in order to confirm the authority of the representative.",
+            "content13":"3. Method of confirming that the person making the request for disclosure is the principal or agent The identity of the person making the request for disclosure will be confirmed by one of the following methods ",
+            "content14":"(1) The applicant must send us by mail or bring and present a document that proves that he/she is the person in question.",
+            "content15":"  (2) We will verify your personal information (telephone number, etc.) that we have in our possession by comparing it with the personal information that we confirmed when we received your inquiry. If a representative is applying on your behalf, please submit a document evidencing your authority of representation.",
+            "content16":"4. Method of collecting fees",
+            "content17":"  A fee of 11,000 yen including tax will be collected per request for disclosure of personal information."
+            
+
+          
+
+        }
+
+        
+
     }
 }

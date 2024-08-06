@@ -86,7 +86,8 @@ export default function HomePage() {
       <Process></Process>
       <RecentAnnouncement></RecentAnnouncement>
       <FAQ></FAQ>
-      <ContactUs></ContactUs>
+      <div id="contactus"><ContactUs></ContactUs></div>
+      
       <CreateAccount/>
     </div>
   );
