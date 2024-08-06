@@ -47,7 +47,7 @@ const ContactUs = () => {
       <HomePageSectionHeader title={"Contact Us"} subTitle={"Contact Us"} />
       <div className="md:pl-[50px] lg:pl-[90px] pt-[6px] md:pt-[20px] mb-0 md:pb-[80px] w-full flex gap-[6px] md:gap-[32px]">
         <div className="relative w-full">
-          <div className="px-[31px] w-full lg:w-[441px] flex flex-col gap-[24px]">
+          <div className="px-[31px] w-full lg:w-[441px] flex flex-col gap-[6px] md:gap-[24px]">
             <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">
               REACH OUT TO US
             </span>
@@ -63,7 +63,7 @@ const ContactUs = () => {
                 value={formData.name}
                 onChange={(e)=>handleChange(e)}
                 id="name"
-                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
               <label
@@ -79,7 +79,7 @@ const ContactUs = () => {
                 value={formData.phoneNumber}
                 onChange={(e)=>handleChange(e)}
                 id="phoneNumber"
-                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
               <label
@@ -95,7 +95,7 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={(e)=>handleChange(e)}
                 id="email"
-                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
               <label
@@ -111,7 +111,7 @@ const ContactUs = () => {
                 value={confirmEmail}
                 onChange={(e) => setConfirmEmail(e.target.value)}
                 id="confirmEmail"
-                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
               <label
@@ -127,7 +127,7 @@ const ContactUs = () => {
                 value={formData.inquiryDetails}
                 onChange={(e)=>handleChange(e)}
                 id="inquiryDetails"
-                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-900 bg-transparent border-0 border-b-[1px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
               <label
