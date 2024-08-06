@@ -51,7 +51,7 @@ const Header = () => {
           <Link href={`/${language}/strength`} className={`${path==="strength"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("strength")}</Link>
         </li>
         <li>
-          <Link href={`/${language}/contact`} className={`${path==="contact"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("contact")}</Link>
+          <Link href={'#contactus'} className={`${path==="contact"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("contact")}</Link>
         </li>
       </ul>
     </nav>
