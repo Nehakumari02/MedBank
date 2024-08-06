@@ -30,7 +30,7 @@ const Footer = () => {
             <div className='w-[40%] gradient-primary rounded-[12px] p-[1px] md:w-[30%] md:h-[260px] lg:h-[287px] '>
                 <div className='bg-white rounded-[11px] w-full h-full flex flex-col gap-[20px] md:gap-[48px] items-center justify-center'>
                     <Image src={logo} alt='logo' className='h-[50px] w-[50px] md:h-[100px] md:w-[100px]'></Image>
-                    <button className="h-[28px] md:h-[40px] w-[100px] md:w-[152px] lg:w-[237px] px-[6px] py-[8px] md:py-[10px] md:pl-[16px] md:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">{DmIcon} Contact Us</button>
+                    <Link href={`/${language}#contactus`} className="h-[28px] md:h-[40px] w-[100px] md:w-[152px] lg:w-[237px] px-[6px] py-[8px] md:py-[10px] md:pl-[16px] md:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">{DmIcon} Contact Us</Link>
                 </div>
             </div>
             <div className='w-[60%] gradient-primary rounded-[12px] p-[1px] md:w-[70%] lg:h-[287px]'>
