@@ -11,7 +11,7 @@
 const HomePageSectionHeader2 = ({title,subTitle}) => {
     return(
     <div className='mb-[-40px]'>
-      <span className='gradient-border-text font-extrabold font-inter text-[100px] leading-[78px]'>{title}</span>
+      <span className='gradient-border-text font-extrabold font-inter text-[70px] md:text-[100px] leading-[78px]'>{title}</span>
       <span className='translate-y-[-54px] translate-x-[20px] block font-medium  text-#333333'>{subTitle}</span>
     </div>
       );
