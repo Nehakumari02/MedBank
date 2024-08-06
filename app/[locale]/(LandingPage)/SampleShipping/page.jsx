@@ -147,7 +147,7 @@ const page = () => {
 
                 <div>
 
-                    <div className='w-full px-4 md:px-6 lg:px-8 flex flex-col gap-[12px] md:gap-[30px] lg:gap-[100px] '>
+                    <div className='w-full px-4 md:px-6 lg:px-8 flex flex-col gap-[12px] md:gap-[30px] lg:gap-[100px] pt-[20px] md:pt-30px] '>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
                                 Shipping Address
