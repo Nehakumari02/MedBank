@@ -8,8 +8,10 @@ import SnackBar from '@/components/SnackBar';
 import HomePageSectionHeader2 from '@/components/HomePageSectionHeader2';
 
 import HomePageSectionHeader from '@/components/HomePageSectionHeader';
+import { useTranslations } from 'next-intl';
 
 export default function AboutPage() {
+  const t = useTranslations("AboutUs");
   return (
     <>
       <section className="pl-[38px] pr-[24px] md:pl-[156px]  lg:pl-[236px]   md:pr-[95px] w-full flex flex-col items-center justify-center text-[#333333] gap-[24px] md:gap-[70px]  lg:gap-[100px] ">
@@ -21,22 +23,22 @@ export default function AboutPage() {
 
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">About Us</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              Company Philosophy
+              {t("heroTitle")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]  leading-[20px]">
-            &quot;At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields.&quot&quot;
+          {t("description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px] pt-[24px]'>
-            Key Principles
+          {t("principles.title")}
           </span>
           <div>
             <ol className='font-DM-Sans font-medium text-[12px] md:text-[18px] lg:text-[24px] leading-8 '>
-              <li>1. Quality <span className='font-normal' >&quot;We uphold the highest standards of quality and precision in all our services and processes, ensuring reproducible and trustworthy results.&quot;</span></li>
-              <li>2. Innovation <span className='font-normal'>&quot;We continuously strive to innovate and adopt cutting-edge technologies and methodologies to stay at the forefront of genetic analysis.&quot;</span></li>
-              <li>3. Collaboration <span className='font-normal'> &quot;We believe in fostering span partnerships and collaborations with researchers, institutions, and industry partners to achieve common goals and mutual success.&quot;</span></li>
-              <li>4. Ethics<span className='font-normal'> &quot;We conduct our business with integrity, honesty, and transparency, adhering to ethical standards and regulatory requirements at all times.&quot;</span></li>
-              <li>5. Customer Focus <span className='font-normal'></span></li>
+              <li>1. {t("principles.p1")} <span className='font-normal' >{t("principles.d1")}</span></li>
+              <li>2. {t("principles.p2")} <span className='font-normal'>{t("principles.d2")}</span></li>
+              <li>3. {t("principles.p3")} <span className='font-normal'> {t("principles.d3")}</span></li>
+              <li>4. {t("principles.p4")} <span className='font-normal'> {t("principles.d4")}</span></li>
+              <li>5. {t("principles.p5")} <span className='font-normal'>{t("principles.d5")}</span></li>
             </ol>
           </div>
         </div>
@@ -58,11 +60,11 @@ export default function AboutPage() {
          
 
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              GOAL in genetic analysis of Medbank
+              {t("goal")}
             </div>
           
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            At Medbank, our overarching goal in genetic analysis is to become a world-leading hub for genetic research and analysis. We aim to contribute significantly to scientific advancements and discoveries by providing state-of-the-art genetic analysis services, driving innovation, and fostering collaborations.
+            {t("goalDescription")}
           </div>
 
         </div>
@@ -83,9 +85,9 @@ export default function AboutPage() {
             <div className="text-2xl md:text-4xl font-DM-Sans font-medium  gradient-primary bg-clip-text text-transparent">COMPANY DETAILS</div>
             
             <div className='text-2xl flex flex-col gap-[6px] md:gap-[8px] pt-[6px] md:pt-[24px]'>
-              <p className='font-normal p-0 m-0'><span className='font-medium'>Name:</span> Medbank Pte. Ltd.</p>
-              <p className='font-normal p-0 m-0'><span className='font-medium'>Establishment:</span> 15 OCT 2021</p>
-              <p className='font-normal p-0 m-0'><span className='font-medium'>Representative employee:</span> Yuki Okada (Doctor)</p>
+              <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_name")}</span> Medbank Pte. Ltd.</p>
+              <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_established")}</span> 15 OCT 2021</p>
+              <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_representative_employee")}</span> Yuki Okada (Doctor)</p>
             </div>
 
             <div className='pt-[24px] flex flex-col gap-[24px] md:gap-[48px] '>
@@ -124,9 +126,9 @@ export default function AboutPage() {
             Our Project
           </div>
           <div className='font-DM-Sans font-normal text-[12px] md:text-2xl'>
-            Genetic analysis service <br></br>
-            Genetic testing (tests related to evidence-based medicine, not DTC) <br></br>
-            Ultra-early detection of cancer
+            {t("project1")}<br></br>
+            {t("project2")}<br></br>
+            {t("project3")}
           </div>
         </div>
       </section>
@@ -138,7 +140,7 @@ export default function AboutPage() {
             <div className='px-[31px] md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[6px] md:gap-[24px]'>
               <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">Inspection And Analysis</span>
               <span className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-                The Inspection and Analysis section provides customers with detailed insights into Medbank&apos;s testing and analysis procedures, highlighting the laboratory&apos;s capabilities, equipment, and strengths in genetic analysis.
+                {t("analysisDescription")}
               </span>
 
             </div>
@@ -158,7 +160,7 @@ export default function AboutPage() {
               Our Machines
             </div>
             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[6px] md:pt-[24px]'>
-              Medbank utilizes state-of-the-art machines and equipment for genetic analysis testing, ensuring accurate and reliable results.
+              {t("machineDescription")}
             </div>
           </div>
 
@@ -170,8 +172,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              We have introduced a new next-generation sequencer &apos;AVITI&apos; from Element Biosciences, which is capable of developing highly accurate and efficient analyses. AVITI&apos; employs rolling circle amplification (RCA) to minimize amplification errors, and the use of the latest reagents enables high quality (Q50) sequence decoding.
-              In addition, &apos;AVITI&apos; has better running costs than conventional products, enabling lower costs and shorter delivery times.
+              {t("m1")}
             </div>
           </div>
 
@@ -183,7 +184,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              The Illumina MiSeq platform is employed for smaller-scale sequencing projects, providing accurate and reliable results with fast turnaround times.
+              {t("m2")}
             </div>
           </div>
 
@@ -195,8 +196,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              Medbank also plans to begin Novaseq X plus analysis on an outsourced basis in 2025.
-              This platform offers scalability, flexibility, and exceptional data quality, making it suitable for a wide range of research projects.
+              {t("m3")}
             </div>
           </div>
         </div>

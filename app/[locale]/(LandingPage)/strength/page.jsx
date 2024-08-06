@@ -10,8 +10,10 @@ import strength8 from '../../../../public/Images/Home/strength8.png'
 import strength9 from '../../../../public/Images/Home/strength9.png'
 import strength10 from '../../../../public/Images/Home/strength10.png'
 import SnackBar from '@/components/SnackBar';
+import { useTranslations } from 'next-intl';
 
 export default function StrengthPage() {
+  const t = useTranslations("OurStrength");
   return (
     <>
       <section className="pl-[38px] pr-[24px] md:pl-[156px]  lg:pl-[236px]   md:pr-[95px] w-full flex flex-col items-center justify-center text-[#333333] gap-[24px] md:gap-[70px]  lg:gap-[100px] ">
@@ -23,24 +25,20 @@ export default function StrengthPage() {
 
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">Our Strength</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              Comprehensive Next Generation Sequencing Processes
+              {t("strength1.title")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] ">
-            At Medbank, we have the capability to conduct all Next Generation Sequencing
-            (NGS) processes from sample preparation to data analysis in our
-            state-of-the-art laboratory facilities. Our team of specialized staff is
-            equipped to handle every step of the NGS workflow, including DNA extraction,
-            library preparation, sequencing, and bio-informatics analysis.
+            {t("strength1.description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px] '>
             Benefits
           </span>
           <div>
             <ol className='font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-8 '>
-              <li>1. Streamlined and integrated NGS workflow for efficiency and consistency.</li>
-              <li>2. Expert guidance and support throughout the entire sequencing process.</li>
-              <li>3. Customized solutions tailored to meet the specific needs of each research project.</li>
+              <li>1. {t("strength1.benefit.b1")} </li>
+              <li>2. {t("strength1.benefit.b2")} </li>
+              <li>3. {t("strength1.benefit.b3")} </li>
             </ol>
           </div>
         </div>
@@ -62,22 +60,20 @@ export default function StrengthPage() {
           <div className='flex flex-col gap-[20px] md:gap-[6px]'>
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">Our Strength</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              Specialized Environment for DNA/RNA Analysis
+            {t("strength2.title")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            To ensure the integrity and reliability of our genetic analysis, Medbank maintains a specialized environment for DNA and
-            RNA analysis. Our laboratory facilities are equipped
-            with advanced technologies and adhere to strict quality control measures to minimize contamination and ensure the accuracy of our results.
+          {t("strength2.description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px]'>
             Benefits
           </span>
           <div>
             <ol className='font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-8'>
-              <li>1. Clean and controlled laboratory environment for sensitive molecular analysis.</li>
-              <li>2. Minimized risk of contamination and sample degradation.</li>
-              <li>3. Consistent and reliable results for high-quality genetic analysis.</li>
+              <li>1. {t("strength2.benefit.b1")} </li>
+              <li>2. {t("strength2.benefit.b2")} </li>
+              <li>3. {t("strength2.benefit.b3")} </li>
             </ol>
           </div>
         </div>
@@ -93,22 +89,20 @@ export default function StrengthPage() {
           <div className='flex flex-col gap-[20px] md:gap-[6px]'>
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">Our Strength</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              Customer-Centric Approach to Analysis Results
+            {t("strength3.title")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            At Medbank, we prioritize the needs and preferences of our clients when delivering analysis results. We provide comprehensive
-            support and guidance on data handling and analysis
-            methods, ensuring that results are presented in an easy-to-understand format tailored to the specific requirements of each client.
+          {t("strength3.description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px]'>
             Benefits
           </span>
           <div>
             <ol className='font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-8'>
-              <li>1. Personalized support and guidance throughout the analysis process.</li>
-              <li>2. Clear and concise presentation of analysis results for enhanced understanding.</li>
-              <li>3. Empowerment of clients with actionable insights for their research projects</li>
+              <li>1. {t("strength3.benefit.b1")} </li>
+              <li>2. {t("strength3.benefit.b2")} </li>
+              <li>3. {t("strength3.benefit.b3")} </li>
             </ol>
           </div>
         </div>
@@ -125,22 +119,20 @@ export default function StrengthPage() {
           <div className='flex flex-col gap-[20px] md:gap-[6px]'>
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">Our Strength</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              Automation of Processes
+            {t("strength4.title")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            We have implemented automation technologies for DNA and RNA extraction, purification, and library preparation, streamlining and
-            standardizing these critical processes.
-            By automating repetitive tasks, we ensure accuracy, reproducibility, and scalability, enabling us to deliver high-quality results efficiently.
+          {t("strength4.description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px]'>
             Benefits
           </span>
           <div>
             <ol className='font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-8'>
-              <li>1. Reduced risk of human error and variability.</li>
-              <li>2. Increased throughput and faster turnaround times.</li>
-              <li>3. Consistent and reliable results across experiments.</li>
+              <li>1. {t("strength4.benefit.b1")} </li>
+              <li>2. {t("strength4.benefit.b2")} </li>
+              <li>3. {t("strength4.benefit.b3")} </li>
             </ol>
           </div>
         </div>
@@ -157,21 +149,20 @@ export default function StrengthPage() {
           <div className='flex flex-col gap-[20px] md:gap-[6px]'>
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">Our Strength</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              State-of-the-Art NGS Platform
+            {t("strength5.title")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            Medbank utilizes the latest Next Generation Sequencing (NGS) platforms, including the AVITI system from Element Biosciences.
-            This advanced platform offers high precision, rapid sequencing, and cost-effectiveness, allowing us to deliver accurate and timely results to our clients.
+          {t("strength5.description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px]'>
             Benefits
           </span>
           <div>
             <ol className='font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-8'>
-              <li>1. High-quality sequencing data with improved accuracy and coverage.</li>
-              <li>2. Reduced sequencing costs and shorter project timelines.</li>
-              <li>3. Access to cutting-edge technologies for innovative research applications.</li>
+              <li>1. {t("strength5.benefit.b1")} </li>
+              <li>2. {t("strength5.benefit.b2")} </li>
+              <li>3. {t("strength5.benefit.b3")} </li>
             </ol>
           </div>
         </div>

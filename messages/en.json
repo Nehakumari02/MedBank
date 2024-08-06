@@ -99,5 +99,86 @@
         "CreateAccount":{
             "description":"Signup or Login to your account for sending samples and getting your sample sequenced."
         }
+    },
+    "AboutUs":{
+        "heroTitle":"Company Philosophy",
+        "description":"\"At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields.\"",
+        "principles":{
+            "title":"Key Principles",
+            "p1":"Quality : ",
+            "p2":"Innovation : ",
+            "p3":"Collaboration : ",
+            "p4":"Ethics ：",
+            "p5":"Customer Focus :",
+            "d1":"\"We uphold the highest standards of quality and precision in all our services and processes, ensuring reproducible and trustworthy results.\"",
+            "d2":"\"We continuously strive to innovate and adopt cutting-edge technologies and methodologies to stay at the forefront of genetic analysis.\"",
+            "d3":"\"We believe in fostering span partnerships and collaborations with researchers, institutions, and industry partners to achieve common goals and mutual success.\"",
+            "d4":"\"We conduct our business with integrity, honesty, and transparency, adhering to ethical standards and regulatory requirements at all times.\"",
+            "d5":"\"We prioritize customer satisfaction and strive to exceed expectations by providing personalized solutions, exceptional service, and timely support.\""
+        },
+        "goal":"GOAL in genetic analysis of Medbank",
+        "goalDescription":"At Medbank, our overarching goal in genetic analysis is to become a world-leading hub for genetic research and analysis. We aim to contribute significantly to scientific advancements and discoveries by providing state-of-the-art genetic analysis services, driving innovation, and fostering collaborations.",
+        "details_name":"Name :",
+        "details_established":"Establishment :",
+        "details_representative_employee":"Representative employee :",
+        "project1":"Genetic analysis service ",
+        "project2":"Genetic testing (tests related to evidence-based medicine, not DTC) ",
+        "project3":"Ultra-early detection of cancer",
+        "analysisDescription":"The Inspection and Analysis section provides customers with detailed insights into Medbank&apos;s testing and analysis procedures, highlighting the laboratory&apos;s capabilities, equipment, and strengths in genetic analysis.",
+        "machineDescription":"Medbank utilizes state-of-the-art machines and equipment for genetic analysis testing, ensuring accurate and reliable results.",
+        "m1":"We have introduced a new next-generation sequencer 'AVITI' from Element Biosciences, which is capable of developing highly accurate and efficient analyses. AVITI' employs rolling circle amplification (RCA) to minimize amplification errors, and the use of the latest reagents enables high quality (Q50) sequence decoding. In addition, 'AVITI' has better running costs than conventional products, enabling lower costs and shorter delivery times.",
+        "m2":"The Illumina MiSeq platform is employed for smaller-scale sequencing projects, providing accurate and reliable results with fast turnaround times.",
+        "m3":"Medbank also plans to begin Novaseq X plus analysis on an outsourced basis in 2025. This platform offers scalability, flexibility, and exceptional data quality, making it suitable for a wide range of research projects."
+    },
+    "OurStrength":{
+        "strength1":{
+        "title":"Comprehensive Next Generation Sequencing Processes",
+        "description":"At Medbank, we have the capability to conduct all Next Generation Sequencing (NGS) processes from sample preparation to data analysis in our state-of-the-art laboratory facilities. Our team of specialized staff is equipped to handle every step of the NGS workflow, including DNA extraction, library preparation, sequencing, and bio-informatics analysis.",
+        "benefit":{
+            "b1":"Streamlined and integrated NGS workflow for efficiency and consistency.",
+            "b2":"Expert guidance and support throughout the entire sequencing process.",
+            "b3":"Customized solutions tailored to meet the specific needs of each research project."
+        }},
+        "strength2":{
+        "title":"Specialized Environment for DNA/RNA Analysis",
+        "description":" To ensure the integrity and reliability of our genetic analysis, Medbank maintains a specialized environment for DNA and RNA analysis. Our laboratory facilities are equipped with advanced technologies and adhere to strict quality control measures to minimize contamination and ensure the accuracy of our results.",
+        "benefit":{
+            "b1":"Clean and controlled laboratory environment for sensitive molecular analysis.",
+            "b2":"Minimized risk of contamination and sample degradation.",
+            "b3":"Consistent and reliable results for high-quality genetic analysis."
+        }},
+        "strength3":{
+        "title":"Customer-Centric Approach to Analysis Results",
+        "description":"At Medbank, we prioritize the needs and preferences of our clients when delivering analysis results. We provide comprehensive support and guidance on data handling and analysis methods, ensuring that results are presented in an easy-to-understand format tailored to the specific requirements of each client.",
+        "benefit":{
+            "b1":"Personalized support and guidance throughout the analysis process.",
+            "b2":"Clear and concise presentation of analysis results for enhanced understanding.",
+            "b3":"Empowerment of clients with actionable insights for their research projects."
+        }},
+        "strength4":{
+        "title":"Automation of Processes",
+        "description":"We have implemented automation technologies for DNA and RNA extraction, purification, and library preparation, streamlining and standardizing these critical processes. By automating repetitive tasks, we ensure accuracy, reproducibility, and scalability, enabling us to deliver high-quality results efficiently.",
+        "benefit":{
+            "b1":"Reduced risk of human error and variability.",
+            "b2":"Increased throughput and faster turnaround times.",
+            "b3":"Consistent and reliable results across experiments."
+        }},
+        "strength5":{
+        "title":"State-of-the-Art NGS Platform",
+        "description":"Medbank utilizes the latest Next Generation Sequencing (NGS) platforms, including the AVITI system from Element Biosciences. This advanced platform offers high precision, rapid sequencing, and cost-effectiveness, allowing us to deliver accurate and timely results to our clients.",
+        "benefit":{
+            "b1":"High-quality sequencing data with improved accuracy and coverage.",
+            "b2":"Reduced sequencing costs and shorter project timelines.",
+            "b3":"Access to cutting-edge technologies for innovative research applications."
+        }}
+    },
+    "OurServices":{
+        "service1":"Analyze DNA samples using next-generation sequencing technologies to uncover genetic information crucial for various research applications. \n \n DNA sequencing is a service that analyzes the provided DNA samples using a next-generation sequencer such as Novaseq X plus. The obtained fastq format sequence data can be used as sources for re-seq, genome assembly, etc. In addition, we have introduced Element Biosciences&apos; new NGS platform, AVITI (this service is scheduled to start in the fall, 2024). If you choose this service, you will be able to achieve higher precision, lower cost, and shorter delivery times than conventional service plans.",
+        "service2":"Comprehensive analysis of transcriptomes to study gene expression patterns, identify regulatory elements, and elucidate biological pathways. \n \n This is a service that comprehensively obtains transcript information by analyzing cDNA fragmented into short read lengths using a next-generation sequencer (RNA-seq). The obtained fastq format sequence data can be used as a source for quantifying gene expression levels, etc",
+        "service3":"Targeted sequencing of specific DNA regions (e.g., microbial barcode regions) for metagenomic analysis, environmental DNA analysis, and more. \n \n This service amplifies barcode regions such as the 16S rRNA gene of microbes by PCR and analyzes them using a next-generation sequencer. This makes it possible to evaluate the types and composition of biological species contained in samples and the environment (so-called metagenomic analysis and environmental DNA analysis).",
+        "tableHead1":"Read Length",
+        "tableHead2":"Data Volume",
+        "tableHead3":"Reference Price",
+        "tableHead4":"Delivery Time"
     }
 }
