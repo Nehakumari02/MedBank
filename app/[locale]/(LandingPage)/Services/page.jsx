@@ -50,7 +50,7 @@ const Services = () => {
         </div>
 
       </section>
-      <div className="px-[10px] md:px-[50px] lg:px-[134px] pt-[100px] w-full text-[#333333]">
+      <div className="px-[10px] md:px-[50px] lg:px-[134px] pt-[24px] md:pt-[100px] w-full text-[#333333]">
         <table className="w-full">
           <thead className="">
             <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[80px] text-[10px] px-[20px] md:text-[20px] md:-[24px] flex items-center justify-between  ">
