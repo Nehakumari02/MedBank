@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 
 const Header = () => {
   const path = usePathname().split("/")[2];
+  const pathToRedirect = usePathname().split("/").slice(2).join("/");
   const language = usePathname().split("/")[1];
   const router = useRouter();
   const [menu,setMenu] = useState(false);
@@ -19,7 +20,7 @@ const Header = () => {
 
   const updateLanguage = (newLanguage) => {
     // Create new URL with updated language
-    const newPath = `/${newLanguage}/`;
+    const newPath = `/${newLanguage}/${pathToRedirect}`;
     
     // Redirect to the new URL
     router.push(newPath);
