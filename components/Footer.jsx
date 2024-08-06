@@ -1,11 +1,14 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../public/Images/Home/logo.png'
 import { useTranslations } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation'
 
 const Footer = () => {
     const t = useTranslations("Footer");
+    const language = usePathname().split("/")[1];
     
     return (
         <footer className="px-[10px] lg:px-[62px] pb-[10px] lg:pb-[40px] pt-[24px] md:pt-[60px] ">
@@ -35,17 +38,17 @@ const Footer = () => {
                     <div className='w-[45%] flex flex-col items-start justify-start gap-[6px] md:gap-[14px]'>
 
 
-                        <Link className='' href={"/about"}>{t("aboutUs")}</Link>
-                        <Link className='' href={"/strength"}>{t("service")}</Link>
-                        <Link className='' href={"/Services"}>{t("sampleShipping")}</Link>
-                        <Link className='' href={"/Orderflow"}>{t("strength")}</Link>
-                        <Link className='' href={"/SampleShipping"}>{t("orderFlow")}</Link>
+                        <Link className='' href={`/${language}/about`}>{t("aboutUs")}</Link>
+                        <Link className='' href={`/${language}/strength`}>{t("service")}</Link>
+                        <Link className='' href={`/${language}/Services`}>{t("sampleShipping")}</Link>
+                        <Link className='' href={`/${language}/Orderflow`}>{t("strength")}</Link>
+                        <Link className='' href={`/${language}/SampleShipping`}>{t("orderFlow")}</Link>
                     </div>
                     <div className='w-[45%] flex flex-col items-start justify-start gap-[6px] md:gap-[14px]'>
-                        <Link className='' href={"/PrivacyPolicy"}>{t("privacyPolicy")}</Link>
-                        <Link className='' href={"/Personal-Information"}>{t("personalInfo")}</Link>
-                        <Link className='' href={"/CancellationPolicy"}>{t("cancellationPolicy")}</Link>
-                        <Link className='' href={"/SitePolicy"}>{t("sitePolicy")}</Link>
+                        <Link className='' href={`/${language}/PrivacyPolicy`}>{t("privacyPolicy")}</Link>
+                        <Link className='' href={`/${language}/Personal-Information`}>{t("personalInfo")}</Link>
+                        <Link className='' href={`/${language}/CancellationPolicy`}>{t("cancellationPolicy")}</Link>
+                        <Link className='' href={`/${language}/SitePolicy`}>{t("sitePolicy")}</Link>
                     </div>
                 </div>
             </div>
