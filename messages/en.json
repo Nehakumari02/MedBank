@@ -58,7 +58,7 @@
             "data4":"Human Genome\n Sequencing"
         },
         "Process":{
-            "description":"At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you&apos;re a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services.",
+            "description":"At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you're a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services.",
             "process1":"1. Registration",
             "process2":"2. Complete Profile on My Page",
             "process3":"3. Create New Order",
@@ -124,7 +124,7 @@
         "project1":"Genetic analysis service ",
         "project2":"Genetic testing (tests related to evidence-based medicine, not DTC) ",
         "project3":"Ultra-early detection of cancer",
-        "analysisDescription":"The Inspection and Analysis section provides customers with detailed insights into Medbank&apos;s testing and analysis procedures, highlighting the laboratory&apos;s capabilities, equipment, and strengths in genetic analysis.",
+        "analysisDescription":"The Inspection and Analysis section provides customers with detailed insights into Medbanks testing and analysis procedures, highlighting the laboratory's capabilities, equipment, and strengths in genetic analysis.",
         "machineDescription":"Medbank utilizes state-of-the-art machines and equipment for genetic analysis testing, ensuring accurate and reliable results.",
         "m1":"We have introduced a new next-generation sequencer 'AVITI' from Element Biosciences, which is capable of developing highly accurate and efficient analyses. AVITI' employs rolling circle amplification (RCA) to minimize amplification errors, and the use of the latest reagents enables high quality (Q50) sequence decoding. In addition, 'AVITI' has better running costs than conventional products, enabling lower costs and shorter delivery times.",
         "m2":"The Illumina MiSeq platform is employed for smaller-scale sequencing projects, providing accurate and reliable results with fast turnaround times.",
@@ -173,7 +173,7 @@
         }}
     },
     "OurServices":{
-        "service1":"Analyze DNA samples using next-generation sequencing technologies to uncover genetic information crucial for various research applications. \n \n DNA sequencing is a service that analyzes the provided DNA samples using a next-generation sequencer such as Novaseq X plus. The obtained fastq format sequence data can be used as sources for re-seq, genome assembly, etc. In addition, we have introduced Element Biosciences&apos; new NGS platform, AVITI (this service is scheduled to start in the fall, 2024). If you choose this service, you will be able to achieve higher precision, lower cost, and shorter delivery times than conventional service plans.",
+        "service1":"Analyze DNA samples using next-generation sequencing technologies to uncover genetic information crucial for various research applications. \n \n DNA sequencing is a service that analyzes the provided DNA samples using a next-generation sequencer such as Novaseq X plus. The obtained fastq format sequence data can be used as sources for re-seq, genome assembly, etc. In addition, we have introduced Element Biosciences' new NGS platform, AVITI (this service is scheduled to start in the fall, 2024). If you choose this service, you will be able to achieve higher precision, lower cost, and shorter delivery times than conventional service plans.",
         "service2":"Comprehensive analysis of transcriptomes to study gene expression patterns, identify regulatory elements, and elucidate biological pathways. \n \n This is a service that comprehensively obtains transcript information by analyzing cDNA fragmented into short read lengths using a next-generation sequencer (RNA-seq). The obtained fastq format sequence data can be used as a source for quantifying gene expression levels, etc",
         "service3":"Targeted sequencing of specific DNA regions (e.g., microbial barcode regions) for metagenomic analysis, environmental DNA analysis, and more. \n \n This service amplifies barcode regions such as the 16S rRNA gene of microbes by PCR and analyzes them using a next-generation sequencer. This makes it possible to evaluate the types and composition of biological species contained in samples and the environment (so-called metagenomic analysis and environmental DNA analysis).",
         "tableHead1":"Read Length",
@@ -240,7 +240,7 @@
         "shippingCost":"Shipping Costs",
         "shippingCostDes":"Shipping charges are prepaid by the customer (payment upon shipping) and may vary depending on the shipping method and destination.",
         "contactInfo":"Contact Information",
-        "contactInfoDes":"Customers are encouraged to contact Setolabo&apos;s customer support team for any questions or concerns related to sample shipping."
+        "contactInfoDes":"Customers are encouraged to contact Setolabo's customer support team for any questions or concerns related to sample shipping."
     },
     "OrderFlow":{
         "step1":"Registration",
@@ -292,7 +292,7 @@
         },
         "section5":{
             "title":"Disclosure of Personal Information",
-            "description":"We will respond to the following requests regarding the personal information we handle. <br></br> <br></br> In addition, if the individual whose personal data is being used requests disclosure of records of provision of his/her personal data to third parties, we will respond to such request without delay. <br></br> (1) Notification of purpose of use <br></br> (2) Disclosure (including disclosure of records provided to third parties) <br></br> (3) Correction, addition, or deletion <br></br> (4) Suspension of use, deletion, or cessation of provision to third parties <br></br> The above (1) through (4) will be handled in accordance with the following procedures. <br></br> However, with respect to disclosure, “personal information entrusted by business partners” is excluded. <br></br> <br></br> 1. Contact for requests for disclosure and for complaints <br></br> Address stated 20 Collyer Quay #23-01 Singapore 049319 <br></br> Medbank Personal Information Protection Manager <br></br> <br></br> 2. Form of documents to be submitted upon request for Disclosure and other methods of requesting Disclosure. <br></br> There are no particular requirements regarding the form of documents to be submitted or the method of requesting disclosure. <br></br> However, in the case of an application by a representative, the application must be made in writing in order to confirm the authority of the representative. <br></br> <br></br> 3. Method of confirming that the person making the request for disclosure is the principal or representative. <br></br> Verified by one of the following methods <br></br> (1) The applicant must send us by mail or bring and present a document (such as a copy of his/her driver&apos;s license) that proves that he/she is the person in question. <br></br> (2) We will verify your personal information (telephone number, etc.) that we have in our possession by comparing it with the personal information that we confirmed when we received your inquiry. If a representative is applying on your behalf, please submit a document evidencing your authority of representation. <br></br> <br></br> 4. Method of collecting fees <br></br> A fee of 11,000 yen including tax will be collected per personal information disclosure request."
+            "description":"We will respond to the following requests regarding the personal information we handle. <br></br> <br></br> In addition, if the individual whose personal data is being used requests disclosure of records of provision of his/her personal data to third parties, we will respond to such request without delay. <br></br> (1) Notification of purpose of use <br></br> (2) Disclosure (including disclosure of records provided to third parties) <br></br> (3) Correction, addition, or deletion <br></br> (4) Suspension of use, deletion, or cessation of provision to third parties <br></br> The above (1) through (4) will be handled in accordance with the following procedures. <br></br> However, with respect to disclosure, “personal information entrusted by business partners” is excluded. <br></br> <br></br> 1. Contact for requests for disclosure and for complaints <br></br> Address stated 20 Collyer Quay #23-01 Singapore 049319 <br></br> Medbank Personal Information Protection Manager <br></br> <br></br> 2. Form of documents to be submitted upon request for Disclosure and other methods of requesting Disclosure. <br></br> There are no particular requirements regarding the form of documents to be submitted or the method of requesting disclosure. <br></br> However, in the case of an application by a representative, the application must be made in writing in order to confirm the authority of the representative. <br></br> <br></br> 3. Method of confirming that the person making the request for disclosure is the principal or representative. <br></br> Verified by one of the following methods <br></br> (1) The applicant must send us by mail or bring and present a document (such as a copy of his/her driver's license) that proves that he/she is the person in question. <br></br> (2) We will verify your personal information (telephone number, etc.) that we have in our possession by comparing it with the personal information that we confirmed when we received your inquiry. If a representative is applying on your behalf, please submit a document evidencing your authority of representation. <br></br> <br></br> 4. Method of collecting fees <br></br> A fee of 11,000 yen including tax will be collected per personal information disclosure request."
         },
         "section6":{
             "title":"Voluntary nature of providing personal information",
@@ -308,7 +308,7 @@
         "content":" Customers using the website (https://medbank.sg/) provided by Medbank (hereinafter referred to as “we” or “us”) are requested to fully read the following.",
         "section1":{
             "title":"・Disclaimer",
-            "content":"Although we take the utmost care in posting information on Medbank&apos;s website, Medbank does not guarantee the accuracy or completeness of this information.",
+            "content":"Although we take the utmost care in posting information on Medbank's website, Medbank does not guarantee the accuracy or completeness of this information.",
             "content1":" Medbank reserves the right to change the information on its website at any time without notice.",
             "content2":"Medbank and its affiliates shall not be liable for any direct or indirect loss incurred by you as a result of your use of the information or content contained in the Medbank website."
         },
@@ -356,7 +356,7 @@
     },
     "Privacy Policy":{
         "title":"Privacy Policy (Personal Information Protection Policy)",
-        "content":"Medbank Pte. Ltd. has established the following privacy policy with respect to your personal information. Medbank Pte. Ltd. has determined the following privacy policy regarding the handling of customers&apos; personal information in the services we provide.",
+        "content":"Medbank Pte. Ltd. has established the following privacy policy with respect to your personal information. Medbank Pte. Ltd. has determined the following privacy policy regarding the handling of customers' personal information in the services we provide.",
          
         "section1":{
             "title":"The Service Provider",
@@ -399,7 +399,7 @@
 
         "section7":{
             "title":"About Cookies",
-            "content":"  Some pages on this site use cookies. Cookies are a function that sends data from a web server to a visitor&apos;s browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings."
+            "content":"  Some pages on this site use cookies. Cookies are a function that sends data from a web server to a visitor's browser and refers to the contents of that data, but they do not collect personal information about the visitor. The cookie function can be disabled through your browser settings."
           
 
         },
