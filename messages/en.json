@@ -270,5 +270,37 @@
         "des12":"After the original data and analysis specifications have been sent, an invoice will be available for download from Mypage. Please make a bank transfer after confirming the invoice.",
         "step13":"Sending of Receipt",
         "des13":"You will be able to download the receipt after confirming the transfer of funds. <br></br> Please note that it may take some time to confirm the transfer of funds."
+    },
+    "PersonalInformation":{
+        "header":"Handling of Personal Information",
+        "description":"Medbank Pte. Ltd. has established the following privacy policy with respect to your personal information. Medbank Pte. Ltd. has determined the following privacy policy regarding the handling of customers' personal information in the services we provide.",
+        "section1":{
+            "title":"The Service Provider",
+            "description":"Name: Medbank <br></br> Address: 20 Collyer Quay #23-01 Singapore 049319 <br></br> Representative: Yuki Okada <br></br>"
+        },
+        "section2":{
+            "title":"Purpose of use of personal information",
+            "description":"Medbank acquires personal information through legal and fair means and handles personal information for the following purposes of use. <br></br>1 To respond to and answer inquiries made by customers to the Company. <br></br>2 To contact and present quotations in response to quotations <br></br>3 For business communication and smooth response to inquiries after receiving analysis requests <br></br>4 For smooth execution of business operations, such as meetings, contracts, communication regarding business operations, and payment, etc., entrusted by the Company. <br></br>5 To determine and analyze DNA sequences <br></br>6 To send you information about new features, updates, campaigns, etc. of our services and other services provided by us. <br></br>7 To contact customers as necessary for maintenance, important notices, etc. <br></br>8 For purposes incidental to the above purposes of use. <br></br> <br></br>If a purpose of use arises that is outside the scope of the purposes of use, we will explainthe purpose of use to the person in question and obtain his/her consent before using theinformation. <br></br>However, this does not apply in the following cases <br></br>(1) When required by law <br></br>(2) When it is necessary for the protection of the life, body, or property of an individual and itis difficult to obtain the consent of the person in question. <br></br>(3) Cases in which the provision of personal information is particularly necessary forimproving public health or promoting the sound growth of children and in which it is difficultto obtain the consent of the person in question <br></br>(4) Cases in which the provision of personal information is necessary for cooperating with anational agency, a local government, or an individual or entity entrusted by either a nationalagency or local government to execute affairs prescribed by law, and in which obtaining yourconsent is likely to impede the execution of such affairs. <br></br>"
+        },
+        "section3":{
+            "title":"Joint Use of Personal Data",
+            "description":" We will share personal data with our business partner, Setolabo."
+        },
+        "section4":{
+            "title":"Provision of Personal Data to Third Parties",
+            "description":"We will not provide personal information to third parties without your consent, except as otherwise provided by law or guidelines."
+        },
+        "section5":{
+            "title":"Disclosure of Personal Information",
+            "description":"We will respond to the following requests regarding the personal information we handle. <br></br> <br></br> In addition, if the individual whose personal data is being used requests disclosure of records of provision of his/her personal data to third parties, we will respond to such request without delay. <br></br> (1) Notification of purpose of use <br></br> (2) Disclosure (including disclosure of records provided to third parties) <br></br> (3) Correction, addition, or deletion <br></br> (4) Suspension of use, deletion, or cessation of provision to third parties <br></br> The above (1) through (4) will be handled in accordance with the following procedures. <br></br> However, with respect to disclosure, “personal information entrusted by business partners” is excluded. <br></br> <br></br> 1. Contact for requests for disclosure and for complaints <br></br> Address stated 20 Collyer Quay #23-01 Singapore 049319 <br></br> Medbank Personal Information Protection Manager <br></br> <br></br> 2. Form of documents to be submitted upon request for Disclosure and other methods of requesting Disclosure. <br></br> There are no particular requirements regarding the form of documents to be submitted or the method of requesting disclosure. <br></br> However, in the case of an application by a representative, the application must be made in writing in order to confirm the authority of the representative. <br></br> <br></br> 3. Method of confirming that the person making the request for disclosure is the principal or representative. <br></br> Verified by one of the following methods <br></br> (1) The applicant must send us by mail or bring and present a document (such as a copy of his/her driver&apos;s license) that proves that he/she is the person in question. <br></br> (2) We will verify your personal information (telephone number, etc.) that we have in our possession by comparing it with the personal information that we confirmed when we received your inquiry. If a representative is applying on your behalf, please submit a document evidencing your authority of representation. <br></br> <br></br> 4. Method of collecting fees <br></br> A fee of 11,000 yen including tax will be collected per personal information disclosure request."
+        },
+        "section6":{
+            "title":"Voluntary nature of providing personal information",
+            "description":"Whether or not you provide us with your personal information is at your discretion. However, if you do not provide us with the required items, we may not be able to provide you with our various services (e.g., request for quotation or analysis) or respond to your inquiries in an appropriate manner."
+        },
+        "section7":{
+            "title":"Acquisition of personally identifiable information by methods that are not easily recognizable by the person in question",
+            "description":"Cookies and cell phone identification numbers (solid identification numbers) are used to make it more convenient for you to browse our site when you visit it again, and do not infringe on your privacy or have any adverse effect on your computer. <br></br> <br></br> The Company' website uses an SSL (Secure Sockets Layer) data encryption system in areas where personal information is input, and other measures are taken to ensure security."
+        }
     }
 }
