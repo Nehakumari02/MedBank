@@ -23,21 +23,21 @@ export default function AboutPage() {
 
             <h2 className="w-full lg:w-[110px] leading-6 font-DM-Sans text-[14px] md:text-[18px] font-medium">About Us</h2>
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              {t("heroTitle")}
+            {t("heroTitle")}
             </div>
           </div>
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]  leading-[20px] md:leading-[34px]">
-            &quot;At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields.&quot&quot;
+          {t("description")}
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px] pt-[24px]'>
           {t("principles.title")}
           </span>
           <div>
             <ol className='font-DM-Sans font-medium text-[12px] md:text-[18px] lg:text-[24px] leading-8 '>
-              <li>1. {t("principles.p1")} <span className='font-normal' >{t("principles.d1")}</span></li>
+              <li>1. {t("principles.p1")} <span className='font-normal'>{t("principles.d1")}</span></li>
               <li>2. {t("principles.p2")} <span className='font-normal'>{t("principles.d2")}</span></li>
-              <li>3. {t("principles.p3")} <span className='font-normal'> {t("principles.d3")}</span></li>
-              <li>4. {t("principles.p4")} <span className='font-normal'> {t("principles.d4")}</span></li>
+              <li>3. {t("principles.p3")} <span className='font-normal'>{t("principles.d3")}</span></li>
+              <li>4. {t("principles.p4")} <span className='font-normal'>{t("principles.d4")}</span></li>
               <li>5. {t("principles.p5")} <span className='font-normal'>{t("principles.d5")}</span></li>
             </ol>
           </div>
@@ -60,11 +60,11 @@ export default function AboutPage() {
          
 
             <div className="w-full lg:w-[864px] text-[16px] md:text-[28px] lg:text-[32px] font-bold leading-8 lg:leading-10">
-              {t("goal")}
+            {t("goal")}
             </div>
           
           <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]">
-            {t("goalDescription")}
+          {t("goalDescription")}
           </div>
 
         </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
             <div className='px-[31px] md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[6px] md:gap-[24px]'>
               <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">Inspection And Analysis</span>
               <span className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-                {t("analysisDescription")}
+              {t("analysisDescription")}
               </span>
 
             </div>
@@ -160,7 +160,7 @@ export default function AboutPage() {
               Our Machines
             </div>
             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pt-[6px] md:pt-[24px]'>
-              {t("machineDescription")}
+            {t("machineDescription")}
             </div>
           </div>
 
@@ -172,7 +172,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              {t("m1")}
+            {t("m1")}
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              {t("m2")}
+            {t("m2")}
             </div>
           </div>
 
@@ -196,7 +196,7 @@ export default function AboutPage() {
               />
             </div>
             <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-              {t("m3")}
+            {t("m3")}
             </div>
           </div>
         </div>
