@@ -5,8 +5,10 @@ import SampleShipping2 from '../../../../public/Images/Home/SampleShipping2.png'
 import SampleShipping3 from '../../../../public/Images/Home/SampleShipping3.png'
 import Image from 'next/image'
 import SnackBar from '@/components/SnackBar'
+import { useTranslations } from 'next-intl'
 
-const page = () => {
+const SampleShipping = () => {
+    const t = useTranslations("SampleShipping");
     return (
         <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center '>
             <div className='w-full max-w-[1056px] flex flex-col items-start gap:[32px] md:gap-[100px] '>
@@ -19,16 +21,18 @@ const page = () => {
                             step 1
                         </div>
                         <div className='font-DM-Sans font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            Sample Preparation
+                            {t("step1.title")}
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px] '>
-                            <HomePageSectionHeader2 title={"1"} subTitle={"Sample Tubes"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"1"} subTitle={t("step1.subStep1")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Customers are instructed to place their <span className='font-medium'>pre-adjusted DNA/RNA/PCR</span> samples in individual tubes. <br />
-                            For larger sample quantities (approximately 16 samples or more), 8-strip tubes or similar containers are recommended.
+                            {t.rich('step1.description1', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
@@ -37,20 +41,26 @@ const page = () => {
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                            <HomePageSectionHeader2 title={"2"} subTitle={"Labeling"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"2"} subTitle={t("step1.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Each sample tube should be <span className='font-medium'>clearly labeled</span> with the sample name using a permanent marker directly on the tube&apos;s surface.
-                            If the tube has a detachable cap, the label should be placed on both the cap and the tube side to ensure proper identification.
+                        {t.rich('step1.description2', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px] '>
-                            <HomePageSectionHeader2 title={"3"} subTitle={"Secure Closure"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"3"} subTitle={t("step1.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Customers are reminded to securely close the tube caps to prevent sample leakage or contamination during transportation.
+                            
+                            {t.rich('step1.description3', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
                     <br />
@@ -65,34 +75,42 @@ const page = () => {
                             step 2
                         </div>
                         <div className='font-DM-Sans font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            Tube Packaging
+                        {t("step2.title")}
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] md:pb-[6px] text-[18px] md:text-[28px] '>
-                            <HomePageSectionHeader2 title={"1"} subTitle={"Method 1 : Tube Box or Container"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"1"} subTitle={t("step2.subStep1")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Samples should be placed in a tube box or similar container to prevent spillage. The box should be securely taped or sealed to prevent the lid from coming off during transit.
+                        {t.rich('step2.description1', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] md:pb-[6px] text-[18px] md:text-[28px]'>
-                            <HomePageSectionHeader2 title={"2"} subTitle={"Method 2 : Falcon Tubes or Similar"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"2"} subTitle={t("step2.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            If using Falcon tubes, customers should insert cushioning material or paper to secure the tubes and prevent movement.
-                            Tubes should be adequately secured to prevent damage during shipping.
+                        {t.rich('step2.description2', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                            <HomePageSectionHeader2 title={"3"} subTitle={"Freezing Samples"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"3"} subTitle={t("step2.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            If samples require freezing, customers are advised to freeze the tubes vertically to prevent accidental cap opening.
+                        {t.rich('step2.description3', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
                     <br />
@@ -108,34 +126,54 @@ const page = () => {
                             step 3
                         </div>
                         <div className='font-DM-Sans font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            Packaging
+                        {t("step3.title")}
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                            <HomePageSectionHeader2 title={"1"} subTitle={"Recommended Conditions"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"1"} subTitle={t("step3.subStep1")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Customers should use a shipping box with cushioning material (e.g., Styrofoam cooler box) and include ice packs for temperature-sensitive samples.
-                            The packaged tubes should be wrapped in additional cushioning material to prevent movement and maintain temperature control.
+                        {t.rich('step3.description1.subDes1', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })} 
+                        {t.rich('step3.description1.subDes2', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
+                        {t.rich('step3.description1.subDes3', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
+                        {t.rich('step3.description1.subDes4', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px] '>
-                            <HomePageSectionHeader2 title={"2"} subTitle={"Request Sheet"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"2"} subTitle={t("step3.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            Customers are instructed to print and include a request sheet with the packaged samples, specifying the expected arrival date declared at the time of ordering.
+                        {t.rich('step3.description2', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
 
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
                         <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px] '>
-                            <HomePageSectionHeader2 title={"3"} subTitle={"Scaling"}></HomePageSectionHeader2>
+                            <HomePageSectionHeader2 title={"3"} subTitle={t("step3.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px]'>
-                            The shipping box should be securely sealed with tape or similar material to prevent tampering and ensure sample integrity during transit.
+                        {t.rich('step3.description3', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                         </div>
                     </div>
                     <br />
@@ -150,36 +188,38 @@ const page = () => {
                     <div className='w-full px-4 md:px-6 lg:px-8 flex flex-col gap-[12px] md:gap-[30px] lg:gap-[100px] pt-[20px] md:pt-30px] '>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                                Shipping Address
+                            {t("shippingAddr")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px]  leading-[34px] '>
-                                Medbank Osaka Labo <br />
-                                shoji, Ikuno-ku, Osaka-shi, Osaka 544-0002, Japan
+                            {t.rich('addr', {
+                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                            br: () => <br/>
+                            })}
                             </div>
                         </div>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                                Transportation Temperature Range
+                            {t("tempRange")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] '>
-                                Customers are reminded to ship samples under refrigerated or frozen conditions
+                            {t("tempRangeDes")}
                             </div>
                         </div>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                                Shipping Costs
+                            {t("shippingCost")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] '>
-                                Shipping charges are prepaid by the customer (payment upon shipping) and may vary depending on the shipping method and destination.
+                            {t("shippingCostDes")}
                             </div>
                         </div>
 
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                                Contact Information
+                            {t("contactInfo")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] '>
-                                Customers are encouraged to contact Setolabo&apos;s customer support team for any questions or concerns related to sample shipping.
+                            {t("contactInfoDes")}
                             </div>
                         </div>
                     </div>
@@ -189,7 +229,7 @@ const page = () => {
     )
 }
 
-export default page
+export default SampleShipping
 
 
 

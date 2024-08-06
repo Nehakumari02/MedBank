@@ -39,10 +39,10 @@ const Footer = () => {
 
 
                         <Link className='' href={`/${language}/about`}>{t("aboutUs")}</Link>
-                        <Link className='' href={`/${language}/strength`}>{t("service")}</Link>
-                        <Link className='' href={`/${language}/Services`}>{t("sampleShipping")}</Link>
-                        <Link className='' href={`/${language}/Orderflow`}>{t("strength")}</Link>
-                        <Link className='' href={`/${language}/SampleShipping`}>{t("orderFlow")}</Link>
+                        <Link className='' href={`/${language}/Services`}>{t("service")}</Link>
+                        <Link className='' href={`/${language}/SampleShipping`}>{t("sampleShipping")}</Link>
+                        <Link className='' href={`/${language}/strength`}>{t("strength")}</Link>
+                        <Link className='' href={`/${language}/Orderflow`}>{t("orderFlow")}</Link>
                     </div>
                     <div className='w-[45%] flex flex-col items-start justify-start gap-[6px] md:gap-[14px]'>
                         <Link className='' href={`/${language}/PrivacyPolicy`}>{t("privacyPolicy")}</Link>
