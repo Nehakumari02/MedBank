@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import HomePageSectionHeader from "./HomePageSectionHeader";
 import contactUsBg from "../public/Images/Home/contactUsBg.png";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const ContactUs = () => {
+  const t = useTranslations("HomePage.ContactUs")
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
@@ -50,10 +52,7 @@ const ContactUs = () => {
               REACH OUT TO US
             </span>
             <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-              Connect with Medbank&apos;s team for inquiries, support, and
-              collaboration opportunities. We&apos;re here to assist you with your
-              genetic analysis needs and provide personalized guidance every
-              step of the way.
+              {t("description")}
             </p>
           </div>
           <Image src={contactUsBg} alt="bgImage" className="z-10 h-[423px] md:hidden rounded-2xl mt-[90px] px-[5px]" />
@@ -71,7 +70,7 @@ const ContactUs = () => {
                 htmlFor="name"
                 className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
-                Full Name
+                {t("name")}
               </label>
             </div>
             <div className="relative z-0">
@@ -87,7 +86,7 @@ const ContactUs = () => {
                 htmlFor="phoneNumber"
                 className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
-                Phone Number
+                {t("number")}
               </label>
             </div>
             <div className="relative z-0">
@@ -103,7 +102,7 @@ const ContactUs = () => {
                 htmlFor="email"
                 className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
-                Email Address
+                {t("email")}
               </label>
             </div>
             <div className="relative z-0">
@@ -119,7 +118,7 @@ const ContactUs = () => {
                 htmlFor="confirmEmail"
                 className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
-                Confirm Email Address
+                {t("confirmEmail")}
               </label>
             </div>
             <div className="relative z-0">
@@ -135,7 +134,7 @@ const ContactUs = () => {
                 htmlFor="inquiryDetails"
                 className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
-                Inquiry Details
+                {t("query")}
               </label>
             </div>
             <div>
@@ -148,16 +147,12 @@ const ContactUs = () => {
                   required
                 />
                 <span className="ml-2 font-DM-Sans font-normal text-[8px] md:text-[13px] leading-[20px]">
-                  By clicking checkbox, I authorize Medbank to call me and send
-                  text messages and emails to me about Medbank and services at
-                  the phone number or email address I entered above. You can opt
-                  out anytime. You also agree to our Terms of Service. Privacy
-                  Policy.
+                  {t("confirmation")}
                 </span>
               </label>
             </div>
             <button onClick={()=>handleSubmit()} className="h-[28px] md:h-[55px] w-[100px] md:w-[170px] px-[10px] font-DM-Sans font-normal text-[8px] md:text-[14px] leading-[21px] flex items-center justify-center gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C]">
-              {DmIcon} Get Guide
+              {DmIcon} {t("getGuide")}
             </button>
           </div>
         </div>
