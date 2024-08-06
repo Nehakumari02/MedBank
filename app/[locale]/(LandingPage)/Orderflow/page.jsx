@@ -16,8 +16,10 @@ import Orderflow1 from '../../../../public/Images/Home/Orderflow1.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import SnackBar from '../../../../components/SnackBar'
+import { useTranslations } from 'next-intl'
 
-const page = () => {
+const OrderFlow = () => {
+    const t = useTranslations("OrderFlow");
     return (
         <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center'>
             <div className='max-w-[1056px] w-full flex flex-col items-start'>
@@ -32,12 +34,14 @@ const page = () => {
                         <SnackBar text={"Order Flow"}/>
                     </div>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"1"} subTitle={"Registration"} />
+                        <HomePageSectionHeader2 title={"1"} subTitle={t('step1')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Please register as a member when you decide to place an order. <br />
-                        You can view your order history on My Page.
-                        <Link href="/Signup" className="h-[40px] w-[117px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</Link>
+                    {t.rich('des1', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
+                        <Link href="/Signup" className="h-[40px] w-[117px] rounded-[6px] flex items-center justify-center gradient-primary text-white">{t("button")}</Link>
                     </div>
                     <br />
                     <div className='pt-[40px]'>
@@ -47,11 +51,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"2"} subTitle={"Enter your information in My Page"} />
+                        <HomePageSectionHeader2 title={"2"} subTitle={t('step2')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Please click the “Setup” button on “My page” and enter detailed information about your
-                        research institute.
+                    {t.rich('des2', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div>
@@ -61,11 +67,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"3"} subTitle={"Create a new order page"} />
+                        <HomePageSectionHeader2 title={"3"} subTitle={t('step3')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Click the New Order button on My page to create a new order page and follow the steps to
-                        place an order.
+                    {t.rich('des3', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className='pt-[40px]'>
@@ -75,10 +83,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"4"} subTitle={"Create a request sheet"} />
+                        <HomePageSectionHeader2 title={"4"} subTitle={t('step4')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Download the request sheet from the New Order page, create and upload the request sheet.
+                    {t.rich('des4', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -88,11 +99,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"5"} subTitle={"Confirmation of Quotation"} />
+                        <HomePageSectionHeader2 title={"5"} subTitle={t('step5')}/>
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Once the request sheet has been received without any problems, you will receive a
-                        quotation. Please check the quotation.
+                    {t.rich('des5', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -102,12 +115,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"6"} subTitle={"Place a formal order"} />
+                        <HomePageSectionHeader2 title={"6"} subTitle={t('step6')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        After confirming the quotation, please place a formal order by clicking the “Place a formal
-                        order” button on the “New Order” page. After placing a formal order, the formal order will be
-                        automatically accepted by Medbank.
+                    {t.rich('des6', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -117,17 +131,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"7"} subTitle={"Sending samples"} />
+                        <HomePageSectionHeader2 title={"7"} subTitle={t('step7')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        When you are ready to send samples, please prepare samples and request sheets (our
-                        form) and send them to the address below. Please refer to the page of each analysis service
-                        you request for the required sample volume. For packing instructions, please refer to this page. <br /> <br />
-                        <Link href='' >Sending Samples</Link>
-                        <br /><br />
-                        Sample delivery address <br />
-                        Medbank Japan Laboratory <br />
-                        3-7-12 Shoji, Ikuno-ku, Osaka, 544-0002, Japan <br />
+                    {t.rich('des7', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -137,12 +147,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"8"} subTitle={"Quality Check"} />
+                        <HomePageSectionHeader2 title={"8"} subTitle={t('step8')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Medbank will perform a quality check. The results of the quality check will be sent to you via Mypage. <br />
-                        If there is no problem, please proceed to the next step. If there is a problem and you wish to <br />
-                        resend or dispose of the sample, please contact us via chat.
+                    {t.rich('des8', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -152,12 +163,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"9"} subTitle={"Library Adjustment"} />
+                        <HomePageSectionHeader2 title={"9"} subTitle={t('step9')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        Library adjustment will be performed by Medbank. <br />
-                        If there is no problem, please proceed to the next step. If there is a problem and you wish to <br />
-                        resend or dispose of the sample, please contact us via chat.
+                    {t.rich('des9', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -167,11 +179,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"10"} subTitle={"Inspection and Analysis"} />
+                        <HomePageSectionHeader2 title={"10"} subTitle={t('step10')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        After the quality check and library adjustment are completed, Medbank will perform the
-                        analysis. Mypage will be notified of the start and end of the analysis.
+                    {t.rich('des10', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -181,12 +195,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"11"} subTitle={"Sending of original data and analysis specifications"} />
+                        <HomePageSectionHeader2 title={"11"} subTitle={t('step11')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        After the analysis is completed, the original data and analysis specifications will be available
-                        for download from Mypage. <br />
-                        The original data will be shared in the cloud and will be stored for 3 months.
+                    {t.rich('des11', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -196,12 +211,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"12"} subTitle={"Sending of invoice"} />
+                        <HomePageSectionHeader2 title={"12"} subTitle={t('step12')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        After the original data and analysis specifications have been sent, an invoice will be
-                        available for download from Mypage. Please make a bank transfer after confirming the
-                        invoice.
+                    {t.rich('des12', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -211,11 +227,13 @@ const page = () => {
 
                 <div className='text-[#333333] pt-[40px]'>
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
-                        <HomePageSectionHeader2 title={"13"} subTitle={"Sending of Receipt"} />
+                        <HomePageSectionHeader2 title={"13"} subTitle={t('step13')} />
                     </div>
                     <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
-                        You will be able to download the receipt after confirming the transfer of funds. <br />
-                        Please note that it may take some time to confirm the transfer of funds.
+                    {t.rich('des13', {
+                            Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
+                            br: () => <br/>
+                            })}
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
@@ -227,4 +245,4 @@ const page = () => {
     )
 }
 
-export default page
+export default OrderFlow
