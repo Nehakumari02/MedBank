@@ -52,7 +52,7 @@ const Header = () => {
           <Link href={`/${language}/strength`} className={`${path==="strength"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("strength")}</Link>
         </li>
         <li>
-          <Link href={'#contactus'} className={`${path==="contact"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("contact")}</Link>
+          <Link href={`/${language}#contactus`} className={`${path==="contact"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("contact")}</Link>
         </li>
       </ul>
     </nav>
@@ -98,7 +98,7 @@ const Header = () => {
               <Link onClick={() => setMenu(false)} href={`/${language}/strength`} className={`${path === "strength" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("strength")}</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href={`/${language}/contact`} className={`${path === "contact" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("contact")}</Link>
+              <Link onClick={() => setMenu(false)} href={`/${language}#contactus`} className={`${path === "contact" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("contact")}</Link>
             </li>
             {/* <li>
               <Link onClick={() => setMenu(false)} href={`/${language}/Signup`} className={`${path === "signup" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign Up</Link>
