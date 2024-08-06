@@ -26,8 +26,8 @@ export default function AboutPage() {
               {t("heroTitle")}
             </div>
           </div>
-          <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]  leading-[20px]">
-          {t("description")}
+          <div className="font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px]  leading-[20px] md:leading-[34px]">
+            &quot;At Medbank, our philosophy is centered around delivering accurate, reliable, and innovative genetic analysis solutions to researchers worldwide. We are dedicated to advancing scientific knowledge and empowering our clients with valuable insights to drive discoveries and advancements in various fields.&quot&quot;
           </div>
           <span className='font-DM-Sans font-medium text-[16px] md:text-[28px] pt-[24px]'>
           {t("principles.title")}

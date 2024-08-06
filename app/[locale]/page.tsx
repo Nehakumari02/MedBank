@@ -1,3 +1,4 @@
+'use client'
 import Offerings from '../../components/Offerings'
 import PriceTable from '../../components/PriceTable'
 import Process from '../../components/Process'
@@ -10,9 +11,11 @@ import Image from 'next/image'
 import HeroImage from '../../public/Images/Home/heroImage1.png'
 import AboutUsImage from '../../public/Images/Home/aboutUsHome.png'
 import { useTranslations } from 'next-intl'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
+  const language = usePathname().split("/")[1];
   return (
     <div className="font-DM-Sans">
       <section className="flex items-center justify-center w-full h-[235px] md:h-[523px] lg:h-[651px]">
@@ -27,7 +30,9 @@ export default function HomePage() {
               {t("HeroSection1.title3")}
               <p className="font-normal text-[12px] md:text-[28px] leading-[22px] md:leading-[42px]">{t("HeroSection1.description1")} <br /> {t("HeroSection1.description2")}</p>
             </div>
+            <a href={`/${language}/Services`}>
             <button className="h-[28px] w-[121px] md:h-[40px] md:w-[237px] py-[8px] pl-[6px] pr-[6px] lg:py-[10px] lg:pl-[16px] lg:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C] text-[8px]  leading-[20px] font-normal md:text-[16px] ">{DmIcon} {DmIconSmall} {t("HeroSection1.contactUs")} </button>
+          </a>
           </div>
         </div>
       </section>
@@ -43,7 +48,9 @@ export default function HomePage() {
             <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
               {t("AboutUs.description")}
             </p>
+            <a href={`/${language}/about`}>
             <button className="hidden md:flex items-center justify-center gap-[12px] border-none font-sans font-bold text-[18px] leading-[42px] gradient-primary bg-clip-text text-transparent">Read More {ArrowRightSmallIcon}</button>
+          </a>
           </div>
           </div>
         </div>
