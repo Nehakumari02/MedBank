@@ -180,7 +180,7 @@ export default function SignupPage() {
           />
           <button type="submit">Register</button>
           <p className="terms">
-            By signing up, I accept all of Medbank&apos;s terms and conditions,
+            By signing up, I accept all of Medbank's terms and conditions,
             <Link href="/Personal-Information"> Personal Information</Link>,
             <Link href="/CancellationPolicy"> Cancellation Policy</Link>,
             <Link href="/SitePolicy"> Site Policy</Link>, and acknowledge their
