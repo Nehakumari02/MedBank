@@ -3,7 +3,7 @@ import PriceTable from '@/components/PriceTable'
 import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
 
-const page = () => {
+const Services = () => {
   const t = useTranslations("OurServices");
   return (
     <>
@@ -87,4 +87,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Services
