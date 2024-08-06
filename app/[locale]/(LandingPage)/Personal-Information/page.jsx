@@ -1,6 +1,7 @@
 import React from 'react'
 import HomePageSectionHeader2 from '../../../../components/HomePageSectionHeader2'
 import SnackBar from '@/components/SnackBar'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 const PersonalInformation= () => {

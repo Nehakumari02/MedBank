@@ -3,7 +3,7 @@ import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
 
 
-const page = () => {
+const SitePolicy = () => {
     const t = useTranslations("Site Policy");
 
     return (
@@ -76,5 +76,5 @@ const page = () => {
     )
 }
 
-export default page
+export default SitePolicy
 
