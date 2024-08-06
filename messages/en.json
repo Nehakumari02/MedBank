@@ -7,5 +7,97 @@
         "strength":"Strength",
         "contact":"Contact",
         "temp":""
+    },
+    "Footer":{
+        "aboutUs":"About Us",
+        "service":"Services",
+        "sampleShipping":"Sample Shipping",
+        "strength":"Strength",
+        "orderFlow":"Order Flow",
+        "privacyPolicy":"Privacy Policy",
+        "personalInfo":"Handling of Personal Information",
+        "cancellationPolicy":"Cancellation Policy",
+        "sitePolicy":"Site Policy"
+    },
+    "HomePage":{
+        "HeroSection1":{
+            "title1":"Unlock the Power of Next-",
+            "title2":"Generation Sequencing",
+            "title3":"with Medbank",
+            "description1":"Gain deeper insights into genes, RNA, and",
+            "description2":"genomes for breakthrough discoveries",
+            "contactUs":"Discover Our Services"
+        },
+        "AboutUs":{
+            "description":"Welcome to Medbank, your trusted partner in genetic analysis. Learn more about our company’s mission, values, and commitment to excellence."
+        },
+        "OurStrength":{
+            "description":"At Medbank, we take pride in our strengths and capabilities that set us apart as a leader in genetic analysis. Discover how our expertise and specialized services can benefit your research projects.",
+            "expertise1":"Comprehensive Next Generation Sequencing Processes",
+            "expertise2":"Specialized Environment for DNA/RNA Analysis",
+            "expertise3":"Customer-Centric Approach to Analysis Results",
+            "expertise4":"Automation of Processes",
+            "expertise5":"State-of-the-Art NGS Platform"
+        },
+        "OurServices":{
+            "description":"\"At Medbank, we offer a comprehensive range of genetic analysis services tailored to meet your research needs. Our state-of-the-art laboratory facilities and experienced team ensure accurate and reliable results. Explore our service offerings below to discover how we can support your genetic analysis projects.\"",
+            "service1":"DNA Sequencing",
+            "service2":"RNA Sequencing",
+            "service3":"Amplicon Sequencing"
+        },
+        "PriceTable":{
+            "description":"\"Explore our reference prices to gain insight into the cost structure of our genetic analysis services. While actual prices may vary depending on specific project requirements, our reference prices provide an estimate of the costs involved.\"",
+            "table1":"Read Length",
+            "table2":"Plan",
+            "table3":"Data Volume",
+            "table4":"Reference Price",
+            "table5":"Delivery Time",
+            "data1":"DNA\n Sequencing",
+            "data2":"RNA\n Sequencing",
+            "data3":"Amplicon\n Sequencing",
+            "data4":"Human Genome\n Sequencing"
+        },
+        "Process":{
+            "description":"At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you&apos;re a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services.",
+            "process1":"1. Registration",
+            "process2":"2. Complete Profile on My Page",
+            "process3":"3. Create New Order",
+            "process4":"4. Create Request Sheet",
+            "process5":"5. Confirmation of Quotation",
+            "process6":"6. Place a Formal Order",
+            "process7":"7. Sending Samples",
+            "process8":"8. Quality Check",
+            "process9":"9. Library Adjustment",
+            "process10":"10. Inspection and Analysis",
+            "process11":"11. Sending of Original Data and Analysis",
+            "process12":"12. Sending of Invoice",
+            "process13":"13. Sending of Receipt"
+        },
+        "RecentAnnouncement":{
+            "description":"\"Stay updated with the latest announcements and news from Medbank. Explore our recent articles and media coverage to learn more about our company's activities, achievements, and advancements in genetic analysis.\"",
+            "service1":"徹底した次世代シーケンス解析管理",
+            "service2":"徹底した精度管理を実施",
+            "service3":"研究者の皆様に寄り添った対応"
+        },
+        "FAQ":{
+            "description":"\"Have questions about Medbank' genetic analysis services? Explore our frequently asked questions to find answers to common queries. If you can't find what you're looking for, feel free to reach out to our team for personalized assistance.\"",
+            "faq1":"Do I need to register to my page?",
+            "faq2":"How long does it take to deliver the products?",
+            "faq3":"How long do you keep samples and analysis results?",
+            "faq4":"What sequencer do you use?"
+        },
+        "ContactUs":{
+            "description":"Connect with Medbank's team for inquiries, support, and collaboration opportunities. We're here to assist you with your genetic analysis needs and provide personalized guidance every step of the way.",
+            "name":"Full Name",
+            "number":"Phone Number",
+            "email":"Email Address",
+            "confirmEmail":"Confirm Email Address",
+            "query":"Inquiry Details",
+            "confirmation":"By clicking checkbox, I authorize Medbank to call me and send text messages and emails to me about Medbank and services at the phone number or email address I entered above. You can opt out anytime. You also agree to our Terms of Service. Privacy Policy.",
+            "getGuide":"Get Guide"
+        },
+        "CreateAccount":{
+            "description":"Signup or Login to your account for sending samples and getting your sample sequenced."
+        }
     }
 }

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import HomePageSectionHeader from "./HomePageSectionHeader";
 import OfferingsImage from '../public/Images/Home/servicesImage.png'
+import { useTranslations } from "next-intl";
 
-const Offerings = () => (
+const Offerings = () => {
+  const t = useTranslations("HomePage.OurServices");
+  return(
     <section className="md:flex items-center justify-center w-full md:h-[672px]">
     <div className='md:w-[70%] h-full flex items-center justify-start text-[#333333]'>
       <div className='w-full md:pl-[42px] lg:pl-[62px] pr-[20px] flex flex-col gap-[6px] md:gap-[32px]'>
@@ -10,14 +13,14 @@ const Offerings = () => (
         <div className='px-[31px] md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[6px] md:gap-[24px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">OFFERINGS {ArrowRightIconSmall} {ArrowRightIcon}</span>
         <span className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-        &quot;At Medbank, we offer a comprehensive range of genetic analysis services tailored to meet your research needs. Our state-of-the-art laboratory facilities and experienced team ensure accurate and reliable results. Explore our service offerings below to discover how we can support your genetic analysis projects.&quot;
+          {t("description")}
         </span>
         <div className="py-[20px] md:py-[0px] w-full flex flex-wrap items-center justify-center md:justify-between gap-[10px] font-DM-Sans font-normal text-[12px] leading-[22px] md:text-[20px] md:leading-[42px] ">
-          <span className="flex items-center justify-center">DNA Sequencing</span>
+          <span className="flex items-center justify-center">{t("service1")}</span>
           <div className='h-[40px] md:h-[42px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-          <span className="flex items-center justify-center">RNA Sequencing</span>
+          <span className="flex items-center justify-center">{t("service2")}</span>
           <div className='hidden md:block h-[42px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-          <span className="w-full md:w-auto flex items-center justify-center">Amplicon Sequencing</span>
+          <span className="w-full md:w-auto flex items-center justify-center">{t("service3")}</span>
         </div>
       </div>
       </div>
@@ -26,7 +29,7 @@ const Offerings = () => (
         <Image src={OfferingsImage} alt='OfferingsImage' className='h-[188px] w-[307px] object-cover md:h-full md:w-full rounded-md md:rounded-none'></Image>
     </div>
   </section>
-  );
+  )};
 
   export default Offerings;
 

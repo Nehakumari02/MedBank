@@ -10,10 +10,11 @@ import CreateAccount from '../../components/CreateAccount'
 import Image from 'next/image'
 import HeroImage from '../../public/Images/Home/heroImage1.png'
 import AboutUsImage from '../../public/Images/Home/aboutUsHome.png'
+import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 
-
 export default function HomePage() {
+  const t = useTranslations("HomePage");
   const language = usePathname().split("/")[1];
   return (
     <div className="font-DM-Sans">
@@ -24,14 +25,13 @@ export default function HomePage() {
         <div className='px-[12px] w-[70%] md:px-[50px] lg:px-[110px] h-full flex items-center justify-start'>
           <div className=' w-full flex flex-col gap-[12px] md:gap-[32px]'>
             <div className='flex flex-col items-start gap-[14px] text-[#333333] font-serif font-normal text-[18px] md:text-[42px] lg:text-[57px] leading-[28px] md:leading-[80px] tracking-tracking-minus-0.25'>
-              Unlock the Power of Next- <br className='hidden lg:block' />
-              Generation Sequencing <br className='hidden lg:block' />
-              with Medbank
-              <p className="font-normal text-[12px] md:text-[28px] leading-[22px] md:leading-[42px]">Gain deeper insights into genes, RNA, and <br /> genomes for breakthrough discoveries</p>
+              {t("HeroSection1.title1")} <br className='hidden lg:block' />
+              {t("HeroSection1.title2")} <br className='hidden lg:block' />
+              {t("HeroSection1.title3")}
+              <p className="font-normal text-[12px] md:text-[28px] leading-[22px] md:leading-[42px]">{t("HeroSection1.description1")} <br /> {t("HeroSection1.description2")}</p>
             </div>
             <a href={`/${language}/Services`}>
-           
-            <button className="h-[28px] w-[121px] md:h-[40px] md:w-[237px] py-[8px] pl-[6px] pr-[6px] lg:py-[10px] lg:pl-[16px] lg:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C] text-[8px]  leading-[20px] font-normal md:text-[16px] ">{DmIcon} {DmIconSmall} Discover Our Services</button>
+            <button className="h-[28px] w-[121px] md:h-[40px] md:w-[237px] py-[8px] pl-[6px] pr-[6px] lg:py-[10px] lg:pl-[16px] lg:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C] text-[8px]  leading-[20px] font-normal md:text-[16px] ">{DmIcon} {DmIconSmall} {t("HeroSection1.contactUs")} </button>
           </a>
           </div>
         </div>
@@ -46,7 +46,7 @@ export default function HomePage() {
             <div className='px-[31px] md:px-[50px] lg:px-[110px]'>
             <span className="font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">MEDBANK</span>
             <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-              Welcome to Medbank, your trusted partner in genetic analysis. Learn more about our company’s mission, values, and commitment to excellence.
+              {t("AboutUs.description")}
             </p>
             <a href={`/${language}/about`}>
             <button className="hidden md:flex items-center justify-center gap-[12px] border-none font-sans font-bold text-[18px] leading-[42px] gradient-primary bg-clip-text text-transparent">Read More {ArrowRightSmallIcon}</button>
@@ -60,21 +60,21 @@ export default function HomePage() {
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">EXPERTIZE {ArrowRightIconSmall} {ArrowRightIcon}</span>
         <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
-          At Medbank, we take pride in our strengths and capabilities that set us apart as a leader in genetic analysis. Discover how our expertise and specialized services can benefit your research projects.
+          {t("OurStrength.description")}
         </p>
         <div className="flex flex-col gap-[10px] md:gap-[42px] items-center justify-center w-full font-DM-Sans font-normal text-[12px] leading-[22px] md:text-[16px] md:leading-[42px]">
           <div className="flex items-end justify-between w-full h-[100px] gap-[10px]">
-            <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>Comprehensive Next Generation Sequencing Processes</span>
+            <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise1")}</span>
             <div className='h-[50px] mb-[10px] md:mb-[0px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'> </div>
-            <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>Specialized Environment for DNA/RNA Analysis</span>
+            <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise2")}</span>
           </div>
           <div className="flex items-end justify-between w-full h-[100px] gap-[10px]">
-              <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>Customer-Centric Approach to Analysis Results</span>
+              <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise3")}</span>
               <div className='h-[50px] mb-[10px] md:mb-[0px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
-              <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>Automation of Processes</span>
+              <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise4")}</span>
             </div>
           <div className="flex items-center md:w-[552px] justify-center h-[100px]">
-              <span className="text-center h-[64px] w-full flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%] px-[20px]">State-of-the-Art NGS Platform</span>
+              <span className="text-center h-[64px] w-full flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%] px-[20px]">{t("OurStrength.expertise5")}</span>
             </div>
         </div>
 
