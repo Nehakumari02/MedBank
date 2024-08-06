@@ -2,7 +2,7 @@ import React from 'react'
 import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
 
-const page = () => {
+const CancellationPolicy = () => {
     const t = useTranslations("Cancellation Policy");
     return (
         <>
@@ -49,6 +49,6 @@ const page = () => {
     )
 }
 
-export default page
+export default CancellationPolicy
 
 
