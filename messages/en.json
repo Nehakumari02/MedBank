@@ -180,5 +180,25 @@
         "tableHead2":"Data Volume",
         "tableHead3":"Reference Price",
         "tableHead4":"Delivery Time"
+    },
+    "Cancellation Policy":{
+        "title":"Cancellation Policy",
+        "section1":{
+            "title":"About Cancellation",
+            "content":"Cancellation will be accepted if the cancellation request is received before the fee is incurred.",
+            "content1": "Cancellation requests made after the analysis has started will be charged up to the experiment that has progressed. Basically, the quality check of the sample and the quality check after library adjustment is the timing of the midway settlement.",
+            "content2":"  If the quality check of the sample and the library-adjusted sample does not provide the level of evaluation required for NGS analysis, and if there is no reaction from the client within 3 months of notification of the results, the request will be cancelled and the client will be billed for the costs up to the experiment that has already progressed.",
+            "content3":"If you request us to proceed with an experiment on a sample for which sufficient quality cannot be guaranteed by the sample quality check and library adjustment, we will charge you the costs up to the experiment that has already proceeded, regardless of the results."
+
+        },
+        "section2":{
+            "title":". Loss of samples",
+            "content":"If a sample is lost during transportation or due to unforeseen problems at the experimental site, we may ask you to resend the sample. Please note that we will not compensate for any loss of samples."
+        },
+        "section3":{
+            "title":"・Cancellation",
+            "content":"Please contact us via chat on mypage if you wish to cancel your order."
+        }
     }
+    
 }
