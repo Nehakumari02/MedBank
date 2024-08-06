@@ -24,8 +24,8 @@
   color: white;
   opacity: 35%;
   text-transform: uppercase;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #003E5C;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #003E5C26;
 }
 
 .dashed-gradient {

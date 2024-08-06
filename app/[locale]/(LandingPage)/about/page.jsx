@@ -73,9 +73,9 @@ export default function AboutPage() {
 
 
 
-      <div className="flex md:flex-row flex-col-reverse pt-[24px] md:pt-[100px]">
+      <div className="flex md:flex-row flex-col-reverse pt-[24px] gap-[24px] md:gap-0 md:pt-[100px]">
 
-        <div className="grid grid-cols-1  gap-6 mb-8 pr-[68px]  place-items-center">
+        <div className="px-[31px] md:px-0 grid grid-cols-1 gap-6 mb-8 md:pr-[68px]">
           <Image src={About3} alt="Lab Image" className="rounded " />
           <Image src={About4} alt="Building Image" className="rounded" />
         </div>

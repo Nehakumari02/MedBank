@@ -28,11 +28,11 @@ export default function HomePage() {
               {t("HeroSection1.title1")} <br className='hidden lg:block' />
               {t("HeroSection1.title2")} <br className='hidden lg:block' />
               {t("HeroSection1.title3")}
-              <p className="font-normal text-[12px] md:text-[28px] leading-[22px] md:leading-[42px]">{t("HeroSection1.description1")} <br /> {t("HeroSection1.description2")}</p>
+              <p className="font-normal text-[12px] md:text-[28px] leading-[22px] md:leading-[42px] p-0 m-0">{t("HeroSection1.description1")} <br /> {t("HeroSection1.description2")}</p>
             </div>
             <a href={`/${language}/Services`}>
-            <button className="h-[28px] w-[121px] md:h-[40px] md:w-[237px] py-[8px] pl-[6px] pr-[6px] lg:py-[10px] lg:pl-[16px] lg:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C] text-[8px]  leading-[20px] font-normal md:text-[16px] ">{DmIcon} {DmIconSmall} {t("HeroSection1.contactUs")} </button>
-          </a>
+              <button className="h-[28px] w-[121px] md:h-[40px] md:w-[237px] py-[8px] pl-[6px] pr-[6px] lg:py-[10px] lg:pl-[16px] lg:pr-[24px] flex items-center justify-center gap-[6px] md:gap-[8px] bg-[#FFAA00] rounded-full text-[#003E5C] text-[8px]  leading-[20px] font-normal md:text-[16px] ">{DmIcon} {DmIconSmall} {t("HeroSection1.contactUs")} </button>
+            </a>
           </div>
         </div>
       </section>
@@ -59,21 +59,21 @@ export default function HomePage() {
         <HomePageSectionHeader title={"Our Strength"} subTitle={"Our Strength"}/>
         <div className='px-[31px] md:pl-[50px] lg:pl-[90px] w-full flex flex-col items-start gap-[6px] md:gap-[32px]'>
         <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">EXPERTIZE {ArrowRightIconSmall} {ArrowRightIcon}</span>
-        <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
+        <p className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px] mb-0">
           {t("OurStrength.description")}
         </p>
         <div className="flex flex-col gap-[10px] md:gap-[42px] items-center justify-center w-full font-DM-Sans font-normal text-[12px] leading-[22px] md:text-[16px] md:leading-[42px]">
-          <div className="flex items-end justify-between w-full h-[100px] gap-[10px]">
+          <div className="flex items-end justify-between w-full h-[70px] md:h-[100px] gap-[10px]">
             <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise1")}</span>
             <div className='h-[50px] mb-[10px] md:mb-[0px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'> </div>
             <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise2")}</span>
           </div>
-          <div className="flex items-end justify-between w-full h-[100px] gap-[10px]">
+          <div className="flex items-end justify-between w-full h-[70px] md:h-[100px] gap-[10px]">
               <span className='text-center w-[50%] mr-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise3")}</span>
               <div className='h-[50px] mb-[10px] md:mb-[0px] md:h-[100px] border-l-[1px] border-[#717171] border-opacity-[50%]'></div>
               <span className='text-center w-[50%] ml-[4px] h-[64px] flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%]'>{t("OurStrength.expertise4")}</span>
             </div>
-          <div className="flex items-center md:w-[552px] justify-center h-[100px]">
+          <div className="flex items-center md:w-[552px] justify-center h-[70px] md:h-[100px]">
               <span className="text-center h-[64px] w-full flex items-center justify-center border-b-[1px] border-[#717171] border-opacity-[50%] px-[20px]">{t("OurStrength.expertise5")}</span>
             </div>
         </div>
