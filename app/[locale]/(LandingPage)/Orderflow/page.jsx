@@ -36,7 +36,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"1"} subTitle={t('step1')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des1', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -53,7 +53,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"2"} subTitle={t('step2')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des2', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -69,7 +69,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"3"} subTitle={t('step3')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des3', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -85,7 +85,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"4"} subTitle={t('step4')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des4', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -101,7 +101,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"5"} subTitle={t('step5')}/>
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des5', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -117,7 +117,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"6"} subTitle={t('step6')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des6', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -133,7 +133,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"7"} subTitle={t('step7')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des7', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -149,7 +149,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"8"} subTitle={t('step8')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des8', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -165,7 +165,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"9"} subTitle={t('step9')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des9', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -181,7 +181,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"10"} subTitle={t('step10')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des10', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -197,7 +197,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"11"} subTitle={t('step11')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des11', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -213,7 +213,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"12"} subTitle={t('step12')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des12', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
@@ -229,7 +229,7 @@ const OrderFlow = () => {
                     <div className='flex flex-col pb-[6px] text-[18px] md:text-[28px]'>
                         <HomePageSectionHeader2 title={"13"} subTitle={t('step13')} />
                     </div>
-                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[60px]'>
+                    <div className='max-w-[996.45px] w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] '>
                     {t.rich('des13', {
                             Link: (chunks) => <Link href="" className='text-[#3E8DA7] underline'>{chunks}</Link>,
                             br: () => <br/>
