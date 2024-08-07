@@ -450,5 +450,28 @@
 
         
 
+    },
+    "SignUp":{
+        "back":"戻る",
+        "title":"かんたん登録！",
+        "subTitle":"アカウントを作成しましょう",
+        "name":"氏名",
+        "email":"メールアドレス",
+        "password":"パスワード",
+        "confirmPassword":"パスワードの再確認",
+        "acknowledgement":"登録することにより、 <personalInfo>プライバシーポリシー</personalInfo>、<cancellationPolicy>個人情報の取り扱い</cancellationPolicy>、<sitePolicy>キャンセル ポリシー</sitePolicy>、<privacyPolicy>サイトポリシー</privacyPolicy>のすべてに同意します。",
+        "register":"登録",
+        "signUpText":"既にアカウントをお持ちの方はこちら  <Link> サインイン </Link>"
+    },
+    "SignIn":{
+        "back":"戻る",
+        "title":"おかえりなさい",
+        "subTitle":"ログインしてください。",
+        "email":"メールアドレス",
+        "password":"パスワード",
+        "acknowledgement":"登録することにより、 <personalInfo>プライバシーポリシー</personalInfo>、<cancellationPolicy>個人情報の取り扱い</cancellationPolicy>、<sitePolicy>キャンセル ポリシー</sitePolicy>、<privacyPolicy>サイトポリシー</privacyPolicy>のすべてに同意します。",
+        "login":"ログイン",
+        "signInText": "アカウントをお持ちではありませんか？ <Link> 登録 </Link>",
+        "forgotPassword": "パスワードをお忘れですか？"
     }
 }
