@@ -1,36 +1,79 @@
 "use client"
 
-import React, { useState } from 'react'
+import React from 'react'
 import Logo from '../../../public/Images/Home/logo.png'
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 const SignUp = () => {
-  const [language, setLanguage] = useState("EN");
+  const pathToRedirect = usePathname().split("/").slice(2).join("/");
+  const language = usePathname().split("/")[1];
+  const router = useRouter();
+  const t = useTranslations("SignUp");
+
+  const handleBackClick = () => {
+    router.back();
+  };
+
+  const updateLanguage = (newLanguage) => {
+    const newPath = `/${newLanguage}/${pathToRedirect}`;
+    router.push(newPath);
+  };
+
   return (
     <div className='h-screen w-full flex items-center justify-center'>
       <div className='max-w-[971px] w-full h-full max-h-[673px] flex flex-col justify-between gap-[24px] border-[1px] p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
         <div className='w-full pb-[10px] flex items-center justify-between border-b-[1px] border-opacity-25 border-[#333333]'>
-          <div className='flex items-start justify-center gap-[8px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> {backIcon} Back</div>
+          <div className='flex items-start justify-center gap-[8px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'> {backIcon} {t("back")}</button> </div>
           <div className='flex items-center justify-center gap-[10px] w-[67px]'>
-          <button onClick={() => setLanguage("JN")} >
-            <span className={`${language == "JN" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>JN</span>
+          <button onClick={() => updateLanguage("jn")} >
+            <span className={`${language == "jn" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>JN</span>
           </button>
           <div className='border-r-[2px] h-[20px] border-black'></div>
-          <button onClick={() => setLanguage("EN")} >
-            <span className={`${language == "EN" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
+          <button onClick={() => updateLanguage("en")} >
+            <span className={`${language == "en" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
         </div>
         <div className='w-full h-full flex justify-between'>
-          <div className='font-DM-Sans text-[#333333] flex flex-col items-start gap-[24px]'>
+          <div className='font-DM-Sans w-[309px] text-[#333333] flex flex-col items-start gap-[24px]'>
             <Image src={Logo} alt='Logo' className='h-[80px] w-[80px]'></Image>
             <div className='flex flex-col items-start gap-[8px]'>
-            <span className='font-bold text-[40px] leading-[40px]'>Get Started</span>
-            <span className='font-normal text-[18px] leading-[24px]'>Create an account to continue</span>
+            <span className='font-bold text-[40px] leading-[40px]'>{t("title")}</span>
+            <span className='font-normal text-[18px] leading-[24px]'>{t("subTitle")}</span>
             </div>
           </div>
-          <div>
-            <input type='text' className=' w-full border-[1px] outline-none px-[16px] py-[13px] font-DM-Sans font-normal text-[16px] leading-[24px] border-[#33333342] rounded-sm'></input>
+          <div className='flex items-end w-[527px]'>
+            <div>
+              {/* <input type='text' className=' w-full border-[1px] outline-none px-[16px] py-[13px] font-DM-Sans font-normal text-[16px] leading-[24px] border-[#33333342] rounded-sm'></input> */}
+              <form>
+                <label>{t('name')}</label>
+                <input type="text" name="name" />
+
+                <label>{t('email')}</label>
+                <input type="email" name="email" />
+                
+                <label>{t('password')}</label>
+                <input type="password" name="password" />
+                
+                <label>{t('confirmPassword')}</label>
+                <input type="password" name="confirmPassword" />
+                <p>
+                  {t.rich('acknowledgement', {
+                    personalInfo: (chunks) => <Link className='text-blue-300' href={`/${language}/Personal-Information`}>{chunks}</Link>,
+                    cancellationPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/CancellationPolicy`}>{chunks}</Link>,
+                    sitePolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/SitePolicy`}>{chunks}</Link>,
+                    privacyPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
+                  })}
+                </p>
+                <button type="submit">{t('register')}</button>
+              </form>
+              <p>{t.rich("signUpText",{
+              Link:(chunks)=><Link className='text-blue-300' href={`/${language}/LogInn`}>{chunks}</Link>
+            })}</p>
+            </div>
           </div>
         </div>
 
