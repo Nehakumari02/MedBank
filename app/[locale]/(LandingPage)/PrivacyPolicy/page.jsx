@@ -29,7 +29,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section1.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section1.content")} <br />
                     {t("section1.content1")} <br />
                     {t("section1.content2")} <br />
@@ -43,7 +43,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section2.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section2.content")} <br />
                     {t("section2.conten1")} <br />
                     {t("section2.content2")}
@@ -57,7 +57,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section3.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section3.content")}
                     </div>
                 </div>
@@ -69,7 +69,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section4.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section4.content")}
                     </div>
                 </div>
@@ -81,7 +81,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section5.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px] '>
                     {t("section5.content")}
                     </div>
                 </div>
@@ -93,7 +93,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section6.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section6.content")}
                     </div>
                 </div>
@@ -105,7 +105,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section7.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section7.content")}
                     </div>
                 </div>
@@ -117,7 +117,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section8.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section8.content")}
                     </div>
                 </div>
@@ -129,7 +129,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section9.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section9.content")}
                     </div>
                 </div>
@@ -141,7 +141,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section10.title")}
                         />
                     </div>
-                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section10.content")}
                     </div>
 
@@ -155,7 +155,7 @@ const PrivacyPolicyPage = () => {
                             subTitle={t("section11.title")}
                         />
                     </div>
-                    <div className='max-w-full font-sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]'>
+                    <div className='max-w-full font-sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px] pr-[25px]'>
                     {t("section11.content")}<br />
                     {t("section11.content1")} <br />
                     {t("section11.content2")} <br />
