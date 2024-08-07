@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Logo from '../../../public/Images/Home/logo.png'
 import Image from 'next/image';
 
-const page = () => {
+const SignUp = () => {
   const [language, setLanguage] = useState("EN");
   return (
     <div className='h-screen w-full flex items-center justify-center'>
@@ -39,7 +39,7 @@ const page = () => {
   )
 }
 
-export default page
+export default SignUp
 
 
 const backIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
