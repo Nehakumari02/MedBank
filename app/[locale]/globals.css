@@ -41,6 +41,32 @@
     transform: rotate(180deg);
 }
 
+
+/* input:focus{
+  border-image-source: linear-gradient(to bottom, #60B7CF 0%, #3E8DA7 60%, #003d5cac 100%);
+  border-width: 1px;
+  border-image-slice: 1;
+  border-radius: 15px;
+} */
+
+.gradient-border {
+  border-width: 1px;
+  border-style: solid;
+  border-image-source: linear-gradient(180deg, #60B7CF 10%, #3E8DA7 74.5%, rgba(0, 62, 92, 0.6) 100%);
+  border-image-slice: 1;
+}
+
+/* styles.css */
+/* .gradient-border {
+  border-width: 1px;
+  border-style: solid;
+  border-image-source: linear-gradient(180deg, #60B7CF 10%, #3E8DA7 74.5%, rgba(0, 62, 92, 0.6) 100%);
+  border-image-slice: 1;
+  border-radius: 8px; 
+} */
+
+
+
 /* //signup page design */
 
 .signup-page {
