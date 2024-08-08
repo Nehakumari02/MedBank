@@ -3,8 +3,8 @@ import FrameComponent3 from "../../../components/frame-component3";
 
 const Dashboard = () => {
   return (
-    <div className="w-full h-[1024px] relative bg-whitesmoke overflow-hidden flex flex-col items-start justify-start gap-[7448px] leading-[normal] tracking-[normal] mq450:gap-[1862px] mq1000:h-auto mq725:gap-[3724px]">
-      <main className="self-stretch flex flex-row items-start justify-start shrink-0 max-w-full mq1000:pl-5 mq1000:pr-5 mq1000:box-border">
+    <div className="w-full relative bg-whitesmoke overflow-hidden flex flex-col items-start justify-start  leading-[normal] tracking-[normal] ">
+      <main className="self-stretch flex flex-row items-start justify-start  max-w-full mq1000:pl-5 mq1000:pr-5 mq1000:box-border">
         <Customer />
         <section className="flex-1 flex flex-col items-start justify-start gap-[13px] max-w-[calc(100%_-_130px)] text-left text-xl text-darkslategray-100 font-dm-sans mq1000:max-w-full">
           <FrameComponent3 />

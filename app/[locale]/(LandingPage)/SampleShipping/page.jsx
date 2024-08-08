@@ -30,8 +30,8 @@ const SampleShipping = () => {
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
                             {t.rich('step1.description1', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -44,9 +44,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"2"} subTitle={t("step1.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step1.description2', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step1.description2', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -56,10 +56,10 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"3"} subTitle={t("step1.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                            
+
                             {t.rich('step1.description3', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -70,12 +70,12 @@ const SampleShipping = () => {
                 </div>
                 <div>
 
-                    <div className='text-[#333333]  px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px]'>
+                    <div className='text-[#333333]  px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px] pt-[15px]'>
                         <div className='w-50px font-DM-Sans font-medium text-[14px] md:text-[18px] leading-[24px] pb-[14px]'>
                             step 2
                         </div>
                         <div className='font-DM-Sans font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                        {t("step2.title")}
+                            {t("step2.title")}
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
@@ -83,9 +83,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"1"} subTitle={t("step2.subStep1")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step2.description1', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step2.description1', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -95,9 +95,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"2"} subTitle={t("step2.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step2.description2', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step2.description2', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -107,9 +107,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"3"} subTitle={t("step2.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step2.description3', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step2.description3', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -121,12 +121,12 @@ const SampleShipping = () => {
 
                 <div>
 
-                    <div className='text-[#333333]  px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px]'>
+                    <div className='text-[#333333]  px-4 md:px-6 lg:px-8 flex flex-col gap-[6px] md:gap-[20px] pt-[15px]'>
                         <div className='w-50px font-DM-Sans font-medium text-[14px] md:text-[18px] leading-[24px] pb-[14px]'>
                             step 3
                         </div>
                         <div className='font-DM-Sans font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                        {t("step3.title")}
+                            {t("step3.title")}
                         </div>
                     </div>
                     <div className='text-[#333333] pt-[12px] md:pt-[24px] lg:pt-[30px] px-4 md:px-6 lg:px-8'>
@@ -134,21 +134,21 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"1"} subTitle={t("step3.subStep1")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step3.description1.subDes1', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
-                            })} 
-                        {t.rich('step3.description1.subDes2', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step3.description1.subDes1', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
-                        {t.rich('step3.description1.subDes3', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step3.description1.subDes2', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
-                        {t.rich('step3.description1.subDes4', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step3.description1.subDes3', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
+                            })}
+                            {t.rich('step3.description1.subDes4', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -158,9 +158,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"2"} subTitle={t("step3.subStep2")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step3.description2', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step3.description2', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -170,9 +170,9 @@ const SampleShipping = () => {
                             <HomePageSectionHeader2 title={"3"} subTitle={t("step3.subStep3")}></HomePageSectionHeader2>
                         </div>
                         <div className='w-full font-DM-Sans font-normal text-[12px] md:text-[18px] lg:text-[24px] leading-[34px] pl-[35px] '>
-                        {t.rich('step3.description3', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
+                            {t.rich('step3.description3', {
+                                span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                br: () => <br />
                             })}
                         </div>
                     </div>
@@ -188,38 +188,38 @@ const SampleShipping = () => {
                     <div className='w-full px-4 md:px-6 lg:px-8 flex flex-col gap-[12px] md:gap-[30px] lg:gap-[100px] pt-[20px] md:pt-30px] '>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            {t("shippingAddr")}
+                                {t("shippingAddr")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px]  leading-[34px] pl-[35px]  '>
-                            {t.rich('addr', {
-                            span: (chunks) => <span className='font-medium'>{chunks}</span>,
-                            br: () => <br/>
-                            })}
+                                {t.rich('addr', {
+                                    span: (chunks) => <span className='font-medium'>{chunks}</span>,
+                                    br: () => <br />
+                                })}
                             </div>
                         </div>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            {t("tempRange")}
+                                {t("tempRange")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]  '>
-                            {t("tempRangeDes")}
+                                {t("tempRangeDes")}
                             </div>
                         </div>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            {t("shippingCost")}
+                                {t("shippingCost")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]  '>
-                            {t("shippingCostDes")}
+                                {t("shippingCostDes")}
                             </div>
                         </div>
 
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
-                            {t("contactInfo")}
+                                {t("contactInfo")}
                             </div>
                             <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]  '>
-                            {t("contactInfoDes")}
+                                {t("contactInfoDes")}
                             </div>
                         </div>
                     </div>
