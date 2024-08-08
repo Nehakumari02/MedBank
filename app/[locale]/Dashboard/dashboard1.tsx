@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import Customer from "../components/customer";
-import UserHeader from "../components/user-header";
-import OrderStatus from "../components/order-status";
-import OrderListContainer from "../components/order-list-container";
+import Customer from "../../../components/customer";
+import UserHeader from "../../../components/user-header";
+import OrderStatus from "../../../components/order-status";
+import OrderListContainer from "../../../components/order-list-container";
 
 const Dashboard1: NextPage = () => {
   return (
