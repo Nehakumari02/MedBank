@@ -22,9 +22,13 @@ const SignUp = () => {
     router.push(newPath);
   };
 
+  const handleSignUp =(e)=>{
+    e.preventDefault();
+  }
+
   return (
     <div className='h-screen w-full p-[12px] flex items-center justify-center'>
-      <div className='max-w-[971px] w-full h-full max-h-[673px] flex flex-col justify-between gap-[24px] border-[1px] p-[12px] md:p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
+      <div className='max-w-[971px] w-full flex flex-col justify-between gap-[18px] md:gap-[24px] border-[1px] p-[12px] md:p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
         <div className='w-full pb-[10px] flex items-center justify-between border-b-[1px] border-opacity-25 border-[#333333]'>
           <div className='flex items-start justify-center gap-[8px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'> {backIcon} {t("back")}</button> </div>
           <div className='flex items-center justify-center gap-[10px] w-[67px]'>
@@ -37,41 +41,41 @@ const SignUp = () => {
           </button>
         </div>
         </div>
-        <div className='w-full h-full flex justify-between flex-row md:flex-col'>
-          <div className='font-DM-Sans w-[309px] text-[#333333] flex flex-col items-center md:items-start gap-[24px]'>
+        <div className='w-full h-full flex md:justify-between md:flex-row flex-col gap-[18px] md:gap-0'>
+          <div className='font-DM-Sans w-full md:w-[309px] text-[#333333] flex flex-col items-center md:items-start gap-[12px] md:gap-[24px]'>
             <Image src={Logo} alt='Logo' className='h-[80px] w-[80px]'></Image>
-            <div className='flex flex-col items-start gap-[8px]'>
-            <span className='font-bold text-[40px] leading-[40px]'>{t("title")}</span>
-            <span className='font-normal text-[18px] leading-[24px]'>{t("subTitle")}</span>
+            <div className='flex flex-col items-start gap-[6px] md:gap-[8px]'>
+            <span className='font-bold text-center md:text-left w-full text-[20px] md:text-[40px] leading-[26px] md:leading-[40px]'>{t("title")}</span>
+            <span className='font-normal text-center md:text-left w-full text-[14px] md:text-[18px] leading-[18px] md:leading-[24px]'>{t("subTitle")}</span>
             </div>
           </div>
-          <div className='flex items-end w-[527px]'>
-            <div>
+          <div className='flex md:items-end w-full md:w-[527px] md:mt-[104px]'>
+            <div className='w-full'>
               {/* <input type='text' className=' w-full border-[1px] outline-none px-[16px] py-[13px] font-DM-Sans font-normal text-[16px] leading-[24px] border-[#33333342] rounded-sm'></input> */}
-              <form>
-                <label>{t('name')}</label>
-                <input type="text" name="name" />
+              <form className='max-w-max'>
+                <label className='hidden'>{t('name')} </label>
+                <input placeholder={t('name')} className='' type="text" name="name" />
 
-                <label>{t('email')}</label>
-                <input type="email" name="email" />
+                <label className='hidden'>{t('email')} </label>
+                <input placeholder={t('email')} type="email" name="email" />
                 
-                <label>{t('password')}</label>
-                <input type="password" name="password" />
+                <label className='hidden'>{t('password')} </label>
+                <input placeholder={t('password')} type="password" name="password" />
                 
-                <label>{t('confirmPassword')}</label>
-                <input type="password" name="confirmPassword" />
-                <p>
+                <label className='hidden'>{t('confirmPassword')} </label>
+                <input placeholder={t('confirmPassword')} type="password" name="confirmPassword" />
+                <p className='font-DM-Sans font-normal text-[14px] leading-[20px]'>
                   {t.rich('acknowledgement', {
-                    personalInfo: (chunks) => <Link className='text-blue-300' href={`/${language}/Personal-Information`}>{chunks}</Link>,
-                    cancellationPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/CancellationPolicy`}>{chunks}</Link>,
-                    sitePolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/SitePolicy`}>{chunks}</Link>,
-                    privacyPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
+                    personalInfo: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/Personal-Information`}>{chunks}</Link>,
+                    cancellationPolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/CancellationPolicy`}>{chunks}</Link>,
+                    sitePolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/SitePolicy`}>{chunks}</Link>,
+                    privacyPolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
                   })}
                 </p>
-                <button type="submit">{t('register')}</button>
+                <button type="submit" onClick={handleSignUp}>{t('register')}</button>
               </form>
-              <p>{t.rich("signUpText",{
-              Link:(chunks)=><Link className='text-blue-300' href={`/${language}/LogInn`}>{chunks}</Link>
+              <p className='text-center'>{t.rich("signUpText",{
+              Link:(chunks)=><Link className='text-[#3E8DA7]' href={`/${language}/LogInn`}>{chunks}</Link>
             })}</p>
             </div>
           </div>

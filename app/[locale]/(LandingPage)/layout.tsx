@@ -3,7 +3,9 @@ import Footer from "@/components/Footer";
 export default function Layout({ children }: any) {
   return (
     <>
-      <Header />
+      <div className="sticky top-0 z-50">
+        <Header />
+      </div>
       <main>{children}</main>
       <Footer />
     </>

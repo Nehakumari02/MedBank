@@ -39,7 +39,7 @@
 
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../../../public/Images/Home/logo.png'
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -51,19 +51,41 @@ const SignInPage = () => {
   const language = usePathname().split("/")[1];
   const router = useRouter();
   const t = useTranslations("SignIn");
+  const [emailError,setEmailError] = useState(false);
+  const [email,setEmail] = useState("");
+
+  const handleChange=(e)=>{
+    setEmail(e.target.value);
+    // handleVerifyEmail(e);
+  }
 
   const handleBackClick = () => {
     router.back();
   };
+
+  const handleVerifyEmail=(e)=>{
+    const email = e.target.value;
+    const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+  
+    const isValidEmail = emailPattern.test(email);
+    setEmailError(!isValidEmail);
+
+    if(email==="")
+      setEmailError(false);
+  }
 
   const updateLanguage = (newLanguage) => {
     const newPath = `/${newLanguage}/${pathToRedirect}`;
     router.push(newPath);
   };
 
+  const handleLogin =(e)=>{
+    e.preventDefault();
+  }
+
   return (
-    <div className='h-screen w-full flex items-center justify-center'>
-      <div className='m-[12px] max-w-[971px] w-full h-full max-h-[673px] flex flex-col justify-between gap-[24px] border-[1px] p-[12px] md:p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
+    <div className='h-screen w-full p-[12px] flex items-center justify-center text-[#333333]'>
+      <div className='m-[12px] max-w-[971px] w-full flex flex-col justify-between gap-[18px] md:gap-[24px] border-[1px] p-[12px] md:p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
         <div className='w-full pb-[10px] flex items-center justify-between border-b-[1px] border-opacity-25 border-[#333333]'>
           <div className='flex items-start justify-center gap-[8px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'> {backIcon} {t("back")}</button> </div>
           <div className='flex items-center justify-center gap-[10px] w-[67px]'>
@@ -76,38 +98,52 @@ const SignInPage = () => {
           </button>
         </div>
         </div>
-        <div className='w-full h-full flex justify-between flex-row md:flex-col'>
-          <div className='font-DM-Sans w-[309px] text-[#333333] flex flex-col items-start gap-[24px]'>
+        <div className='w-full h-full flex justify-between md:flex-row flex-col gap-[18px] md:gap-0'>
+          <div className='font-DM-Sans w-full md:w-[309px] text-[#333333] flex flex-col items-center md:items-start gap-[12px] md:gap-[24px]'>
             <Image src={Logo} alt='Logo' className='h-[80px] w-[80px]'></Image>
             <div className='flex flex-col items-start gap-[8px]'>
-            <span className='font-bold text-[40px] leading-[40px]'>{t("title")}</span>
-            <span className='font-normal text-[18px] leading-[24px]'>{t("subTitle")}</span>
+            <span className='font-bold text-center md:text-left w-full text-[20px] md:text-[40px] leading-[26px] md:leading-[40px]'>{t("title")}</span>
+            <span className='font-normal text-center md:text-left w-full text-[14px] md:text-[18px] leading-[18px] md:leading-[24px]'>{t("subTitle")}</span>
             </div>
           </div>
-          <div className='flex items-end w-[527px]'>
-            <div>
-            <form>
-              <label>{t('email')}</label>
-              <input type="email" name="email" />
+          <div className='flex md:items-end w-full md:w-[527px] md:mt-[104px]'>
+            <div className='w-full flex flex-col gap-[12px]'>
+              <div className='w-full flex flex-col gap-[20px]'>
+              <label className='hidden'>{t('email')} </label>
+              {/* <div className='group'>
+              <div className='group-focus-within::gradient-primary rounded-md'>
+              <input className='group w-full p-4 border-opacity-100 outline-none rounded-lg' placeholder={t('email')} type="email" name="email" />
+              </div>
+              </div> */}
               
-              <label>{t('password')}</label>
-              <input type="password" name="password" />
+              <div className="group w-full rounded-md h-[60px] flex items-center justify-center flex-col ">
+                <div className={`w-full group-focus-within:gradient-border group-focus-within:${emailError?"bg-red-600":"gradient-primary"} ${emailError?"bg-red-600":"bg-gray-200"} rounded-[7px] p-[1px]`}>
+                  <input className="w-full p-4 outline-none rounded-[6px] border-none" placeholder="Email" value={email} onChange={handleChange} onBlur={handleVerifyEmail} type="email" name="email" />
+                </div>
+                <span className='text-left w-full h-[14px] text-red-500 font-DM-Sans font-medium leading-[20px]'>{emailError&&"Email is invalid"}</span>
+              </div>
+
+              <label className='hidden'>{t('password')} </label>
+              <input className='w-full p-4 border-[1px] border-[#33333340] hover:border-[bg-gradient-to-r from-blue-500 to-purple-500] outline-none rounded-lg' placeholder={t('password')} type="password" name="password" />
+              </div>
               
-              <p>
+              <p className='w-full m-0'><Link href={`/${language}/ForgotPassword`} className='font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[20px] text-[#3E8DA7]'>{t('forgotPassword')}</Link></p>
+
+              <div className='flex flex-col gap-[6px]'>
+              <p className='m-0 font-DM-Sans font-normal text-[8px] md:text-[14px] leading-[20px]'>
               {t.rich('acknowledgement', {
-                  personalInfo: (chunks) => <Link className='text-blue-300' href={`/${language}/Personal-Information`}>{chunks}</Link>,
-                  cancellationPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/CancellationPolicy`}>{chunks}</Link>,
-                  sitePolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/SitePolicy`}>{chunks}</Link>,
-                  privacyPolicy: (chunks) => <Link className='text-blue-300' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
+                    personalInfo: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/Personal-Information`}>{chunks}</Link>,
+                    cancellationPolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/CancellationPolicy`}>{chunks}</Link>,
+                    sitePolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/SitePolicy`}>{chunks}</Link>,
+                    privacyPolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
                 })}
               </p>
-              
-              <button type="submit">{t('login')}</button>
-            </form>
-            <p>{t('forgotPassword')}</p>
-            <p>
+              <button type="submit" onClick={handleLogin} className='h-[38px] rounded-[6px] md:flex items-center justify-center gradient-primary text-white font-DM-Sans font-bold text-[18px] leading-[24px] '>{t('login')}</button>
+              </div>
+
+            <p className='m-0 text-center font-DM-Sans font-normal text-[12px] md:text-[14px] leading-[20px]'>
             {t.rich("signInText",{
-              Link:(chunks)=><Link className='text-blue-300' href={`/${language}/SignUp`}>{chunks}</Link>
+                Link:(chunks)=><Link className='text-[#3E8DA7]' href={`/${language}/SignUp`}>{chunks}</Link>
             })}
             </p>
             </div>
