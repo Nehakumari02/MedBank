@@ -47,7 +47,7 @@ const config: Config = {
           200: '#b6dfeb',
           300: '#91cfd9',
           400: '#6dbfc7',
-          500: '#48afc5', // This should be the most representative color in the range
+          500: '#48afc5', 
           600: '#388f9e',
           700: '#286f77',
           800: '#184f50',
@@ -59,7 +59,7 @@ const config: Config = {
           200: '#ffe082',
           300: '#ffd54f',
           400: '#ffca28',
-          500: '#ffc107', // This should be the most representative color in the range
+          500: '#ffc107', 
           600: '#ffa000',
           700: '#ff8f00',
           800: '#ff6f00',
@@ -71,7 +71,7 @@ const config: Config = {
           200: '#80deea',
           300: '#4dd0e1',
           400: '#26c6da',
-          500: '#00bcd4', // This should be the most representative color in the range
+          500: '#00bcd4', 
           600: '#00acc1',
           700: '#0097a7',
           800: '#00838f',
@@ -83,7 +83,7 @@ const config: Config = {
           200: '#eeeeee',
           300: '#e0e0e0',
           400: '#bdbdbd',
-          500: '#9e9e9e', // This should be the most representative color in the range
+          500: '#9e9e9e', 
           600: '#757575',
           700: '#616161',
           800: '#424242',
@@ -95,7 +95,7 @@ const config: Config = {
           200: '#808080',
           300: '#4d4d4d',
           400: '#333333',
-          500: '#000000', // This should be the most representative color in the range
+          500: '#000000', 
           600: '#1a1a1a',
           700: '#0d0d0d',
           800: '#080808',
