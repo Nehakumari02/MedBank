@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import FrameComponent from "../components/frame-component";
-import FrameComponent1 from "../components/frame-component1";
-import FrameComponent2 from "../components/frame-component2";
+import FrameComponent from "../../../components/frame-component";
+import FrameComponent1 from "../../../components/frame-component1";
+import FrameComponent2 from "../../../components/frame-component2";
 
 const Dashboard2: NextPage = () => {
   return (

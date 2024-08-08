@@ -5,6 +5,8 @@ import Media from '../public/Images/Home/Media.png'
 import Media1 from '../public/Images/Home/Media2.png'
 import Media2 from '../public/Images/Home/Media3.png'
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation'
+
 
 import {
   Carousel,
@@ -50,6 +52,7 @@ const articles = [
 
 const RecentAnnouncement = () => {
   const t = useTranslations("HomePage.RecentAnnouncement");
+  const language = usePathname().split("/")[1];
 
   return (
     <section className="md:px-[42px] lg:px-[62px] py-[20px] md:py-[100px] w-full text-[#333333] bg-[#7171710D]">
@@ -73,7 +76,7 @@ const RecentAnnouncement = () => {
                   </div>
                   <span className='font-DM-Sans font-normal text-[14px] leading-[20px] text-[#333333]'>{article.description}</span>
                   <div className='w-full flex items-center justify-end'>
-                    <button className='border-[1px] rounded-full border-[#79747E] w-[131px] h-[40px] py-[10px] px-[24px] flex items-center justify-center'><span className='font-DM-Sans font-normal text-[16px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></button>
+                    <a  href={`/${language}/RecentAnnouncement`} className='border-[1px] rounded-full border-[#79747E] w-[131px] h-[40px] py-[10px] px-[24px] flex items-center justify-center'><span className='font-DM-Sans font-normal text-[16px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></a>
                   </div>
                 </div>
               </div>
@@ -95,7 +98,9 @@ const RecentAnnouncement = () => {
                   </div>
                   <span className='font-DM-Sans font-normal text-[12px] leading-[20px] text-[#333333] tracking-tracking-0.25'>{article.description}</span>
                   <div className='w-full flex items-center justify-end'>
-                    <button className='border-[1px] rounded-full border-[#79747E] w-[104px] h-[40px] py-[8px] px-[20px] flex items-center justify-center'><span className='font-DM-Sans font-normal text-[12px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></button>
+                  {/* <a/> */}
+                    <a  href={`/${language}/RecentAnnouncement`} className='border-[1px] rounded-full border-[#79747E] w-[104px] h-[40px] py-[8px] px-[20px] flex items-center justify-center'><span className='font-DM-Sans font-normal text-[12px] leading-[24px] gradient-primary bg-clip-text text-transparent'>Read More</span></a>
+                  {/* </a> */}
                   </div>
                 </div>
               </div>

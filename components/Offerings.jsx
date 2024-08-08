@@ -2,16 +2,20 @@ import Image from "next/image";
 import HomePageSectionHeader from "./HomePageSectionHeader";
 import OfferingsImage from '../public/Images/Home/servicesImage.png'
 import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from 'next/navigation'
 
 const Offerings = () => {
   const t = useTranslations("HomePage.OurServices");
+  const language = usePathname().split("/")[1];
   return(
     <section className="md:flex items-center justify-center w-full md:h-[672px]">
     <div className='md:w-[70%] h-full flex items-center justify-start text-[#333333]'>
       <div className='w-full md:pl-[42px] lg:pl-[62px] pr-[20px] flex flex-col gap-[6px] md:gap-[32px]'>
         <HomePageSectionHeader title={"Our services"} subTitle={"Our Services"}></HomePageSectionHeader>
         <div className='px-[31px] md:pl-[50px] lg:pl-[110px] flex flex-col items-start justify-start gap-[6px] md:gap-[24px]'>
-        <span className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">OFFERINGS {ArrowRightIconSmall} {ArrowRightIcon}</span>
+        <a href={`/${language}/Services`}>
+        <button className="flex items-center font-DM-Sans text-[18px] md:text-[36px] font-medium leading-[24px] md:leading-[42px] gradient-primary bg-clip-text text-transparent">OFFERINGS {ArrowRightIconSmall} {ArrowRightIcon}</button>
+        </a>
         <span className="font-DM-Sans font-normal text-[12px] md:text-[20px] leading-[20px] md:leading-[34px]">
           {t("description")}
         </span>

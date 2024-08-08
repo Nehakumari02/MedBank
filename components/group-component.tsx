@@ -6,7 +6,7 @@ export type GroupComponentType = {
   statusIcons?: string;
   pendingOrders?: string;
 
-  /** Style props */
+
   propOverflow?: CSSProperties["overflow"];
   propDisplay?: CSSProperties["display"];
   propMinWidth?: CSSProperties["minWidth"];

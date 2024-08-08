@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import HomePageSectionHeader from "./HomePageSectionHeader";
-import contactUsBg from "../public/Images/Home/contactUsBg.png";
+import contactUsBg from "../public/Images/Home/contactUsBg.jpg";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
