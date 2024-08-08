@@ -23,8 +23,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className='h-screen w-full flex items-center justify-center'>
-      <div className='max-w-[971px] w-full h-full max-h-[673px] flex flex-col justify-between gap-[24px] border-[1px] p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
+    <div className='h-screen w-full p-[12px] flex items-center justify-center'>
+      <div className='max-w-[971px] w-full h-full max-h-[673px] flex flex-col justify-between gap-[24px] border-[1px] p-[12px] md:p-[40px] border-[#333333] border-opacity-25 rounded-xl'>
         <div className='w-full pb-[10px] flex items-center justify-between border-b-[1px] border-opacity-25 border-[#333333]'>
           <div className='flex items-start justify-center gap-[8px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'> {backIcon} {t("back")}</button> </div>
           <div className='flex items-center justify-center gap-[10px] w-[67px]'>
@@ -37,8 +37,8 @@ const SignUp = () => {
           </button>
         </div>
         </div>
-        <div className='w-full h-full flex justify-between'>
-          <div className='font-DM-Sans w-[309px] text-[#333333] flex flex-col items-start gap-[24px]'>
+        <div className='w-full h-full flex justify-between flex-row md:flex-col'>
+          <div className='font-DM-Sans w-[309px] text-[#333333] flex flex-col items-center md:items-start gap-[24px]'>
             <Image src={Logo} alt='Logo' className='h-[80px] w-[80px]'></Image>
             <div className='flex flex-col items-start gap-[8px]'>
             <span className='font-bold text-[40px] leading-[40px]'>{t("title")}</span>
