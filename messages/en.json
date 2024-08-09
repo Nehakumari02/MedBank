@@ -52,10 +52,10 @@
             "table3":"Data Volume",
             "table4":"Reference Price",
             "table5":"Delivery Time",
-            "data1":"DNA\n Sequencing",
-            "data2":"RNA\n Sequencing",
-            "data3":"Amplicon\n Sequencing",
-            "data4":"Human Genome\n Sequencing"
+            "data1":"DNA<br></br> Sequencing",
+            "data2":"RNA<br></br> Sequencing",
+            "data3":"Amplicon<br></br> Sequencing",
+            "data4":"Human Genome<br></br> Sequencing"
         },
         "Process":{
             "description":"At Medbank, we strive to make the process of ordering testing services as seamless and straightforward as possible. From initial inquiry to result delivery, our order flow is designed to ensure clarity, efficiency, and satisfaction at every step. Whether you're a seasoned researcher or new to genetic analysis, our team is here to guide you through the process and provide personalized support tailored to your specific project needs. Explore the following steps to learn more about how to place an order with Medbank and experience the benefits of our comprehensive genetic analysis services.",
