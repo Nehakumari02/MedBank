@@ -13,7 +13,7 @@ export async function POST(req) {
 
   const mailOptions = {
     from: email,
-    to: 'nehapanwal05@gmail.com', // Your email address
+    to: 'nehapanwal02@gmail.com', // Your email address
     subject: `New Inquiry from ${name}`,
     text: `Name: ${name}\nPhone Number: ${phoneNumber}\nEmail: ${email}\nInquiry Details: ${inquiryDetails}`,
   };
