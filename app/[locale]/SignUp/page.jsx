@@ -72,7 +72,7 @@ const SignUp = () => {
                     privacyPolicy: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/PrivacyPolicy`}>{chunks}</Link>,
                   })}
                 </p>
-                <button type="submit" onClick={handleSignUp}>{t('register')}</button>
+                <button type="submit" onClick={handleSignUp} className='h-[38px] rounded-[6px] md:flex items-center justify-center [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-bold text-[18px] leading-[24px]'>{t('register')}</button>
               </form>
               <p className='text-center'>{t.rich("signUpText",{
               Link:(chunks)=><Link className='text-[#3E8DA7]' href={`/${language}/LogInn`}>{chunks}</Link>
