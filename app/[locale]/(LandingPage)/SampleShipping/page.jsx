@@ -191,12 +191,14 @@ const SampleShipping = () => {
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>
                                 {t("shippingAddr")}
                             </div>
-                            <div className='font-DM-Sans font-normal text-[12px] md:text-[24px]  leading-[34px] pl-[35px]  '>
+                            <div className='w-full flex items-center justify-center font-DM-Sans font-bold text-[14px] md:text-[24px] mt-[20px] py-[20px]'>Coming Soon...</div>
+
+                            {/* <div className='font-DM-Sans font-normal text-[12px] md:text-[24px] leading-[34px] pl-[35px]  '>
                                 {t.rich('addr', {
                                     span: (chunks) => <span className='font-medium'>{chunks}</span>,
                                     br: () => <br />
                                 })}
-                            </div>
+                            </div> */}
                         </div>
                         <div className='flex flex-col gap-[6px] md:gap-[24px] lg:gap-[30px]'>
                             <div className='font-bold text-[16px] md:text-[28px] lg:text-[32px] leading-[24px]'>

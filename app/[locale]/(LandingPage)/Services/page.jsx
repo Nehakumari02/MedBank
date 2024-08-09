@@ -82,7 +82,7 @@ const Services = () => {
 
           </tbody>
         </table>
-        <div className='w-full flex items-center justify-center font-DM-Sans font-bold text-[40px] mt-[20px] py-[20px]'>Coming Soon...</div>
+        <div className='w-full flex items-center justify-center font-DM-Sans font-bold text-[18px] md:text-[24px] lg:text-[40px] mt-[20px] py-[20px]'>Coming Soon...</div>
       </div>
     </>
   )

@@ -25,7 +25,7 @@ const PriceTable = () =>{
               <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table5")}</th>
             </tr>
           </thead>
-          <tbody className="w-[100vw]">
+          <tbody className="w-[100vw] hidden">
             <tr className="hidden">
             </tr>
             <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
@@ -66,6 +66,7 @@ const PriceTable = () =>{
             </tr>
           </tbody>
           </table>
+        <div className='w-full flex items-center justify-center font-DM-Sans font-bold text-[18px] md:text-[24px] lg:text-[40px] mt-[20px] py-[20px]'>Coming Soon...</div>
         </div>
     </div>
     </section>
