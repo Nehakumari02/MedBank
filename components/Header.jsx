@@ -52,6 +52,9 @@ const Header = () => {
           <Link href={`/${language}/strength`} className={`${path==="strength"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("strength")}</Link>
         </li>
         <li>
+          <Link href={`/${language}/Orderflow`} className={`${path==="Orderflow"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("orderFlow")}</Link>
+        </li>
+        <li>
           <Link href={`/${language}#contactus`} className={`${path==="contact"?"border-b-[2px] border-[#003E5C99] font-medium":""}`}>{t("contact")}</Link>
         </li>
       </ul>
@@ -96,6 +99,9 @@ const Header = () => {
             </li>
             <li>
               <Link onClick={() => setMenu(false)} href={`/${language}/strength`} className={`${path === "strength" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("strength")}</Link>
+            </li>
+            <li>
+              <Link onClick={() => setMenu(false)} href={`/${language}/Orderflow`} className={`${path === "orderflow" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("OrderFlow")}</Link>
             </li>
             <li>
               <Link onClick={() => setMenu(false)} href={`/${language}#contactus`} className={`${path === "contact" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("contact")}</Link>
