@@ -84,7 +84,7 @@ export default function AboutPage() {
           <div className='pl-[62px] pt-[12px] md:pt-[24px]'>
             <div className="text-2xl md:text-4xl font-DM-Sans font-medium  gradient-primary bg-clip-text text-transparent">COMPANY DETAILS</div>
             
-            <div className='text-2xl flex flex-col gap-[6px] md:gap-[8px] pt-[6px] md:pt-[24px]'>
+            <div className='text-xs md:text-2xl flex flex-col gap-[6px] md:gap-[8px] pt-[6px] md:pt-[24px]'>
               <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_name")}</span> Medbank Pte. Ltd.</p>
               <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_established")}</span> 15 OCT 2021</p>
               <p className='font-normal p-0 m-0'><span className='font-medium'>{t("details_representative_employee")}</span> Yuki Okada (Doctor)</p>
