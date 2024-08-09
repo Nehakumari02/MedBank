@@ -60,7 +60,7 @@ const Services = () => {
               <th className="font-sans font-normal leading-[40px]">{t("tableHead4")}</th>
             </tr>
           </thead>
-          <tbody className="w-full">
+          <tbody className="w-full hidden">
             <tr className=" h-[80px] font-sans font-medium text-[20px] text-[#333333] border-gradient-primary-light border-b-[4px] border-dashed ">
               <td className=""></td>
               <td className=""></td>
@@ -82,6 +82,7 @@ const Services = () => {
 
           </tbody>
         </table>
+        <div className='w-full flex items-center justify-center font-DM-Sans font-bold text-[40px] mt-[20px] py-[20px]'>Coming Soon...</div>
       </div>
     </>
   )
