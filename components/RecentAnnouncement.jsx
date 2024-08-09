@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import HomePageSectionHeader from './HomePageSectionHeader';
-import Media from '../public/Images/Home/Media.png'
-import Media1 from '../public/Images/Home/Media2.png'
-import Media2 from '../public/Images/Home/Media3.png'
+import Media from '../public/Images/Home/article1.png'
+import Media1 from '../public/Images/Home/article2.png'
+import Media2 from '../public/Images/Home/article3.png'
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation'
 
