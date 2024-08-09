@@ -9,7 +9,7 @@ import HomePageSectionHeader from '../../../components/HomePageSectionHeader'
 import CreateAccount from '../../../components/CreateAccount'
 import Image from 'next/image'
 import HeroImage from '../../../public/Images/Home/heroImage1.jpg'
-import AboutUsImage from '../../../public/Images/Home/aboutUsHome.png'
+import AboutUsImage from '../../../public/Images/Home/aboutUsHome.jpg'
 import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 
