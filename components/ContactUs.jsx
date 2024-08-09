@@ -21,26 +21,43 @@ const ContactUs = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = ()=>{
-    if(formData.email!==confirmEmail){
+  const handleSubmit = async () => {
+    if (formData.email !== confirmEmail) {
       alert("Email doesn't match");
       return;
     }
-    if(!check){
+    if (!check) {
       alert("Please accept terms and conditions");
       return;
     }
-    console.log(formData);
-    setFormData({
-      name: "",
-      phoneNumber: "",
-      email: "",
-      inquiryDetails: ""
-    });
-    setCheck(false);
-    setConfirmEmail("");
-    alert("Form submitted successfully.")
-  }
+  
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        alert("Form submitted successfully.");
+        setFormData({
+          name: "",
+          phoneNumber: "",
+          email: "",
+          inquiryDetails: "",
+        });
+        setCheck(false);
+        setConfirmEmail("");
+      } else {
+        alert("There was an error submitting the form.");
+      }
+    } catch (error) {
+      alert("There was an error submitting the form.");
+    }
+  };
+  
 
   return (
     <section className="md:px-[42px] lg:px-[62px] py-[20px] md:py-[100px] w-full text-[#333333] bg-[#7171710D]">

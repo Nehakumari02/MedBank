@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import About1 from '../../../../public/Images/Home/About1.png'
-import About2 from '../../../../public/Images/Home/About2.png'
-import About3 from '../../../../public/Images/Home/About3.png'
-import About4 from '../../../../public/Images/Home/About4.png'
-import About5 from '../../../../public/Images/Home/About5.png'
+import About2 from '../../../../public/Images/Home/about2.png'
+import About3 from '../../../../public/Images/Home/About3.jpg'
+import About4 from '../../../../public/Images/Home/about4.jpg'
+import About5 from '../../../../public/Images/Home/heroImage1.jpg'
 import SnackBar from '@/components/SnackBar';
 import HomePageSectionHeader2 from '@/components/HomePageSectionHeader2';
 
@@ -46,12 +46,12 @@ export default function AboutPage() {
 
 
 
-        <div className='flex flex-col md:flex-row  w-full h-full '>
-          <div className='w-full h-full pb-[12px] md:pr-[23px]  '>
-            <Image src={About1} alt='About1' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
+        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+          <div className=''>
+            <Image src={About1} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
-          <div className='w-full h-full'>
-            <Image src={About2} alt='About2' layout='responsive' objectFit='cover' width={100} height={100} className='w-full h-full' />
+          <div className=''>
+            <Image src={About2} alt='strength2' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
         </div>
 
@@ -73,11 +73,11 @@ export default function AboutPage() {
 
 
 
-      <div className="flex md:flex-row flex-col-reverse pt-[24px] gap-[24px] md:gap-0 md:pt-[100px]">
+      <div className="flex md:flex-row flex-col-reverse pt-[24px] gap-[24px] md:gap-0 lg:pt-[100px]">
 
-        <div className="px-[31px] md:px-0 grid grid-cols-1 gap-6 mb-8 md:pr-[68px]">
-          <Image src={About3} alt="Lab Image" className="rounded " />
-          <Image src={About4} alt="Building Image" className="rounded" />
+        <div className="px-[31px] md:px-0 grid grid-cols-1 gap-6 mb-8 md:pr-[68px]  md:w-[40%]">
+          <Image src={About3} alt="Lab Image" className="rounded md:h-[515px] object-cover aspect-square md:aspect-auto" />
+          <Image src={About4} alt="Building Image" className="rounded  md:h-[515px] object-cover aspect-square md:aspect-auto" />
         </div>
         <div className='pt-[30px] md:pt-[60px]'>
           <HomePageSectionHeader title={"Details"} subTitle={"Company Details"} />
