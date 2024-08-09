@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HomePageSectionHeader from "./HomePageSectionHeader";
-import OfferingsImage from '../public/Images/Home/servicesImage.png'
+import OfferingsImage from '../public/Images/Home/servicesImage.jpg'
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from 'next/navigation'
 

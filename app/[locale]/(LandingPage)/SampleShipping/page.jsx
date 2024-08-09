@@ -64,7 +64,7 @@ const SampleShipping = () => {
                         </div>
                     </div>
                     <br />
-                    <div className='w-full px-4 md:px-6 lg:px-8'>
+                    <div className='w-full px-4 md:px-6 lg:px-8 md:pt-[30px]'>
                         <Image src={SampleShipping1} layout="responsive" alt="Sample Shipping 1" />
                     </div>
                 </div>
@@ -114,7 +114,7 @@ const SampleShipping = () => {
                         </div>
                     </div>
                     <br />
-                    <div className='w-full px-4 md:px-6 lg:px-8'>
+                    <div className='w-full px-4 md:px-6 lg:px-8 md:pt-[30px]'>
                         <Image src={SampleShipping2} layout="responsive" alt="Sample Shipping 2" />
                     </div>
                 </div>
@@ -177,9 +177,10 @@ const SampleShipping = () => {
                         </div>
                     </div>
                     <br />
-                    <div className='w-full px-4 md:px-6 lg:px-8'>
+                    <div className='w-full px-4 md:px-6 lg:px-8 md:pt-[30px]'>
                         <Image src={SampleShipping3} layout="responsive" alt="Sample Shipping 3" />
                     </div>
+                    
 
                 </div>
 
