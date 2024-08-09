@@ -42,7 +42,7 @@ export default function StrengthPage() {
             </ol>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+        <div className='flex flex-col items-start md:items-center md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
           <div className=''>
             <Image src={strength7} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
@@ -71,7 +71,7 @@ export default function StrengthPage() {
             </ol>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+        <div className='flex flex-col items-start md:items-center md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
           <div className=''>
             <Image src={strength1} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
@@ -100,7 +100,7 @@ export default function StrengthPage() {
             </ol>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+        <div className='flex flex-col items-start md:items-center md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
           <div className=''>
             <Image src={strength3} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
@@ -129,7 +129,7 @@ export default function StrengthPage() {
             </ol>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+        <div className='flex flex-col items-start md:items-center md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
           <div className=''>
             <Image src={strength5} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
@@ -158,7 +158,7 @@ export default function StrengthPage() {
             </ol>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
+        <div className='flex flex-col md:flex-row items-start md:items-center md:justify-start w-full lg:w-[1057px] gap-[12px] md:gap-[23px] '>
           <div className=''>
             <Image src={strength9} alt='strength1' layout='responsive' className=' h-full object-contain rounded-lg  max-h-[336px] ' />
           </div>
