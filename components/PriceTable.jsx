@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 import HomePageSectionHeader from "./HomePageSectionHeader";
+import signinImage from '../public/Images/Home/comingsoon.png'
+import Image from "next/image";
 
 const PriceTable = () =>{
   const t = useTranslations("HomePage.PriceTable");
@@ -13,47 +15,57 @@ const PriceTable = () =>{
           {t("description")}
         </p>
         <div className="px-[10px] w-[100vw] md:w-full mx-[-31px] md:mx-0 md:px-0 overflow-x-scroll md:overflow-x-auto">
-        <table className="w-full">
-        <thead className="w-[100vw]">
-          <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[60px] md:h-[80px] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table1")}</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table2")}</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table3")}</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table4")}</th>
-            <th className="font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table5")}</th>
-          </tr>
-        </thead>
-        <tbody className="w-full">
-          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">{t("data1")}</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-          </tr>
-          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">{t("data2")}</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-          </tr>
-          <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">{t("data3")}</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-          </tr>
-          <tr className="h-[80px] font-sans font-medium text-[12px] md:text-[20px] text-[#333333]">
-            <td className="">{t("data4")}</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className=""></td>
-          </tr>
-        </tbody>
-      </table>
+          <table className="w-full">
+          <thead className="w-[100vw]">
+            <tr className="gradient-table-head rounded-tl-[10px] rounded-tr-[10px] h-[60px] md:h-[80px] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+              <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table2")}</th>
+              <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table1")}</th>
+              <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table3")}</th>
+              <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table4")}</th>
+              <th className="flex-1 text-left font-sans font-normal text-nowrap text-[14px] md:text-[24px] leading-[40px]">{t("table5")}</th>
+            </tr>
+          </thead>
+          <tbody className="w-[100vw]">
+            <tr className="hidden">
+            </tr>
+            <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+              <td className="flex-1">{t.rich("data1",{
+                br: ()=><br/>
+              })}</td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+            </tr>
+            <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+              <td className="flex-1">{t.rich("data2",{
+                br: ()=><br/>
+              })}</td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+            </tr>
+            <tr className="h-[80px] border-b border-dashed border-black font-sans font-medium text-[12px] md:text-[20px] text-[#333333] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+              <td className="flex-1">{t.rich("data3",{
+                br: ()=><br/>
+              })}</td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+            </tr>
+            <tr className="h-[80px] font-sans font-medium text-[12px] md:text-[20px] text-[#333333] flex items-center justify-between w-[690px] md:w-auto px-[20px]">
+              <td className="flex-1">{t.rich("data4",{
+                br: ()=><br/>
+              })}</td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+              <td className="flex-1">Coming Soon... </td>
+            </tr>
+          </tbody>
+          </table>
         </div>
     </div>
     </section>
