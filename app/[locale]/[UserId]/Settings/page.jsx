@@ -157,7 +157,7 @@ const Settings = () => {
           </div>
           <div className='px-[24px] py-[12px] md:py-[29px] w-full flex flex-col gap-[6px] md:gap-[16px]'>
             <div className='flex gap-[21px]'>
-              <div className="flex flex-col w-1/6">
+              <div className="flex flex-col w-[82px] h-[46px]">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                   Country
                 </label>
@@ -168,7 +168,7 @@ const Settings = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-5/6">
+              <div className="flex flex-col w-full">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                   Phone Number
                 </label>

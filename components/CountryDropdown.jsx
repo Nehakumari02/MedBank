@@ -1,4 +1,13 @@
 import { useState } from 'react';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 const flags = [
     'ad.svg', 'ae.svg', 'af.svg', 'ag.svg', 'ai.svg', 'al.svg', 'am.svg', 'ao.svg', 'aq.svg', 'ar.svg', 'as.svg', 'at.svg', 'au.svg',
@@ -33,8 +42,8 @@ export default function CountryDropdown() {
     };
 
     return (
-        <div className="relative">
-            <button
+        <div className="">
+            {/* <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full h-full px-4 py-3 bg-white border border-gray-300 rounded">
                 <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 border-[0.5px] border-black  py-1 px-1 mx-1" />
@@ -55,7 +64,25 @@ export default function CountryDropdown() {
                         </div>
                     ))}
                 </div>
-            )}
+            )} */}
+            <Select onValueChange={(value) => handleFlagSelect(value)} value={selectedFlag}>
+            <SelectTrigger className="bg-white w-[82px] h-[39px] md:h-[51px] focus:outline-none">
+                <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 bg-white border-[0.5px] border-black  py-1 px-1 mx-1" />
+            </SelectTrigger>
+            <SelectContent className='w-full bg-white'>
+                <SelectGroup>
+                {flags.map((flag) => (
+                        <SelectItem
+                            key={flag}
+                            className="flex items-center w-[82px] justify-end px-4 py-2 cursor-pointer bg-white hover:bg-gray-200"
+                            value={flag}
+                        >
+                            <img src={`/flags/${flag}`} alt={flag} className="w-4 h-4" />
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+            </Select>
         </div>
     );
 }
