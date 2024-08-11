@@ -14,7 +14,6 @@ const Header = () => {
   const language = usePathname().split("/")[1];
   const router = useRouter();
   const [menu,setMenu] = useState(false);
-  console.log(path)
 
   const t = useTranslations("Header");
 
