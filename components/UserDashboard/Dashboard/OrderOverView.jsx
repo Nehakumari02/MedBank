@@ -5,7 +5,7 @@ import {pendingIcon,progressIcon,completedIcon} from '../Icons'
 const OrderOverView = ({orderOverview}) => {
   const t = useTranslations("DashBoard.orderOverView")
   return (
-    <div className='text-[#333333]'>
+    <div className='text-[#333333] mb-[14px]'>
         <div className='h-[40px] '>
           <span className='font-DM-Sans font-bold text-[20px] leading-[28px]'>{t("orderOverView")}</span>
         </div>
