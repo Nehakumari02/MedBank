@@ -2,42 +2,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "../../public/Images/Home/logo.png";
-import {dashboardIcon,dashboardSelectedIcon,ordersIcon,ordersSelectedIcon,chatsIcon,chatsSelectedIcon,paymentsIcon,paymentsSelectedIcon,archiveIcon,archiveSelectedIcon,settingsIcon,settingSelectedIcon,logOutIcon} from './Icons'
+import {dashboardIcon,dashboardSelectedIcon,newOrderIcon,newOrderSelectedIcon,ordersIcon,ordersSelectedIcon,chatsIcon,chatsSelectedIcon,paymentsIcon,paymentsSelectedIcon,archiveIcon,archiveSelectedIcon,settingsIcon,settingSelectedIcon,logOutIcon} from './Icons'
 import { usePathname, useRouter } from "next/navigation";
 import { useSidebarContext } from "@/contexts/SidebarContext";
-
-const menuItems = [
-  {
-    text: "Dashboard",
-    icon: dashboardIcon,
-    selectedIcon: dashboardSelectedIcon,
-    path: "Dashboard",
-  },
-  {
-    text: "Orders",
-    icon: ordersIcon,
-    selectedIcon: ordersSelectedIcon,
-    path: "Orders",
-  },
-  {
-    text: "Chats",
-    icon: chatsIcon,
-    selectedIcon: chatsSelectedIcon,
-    path: "Chats",
-  },
-  {
-    text: "Payments",
-    icon: paymentsIcon,
-    selectedIcon: paymentsSelectedIcon,
-    path: "Payments",
-  },
-  {
-    text: "Archive",
-    icon: archiveIcon,
-    selectedIcon: archiveSelectedIcon,
-    path: "Archive",
-  },
-];
+import { useTranslations } from "next-intl";
 
 const Sidebar = () => {
   const [profilePicture, setProfilePicture] = useState('');
@@ -47,6 +15,47 @@ const Sidebar = () => {
   const path = usePathname().split("/")[3];
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
   const language = usePathname().split("/")[1];
+
+  const t = useTranslations("UserSideBar");
+
+  const menuItems = [
+    {
+      text: t("dashboard"),
+      icon: dashboardIcon,
+      selectedIcon: dashboardSelectedIcon,
+      path: "Dashboard",
+    },
+    {
+      text: t("newOrder"),
+      icon: newOrderIcon,
+      selectedIcon: newOrderSelectedIcon,
+      path: "NewOrder",
+    },
+    {
+      text: t("orders"),
+      icon: ordersIcon,
+      selectedIcon: ordersSelectedIcon,
+      path: "Orders",
+    },
+    {
+      text: t("chats"),
+      icon: chatsIcon,
+      selectedIcon: chatsSelectedIcon,
+      path: "Chats",
+    },
+    {
+      text: t("payments"),
+      icon: paymentsIcon,
+      selectedIcon: paymentsSelectedIcon,
+      path: "Payments",
+    },
+    {
+      text: t("archive"),
+      icon: archiveIcon,
+      selectedIcon: archiveSelectedIcon,
+      path: "Archive",
+    },
+  ];
 
   const selected = true;
 
@@ -77,13 +86,13 @@ const Sidebar = () => {
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path=="Settings"?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path=="Settings"?settingSelectedIcon:settingsIcon}
-              <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>Settings</span>
+              <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>{t("settings")}</span>
             </button>
             <button
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px]`}
             >
               {logOutIcon}
-              <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${sidebarVisibility?"":"hidden"}`}>Logout</span>
+              <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${sidebarVisibility?"":"hidden"}`}>{t("logout")}</span>
             </button>
         </div>
       </div>

@@ -474,5 +474,27 @@
         "login":"ログイン",
         "signInText": "アカウントをお持ちではありませんか？ <Link> 登録 </Link>",
         "forgotPassword": "パスワードをお忘れですか？"
+    },
+    "UserSideBar":{
+        "dashboard":"ダッシュボード",
+        "newOrder":"新しい発注",
+        "orders":"発注一覧",
+        "chats":"チャット",
+        "payments":"お支払い",
+        "archive":"アーカイブ",
+        "settings":"設定",
+        "logout":"ログアウト"
+    },
+    "TopNavBar":{
+        "welcomeMsg":"ようこそ",
+        "newOrder":"新しい発注"
+    },
+    "DashBoard":{
+        "orderOverView":{
+            "orderOverView":"発注管理画面",
+            "pending":"発注予定",
+            "progress":"進行中", 
+            "completed":"完了"
+        }
     }
 }
