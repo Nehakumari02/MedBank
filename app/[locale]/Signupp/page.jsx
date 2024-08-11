@@ -148,7 +148,7 @@ const SignUp = () => {
                     <button className='absolute top-[11px] md:top-[18px] right-[12px]' onClick={()=>setPasswordVisibility(!passwordVisibility)}>{!passwordVisibility?hiddenPasswordIcon:showPasswrodIcon}</button>
                   </div>
                 </div>
-                {!passwordValidation&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon} Password too weak</span>}
+                {!passwordValidation&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon}{t("weakPassword")} </span>}
 
                 <div className="group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col">
                   <div className={`w-full relative rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -164,12 +164,17 @@ const SignUp = () => {
                     <button className='absolute top-[11px] md:top-[18px] right-[12px]' onClick={()=>setConfirmPasswordVisibility(!confirmPasswordVisibility)}>{!confirmPasswordVisibility?hiddenPasswordIcon:showPasswrodIcon}</button>
                   </div>
                 </div>
-                {!passwordMatch&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon} Password don&apos;t match</span>}
+                {!passwordMatch&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon}{t("misMatchPassword")} </span>}
               </div>
               <div className={`${showPasswordRequirements ? 'block' : 'hidden'}`}>
-                <span>Your password must contain:</span>
-                <span className={`${password.length>8?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {password.length<8&&"·"} {password.length>8&&greenTickIcon}  At least 8 characters</span>
-                <span className={`${validatePassword(password).isValidComplexity?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {!validatePassword(password).isValidComplexity&&"·"} {validatePassword(password).isValidComplexity&&greenTickIcon}  Use a mix of uppercase and lowercase letters, numbers, and special characters.</span>
+                {t.rich("errorPassword",{
+                  span1: (chunks)=><span>{chunks}</span>,
+                  span2: (chunks)=><span className={`${password.length>8?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {password.length<8&&"·"} {password.length>8&&greenTickIcon}{chunks}</span>,
+                  span3: (chunks)=><span className={`${validatePassword(password).isValidComplexity?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}>{!validatePassword(password).isValidComplexity&&"·"} {validatePassword(password).isValidComplexity&&greenTickIcon} {chunks}</span>
+                })}
+                {/* <span1>Your password must contain:</span>
+                <span2 > {password.length<8&&"·"} {password.length>8&&greenTickIcon}  At least 8 characters</span>
+                <span3 > {!validatePassword(password).isValidComplexity&&"·"} {validatePassword(password).isValidComplexity&&greenTickIcon}  Use a mix of uppercase and lowercase letters, numbers, and special characters.</span> */}
               </div>
 
               <div className='flex flex-col gap-[6px] md:gap-[16px]'>
