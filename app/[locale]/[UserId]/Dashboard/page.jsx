@@ -1,5 +1,5 @@
 import React from 'react'
-import OrderOverView from '../../../../components/UserDashboard/Dashboard/orderOverview'
+import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverview'
 
 const Dashboard = () => {
   return (
