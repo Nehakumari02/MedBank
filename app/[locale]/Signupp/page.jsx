@@ -23,6 +23,7 @@ const SignUp = () => {
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
   const [passwordValidation, setPasswordValidation] = useState(true);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
 
   const handleBackClick = () => {
     router.back();
@@ -60,10 +61,11 @@ const SignUp = () => {
 
   const handlePasswordUpdate =(e)=>{
     setPassword(e.target.value);
-    if(password=="")
+    setShowPasswordRequirements(e.target.value.length > 0);
+    if(e.target.value=="")
       setPasswordValidation(true);
     else
-    setPasswordValidation(validatePassword(password).isValidComplexity&&validatePassword(password).isValidLength);
+    setPasswordValidation(validatePassword(e.target.value).isValidComplexity&&validatePassword(e.target.value).isValidLength);
   }
 
   const handleSignUp =(e)=>{
@@ -164,7 +166,7 @@ const SignUp = () => {
                 </div>
                 {!passwordMatch&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon} Password don't match</span>}
               </div>
-              <div>
+              <div className={`${showPasswordRequirements ? 'block' : 'hidden'}`}>
                 <span>Your password must contain:</span>
                 <span className={`${password.length>8?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {password.length<8&&"·"} {password.length>8&&greenTickIcon}  At least 8 characters</span>
                 <span className={`${validatePassword(password).isValidComplexity?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {!validatePassword(password).isValidComplexity&&"·"} {validatePassword(password).isValidComplexity&&greenTickIcon}  Use a mix of uppercase and lowercase letters, numbers, and special characters.</span>
