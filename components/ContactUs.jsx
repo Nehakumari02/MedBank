@@ -85,7 +85,7 @@ const ContactUs = () => {
               />
               <label
                 htmlFor="name"
-                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-[14px] md:-translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[14px] md:peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
                 {t("name")}
               </label>
@@ -101,7 +101,7 @@ const ContactUs = () => {
               />
               <label
                 htmlFor="phoneNumber"
-                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-[14px] md:-translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[14px] md:peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
                 {t("number")}
               </label>
@@ -117,7 +117,7 @@ const ContactUs = () => {
               />
               <label
                 htmlFor="email"
-                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-[14px] md:-translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[14px] md:peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
                 {t("email")}
               </label>
@@ -133,7 +133,7 @@ const ContactUs = () => {
               />
               <label
                 htmlFor="confirmEmail"
-                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-[14px] md:-translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[14px] md:peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
                 {t("confirmEmail")}
               </label>
@@ -149,7 +149,7 @@ const ContactUs = () => {
               />
               <label
                 htmlFor="inquiryDetails"
-                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+                className="absolute text-[10px] md:text-[17px] font-sans font-normal leading-[13px] md:leading-[22px] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-[14px] md:-translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-[14px] md:peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
               >
                 {t("query")}
               </label>
