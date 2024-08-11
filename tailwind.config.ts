@@ -53,6 +53,7 @@ const config: Config = {
           800: '#184f50',
           900: '#082f29',
         },
+        
         'custom-orange': {
           50: '#fff8e1',
           100: '#ffecb3',
