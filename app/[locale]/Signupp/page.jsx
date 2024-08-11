@@ -104,7 +104,7 @@ const SignUp = () => {
           <div className='flex md:items-end w-full md:w-[527px] md:mt-[104px]'>
             <div className='w-full flex flex-col gap-[12px]'>
 
-              <div className='w-full flex flex-col md:gap-[10px] gap-[20px]'>
+              <div className='w-full flex flex-col gap-[10px] md:gap-[16px]'>
                 <div className='group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
@@ -170,7 +170,7 @@ const SignUp = () => {
                 <span className={`${validatePassword(password).isValidComplexity?"text-[#00A86B]":"text-[#333333]"} flex items-start justify-start gap-2 font-DM-Sans font-normal text-[14px] leading-[18px]`}> {!validatePassword(password).isValidComplexity&&"·"} {validatePassword(password).isValidComplexity&&greenTickIcon}  Use a mix of uppercase and lowercase letters, numbers, and special characters.</span>
               </div>
 
-              <div className='flex flex-col gap-[6px]'>
+              <div className='flex flex-col gap-[6px] md:gap-[16px]'>
                 <p className='font-DM-Sans font-normal text-[14px] leading-[20px]'>
                   {t.rich('acknowledgement', {
                     personalInfo: (chunks) => <Link className='text-[#3E8DA7] underline underline-offset-2' href={`/${language}/Personal-Information`}>{chunks}</Link>,
@@ -182,7 +182,7 @@ const SignUp = () => {
                 <button type="submit" onClick={handleSignUp} className='h-[38px] md:h-[50px] w-full rounded-[6px] md:flex items-center justify-center [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-bold text-[18px] leading-[24px]'>{t('register')}</button>
               </div>
 
-              <p className='m-0 text-center font-DM-Sans font-normal text-[12px] md:text-[14px] leading-[20px]'>{t.rich("signUpText",{
+              <p className='m-0 text-center font-DM-Sans font-normal text-[12px] md:text-[14px] leading-[20px] pt-[18px] md:pt-[28px] '>{t.rich("signUpText",{
               Link:(chunks)=><Link className='text-[#3E8DA7]' href={`/${language}/Loginn`}>{chunks}</Link>
             })}</p>
             </div>
