@@ -501,6 +501,7 @@
         }
     },
     "Settings":{
+        "settings":"設定",
         "personalInfo":{
             "personalInfo":"ユーザー情報",
             "userName":"ユーザーネーム",

@@ -15,6 +15,7 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [Perfecture, setPerfecture] = useState("");
+  const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
 
@@ -22,7 +23,7 @@ const Settings = () => {
   return (
     <>
       <div className='text-[#333333] pl-[32px] w-full text-[22px] font-DM-Sans leading-[28px] text-#333333 font-bold pt-[17px]'>
-        Settings
+      {t("settings")}
       </div>
       <div className='text-[#333333] mx-[9px] my-[24px] md:border-[1px] rounded-[10px] flex flex-col md:flex-row'>
         <div className='flex flex-col md:w-1/2 md:border-r-[1px]'>
@@ -223,26 +224,39 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
-              <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Faculty/Department
-              </label>
-              <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
-                <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                  <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
-                    placeholder=""
-                    value={faculty}
-                    onChange={(e) => setFaculty(e.target.value)}
-                    style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
-                    type="text"
-                    name="name"
-                  />
+            <div className='flex gap-[21px]'>
+              <div className="flex flex-col w-[82px] h-[46px]">
+                <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
+                {t("contactInfo.country")}
+                </label>
+                <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
+                  <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
+                    
+                    <CountryDropDown></CountryDropDown>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col w-full">
+                <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
+                {t("contactInfo.postalCode")}
+                </label>
+                <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
+                  <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
+                    <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                      placeholder=""
+                      value={postalCode}
+                      onChange={(e) => setpostalCode(e.target.value)}
+                      style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
+                      type="text"
+                      name="name"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Perfecture
+              {t("contactInfo.perfecture")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -257,9 +271,10 @@ const Settings = () => {
                 </div>
               </div>
             </div>
+           
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                <CountryDropDown></CountryDropDown>
+              {t("contactInfo.city")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -267,23 +282,6 @@ const Settings = () => {
                     placeholder=""
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
-                    type="text"
-                    name="name"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Name on quotation, invoice, receipt
-              </label>
-              <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
-                <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                  <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
-                    placeholder=""
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
                     style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                     type="text"
                     name="name"
