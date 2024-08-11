@@ -493,5 +493,28 @@
             "progress":"Orders In-Progress", 
             "completed":"Completed"
         }
+    },
+    "Settings":{
+        "personalInfo":{
+            "personalInfo":"Personal Information",
+            "userName":"Username",
+            "name":"Name",
+            "school":"School/Organization Name",
+            "faculty":"Faculty/Department",
+            "field":"Field/Group",
+            "others":"Others",
+            "invoice":"Name on quotation, invoice, receipt"
+        },
+        "contactInfo":{
+            "contactInfo":"Contact  Information",
+            "country":"Country",
+            "phone":"Phone Number",
+            "email":"Email Address",
+            "confirmEmail":"Confirm Email Address",
+            "postalCode":"Postal Code",
+            "perfecture":"Perfecture",
+            "city":"City/Town Address"
+        }
+
     }
 }
