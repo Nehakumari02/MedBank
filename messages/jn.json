@@ -525,5 +525,11 @@
             "confirm":"確定"
         }
 
+    },
+    "Logout":{
+        "title":"アカウントのログアウト",
+        "cancelConfirm":"ログアウトしますか？",
+        "cancel":"キャンセル",
+        "confirm":"ログアウト"
     }
 }

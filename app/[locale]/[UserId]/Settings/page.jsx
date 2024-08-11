@@ -20,12 +20,6 @@ const Settings = () => {
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
 
-  const {showModal} = useModal();
-
-  useEffect(()=>{
-    showModal("Logout","Are you sure you want to logout")
-  },[])
-
 
   return (
     <>

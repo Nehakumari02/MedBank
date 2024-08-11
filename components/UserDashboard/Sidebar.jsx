@@ -89,6 +89,7 @@ const Sidebar = () => {
               <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>{t("settings")}</span>
             </button>
             <button
+              onClick={() => router.push(`/${language}/${userId}/Logout`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px]`}
             >
               {logOutIcon}
