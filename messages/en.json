@@ -514,10 +514,14 @@
             "confirmEmail":"Confirm Email Address",
             "postalCode":"Postal Code",
             "perfecture":"Perfecture",
-            "city":"City/Town Address",
-            "cancel":"Cancel",
-            "confirm":"Confirm"
+            "city":"City/Town Address"
         }
 
+    },
+    "Logout":{
+        "title":"Logout Account",
+        "cancelConfirm":"Are you sure you want to logout ?",
+        "cancel":"Cancel",
+        "confirm":"Confirm"
     }
 }
