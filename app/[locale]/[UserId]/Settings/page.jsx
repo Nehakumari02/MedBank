@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CountryDropDown from "../../../../components/CountryDropdown"
 import { useTranslations } from 'next-intl'
+import { useModal } from '@/contexts/ModalContext'
 
 const Settings = () => {
   const [Username, setUserName] = useState("");
@@ -18,6 +19,12 @@ const Settings = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
+
+  const {showModal} = useModal();
+
+  useEffect(()=>{
+    showModal("Logout","Are you sure you want to logout")
+  },[])
 
 
   return (
@@ -289,6 +296,10 @@ const Settings = () => {
                 </div>
               </div>
             </div>
+            <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
+              <button  className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.cancel")}</button>
+              <button  className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.confirm")}</button>
+            </div>
           </div>
         </div>
       </div>
@@ -297,3 +308,7 @@ const Settings = () => {
 }
 
 export default Settings
+
+export const plusIcon = <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 9.75H9.75V15H8.25V9.75H3V8.25H8.25V3H9.75V8.25H15V9.75Z" fill="white"/>
+</svg>

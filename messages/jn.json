@@ -520,7 +520,9 @@
             "confirmEmail":"メールアドレス再確認用",
             "postalCode":"郵便番号",
             "perfecture":"都道府県 ",
-            "city":"以降住所"
+            "city":"以降住所",
+            "cancel":"キャンセル",
+            "confirm":"確定"
         }
 
     }
