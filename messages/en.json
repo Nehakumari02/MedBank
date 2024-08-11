@@ -514,7 +514,9 @@
             "confirmEmail":"Confirm Email Address",
             "postalCode":"Postal Code",
             "perfecture":"Perfecture",
-            "city":"City/Town Address"
+            "city":"City/Town Address",
+            "cancel":"Cancel",
+            "confirm":"Confirm"
         }
 
     }

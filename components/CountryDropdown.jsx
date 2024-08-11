@@ -46,7 +46,7 @@ export default function CountryDropdown() {
             {/* <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full h-full px-4 py-3 bg-white border border-gray-300 rounded">
-                <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 border-[0.5px] border-black  py-1 px-1 mx-1" />
+                <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 border-[2px] border-black  py-1 px-1 mx-1" />
                 <svg className="w-6 h-4 ml-auto mr-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? 'M19 9l-7 7-7-7' : 'M19 9l-7 7-7-7'} />
                 </svg>
@@ -67,7 +67,7 @@ export default function CountryDropdown() {
             )} */}
             <Select onValueChange={(value) => handleFlagSelect(value)} value={selectedFlag}>
             <SelectTrigger className="bg-white w-[82px] h-[39px] md:h-[51px] focus:outline-none">
-                <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 bg-white border-[0.5px] border-black  py-1 px-1 mx-1" />
+                <img src={`/flags/${selectedFlag}`} alt="Selected Flag" className="w-6 h-4 bg-white border-[2px] border-black  py-1 px-1 mx-1" />
             </SelectTrigger>
             <SelectContent className='w-full bg-white'>
                 <SelectGroup>
