@@ -459,7 +459,10 @@
         "name":"氏名",
         "email":"メールアドレス",
         "password":"パスワード",
+        "weakPassword":"脆弱なパスワード",
         "confirmPassword":"パスワードの再確認",
+        "misMatchPassword":"パスワードが一致しません。",
+        "errorPassword":"<span1>パスワードは下記を含む必要があります。</span1><span2>最低8文字</span2><span3> 大文字、小文字、数字、特殊文字を混ぜて使う</span3>",
         "acknowledgement":"登録することにより、 <personalInfo>プライバシーポリシー</personalInfo>、<cancellationPolicy>個人情報の取り扱い</cancellationPolicy>、<sitePolicy>キャンセル ポリシー</sitePolicy>、<privacyPolicy>サイトポリシー</privacyPolicy>のすべてに同意します。",
         "register":"登録",
         "signUpText":"既にアカウントをお持ちの方はこちら  <Link> サインイン </Link>"
