@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import CountryDropDown from "../../../../components/CountryDropdown"
+import { useTranslations } from 'next-intl'
 
 const Settings = () => {
   const [Username, setUserName] = useState("");
@@ -15,6 +16,7 @@ const Settings = () => {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [Perfecture, setPerfecture] = useState("");
   const [city, setCity] = useState("");
+  const t = useTranslations("Settings");
 
 
   return (
@@ -25,12 +27,12 @@ const Settings = () => {
       <div className='text-[#333333] mx-[9px] my-[24px] md:border-[1px] rounded-[10px] flex flex-col md:flex-row'>
         <div className='flex flex-col md:w-1/2 md:border-r-[1px]'>
           <div className='px-[24px] md:py-[15px] w-full md:border-b-[1px] font-DM-Sans text-[14px] md:text-base font-normal leading-6'>
-            Personal Information
+          {t("personalInfo.personalInfo")}
           </div>
           <div className='px-[24px] py-[12px] md:py-[29px] w-full flex flex-col gap-[6px] md:gap-[16px]'>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                UserName
+              {t("personalInfo.userName")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -47,7 +49,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Name
+              {t("personalInfo.name")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -65,7 +67,7 @@ const Settings = () => {
 
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                School/Organization Name
+              {t("personalInfo.school")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -82,7 +84,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Faculty/Department
+              {t("personalInfo.faculty")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -99,7 +101,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Field/Group
+              {t("personalInfo.field")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -116,7 +118,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Others
+              {t("personalInfo.others")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -133,7 +135,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Name on quotation, invoice, receipt
+              {t("personalInfo.invoice")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -153,13 +155,13 @@ const Settings = () => {
 
         <div className='flex flex-col md:w-1/2'>
           <div className='px-[24px] md:py-[15px] w-full md:border-b-[1px] font-DM-Sans text-[14px] md:text-base font-normal leading-[28px] md:leading-6'>
-            Contact Information
+          {t("contactInfo.contactInfo")}
           </div>
           <div className='px-[24px] py-[12px] md:py-[29px] w-full flex flex-col gap-[6px] md:gap-[16px]'>
             <div className='flex gap-[21px]'>
               <div className="flex flex-col w-1/6">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                  Country
+                {t("contactInfo.country")}
                 </label>
                 <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -170,7 +172,7 @@ const Settings = () => {
               </div>
               <div className="flex flex-col w-5/6">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                  Phone Number
+                {t("contactInfo.phone")}
                 </label>
                 <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -188,7 +190,7 @@ const Settings = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Email Address
+              {t("contactInfo.email")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -206,7 +208,7 @@ const Settings = () => {
 
             <div className="flex flex-col">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
-                Confirm Email Address
+              {t("contactInfo.confirmEmail")}
               </label>
               <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                 <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
