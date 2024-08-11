@@ -325,7 +325,7 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
 ]
 
-export function DashboardDataTable({ data }: { data: OrderList[] }) {
+export function OrdersDataTable({ data }: { data: OrderList[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
