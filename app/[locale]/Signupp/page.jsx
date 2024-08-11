@@ -162,7 +162,7 @@ const SignUp = () => {
                     <button className='absolute top-[11px] md:top-[18px] right-[12px]' onClick={()=>setConfirmPasswordVisibility(!confirmPasswordVisibility)}>{!confirmPasswordVisibility?hiddenPasswordIcon:showPasswrodIcon}</button>
                   </div>
                 </div>
-                {!passwordMatch&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon} Password don't match</span>}
+                {!passwordMatch&&<span className='h-[24px] font-DM-Sans font-normal text-[16px] leading-[24px] text-[#FF453A] flex items-center justify-start'>{errorIcon} Password don&apos;t match</span>}
               </div>
               <div>
                 <span>Your password must contain:</span>
