@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import {plusIcon} from './Icons'
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 const TopNav = () => {
   const path = usePathname().split("/")[3];
@@ -10,6 +11,9 @@ const TopNav = () => {
   const language = usePathname().split("/")[1];
   const router = useRouter();
   const [userId, setUserId] = useState(1234);
+
+  const t = useTranslations("TopNavBar");
+
   const updateLanguage = (newLanguage) => {
     // Create new URL with updated language
     const newPath = `/${newLanguage}/${pathToRedirect}`;
@@ -19,9 +23,9 @@ const TopNav = () => {
   };
 
   return (
-    <div className='w-full md:h-[104px] p-[32px] text-[#333333] sticky top-0 flex items-center justify-between border-b-[1px] border-[#3333331A]'>
+    <div className='w-full md:h-[104px] bg-white z-1111 p-[32px] text-[#333333] sticky top-0 flex items-center justify-between border-b-[1px] border-[#3333331A]'>
       <div>
-        {path=="Dashboard"?<span className='font-DM-Sans font-bold text-[28px] leading-[24px] '>Welcome User!</span>:<></>}
+        {path=="Dashboard"?<span className='font-DM-Sans font-bold text-[28px] leading-[24px] '>{t("welcomeMsg")}</span>:<></>}
       </div>
       <div className='flex items-center gap-[24px]'>
       <div className='flex items-center justify-center gap-[10px] w-[67px]'>
@@ -33,7 +37,7 @@ const TopNav = () => {
             <span className={`${language == "en" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
-        <Link href={`/${language}/${userId}/NewOrder`} className='h-[40px] w-[133px] rounded-[6px] md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon} New Order</Link>
+        <Link href={`/${language}/${userId}/NewOrder`} className='h-[40px] w-[133px] rounded-[6px] md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon}{t("newOrder")}</Link>
       </div>
     </div>
   )

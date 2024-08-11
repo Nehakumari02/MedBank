@@ -4,7 +4,6 @@ import LoadingScreen from "@/components/Common/LoadingScreen";
 // import TemplateContainer from "@/components/CreateAutomations/templateContainer";/
 import { useSidebarContext } from "@/contexts/SidebarContext";
 import { useState } from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
 import { ModalProvider } from "@/contexts/ModalContext";
 import Modal from "@/components/Common/Modal";
 // import { useBanner } from "@/contexts/BannerContext";

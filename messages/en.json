@@ -468,5 +468,27 @@
         "login":"Login",
         "signInText":"Don’t have an Account ?  <Link> Register </Link>",
         "forgotPassword": "Forgot Password?"
+    },
+    "UserSideBar":{
+        "dashboard":"Dashboard",
+        "orders":"Orders",
+        "newOrder":"New Order",
+        "chats":"Chats",
+        "payments":"Payments",
+        "archive":"Archive",
+        "settings":"Settings",
+        "logout":"Logout"
+    },
+    "TopNavBar":{
+        "welcomeMsg":"Welcome User!",
+        "newOrder":"New Order"
+    },
+    "DashBoard":{
+        "orderOverView":{
+            "orderOverView":"Order Overview!",
+            "pending":"Pending Orders",
+            "progress":"Orders In-Progress", 
+            "completed":"Completed"
+        }
     }
 }
