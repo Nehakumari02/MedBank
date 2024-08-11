@@ -28,6 +28,23 @@
   -webkit-text-stroke-color: #003E5C26;
 }
 
+.gradient-border {
+  position: relative;
+  border-radius: 6px;
+  padding: 1px; /* Adjust as needed to create the border effect */
+  background: linear-gradient(180deg, #60B7CF 10%, #3E8DA7 74.5%, rgba(0, 62, 92, 0.6) 100%);
+  background-clip: padding-box; /* Ensures the background gradient is clipped by the border-radius */
+}
+
+.gradient-border-inner {
+  border-radius: inherit; /* Inherits radius from parent */
+  background: white; /* Background color of the actual element */
+  width: 614.6px; /* Keep your original width */
+  height: 50px; /* Adjust height as needed */
+}
+
+
+
 .dashed-gradient {
   width: 100%;
   border: 1px dotted;
