@@ -108,7 +108,7 @@ export default function AboutPage() {
               <div className="text-xs sm:text-2xl leading-[24px]">
                 <p className='font-medium p-0 m-0'>Laboratory in Japan:</p>
                 <p className='p-0 m-0'>〒540-0002</p>
-                <p className='p-0 m-0'>3-7-12 Shoji, Ikuno-ku, Osaka-shi, Osaka Japan</p>
+                <p className='p-0 m-0'>{t("lab")}</p>
               </div>
               <hr />
 

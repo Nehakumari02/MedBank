@@ -47,7 +47,7 @@ const MultiStepTutorial = ({ onClose }) => {
             </div>
           )}
           {step === 2 && (
-            <div>
+            <div className=''>
               <h2 className="text-xl font-semibold mb-4">Number of Orders that are In progress.</h2>
             
             </div>
