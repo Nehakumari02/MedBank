@@ -19,7 +19,7 @@ const SignInPage = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const {data:session} = useSession();
-  console.log(session)
+  // console.log(session)
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -59,7 +59,7 @@ const SignInPage = () => {
         return;
       }
 
-      router.push(`/${language}/23423/Dashboard`)
+      router.push(`/${language}/${session.user.id}/Dashboard`)
     } catch (error) {
       
     }
