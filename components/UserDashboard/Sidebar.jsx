@@ -6,10 +6,10 @@ import {dashboardIcon,dashboardSelectedIcon,newOrderIcon,newOrderSelectedIcon,or
 import { usePathname, useRouter } from "next/navigation";
 import { useSidebarContext } from "@/contexts/SidebarContext";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const [profilePicture, setProfilePicture] = useState('');
-  const [userId, setUserId] = useState(1234);
   const router = useRouter();
   const {sidebarVisibility}=useSidebarContext();
   const path = usePathname().split("/")[3];
@@ -17,6 +17,7 @@ const Sidebar = () => {
   const language = usePathname().split("/")[1];
 
   const t = useTranslations("UserSideBar");
+  const {data:session} = useSession();
 
   const menuItems = [
     {
@@ -72,7 +73,7 @@ const Sidebar = () => {
           {menuItems.map((item) => (
             <button
               key={item.text}
-              onClick={() => router.push(`/${language}/${userId}/${item.path}`)}
+              onClick={() => router.push(`/${language}/${session.user.id}/${item.path}`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path==item.path?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path==item.path?item.selectedIcon:item.icon}
@@ -82,14 +83,14 @@ const Sidebar = () => {
         </div>
         <div className={`flex flex-col ${sidebarVisibility?"items-start":"items-center"} justify-between w-full gap-[16px]`}>
         <button
-              onClick={() => router.push(`/${language}/${userId}/Settings`)}
+              onClick={() => router.push(`/${language}/${session.user.id}/Settings`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path=="Settings"?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path=="Settings"?settingSelectedIcon:settingsIcon}
               <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>{t("settings")}</span>
             </button>
             <button
-              onClick={() => router.push(`/${language}/${userId}/Logout`)}
+              onClick={() => router.push(`/${language}/${session.user.id}/Logout`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px]`}
             >
               {logOutIcon}
