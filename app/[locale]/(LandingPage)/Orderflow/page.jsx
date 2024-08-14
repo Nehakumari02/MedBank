@@ -17,6 +17,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SnackBar from '../../../../components/SnackBar'
 import { useTranslations } from 'next-intl'
+import { Fullscreen } from 'lucide-react'
 
 const OrderFlow = () => {
     const t = useTranslations("OrderFlow");
@@ -45,7 +46,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className='pt-[40px]'>
-                        <Image src={Orderflow1} />
+                        <Image src={t("img1")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -60,8 +61,8 @@ const OrderFlow = () => {
                             })}
                     </div>
                     <br />
-                    <div>
-                        <Image src={Orderflow2} />
+                    <div className='pt-[40px]'>
+                    <Image src={t("img2")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -77,7 +78,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className='pt-[40px]'>
-                        <Image src={Orderflow3} />
+                    <Image src={t("img3")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -93,7 +94,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow4} />
+                    <Image src={t("img4")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -108,9 +109,7 @@ const OrderFlow = () => {
                             })}
                     </div>
                     <br />
-                    <div className=' pt-[40px]'>
-                        <Image src={Orderflow5} />
-                    </div>
+                    <Image src={t("img5")} width={900} height={900} className='w-full h-full'/>
                 </div>
 
                 <div className='text-[#333333] pt-[40px]'>
@@ -125,7 +124,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow6} />
+                    <Image src={t("img6")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -141,7 +140,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow7} />
+                    <Image src={t("img7")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -157,7 +156,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow8} />
+                    <Image src={t("img8")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -173,7 +172,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow9} />
+                    <Image src={t("img9")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -189,7 +188,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow10} />
+                    <Image src={t("img10")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -205,7 +204,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow11} />
+                    <Image src={t("img11")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -221,7 +220,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow12} />
+                    <Image src={t("img12")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
 
@@ -237,7 +236,7 @@ const OrderFlow = () => {
                     </div>
                     <br />
                     <div className=' pt-[40px]'>
-                        <Image src={Orderflow13} />
+                    <Image src={t("img13")} width={900} height={900} className='w-full h-full'/>
                     </div>
                 </div>
             </div>

@@ -271,7 +271,21 @@
         "step12":"Sending of invoice",
         "des12":"After the original data and analysis specifications have been sent, an invoice will be available for download from Mypage. Please make a bank transfer after confirming the invoice.",
         "step13":"Sending of Receipt",
-        "des13":"You will be able to download the receipt after confirming the transfer of funds. <br></br> Please note that it may take some time to confirm the transfer of funds."
+        "des13":"You will be able to download the receipt after confirming the transfer of funds. <br></br> Please note that it may take some time to confirm the transfer of funds.",
+        "img1": "/Images/Home/Orderflow1.png",
+        "img2": "/Images/Home/Orderflow2.png",
+        "img3": "/Images/Home/Orderflow3.png",
+        "img4": "/Images/Home/Orderflow4.png",
+        "img5": "/Images/Home/Orderflow5.png",
+        "img6": "/Images/Home/Orderflow6.png",
+        "img7": "/Images/Home/Orderflow7.png",
+        "img8": "/Images/Home/Orderflow8.png",
+        "img9": "/Images/Home/Orderflow9.png",
+        "img10":"/Images/Home/Orderflow10.png",
+        "img11": "/Images/Home/Orderflow11.png",
+        "img12": "/Images/Home/Orderflow12.png",
+        "img13":"/Images/Home/Orderflow13.png"
+
     },
     "PersonalInformation":{
         "header":"Handling of Personal Information",
