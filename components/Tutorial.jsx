@@ -30,9 +30,9 @@ const MultiStepTutorial = ({ onClose }) => {
   }, [step]);
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center">
+    <div className="absolute inset-0 flex justify-center items-center">
       {/* Highlight Overlay */}
-      <div className={`absolute inset-0 bg-black bg-opacity-50 ${step === 1 ? 'highlight' : ''}`} />
+      <div className={`inset-0 bg-black bg-opacity-50 ${step === 1 ? 'highlight' : ''}`} />
       
       {/* Tutorial Pop-Up */}
       <div

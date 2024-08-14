@@ -23,7 +23,7 @@ const TopNav = () => {
   };
 
   return (
-    <div className='w-full md:h-[104px] bg-white z-1111 p-[32px] text-[#333333] sticky top-0 flex items-center justify-between border-b-[1px] border-[#3333331A]'>
+    <div className='w-full md:h-[104px] bg-white p-[32px] text-[#333333] flex items-center justify-between border-b-[1px] border-[#3333331A]'>
       <div>
         {path=="Dashboard"?<span className='font-DM-Sans font-bold text-[28px] leading-[24px] '>{t("welcomeMsg")}</span>:<></>}
       </div>
