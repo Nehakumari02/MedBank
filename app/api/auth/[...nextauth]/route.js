@@ -32,8 +32,7 @@ const authOptions = {
           return {
             id: user._id,
             email: user.email,
-            name: user.name,
-            role: user.role, // Example of additional information
+            name: user.name
           };
         } catch (error) {
           console.log("Error: ", error);
@@ -41,6 +40,24 @@ const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        if (account) {
+              // token.accessToken = account.access_token
+              token.id = user.id
+            }
+            return token
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      // session.accessToken = token.accessToken
+      session.user.id = token.id
+      
+      return session
+    },
+  },
   session: {
     strategy: "jwt",
   },
