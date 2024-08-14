@@ -7,6 +7,7 @@ import Image from 'next/image';
 
 const OrderCreationPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   const handleNext = () => {
     setCurrentStep((prev) => prev + 1);
@@ -16,13 +17,16 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setUploadedFile(file);
+  };
+
   return (
-    <div className=' bg-gray-100 pb-8 font-DM-Sans'>
+    <div className='bg-[#F7F9FB] font-DM-Sans'>
       <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px] ">Order Creation</div>
-      <div className="flex flex-col items-center justify-center pt-[82px]">
-
-
-        <div className="flex items-center w-[478x] h-[107px]">
+      <div className="flex flex-col items-center justify-center pt-[22px]">
+        <div className="flex items-center w-[478x] h-[107px] pb-[32px]">
           <div className={` relative text-center ${currentStep >= 1 ? 'text-blue-500' : 'text-gray-400'}`}>
             <div className="flex items-center justify-center w-[60px] h-[60px] rounded-full border-[1px] border-cyan-600 bg-cyan-400">
               <Image src={creation1} alt="Order Details" className="w-[22px] h-[28px] rounded-full" />
@@ -51,35 +55,66 @@ const OrderCreationPage = () => {
           </div>
         </div>
 
-        <div className=" bg-white p-8 rounded-lg shadow pt-[24px]">
+        <div className=" bg-[#FFFFFF] p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px]">
           {currentStep === 1 && (
             <div className='w-[760px] h-[282px]'>
               <div className="text-2xl font-semibold mb-4 flex items-center justify-center">Step 1: Order Details</div>
-              <label className="block mb-4">
-                <span className="text-gray-700 text-lg">Order Title:</span>
-                <input type="text" className="block w-full mt-1 p-2 border border-gray-300 rounded text-base font-normal" placeholder="Order Title" />
-              </label>
-              <div className="flex items-center justify-end gap-[10px] lg:gap-[12px] pt-[24px]">
+              <div className="flex  items-center justify-center gap-[24px] pt-[41px]">
+                <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
+                  order detail :
+                </label>
+                <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
+                  <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
+                    <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                      placeholder=""
+                      //value={name}
+                      //onChange={(e) => setName(e.target.value)}
+                      style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
+                      type="text"
+                      name="name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-end gap-[10px] lg:gap-[12px] pt-[41px]">
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleBack} disabled={currentStep === 1}>Back</button>
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleNext}>Next</button>
-                
+
               </div>
             </div>
           )}
           {currentStep === 2 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Step 2: Upload Request Sheet</h2>
-              {/* Upload Request Sheet form goes here */}
-              <div className="flex justify-between">
-                <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded" onClick={handleBack}>Back</button>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleNext}>Next</button>
+              <h2 className="text-2xl font-semibold mb-4 text-center">Step 2: Upload Request Sheet</h2>
+              <div className="flex justify-center items-center mb-4">
+                <input
+                  type="file"
+                  onChange={handleFileUpload}
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                />
+              </div>
+              <div className="flex items-center justify-end gap-[10px] lg:gap-[12px]">
+                <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleBack}>Back</button>
+                <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}>Next</button>
               </div>
             </div>
           )}
           {currentStep === 3 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Step 3: Review & Submit</h2>
-              {/* Review & Submit form goes here */}
+              <h2 className="text-2xl font-semibold mb-4 flex items-center justify-center">Step 3: Review & Submit</h2>
+              <div className="flex flex-col items-center pt-[20px]">
+                <p className="text-lg font-semibold">Uploaded File:</p>
+                {uploadedFile && (
+                  <a
+                    href={URL.createObjectURL(uploadedFile)}
+                    download={uploadedFile.name}
+                    className="text-blue-500 underline"
+                  >
+                    {uploadedFile.name}
+                  </a>
+                )}
+              </div>
+             
               <div className="flex justify-between">
                 <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded" onClick={handleBack}>Back</button>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>

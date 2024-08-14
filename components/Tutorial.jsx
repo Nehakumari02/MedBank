@@ -53,7 +53,7 @@ const MultiStepTutorial = ({ onClose }) => {
             </div>
           )}
           {step === 3 && (
-            <div className='w-[314px] h-[200px] flex flex-col items-center justify-center pl-[30px]'>
+            <div className='flex flex-col items-center justify-center pl-[30px] pt-3'>
               <h2 className="text-xl font-DM-Sans  font-semibold mb-4">Number of Orders that are successfully completed.</h2>
               
             </div>
