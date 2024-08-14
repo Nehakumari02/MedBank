@@ -1,10 +1,11 @@
 import { useTranslations } from 'next-intl'
+import {DashboardDataTable} from './DashboardDataTable'
 
 import React, { useEffect, useState } from "react";
 import {pendingIcon,progressIcon,completedIcon} from '../Icons'
 import Tutorial from  '@/components/Tutorial'
 
-const OrderOverView = ({orderOverview}) => {
+const OrderOverView = ({orderOverview,data}) => {
   const [showTutorial, setShowTutorial] = useState(true);
   
   useEffect(() => {
@@ -22,7 +23,7 @@ const OrderOverView = ({orderOverview}) => {
   const t = useTranslations("DashBoard.orderOverView")
   return (
     <div className='relative'>
-    {/* {showTutorial && <Tutorial onClose={handleCloseTutorial} />} */}
+    {showTutorial && <Tutorial onClose={handleCloseTutorial} />}
     <div className='text-[#333333] mb-[14px]'>
         <div className='h-[40px] '>
           <span className='font-DM-Sans font-bold text-[20px] leading-[28px]'>{t("orderOverView")}</span>
@@ -57,6 +58,7 @@ const OrderOverView = ({orderOverview}) => {
           </div>
         </div>
     </div>
+    <DashboardDataTable data={data}/>
     </div>
   )
 }
