@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
-import {DashboardDataTable} from '../../../../components/UserDashboard/Dashboard/DashboardDataTable'
 import { useSession } from 'next-auth/react'
 
 const Dashboard = () => {
@@ -260,8 +259,8 @@ const Dashboard = () => {
 
   return (
     <div className='w-full p-[19px]'>
-      <OrderOverView orderOverview={orderOverview}/>
-      <DashboardDataTable data={data}/>
+      <OrderOverView orderOverview={orderOverview} data={data}/>
+      
     </div>
   )
 }
