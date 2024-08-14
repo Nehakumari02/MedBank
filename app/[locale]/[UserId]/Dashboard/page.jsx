@@ -2,8 +2,13 @@
 import React from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
 import {DashboardDataTable} from '../../../../components/UserDashboard/Dashboard/DashboardDataTable'
+import { useSession } from 'next-auth/react'
 
 const Dashboard = () => {
+  const {data:session} = useSession();
+  console.log(session)
+  console.log(session?.user.id)
+
   const orderOverview ={
     pending:19,
     progress:7,
@@ -254,7 +259,7 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className='w-full p-[19px] md:h-[calc(100vh-104px)] overflow-y-scroll'>
+    <div className='w-full p-[19px]'>
       <OrderOverView orderOverview={orderOverview}/>
       <DashboardDataTable data={data}/>
     </div>

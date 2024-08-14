@@ -5,6 +5,7 @@ import './globals.css';
 import { cn } from '../../lib/utils';
 import { DMSans } from '../../lib/fonts';
 import { SidebarContextProvider } from '@/contexts/SidebarContext';
+import {AuthProvider} from "../Providers"
 
 export default async function LocaleLayout({
   children,
@@ -18,11 +19,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={cn(DMSans.variable, "text-black")}>
+        <AuthProvider>
         <NextIntlClientProvider messages={messages}>
           <SidebarContextProvider>
           <main>{children}</main>
           </SidebarContextProvider>
         </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );
