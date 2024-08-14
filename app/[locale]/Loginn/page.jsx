@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import {signIn, useSession} from 'next-auth/react'
 
 const SignInPage = () => {
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
@@ -16,6 +17,9 @@ const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const {data:session} = useSession();
+  console.log(session)
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -42,8 +46,37 @@ const SignInPage = () => {
     router.push(newPath);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin =  async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await signIn("credentials",{
+        email,password,redirect:false
+      })
+
+      console.log(res)
+      if(res.error){
+        return;
+      }
+
+      router.push(`/${language}/23423/Dashboard`)
+    } catch (error) {
+      
+    }
+
+    // const response = await fetch('/api/signin', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({email,password}),
+    // });
+    // const data = await response.json();
+    // console.log(data.message)
+    // if(response.status==200){
+    //   router.push(`/${language}/42397/Dashboard`)
+    // }
+    
   }
 
   return (

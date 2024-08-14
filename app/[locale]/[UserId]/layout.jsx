@@ -16,8 +16,8 @@ export default function Layout({ children, params }) {
     const { sidebarVisibility, setSidebarVisibility, setUsersVisibility } =
         useSidebarContext();
     // const { banner } = useBanner();
-    const banner ={
-        visible:false
+    const banner = {
+        visible: false
     }
     const handleDrawerToggle = () => {
         setSidebarVisibility(true);
@@ -77,8 +77,10 @@ export default function Layout({ children, params }) {
                                     className="w-full h-screen overflow-y-scroll"
                                     onMouseEnter={handleContainerToggle}
                                 >
-                                    <TopNav/>
-                                    {isLoading ? <LoadingScreen /> : children}
+                                    <div className="">
+                                        <TopNav />
+                                    </div>
+                                    {isLoading ? <LoadingScreen /> : <div className="h-[calc(100vh-104px)] overflow-y-scroll"> {children}</div>}
                                 </div>
                             </div>
                         </div>

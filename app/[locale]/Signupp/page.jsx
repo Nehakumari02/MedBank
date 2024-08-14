@@ -21,7 +21,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(true);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
@@ -69,8 +69,22 @@ const SignUp = () => {
     setPasswordValidation(validatePassword(e.target.value).isValidComplexity&&validatePassword(e.target.value).isValidLength);
   }
 
-  const handleSignUp =(e)=>{
+  const handleSignUp = async (e)=>{
     e.preventDefault();
+    try{
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({name,email,password,confirmPassword}),
+    });
+    const data = await response.json();
+    console.log(data.message)
+    router.push(`/${language}/Loginn`);
+  }catch(error){
+    console.log(error)
+  }
   }
 
   const handleConfirmPassword =(e)=>{
