@@ -172,7 +172,7 @@ const Chats = () => {
             <span>Email CC -</span>
             {emails.map((email,index)=>{
               return(
-                <span className="h-[36px] px-[10px] flex items-center gap-[10px] bg-[#EFF4FB] rounded-md">{email}<button>{closeIcon}</button></span>
+                <span key={index} className="h-[36px] px-[10px] flex items-center gap-[10px] bg-[#EFF4FB] rounded-md">{email}<button>{closeIcon}</button></span>
               )
             })}
           </div>
