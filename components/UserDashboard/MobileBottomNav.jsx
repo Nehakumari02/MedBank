@@ -59,12 +59,12 @@ const MobileBottomNav = () => {
     <div className={`w-full flex px-[6px] py-[8px] items-center text-[#333333] border-r-[1px] border-[#3333331A]`}>
       
       <div className={`h-full w-full flex items-center justify-between`}>
-        <div className={`flex items-center justify-around w-full gap-[4px]`}>
+        <div className={`flex items-center justify-between w-full `}>
           {menuItems.map((item) => (
             <button
               key={item.text}
               onClick={() => router.push(`/${language}/${session.user.id}/${item.path}`)}
-              className={`h-[40px] w-full flex flex-col items-center justify-between`}
+              className={`h-[40px] flex flex-col items-center justify-between`}
             >
               {path==item.path?item.selectedIcon:item.icon}
               <span className={`font-DM-Sans font-normal text-[12px] leading-[16px] ${path==item.path?"text-[#3E8DA7]":""}`}>{item.text}</span>

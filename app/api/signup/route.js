@@ -10,11 +10,12 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, 10);
     await dbConnect();
     const res = await User.create({name,email,password:hashedPassword});
-    console.log(res)
+    console.log("result",res)
     return new NextResponse(JSON.stringify({ message: 'User registered successfully' }), {
       status: 200,
     });
   } catch (error) {
+    console.log("error",error)
     return new NextResponse(JSON.stringify({ error: 'Error registering user' }), {
       status: 500,
     });
