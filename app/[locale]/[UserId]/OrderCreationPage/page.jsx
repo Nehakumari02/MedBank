@@ -36,32 +36,32 @@ const OrderCreationPage = () => {
     <div className='bg-[#F7F9FB] font-DM-Sans'>
       <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">Order Creation</div>
       <div className="flex flex-col items-center justify-center pt-[22px]">
-        <div className="flex items-center w-[305px] h-[64px] lg:w-[478px] lg:h-[98px] pb-[32px]">
+        <div className="flex justify-center items-center w-[305px] h-[24px] lg:w-[478px] lg:h-[60px] mb-[40px] lg:mb-[57px]">
           <div className={`relative text-center ${currentStep >= 1 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center  w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-cyan-600 bg-cyan-400': 'border-gray-500 bg-[#717171]'}`}>
+            <div className={`flex items-center justify-center  w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-[#3E8DA7] bg-[#60B7CF]': 'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation1} alt="Order Details" className="w-[16px] h-[16px] lg:w-[22px] lg:h-[28px] rounded-full" />
             </div>
-            <div className='absolute font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Order Details</div>
+            <div className='absolute top-[40px] lg:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Order Details</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
             <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
             <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
           </div>
-          <div className={`relative  text-center ${currentStep >= 2 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 2 ? 'border-yellow-400 bg-yellow-500':'border-gray-500 bg-[#717171]'}`}>
+          <div className={`relative text-center ${currentStep >= 2 ? 'text-blue-500' : 'text-gray-400'}`}>
+            <div className={`flex items-center justify-center w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 2 ? 'border-[#FDB25B] bg-[#FFC107]':'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation2} alt="Upload Request Sheet" className="w-[16px] h-[16px] lg:w-[18px] lg:h-[26px] rounded-full" />
             </div>
-            <div className='absolute  font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Upload Request Sheet</div>
+            <div className='absolute top-[40px] lg:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Upload Request Sheet</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
             <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
             <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
           </div>
-          <div className={`relative flex-1 text-center ${currentStep >= 3 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center w-[24px] h-[24px]  lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 3 ? ' border-green-500 bg-green-400':'border-gray-500 bg-[#717171]'}`}>
+          <div className={`relative text-center ${currentStep >= 3 ? 'text-blue-500' : 'text-gray-400'}`}>
+            <div className={`flex items-center justify-center w-[24px] h-[24px]  lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 3 ? ' border-[#03CF18] bg-[#51DE5F]':'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation3} alt="Review & Submit" className="w-[13px] h-[8px] lg:w-[26px] lg:h-[16px] rounded-full" />
             </div>
-            <div className='absolute font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Review & Submit</div>
+            <div className='absolute top-[40px] lg:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Review & Submit</div>
           </div>
         </div>
 
@@ -163,7 +163,7 @@ const OrderCreationPage = () => {
                       <div>
                         <a href={URL.createObjectURL(uploadedFile)}>
                           <p>{uploadedFile.name}</p>
-                          <p className="text-sm text-gray-500">{(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb</p>
+                          <p className="text-sm text-[#717171]">{(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb</p>
                         </a>
                       </div>
                     </div>
@@ -172,7 +172,7 @@ const OrderCreationPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-gray-500 mt-2">No file uploaded</p>
+                  <p className="text-[#717171] mt-2">No file uploaded</p>
                 )}
               </div>
 
