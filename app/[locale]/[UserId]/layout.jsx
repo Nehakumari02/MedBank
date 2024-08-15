@@ -9,6 +9,7 @@ import Modal from "@/components/Common/Modal";
 // import { useBanner } from "@/contexts/BannerContext";
 import Sidebar from "../../../components/UserDashboard/Sidebar";
 import TopNav from "../../../components/UserDashboard/TopNav";
+import MobileBottomNav from "../../../components/UserDashboard/MobileBottomNav"
 
 export default function Layout({ children, params }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -37,33 +38,18 @@ export default function Layout({ children, params }) {
                 <div>
                     <div className="relative">
                         <div>
-                            {/* <div
-                                className={`${hasPermission ? "hidden" : ""} relative flex h-[5vh] cursor-pointer items-center justify-center bg-[#FFEBEB] hover:bg-[#ffdede]`}
-                                onClick={() =>
-                                    window.open(
-                                        "https://business.facebook.com/latest",
-                                        "_blank",
-                                    )
-                                }
-                            >
-                                <span className="mr-4 flex items-center justify-center gap-2 font-sf-pro-display text-[16px] font-semibold text-[#B52426]">
-                                    The connected Facebook account doesn&apos;t
-                                    have messaging permission. Click here to
-                                    give permission. <FaExternalLinkAlt />
-                                </span>
-                            </div>
                             <div
                                 className={`${banner.visible ? "" : "hidden"} relative flex h-[5vh] items-center justify-center bg-[#FFEBEB] hover:bg-[#ffdede]`}
                             >
                                 <span className="mr-4 flex items-center justify-center gap-2 font-sf-pro-display text-[16px] font-semibold text-[#B52426]">
                                     {banner.text}
                                 </span>
-                            </div> */}
+                            </div>
                             <div
-                                className={`flex ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
+                                className={`md:flex ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
                             >
                                 <div
-                                    className={` ${sidebarVisibility ? "w-[228px]" : "w-[130px]"} ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
+                                    className={`hidden md:block ${sidebarVisibility ? "w-[228px]" : "w-[130px]"} ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
                                     onMouseEnter={handleDrawerToggle}
                                 >
                                     <Sidebar
@@ -80,7 +66,10 @@ export default function Layout({ children, params }) {
                                     <div className="">
                                         <TopNav />
                                     </div>
-                                    {isLoading ? <LoadingScreen /> : <div className="h-[calc(100vh-104px)] overflow-y-scroll"> {children}</div>}
+                                    {isLoading ? <LoadingScreen /> : <div className="h-[calc(100dvh-166px)] md:h-[calc(100vh-104px)] overflow-y-scroll"> {children}</div>}
+                                    <div className="md:hidden">
+                                        <MobileBottomNav/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
