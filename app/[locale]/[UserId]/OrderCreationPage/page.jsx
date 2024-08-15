@@ -38,30 +38,30 @@ const OrderCreationPage = () => {
       <div className="flex flex-col items-center justify-center pt-[22px]">
         <div className="flex items-center w-[305px] h-[64px] lg:w-[478px] lg:h-[107px] pb-[32px]">
           <div className={`relative text-center ${currentStep >= 1 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center w-[60px] h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-cyan-600 bg-cyan-400': 'border-gray-500 bg-[#717171]'}`}>
-              <Image src={creation1} alt="Order Details" className="w-[22px] h-[28px] rounded-full" />
+            <div className={`flex items-center justify-center  w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-cyan-600 bg-cyan-400': 'border-gray-500 bg-[#717171]'}`}>
+              <Image src={creation1} alt="Order Details" className="w-[16px] h-[16px] lg:w-[22px] lg:h-[28px] rounded-full" />
             </div>
-            <div className='absolute font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Order Details</div>
+            <div className='absolute font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Order Details</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
-            <div className="w-[140px] h-[1px] bg-gray-300"></div>
-            <div className="w-[140px] h-[1px] bg-gray-300"></div>
+            <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
+            <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
           </div>
-          <div className={`relative flex-1 text-center ${currentStep >= 2 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center w-[60px] h-[60px] rounded-full border-[1px] ${currentStep >= 2 ? 'border-yellow-400 bg-yellow-500':'border-gray-500 bg-[#717171]'}`}>
-              <Image src={creation2} alt="Upload Request Sheet" className="w-[18px] h-[26px] rounded-full" />
+          <div className={`relative  text-center ${currentStep >= 2 ? 'text-blue-500' : 'text-gray-400'}`}>
+            <div className={`flex items-center justify-center w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 2 ? 'border-yellow-400 bg-yellow-500':'border-gray-500 bg-[#717171]'}`}>
+              <Image src={creation2} alt="Upload Request Sheet" className="w-[16px] h-[16px] lg:w-[18px] lg:h-[26px] rounded-full" />
             </div>
-            <div className='absolute font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Upload Request Sheet</div>
+            <div className='absolute  font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Upload Request Sheet</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
-            <div className="w-[140px] h-[1px] bg-gray-300"></div>
-            <div className="w-[140px] h-[1px] bg-gray-300"></div>
+            <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
+            <div className="w-[76px] lg:w-[140px] h-[1px] bg-gray-300"></div>
           </div>
           <div className={`relative flex-1 text-center ${currentStep >= 3 ? 'text-blue-500' : 'text-gray-400'}`}>
-            <div className={`flex items-center justify-center w-[60px] h-[60px] rounded-full border-[1px] ${currentStep >= 3 ? ' border-green-500 bg-green-400':'border-gray-500 bg-[#717171]'}`}>
-              <Image src={creation3} alt="Review & Submit" className="w-[26px] h-[16px] rounded-full" />
+            <div className={`flex items-center justify-center w-[24px] h-[24px]  lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 3 ? ' border-green-500 bg-green-400':'border-gray-500 bg-[#717171]'}`}>
+              <Image src={creation3} alt="Review & Submit" className="w-[13px] h-[8px] lg:w-[26px] lg:h-[16px] rounded-full" />
             </div>
-            <div className='absolute font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Review & Submit</div>
+            <div className='absolute font-DM-Sans font-normal text-[10px] lg:text-base text-nowrap'>Review & Submit</div>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ const OrderCreationPage = () => {
             </div>
           )}
           {currentStep === 2 && (
-            <div className='w-[352px] h-[330px] lg:w-[760px] lg:h-[390px]'>
+            <div className='w-[352px] h-[290px] lg:w-[760px] lg:h-[390px]'>
               <div className="text-[16px] md:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] lg:pt-[41px]">
                 <p className="">
@@ -115,14 +115,6 @@ const OrderCreationPage = () => {
                   </div>
                 </div>
               </div>
-
-              {uploadedFile && (
-                <div className="text-center mt-[2px]">
-                  <p className="text-base font-medium">File Uploaded</p>
-                  {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
-                </div>
-              )}
-
               <div className="flex items-center justify-end gap-[10px] lg:gap-[12px] pt-[12px]">
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleBack}>Back</button>
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}>Next</button>
