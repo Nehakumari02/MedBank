@@ -36,7 +36,7 @@ const OrderCreationPage = () => {
     <div className='bg-[#F7F9FB] font-DM-Sans'>
       <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">Order Creation</div>
       <div className="flex flex-col items-center justify-center pt-[22px]">
-        <div className="flex items-center w-[305px] h-[64px] lg:w-[478px] lg:h-[107px] pb-[32px]">
+        <div className="flex items-center w-[305px] h-[64px] lg:w-[478px] lg:h-[98px] pb-[32px]">
           <div className={`relative text-center ${currentStep >= 1 ? 'text-blue-500' : 'text-gray-400'}`}>
             <div className={`flex items-center justify-center  w-[24px] h-[24px] lg:w-[60px] lg:h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-cyan-600 bg-cyan-400': 'border-gray-500 bg-[#717171]'}`}>
               <Image src={creation1} alt="Order Details" className="w-[16px] h-[16px] lg:w-[22px] lg:h-[28px] rounded-full" />
@@ -65,17 +65,17 @@ const OrderCreationPage = () => {
           </div>
         </div>
 
-        <div className="bg-[#FFFFFF] p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px] mb-12 mt-[12px] md:mt-5">
+        <div className="bg-[#FFFFFF] p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px] mb-12 mt-[12px] lg:mt-5">
           {currentStep === 1 && (
-            <div className='w-[352px] h-[195px] lg:w-[760px] lg:h-[240px]'>
+            <div className='w-[352px] h-[195px] lg:w-[760px] lg:h-[230px]'>
               <div className="text-2xl font-semibold mb-4 flex items-center justify-center">Step 1: Order Details</div>
-              <div className="flex flex-col items-start gap-[10px] lg:flex-row lg:items-center justify-center md:gap-[24px]  pt-[12px] lg:pt-[41px]">
-                <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
+              <div className="flex flex-col items-start gap-[10px] lg:flex-row lg:items-center justify-center lg:gap-[24px]  pt-[12px] lg:pt-[41px]">
+                <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] lg:text-lg whitespace-nowrap">
                   Order Title :
                 </label>
-                <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
+                <div className='group w-full h-[36px] lg:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
-                    <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                    <input className="w-full p-[10px] text-black lg:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] lg:text-[16px] leading-[16px] lg:leading-[24px]"
                       placeholder=""
                       //value={name}
                       //onChange={(e) => setName(e.target.value)}
@@ -94,8 +94,8 @@ const OrderCreationPage = () => {
           )}
           {currentStep === 2 && (
             <div className='w-[352px] h-[290px] lg:w-[760px] lg:h-[390px]'>
-              <div className="text-[16px] md:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
-              <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] lg:pt-[41px]">
+              <div className="text-[16px] lg:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
+              <div className="text-center text-[12px] lg:text-sm font-normal pt-[16px] lg:pt-[41px]">
                 <p className="">
                   Note: Please use the request sheet designated by Medbank.{" "}
                   <a href="/path/to/download" className="text-blue-600 underline">
@@ -109,12 +109,18 @@ const OrderCreationPage = () => {
                   <div {...getRootProps()} className="cursor-pointer">
                     <input {...getInputProps()} />
                     <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
-                    <p className="text-[10px] md:text-sm font-normal">
+                    <p className="text-[10px] lg:text-sm font-normal">
                       Drag and drop or <span className="text-blue-600 underline">Choose file</span> to upload
                     </p>
                   </div>
                 </div>
               </div>
+              {uploadedFile && (
+                <div className="text-center hidden">
+                  <p className="text-lg font-semibold">File Uploaded</p>
+                  {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                </div>
+              )}
               <div className="flex items-center justify-end gap-[10px] lg:gap-[12px] pt-[12px]">
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleBack}>Back</button>
                 <button className="h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}>Next</button>
@@ -122,20 +128,20 @@ const OrderCreationPage = () => {
             </div>
           )}
           {currentStep === 3 && (
-            <div className="rounded-lg mx-auto w-[352px] h-[292px] lg:w-[760px] lg:h-[330px]">
-              <h2 className="text-[16px] md:text-[22px] font-medium md:[16px] lg:mb-6 text-center">
+            <div className="rounded-lg mx-auto w-[352px] h-[242px] lg:w-[760px] lg:h-[340px]">
+              <h2 className="text-[16px] lg:text-[22px] font-medium lg:[16px] lg:mb-6 text-center">
                 Step 3: Review & Submit
               </h2>
 
               <div className="mb-[16px] lg:mb-6">
-                <p className="font-medium text-xs md:text-lg">Order Summary</p>
+                <p className="font-medium text-xs lg:text-lg">Order Summary</p>
                 <div className="flex items-center justify-center gap-[24px] pt-[12px]">
-                  <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
+                  <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] lg:text-lg whitespace-nowrap">
                     order detail :
                   </label>
-                  <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
+                  <div className='group w-full h-[36px] lg:h-[50px] flex items-center justify-center flex-col'>
                     <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
-                      <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                      <input className="w-full p-[10px] text-black lg:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] lg:text-[16px] leading-[16px] lg:leading-[24px]"
                         placeholder=""
                         //value={name}
                         //onChange={(e) => setName(e.target.value)}
@@ -147,7 +153,7 @@ const OrderCreationPage = () => {
                   </div>
                 </div>
 
-                <p className="font-medium text-[10px] md:text-lg pb-3 pt-6">Request Sheet</p>
+                <p className="font-medium text-[10px] lg:text-lg pb-3 pt-6">Request Sheet</p>
                 {uploadedFile ? (
                   <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg mt-2 w-[331px] lg:w-[300px] h-[52px] justify-between ">
                     <div className='flex gap-[8px]'>
@@ -170,9 +176,9 @@ const OrderCreationPage = () => {
                 )}
               </div>
 
-              <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={handleBack}>Edit</button>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleDelete}>Submit</button>
+              <div className='flex items-center justify-end gap-[10px] lg:gap-[12px]'>
+                <button className='h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px] ' onClick={handleBack}>Edit</button>
+                <button className='h-[40px] lg:h-[48px] w-[96px] lg:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] lg:text-[16px] text-center leading-[24px]' onClick={handleDelete}>Submit</button>
               </div>
             </div>
           )}
