@@ -93,7 +93,7 @@ const OrderCreationPage = () => {
             </div>
           )}
           {currentStep === 2 && (
-            <div className='max-w-[352px] md:max-w-[760px]'>
+            <div className='max-w-[250px] md:max-w-[760px]'>
               <div className="text-[16px] md:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] md:pt-[41px]">
                 <p className="">
@@ -129,7 +129,7 @@ const OrderCreationPage = () => {
             </div>
           )}
           {currentStep === 3 && (
-            <div className="rounded-lg mx-auto w-[352px] md:w-[760px]">
+            <div className="rounded-lg mx-auto max-w-[352px] md:w-[760px]">
               <h2 className="text-[16px] md:text-[22px] font-medium md:[16px] md:mb-6 text-center">
                 Step 3: Review & Submit
               </h2>
