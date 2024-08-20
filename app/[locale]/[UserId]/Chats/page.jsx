@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Logo from "../../../../public/Images/Home/logo.png"
+import Messages from "../../../../components/UserDashboard/Chats/Messages";
 
 const Chats = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -15,7 +16,52 @@ const Chats = () => {
 
   const router = useRouter();
 
+  const generateRandomId = () => {
+    const timestamp = Date.now().toString(36); // Convert current timestamp to base-36
+    const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
+    return `${timestamp}-${randomString}`;
+  };
+
+  const generateRandomMessage = (senderId) => {
+    const messages = [
+      "Hey there!",
+      "How are you?",
+      "What's up?",
+      "Did you finish the project?",
+      "Let's catch up later.",
+      "I'll be there in 10 minutes.",
+      "Can we reschedule our meeting?",
+      "Don't forget to submit the report.",
+      "Happy Birthday!",
+      "See you soon!"
+    ];
+  
+    return {
+      id: generateRandomId(),
+      senderId,
+      text: messages[Math.floor(Math.random() * messages.length)],
+      timestamp: Date.now(),
+    };
+  };
+
+  const createChatArray = (senderId1, senderId2, numMessages) => {
+    const chatArray = [];
+  
+    for (let i = 0; i < numMessages; i++) {
+      const senderId = i % 4 === 0 ? senderId1 : senderId2;
+      const message = generateRandomMessage(senderId);
+      chatArray.push(message); // Validate each message
+    }
+  
+    return chatArray;
+  };
+  
+
   useEffect(() => {
+    const chatArray = createChatArray("user1", "user2", 10);
+    setMessages(chatArray);
+    console.log("genertaed chat array",chatArray)
+
     if (socket.connected) {
       onConnect();
     }
@@ -125,7 +171,7 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <div className="space-y-2">
+            <div className="hidden space-y-2">
               <div className="bg-pink-400 p-2 rounded">advsn</div>
               <div className="bg-pink-400 p-2 rounded">vnsda</div>
               <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
@@ -156,6 +202,7 @@ const Chats = () => {
               <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
               <div className="bg-pink-400 p-2 rounded">dsonmi</div>
             </div>
+            <Messages initialMessages={createChatArray("user1", "user2", 50)}/>
           </div>
 
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
@@ -191,7 +238,7 @@ const backIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xml
 </svg>
 
 const searchIcon = <svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_462_4366)">
+<g clipPath="url(#clip0_462_4366)">
 <path fillRule="evenodd" clipRule="evenodd" d="M19.5993 17.9525L23.8968 22.25L22.7793 23.3675L18.4818 19.07C17.6793 19.6475 16.7118 20 15.6543 20C12.9618 20 10.7793 17.8175 10.7793 15.125C10.7793 12.4325 12.9618 10.25 15.6543 10.25C18.3468 10.25 20.5293 12.4325 20.5293 15.125C20.5293 16.1825 20.1768 17.15 19.5993 17.9525ZM15.6543 11.75C13.7868 11.75 12.2793 13.2575 12.2793 15.125C12.2793 16.9925 13.7868 18.5 15.6543 18.5C17.5218 18.5 19.0293 16.9925 19.0293 15.125C19.0293 13.2575 17.5218 11.75 15.6543 11.75Z" fill="#333333"/>
 </g>
 <defs>
@@ -202,7 +249,7 @@ const searchIcon = <svg width="35" height="34" viewBox="0 0 35 34" fill="none" x
 </svg>
 
 const attachmentIcon = <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_462_4333)">
+<g clipPath="url(#clip0_462_4333)">
 <path fillRule="evenodd" clipRule="evenodd" d="M16.6826 2.97266C15.8864 2.97266 15.1228 3.28896 14.5597 3.85199L5.36974 13.042C4.43143 13.9803 3.9043 15.2529 3.9043 16.5799C3.9043 17.9069 4.43143 19.1795 5.36974 20.1178C6.30805 21.0561 7.58067 21.5832 8.90763 21.5832C10.2346 21.5832 11.5072 21.0561 12.4455 20.1178L21.6355 10.9278C22.026 10.5373 22.6592 10.5373 23.0497 10.9278C23.4403 11.3183 23.4403 11.9515 23.0497 12.342L13.8597 21.532C12.5464 22.8454 10.765 23.5832 8.90763 23.5832C7.05023 23.5832 5.26891 22.8454 3.95553 21.532C2.64215 20.2186 1.9043 18.4373 1.9043 16.5799C1.9043 14.7225 2.64215 12.9412 3.95553 11.6278L13.1455 2.43777C14.0836 1.49967 15.356 0.972656 16.6826 0.972656C18.0093 0.972656 19.2816 1.49967 20.2197 2.43777C21.1578 3.37587 21.6849 4.64821 21.6849 5.97488C21.6849 7.30155 21.1578 8.57389 20.2197 9.51199L11.0197 18.702C10.4569 19.2648 9.69358 19.581 8.89763 19.581C8.10169 19.581 7.33834 19.2648 6.77553 18.702C6.21271 18.1392 5.89652 17.3758 5.89652 16.5799C5.89652 15.7839 6.21271 15.0206 6.77553 14.4578L15.2659 5.97736C15.6567 5.58706 16.2899 5.58744 16.6802 5.97819C17.0704 6.36895 17.0701 7.00211 16.6793 7.39241L8.18974 15.872C8.00225 16.0597 7.89652 16.3146 7.89652 16.5799C7.89652 16.8454 8.00199 17.1 8.18974 17.2878C8.37748 17.4755 8.63212 17.581 8.89763 17.581C9.16314 17.581 9.41778 17.4755 9.60553 17.2878L18.8055 8.09778C19.3683 7.53479 19.6849 6.77094 19.6849 5.97488C19.6849 5.17864 19.3685 4.41501 18.8055 3.85199C18.2425 3.28896 17.4789 2.97266 16.6826 2.97266Z" fill="#333333"/>
 </g>
 <defs>

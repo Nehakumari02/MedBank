@@ -58,8 +58,9 @@ const SignInPage = () => {
       if(res.error){
         return;
       }
-
-      router.push(`/${language}/${session.user.id}/Dashboard`)
+      if(res.ok){
+        router.push(`/${language}/${session.user.id}/Dashboard`)
+      }
     } catch (error) {
       
     }
