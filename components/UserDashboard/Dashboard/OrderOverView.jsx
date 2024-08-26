@@ -15,7 +15,7 @@ const OrderOverView = ({orderOverview,data}) => {
 
     // Check if the screen width is larger than 768px
     console.log(window.innerWidth)
-    const isDesktopView = window.innerWidth >= 922;
+    const isDesktopView = window.innerWidth >= 1317;
     console.log('hasVisited:', hasVisited);
     console.log('isDesktopView:', isDesktopView);
   
@@ -23,6 +23,7 @@ const OrderOverView = ({orderOverview,data}) => {
       setShowTutorial(true);
       localStorage.setItem('hasVisited', 'true');
     }
+    
     if (showTutorial) {
       document.body.classList.add('no-scroll');
     } else {

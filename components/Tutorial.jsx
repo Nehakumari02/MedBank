@@ -96,28 +96,28 @@ const MultiStepTutorial = ({ onClose }) => {
         <div className="mb-4 text-center mt-10">
           {step === 1 && (
             <div className=''>
-              <h2 className="text-xl font-semibold mb-4">Welcome to Medbank </h2>
+              <h2 className="text-xl font-DM-Sans font-normal mb-4">Welcome to Medbank </h2>
             </div>
           )}
           {step === 2 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4 mr-5">Click on the button to create a new order.</h2>
+              <h2 className="text-xl font-DM-Sans font-normal mb-4">Click on the button to create a new order.</h2>
             </div>
           )}
           {step === 3 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Number of Order Pending.</h2>
+              <h2 className="text-xl font-normal font-DM-Sans mb-4">Number of Order Pending.</h2>
             </div>
           )}
           {step === 4 && (
             <div className=''>
-              <h2 className="text-xl font-semibold mb-4">Number of Orders that are In progress.</h2>
+              <h2 className="text-xl font-normal font-DM-Sans mb-4">Number of Orders that are In progress.</h2>
 
             </div>
           )}
           {step === 5 && (
-            <div className='flex flex-col items-center justify-center pl-[30px] pt-3'>
-              <h2 className="text-xl font-DM-Sans  font-semibold mb-4">Number of Orders that are successfully completed.</h2>
+            <div className=''>
+              <h2 className="text-xl font-DM-Sans  font-normal mb-4">Number of Orders that are successfully completed.</h2>
 
             </div>
           )}
