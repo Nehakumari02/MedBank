@@ -10,6 +10,7 @@ import Modal from "@/components/Common/Modal";
 import Sidebar from "../../../components/UserDashboard/Sidebar";
 import TopNav from "../../../components/UserDashboard/TopNav";
 import MobileBottomNav from "../../../components/UserDashboard/MobileBottomNav"
+import { OrderProvider } from "@/contexts/OrderContext";
 
 export default function Layout({ children, params }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ export default function Layout({ children, params }) {
     // const { templateOpen, templateData } = useAutomationContext();
 
     return (
+        <OrderProvider>
         <ModalProvider>
             <div className="relative">
                 <div className="absolute right-0 top-0 h-[100vh] w-[100vw]">
@@ -85,6 +87,7 @@ export default function Layout({ children, params }) {
                 </div>
             </div>
         </ModalProvider>
+        </OrderProvider>
     );
 }
 

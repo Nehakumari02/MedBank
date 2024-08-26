@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react';
-import creation1 from '../../../../public/dashboard/creation1.png';
-import creation2 from '../../../../public/dashboard/creation2.png';
-import creation3 from '../../../../public/dashboard/creation3.png';
+import creation1 from '../../../../../public/dashboard/creation1.png';
+import creation2 from '../../../../../public/dashboard/creation2.png';
+import creation3 from '../../../../../public/dashboard/creation3.png';
 import Image from 'next/image';
 import { useDropzone } from 'react-dropzone';
-import folder1 from "../../../../public/dashboard/folder.png"
-import deleteIcon from "../../../../public/dashboard/deleteIcon.png"
-import file1 from "../../../../public/dashboard/file.png"
+import folder1 from "../../../../../public/dashboard/folder.png"
+import deleteIcon from "../../../../../public/dashboard/deleteIcon.png"
+import file1 from "../../../../../public/dashboard/file.png"
 
 const OrderCreationPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
