@@ -6,15 +6,34 @@ import {pendingIcon,progressIcon,completedIcon} from '../Icons'
 import Tutorial from  '@/components/Tutorial'
 
 const OrderOverView = ({orderOverview,data}) => {
-  const [showTutorial, setShowTutorial] = useState(true);
+  const [showTutorial, setShowTutorial] = useState(false);
+  
   
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
-    if (!hasVisited) {
+    //localStorage.setItem('hasVisited', 'false');
+
+    // Check if the screen width is larger than 768px
+    console.log(window.innerWidth)
+    const isDesktopView = window.innerWidth >= 922;
+    console.log('hasVisited:', hasVisited);
+    console.log('isDesktopView:', isDesktopView);
+  
+    if (isDesktopView&&!hasVisited) {
       setShowTutorial(true);
       localStorage.setItem('hasVisited', 'true');
     }
-  }, []);
+    if (showTutorial) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    // Clean up: Remove the class when the component unmounts or the tutorial closes
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [showTutorial]);
 
   const handleCloseTutorial = () => {
     setShowTutorial(false);
