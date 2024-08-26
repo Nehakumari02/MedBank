@@ -26,7 +26,7 @@ const Settings = () => {
       <div className='text-[#333333] pl-[32px] w-full text-[22px] font-DM-Sans leading-[28px] text-#333333 font-bold pt-[17px]'>
       {t("settings")}
       </div>
-      <div className='text-[#333333] mx-[9px] my-[24px] md:border-[1px] rounded-[10px] flex flex-col md:flex-row'>
+      <div className='text-[#333333] bg-white mx-[9px] my-[24px] md:border-[1px] rounded-[10px] flex flex-col md:flex-row'>
         <div className='flex flex-col md:w-1/2 md:border-r-[1px]'>
           <div className='px-[24px] md:py-[15px] w-full md:border-b-[1px] font-DM-Sans text-[14px] md:text-base font-normal leading-6'>
           {t("personalInfo.personalInfo")}

@@ -8,10 +8,11 @@ import { useDropzone } from 'react-dropzone';
 import folder1 from "../../../../../public/dashboard/folder.png"
 import deleteIcon from "../../../../../public/dashboard/deleteIcon.png"
 import file1 from "../../../../../public/dashboard/file.png"
+import { useOrder } from '@/contexts/OrderContext';
 
 const OrderCreationPage = () => {
+  const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile} = useOrder();
   const [currentStep, setCurrentStep] = useState(1);
-  const [uploadedFile, setUploadedFile] = useState(null);
   const [file, setFile] = useState(uploadedFile);
 
   const handleDelete = () => {
@@ -33,7 +34,7 @@ const OrderCreationPage = () => {
   };
 
   return (
-    <div className='bg-[#F7F9FB] font-DM-Sans'>
+    <div className='font-DM-Sans'>
       <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">Order Creation</div>
       <div className="flex flex-col items-center justify-center pt-[22px]">
         <div className="flex justify-center items-center w-[305px] h-[24px] md:w-[478px] md:h-[60px] mb-[40px] md:mb-[57px]">
@@ -64,10 +65,9 @@ const OrderCreationPage = () => {
             <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Review & Submit</div>
           </div>
         </div>
-
-        <div className="bg-[#FFFFFF] p-4 md:p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px] mb-12 mt-[12px] md:mt-5">
+        <div className="bg-[#FFFFFF] w-[90%] md:w-auto mx-[10px] md:mx-0  p-4 md:p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px] mb-12 mt-[12px] md:mt-5">
           {currentStep === 1 && (
-            <div className='w-[352px] md:w-[760px]'>
+            <div className='w-auto md:w-[660px]'>
               <div className="text-2xl font-semibold mb-4 flex items-center justify-center">Step 1: Order Details</div>
               <div className="flex flex-col items-start gap-[10px] md:flex-row md:items-center justify-center md:gap-[24px]  pt-[12px] md:pt-[41px]">
                 <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
@@ -76,9 +76,9 @@ const OrderCreationPage = () => {
                 <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
                     <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
-                      placeholder=""
-                      //value={name}
-                      //onChange={(e) => setName(e.target.value)}
+                      placeholder="Order Title"
+                      value={orderTitle}
+                      onChange={(e) => setOrderTitle(e.target.value)}
                       style={{ backgroundColor: "white", backgroundClip: "padding-box" }}
                       type="text"
                       name="name"
@@ -87,13 +87,13 @@ const OrderCreationPage = () => {
                 </div>
               </div>
               <div className="flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-[41px]">
-                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack} disabled={currentStep === 1}>Back</button>
+                {/* <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack} disabled={currentStep === 1}>Back</button> */}
                 <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext}>Next</button>
               </div>
             </div>
           )}
           {currentStep === 2 && (
-            <div className='max-w-[250px] md:max-w-[760px]'>
+            <div className='rounded-lg w-auto md:w-[660px]'>
               <div className="text-[16px] md:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] md:pt-[41px]">
                 <p className="">
@@ -104,7 +104,7 @@ const OrderCreationPage = () => {
                 </p>
               </div>
 
-              <div className="container mx-auto md:px-4 max-w-[313px] md:max-w-[490px] md:h-[203px]">
+              <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
                 <div className="border-dashed border-[0.4px] solid border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                   <div {...getRootProps()} className="cursor-pointer">
                     <input {...getInputProps()} />
@@ -122,30 +122,30 @@ const OrderCreationPage = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-[10px] md:gap-[12px] pt-[12px]">
+              <div className="flex items-center justify-end gap-[10px] md:gap-[12px] pt-[24px]">
                 <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack}>Back</button>
                 <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}>Next</button>
               </div>
             </div>
           )}
           {currentStep === 3 && (
-            <div className="rounded-lg mx-auto max-w-[352px] md:w-[760px]">
-              <h2 className="text-[16px] md:text-[22px] font-medium md:[16px] md:mb-6 text-center">
+            <div className="rounded-lg w-[100%] md:w-[660px]">
+              <h2 className="w-full text-[16px] md:text-[22px] font-medium md:[16px] md:mb-6 text-center">
                 Step 3: Review & Submit
               </h2>
 
-              <div className="mb-[16px] md:mb-6">
+              <div className="mb-[16px] md:mb-6 w-full">
                 <p className="font-medium text-xs md:text-lg">Order Summary</p>
                 <div className="flex items-center justify-center gap-[24px] pt-[12px]">
                   <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
-                    order detail :
+                    Order Title :
                   </label>
                   <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
                     <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
                       <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
-                        placeholder=""
-                        //value={name}
-                        //onChange={(e) => setName(e.target.value)}
+                        placeholder="Order Title"
+                        value={orderTitle}
+                        onChange={(e) => setOrderTitle(e.target.value)}
                         style={{ backgroundColor: "white", backgroundClip: "padding-box" }}
                         type="text"
                         name="name"
@@ -183,12 +183,7 @@ const OrderCreationPage = () => {
               </div>
             </div>
           )}
-
-
-
         </div>
-
-
       </div>
     </div>
 

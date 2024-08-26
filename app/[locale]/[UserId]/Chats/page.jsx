@@ -145,7 +145,7 @@ const Chats = () => {
     //   </div>
     // </div>
     <div className="w-full h-full p-[13px] text-[#333333]">
-      <div className="w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
+      <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
         <div className="h-[66px] flex px-[40px] border-b-[1px] border-[#E2E8F0]">
           <div className="w-full flex justify-between">
           <div className='flex items-center h-[46px] gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> 
