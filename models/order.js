@@ -50,11 +50,12 @@ const orderSchema = new Schema(
       type: new Schema({
         status: {
           type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
+          enum: ["isPending", "inProgress", "inTransit", "isCompleted"],
           default: "isPending",
         },
         sampleShippingStatus: {
           type: String,
+          enum: ["ok","notOk"],
         },
       }),
       required: false,
@@ -96,6 +97,16 @@ const orderSchema = new Schema(
       required: false,
     },
     analysisDone: {
+      type: new Schema({
+        status: {
+          type: String,
+          enum: ["isPending", "inProgress", "isCompleted"],
+          default: "isPending",
+        }
+      }),
+      required: false,
+    },
+    analysisRawData: {
       type: new Schema({
         status: {
           type: String,

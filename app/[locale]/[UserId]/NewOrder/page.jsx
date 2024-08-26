@@ -1,11 +1,15 @@
 "use client"
-import { useModal } from '@/contexts/ModalContext'
-import React, { useEffect } from 'react'
+import React from 'react'
+import NewOrderBox from '@/components/UserDashboard/NewOrder/NewOrderBox'
+import {OrderProvider} from '@/contexts/OrderContext'
 
 const NewOrder = () => {
-  const {showModal} = useModal()
   return (
-    <div>NewOrder</div>
+    // <OrderProvider>
+      <div className='w-full h-full p-[10px] md:p-[19px]'>
+        <NewOrderBox/>
+      </div>
+    // </OrderProvider>
   )
 }
 
