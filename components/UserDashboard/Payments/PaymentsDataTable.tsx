@@ -210,7 +210,7 @@ export function PaymentsDataTable({ data }: { data: Payments[] }) {
 
   return (
     <div className="w-full">
-      <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
+      <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
         <span className="font-DM-Sans font-bold text-[#333333] md:text-[22px] md:leading-[28px] pl-[40px]">Payment Status</span>
         <div className="flex items-center gap-[12px] mr-[20px] pr-[5px]">
@@ -308,6 +308,7 @@ export function PaymentsDataTable({ data }: { data: Payments[] }) {
         </div> */}
         <div className="space-x-2">
           <Button
+          className="bg-white"
             variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
@@ -316,6 +317,7 @@ export function PaymentsDataTable({ data }: { data: Payments[] }) {
             Previous
           </Button>
           <Button
+          className="bg-white"
             variant="outline"
             size="sm"
             onClick={() => table.nextPage()}

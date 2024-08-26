@@ -32,61 +32,61 @@ export default function Layout({ children, params }) {
 
     return (
         <OrderProvider>
-        <ModalProvider>
-            <div className="relative">
-                <div className="absolute right-0 top-0 h-[100vh] w-[100vw]">
-                    <Modal />
-                </div>
-                <div>
-                    <div className="relative">
-                        <div>
-                            <div
-                                className={`${banner.visible ? "" : "hidden"} relative flex h-[5vh] items-center justify-center bg-[#FFEBEB] hover:bg-[#ffdede]`}
-                            >
-                                <span className="mr-4 flex items-center justify-center gap-2 font-sf-pro-display text-[16px] font-semibold text-[#B52426]">
-                                    {banner.text}
-                                </span>
-                            </div>
-                            <div
-                                className={`md:flex ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
-                            >
+            <ModalProvider>
+                <div className="relative">
+                    <div className="absolute right-0 top-0 h-[100vh] w-[100vw]">
+                        <Modal />
+                    </div>
+                    <div>
+                        <div className="relative">
+                            <div>
                                 <div
-                                    className={`hidden md:block ${sidebarVisibility ? "w-[228px]" : "w-[130px]"} ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
-                                    onMouseEnter={handleDrawerToggle}
+                                    className={`${banner.visible ? "" : "hidden"} relative flex h-[5vh] items-center justify-center bg-[#FFEBEB] hover:bg-[#ffdede]`}
                                 >
-                                    <Sidebar
-                                        instagram_id={params.instagram_id}
-                                        setIsLoading={setIsLoading}
-                                        setHasPermission={setHasPermission}
-                                    />
+                                    <span className="mr-4 flex items-center justify-center gap-2 font-sf-pro-display text-[16px] font-semibold text-[#B52426]">
+                                        {banner.text}
+                                    </span>
                                 </div>
                                 <div
-                                    // className={`w-full overflow-y-scroll ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
-                                    className="w-full h-screen overflow-y-scroll"
-                                    onMouseEnter={handleContainerToggle}
+                                    className={`md:flex ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
                                 >
-                                    <div className="">
-                                        <TopNav />
+                                    <div
+                                        className={`hidden md:block ${sidebarVisibility ? "w-[228px]" : "w-[130px]"} ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
+                                        onMouseEnter={handleDrawerToggle}
+                                    >
+                                        <Sidebar
+                                            instagram_id={params.instagram_id}
+                                            setIsLoading={setIsLoading}
+                                            setHasPermission={setHasPermission}
+                                        />
                                     </div>
-                                    {isLoading ? <LoadingScreen /> : <div className="h-[calc(100dvh-166px)] md:h-[calc(100vh-104px)] overflow-y-scroll"> {children}</div>}
-                                    <div className="md:hidden">
-                                        <MobileBottomNav/>
+                                    <div
+                                        // className={`w-full overflow-y-scroll ${hasPermission ? (banner.visible ? "h-[95vh]" : "h-screen") : banner.visible ? "h-[90vh]" : "h-[95vh]"}`}
+                                        className="w-full h-screen overflow-y-scroll"
+                                        onMouseEnter={handleContainerToggle}
+                                    >
+                                        <div className="">
+                                            <TopNav />
+                                        </div>
+                                        {isLoading ? <LoadingScreen /> : <div className="h-[calc(100dvh-166px)] md:h-[calc(100vh-104px)] md:bg-[#F7F9FB] overflow-y-scroll"> {children}</div>}
+                                        <div className="md:hidden">
+                                            <MobileBottomNav/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {/* <div
+                                className={`absolute left-0 top-0 ${templateOpen ? "" : "hidden"}`}
+                            >
+                                <TemplateContainer
+                                    templateData={templateData}
+                                    visibility={templateOpen}
+                                />
+                            </div> */}
                         </div>
-                        {/* <div
-                            className={`absolute left-0 top-0 ${templateOpen ? "" : "hidden"}`}
-                        >
-                            <TemplateContainer
-                                templateData={templateData}
-                                visibility={templateOpen}
-                            />
-                        </div> */}
                     </div>
                 </div>
-            </div>
-        </ModalProvider>
+            </ModalProvider>
         </OrderProvider>
     );
 }

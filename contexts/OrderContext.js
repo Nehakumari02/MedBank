@@ -8,20 +8,21 @@ export const useOrder = () => useContext(OrderContext);
 
 export const OrderProvider = ({ children }) => {
   const [orderTitle,setOrderTitle]=useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [requestSheet,setRequestSheet]=useState({
     status:"isCompleted",
     requestSheetLink:""
   });
   const [costEstimate,setCostEstimate]=useState({
-    status:"isCompleted",
+    status:"isPending",
     costEstimationLink:""
   });
   const [formalRequest,setFormalRequest]=useState({
-    status:"inProgress",
+    status:"isPending",
     sampleShippingStatus:""
   });
   const [sampleShipping,setSampleShipping]=useState({
-    status:"isTransit",
+    status:"isPending",
     sampleShippingStatus:"ok"
   });
   const [qualityCheck,setQualityCheck]=useState({
@@ -59,6 +60,7 @@ export const OrderProvider = ({ children }) => {
     <OrderContext.Provider
     value={{
       orderTitle, setOrderTitle,
+      uploadedFile, setUploadedFile,
       requestSheet, setRequestSheet,
       costEstimate, setCostEstimate,
       formalRequest, setFormalRequest,

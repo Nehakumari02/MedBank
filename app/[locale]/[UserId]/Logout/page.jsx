@@ -16,7 +16,7 @@ const Logout = () => {
 
   return (
     <div className='flex items-center justify-center mt-[150px]' >
-        <div className='w-[298px] lg:w-[658px] h-[197px] lg:h-[287px] flex flex-col items-center justify-center gap-[18px] border-[1px] border-[#E2E8F0] rounded-[10px] p-[30px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+        <div className='bg-white w-[298px] lg:w-[658px] h-[197px] lg:h-[287px] flex flex-col items-center justify-center gap-[18px] border-[1px] border-[#E2E8F0] rounded-[10px] p-[30px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
             
             <div className='flex flex-col items-center justify-start'>
               <span className='font-DM-Sans font-bold text-[22px] lg:text-[32px] text-[#3A3B3C] leading-[40px] '>{t("title")}</span>
