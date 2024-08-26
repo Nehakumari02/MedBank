@@ -43,7 +43,7 @@ const TopNav = () => {
             <span className={`${language == "en" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
-        <Link href={`/${language}/${userId}/NewOrder`} className='h-[40px] w-[133px] rounded-[6px] hidden md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon}{t("newOrder")}</Link>
+        <Link href={`/${language}/${userId}/NewOrder`} id='highlight-step-2' className='h-[40px] w-[133px] rounded-[6px] hidden md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon}{t("newOrder")}</Link>
         <div>
           <button className='h-full flex items-center justify-center md:hidden pt-[2px]'>{hamburderMenuIcon}</button>
           {/* <div className={`flex flex-col  justify-between w-full gap-[16px]`}>
