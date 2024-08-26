@@ -260,7 +260,6 @@ const Dashboard = () => {
   return (
     <div className='w-full p-[10px] md:p-[19px]'>
       <OrderOverView orderOverview={orderOverview} data={data}/>
-      
     </div>
   )
 }

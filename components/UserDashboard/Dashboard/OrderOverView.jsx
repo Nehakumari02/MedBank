@@ -42,7 +42,7 @@ const OrderOverView = ({orderOverview,data}) => {
 
   const t = useTranslations("DashBoard.orderOverView")
   return (
-    <div className=''>
+    <div className={`${showTutorial?"h-[calc(100vh-146px)] overflow-y-hidden":""}`}>
     {showTutorial && <Tutorial onClose={handleCloseTutorial} />}
     <div className='text-[#333333] mb-[14px]'>
         <div className='h-[40px] '>
