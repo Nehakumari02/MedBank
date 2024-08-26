@@ -33,7 +33,7 @@ export default function Layout({ children, params }) {
     return (
         <OrderProvider>
         <ModalProvider>
-            <div className="relative">
+            <div className="relative" id='highlight-step-1'>
                 <div className="absolute right-0 top-0 h-[100vh] w-[100vw]">
                     <Modal />
                 </div>
