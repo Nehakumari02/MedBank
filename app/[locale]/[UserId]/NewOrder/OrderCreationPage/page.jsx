@@ -17,6 +17,7 @@ const OrderCreationPage = () => {
 
   const handleDelete = () => {
     setFile(null); // Remove the file from state
+    
   };
 
   const onDrop = (acceptedFiles) => {
