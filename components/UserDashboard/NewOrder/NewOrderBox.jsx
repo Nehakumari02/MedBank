@@ -186,14 +186,14 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'costEstimate' && (
-                <div className='md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='md:h-[50px] flex items-center justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                    <span className='font-DM-Sans text-center font-medium md:text-[22px] md:leading-[24px] text-[#333333]'>Download Cost Estimation</span>
-                    1               </div>
-                  <div className='md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Cost Estimation</span>
+                  </div>
+                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
                     <div className='flex flex-col items-center justify-center gap-[14px]'>
-                      <Image className='md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                      <div className='font-DM-Sans font-normal md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
+                      <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
+                      <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
                         <span>RequestSheet.pdf</span><br />
                         <span>1.2MB</span>
                       </div>
@@ -322,96 +322,268 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'libraryPrep' && (
                 <div className='font-DM-Sans flex flex-col w-[358px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Library Preparation Report</div>
-                <div className='flex flex-col gap-[6px] md:gap-[8px]'>
-                  <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                  Please review and acknowledge the library preparation report.
-                  </div>
-                  <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
-                  Download library preparation report.
-                  </div>
-                  <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
-                    <div className='flex gap-[8px]'>
-                      <div className="flex items-center justify-center">
-                        <Image src={file1} className='w-[18px] h-[24px]'></Image>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Library Preparation Report</div>
+                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
+                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
+                      Please review and acknowledge the library preparation report.
+                    </div>
+                    <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
+                      Download library preparation report.
+                    </div>
+                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
+                      <div className='flex gap-[8px]'>
+                        <div className="flex items-center justify-center">
+                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
+                        </div>
+                        <div>
+                          {
+                            uploadedFile && uploadedFile instanceof File && (
+                              <a href={URL.createObjectURL(uploadedFile)}>
+                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
+                                <p className="text-sm text-[#717171]">
+                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
+                                </p>
+                              </a>
+                            )
+                          }
+                        </div>
                       </div>
-                      <div>
-                        {
-                          uploadedFile && uploadedFile instanceof File && (
-                            <a href={URL.createObjectURL(uploadedFile)}>
-                              <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                              <p className="text-sm text-[#717171]">
-                                {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                              </p>
-                            </a>
-                          )
-                        }
+                      <div className="text-red-500 cursor-pointer">
+                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
                       </div>
                     </div>
-                    <div className="text-red-500 cursor-pointer">
-                      <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
+                    <label className="inline-flex items-center pt-[8px] md:pt-4">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={check}
+                        onChange={() => setCheck(!check)}
+                        required
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        {/* Show this text only on mobile */}
+                        <span className='block md:hidden'>
+                          I have reviewed the Library Preparation Report.
+                        </span>
+                        {/* Show the original text only on desktop */}
+                        <span className='hidden md:block'>
+                          I have reviewed the contents of the library preparation report and found no problems. I agree to proceed to the next step.
+                        </span>
+                      </span>
+                    </label>
+                    <div className='hidden md:block text-base font-normal leading-[24px]'>
+                      Note :For resending or cancelling the sample contact us via   chat.
                     </div>
-                  </div>
-                  <label className="inline-flex items-center pt-[8px] md:pt-4">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={check}
-                      onChange={() => setCheck(!check)}
-                      required
-                    />
-                    <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                      {/* Show this text only on mobile */}
-                      <span className='block md:hidden'>
-                      I have reviewed the Library Preparation Report.
-                      </span>
-                      {/* Show the original text only on desktop */}
-                      <span className='hidden md:block'>
-                      I have reviewed the contents of the library preparation report and found no problems. I agree to proceed to the next step.
-                      </span>
-                    </span>
-                  </label>
-                  <div className='hidden md:block text-base font-normal leading-[24px]'>
-                  Note :For resending or cancelling the sample contact us via   chat.
-                  </div>
-                  <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                    <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
-                    <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                    <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
-                  </div>
+                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                    </div>
 
+                  </div>
                 </div>
-              </div>
               )}
               {activePopup === 'analysisProgress' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Analysis Progress Popup Placeholder
+                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  analysis progress
                 </div>
               )}
               {activePopup === 'analysisDone' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Analysis Done Popup Placeholder
+                <div className='font-DM-Sans flex flex-col w-[321px] h-[322px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  analysis done
                 </div>
               )}
               {activePopup === 'analysisRawData' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Analysis Raw Data Popup Placeholder
+                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
+                  <div className='flex flex-col gap-[6px] md:gap-[12px]'>
+                    <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
+                      https:rawdatamedbank.com
+                    </div>
+                    <label className="inline-flex items-center pt-[8px] md:pt-4">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={check}
+                        onChange={() => setCheck(!check)}
+                        required
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        {/* Show this text only on mobile */}
+                        <span className='block md:hidden'>
+                          I have reviewed the Data Link.
+                        </span>
+                        {/* Show the original text only on desktop */}
+                        <span className='hidden md:block'>
+                          I have reviewed the Data Link.
+                        </span>
+                      </span>
+                    </label>
+                    <label className="hidden md:inline-flex items-center ">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={check}
+                        onChange={() => setCheck(!check)}
+                        required
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        {/* Show this text only on mobile */}
+                        <span className='block md:hidden'>
+                          I agree that Raw Data will be deleted in 3 months.
+                        </span>
+                        {/* Show the original text only on desktop */}
+                        <span className='hidden md:block'>
+                          I agree that Raw Data will be deleted in 3 months.
+                        </span>
+                      </span>
+                    </label>
+                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed to library preparation</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                    </div>
+
+                  </div>
                 </div>
               )}
               {activePopup === 'analysisSpecification' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Analysis Specification Popup Placeholder
+                <div className='font-DM-Sans flex flex-col w-[321px] h-[322px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Analysis Specification Report</div>
+                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
+                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
+                      Please review and acknowledge the analysis specification report.
+                    </div>
+                    <div className='text-[8px] md:text-xs font-normal leading-[24px] md:leading-[34px]'>
+                      Download report.
+                    </div>
+                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
+                      <div className='flex gap-[8px]'>
+                        <div className="flex items-center justify-center">
+                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
+                        </div>
+                        <div>
+                          {
+                            uploadedFile && uploadedFile instanceof File && (
+                              <a href={URL.createObjectURL(uploadedFile)}>
+                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
+                                <p className="text-sm text-[#717171]">
+                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
+                                </p>
+                              </a>
+                            )
+                          }
+                        </div>
+                      </div>
+                      <div className="text-red-500 cursor-pointer">
+                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
+                      </div>
+                    </div>
+                    <label className="inline-flex items-center pt-[8px] md:pt-4">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={check}
+                        onChange={() => setCheck(!check)}
+                        required
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        {/* Show this text only on mobile */}
+                        <span className='block md:hidden'>
+                          I have reviewed the Analysis Specification Report
+                        </span>
+                        {/* Show the original text only on desktop */}
+                        <span className='hidden md:block'>
+                          I have reviewed the contents of the analysis specification report and found no problems.
+                        </span>
+                      </span>
+                    </label>
+                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                    </div>
+
+                  </div>
                 </div>
               )}
               {activePopup === 'invoice' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Invoice Popup Placeholder
+                <div className='font-DM-Sans flex flex-col w-[317px] h-[247px] md:h-[351px] md:w-[564px] p-[28px] md:p-12  items-start justify-center bg-white border-[1px] border-[#D9D9D9] rounded-lg md:rounded-[22px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-6 leading-[40px]'>Invoice</div>
+                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
+                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
+                      Download invoice.
+                    </div>
+                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
+                      <div className='flex gap-[8px]'>
+                        <div className="flex items-center justify-center">
+                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
+                        </div>
+                        <div>
+                          {
+                            uploadedFile && uploadedFile instanceof File && (
+                              <a href={URL.createObjectURL(uploadedFile)}>
+                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
+                                <p className="text-sm text-[#717171]">
+                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
+                                </p>
+                              </a>
+                            )
+                          }
+                        </div>
+                      </div>
+                      <div className="text-red-500 cursor-pointer">
+                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
+                      </div>
+                    </div>
+                    <label className="inline-flex items-center pt-[8px] md:pt-4">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={check}
+                        onChange={() => setCheck(!check)}
+                        required
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        {/* Show this text only on mobile */}
+                        <span className='block md:hidden'>
+                        I have reviewed the Invoice.
+                        </span>
+                        {/* Show the original text only on desktop */}
+                        <span className='hidden md:block'>
+                        I have reviewed the Invoice.
+                        </span>
+                      </span>
+                    </label>
+                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Confirm</button>
+                    </div>
+
+                  </div>
                 </div>
               )}
               {activePopup === 'payment' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Payment Popup Placeholder
+                <div className='md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                <div className='md:h-[50px] flex items-center justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
+                  <span className='font-DM-Sans text-center font-medium md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
+               </div>
+                <div className='md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                  <div className='flex flex-col items-center justify-center gap-[14px]'>
+                    <Image className='md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
+                    <div className='font-DM-Sans font-normal md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
+                      <span>Receipt.pdf</span><br />
+                      <span>1.2MB</span>
+                    </div>
+                  </div>
                 </div>
+                <div className='md:w-[490px] flex items-center justify-end gap-[12px]'>
+                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                </div>
+              </div>
               )}
             </div>
           </div>
