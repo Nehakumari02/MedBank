@@ -33,6 +33,8 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
+  
+
   return (
     <div className='font-DM-Sans'>
       <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">Order Creation</div>
@@ -98,19 +100,19 @@ const OrderCreationPage = () => {
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] md:pt-[41px]">
                 <p className="">
                   Note: Please use the request sheet designated by Medbank.{" "}
-                  <a href="/path/to/download" className="text-blue-600 underline">
+                  <a href="/path/to/download"  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
                     Download here
                   </a>
                 </p>
               </div>
 
               <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
-                <div className="border-dashed border-[0.4px] solid border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                   <div {...getRootProps()} className="cursor-pointer">
                     <input {...getInputProps()} />
                     <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
                     <p className="text-[10px] md:text-sm font-normal">
-                      Drag and drop or <span className="text-blue-600 underline">Choose file</span> to upload
+                      Drag and drop or <span  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
                     </p>
                     {uploadedFile && (
                       <div className="mt-2">
@@ -143,7 +145,7 @@ const OrderCreationPage = () => {
                   <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
                     <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
                       <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
-                        placeholder="Order Title"
+                        placeholder="Genomic Sequence"
                         value={orderTitle}
                         onChange={(e) => setOrderTitle(e.target.value)}
                         style={{ backgroundColor: "white", backgroundClip: "padding-box" }}
