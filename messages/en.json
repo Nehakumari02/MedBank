@@ -540,5 +540,58 @@
         "cancelConfirm":"Are you sure you want to logout ?",
         "cancel":"Cancel",
         "confirm":"Confirm"
+    },
+    "AdminSideBar":{
+        "dashboard":"Dashboard",
+        "orders":"Orders",
+        "newOrder":"New Order",
+        "chats":"Chats",
+        "payments":"Payments",
+        "archive":"Archive",
+        "settings":"Settings",
+        "logout":"Logout"
+    },
+    "AdminTopNavBar":{
+        "welcomeMsg":"Welcome, Admin!"
+    },
+    "AdminDashBoard":{
+        "orderOverView":{
+            "orderOverView":"Order Overview!",
+            "pending":"Pending Orders",
+            "progress":"Orders In-Progress", 
+            "completed":"Completed"
+        }
+    },
+    "AdminSettings":{
+        "settings":"Settings",
+        "personalInfo":{
+            "personalInfo":"Personal Information",
+            "userName":"Username",
+            "name":"Name",
+            "school":"School/Organization Name",
+            "faculty":"Faculty/Department",
+            "field":"Field/Group",
+            "others":"Others",
+            "invoice":"Name on quotation, invoice, receipt"
+        },
+        "contactInfo":{
+            "contactInfo":"Contact  Information",
+            "country":"Country",
+            "phone":"Phone Number",
+            "email":"Email Address",
+            "confirmEmail":"Confirm Email Address",
+            "postalCode":"Postal Code",
+            "perfecture":"Perfecture",
+            "city":"City/Town Address",
+             "cancel": "Cancel",
+            "confirm": "Confirm"
+        }
+
+    },
+    "AdminLogout":{
+        "title":"Logout Account",
+        "cancelConfirm":"Are you sure you want to logout ?",
+        "cancel":"Cancel",
+        "confirm":"Confirm"
     }
 }

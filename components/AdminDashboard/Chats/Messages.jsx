@@ -6,15 +6,14 @@ import Image from 'next/image'
 import { FC, useEffect, useRef, useState } from 'react'
 
 const Messages= ({
-  messages,
+  initialMessages,
   // sessionId,
   // chatId,
   // chatPartner,
   // sessionImg,
 }) => {
-  // const [messages, setMessages] = useState(initialMessages)
-  // console.log(messages)
-  // const messages= initialMessages;
+  const [messages, setMessages] = useState(initialMessages)
+  console.log(messages)
   const sessionId = "user1"
 
   const scrollDownRef = useRef(null)
@@ -22,13 +21,6 @@ const Messages= ({
   const formatTimestamp = (timestamp) => {
     return format(timestamp, 'HH:mm')
   }
-
-  messages = messages.sort((a, b) => b.timestamp - a.timestamp);
-
-  useEffect(() => {
-    scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-  
 
   return (
     <div

@@ -21,6 +21,7 @@ app.prepare().then(() => {
   io.on("connection",(socket)=>{
     console.log("connection done")
     socket.on('chat message', (msg) => {
+      console.log(msg)
       io.emit('chat message', msg); // Broadcast the message to all connected clients
     });
   
