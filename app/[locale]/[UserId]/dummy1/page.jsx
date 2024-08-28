@@ -1,5 +1,5 @@
 import React from 'react'
-import CalculateCost from '../../../../components/calculatecost'
+import CalculateCost from '../../../../components/CalculateCost'
 
 
 const page = () => {
