@@ -27,22 +27,10 @@ const Sidebar = () => {
       path: "Dashboard",
     },
     {
-      text: t("newOrder"),
-      icon: newOrderIcon,
-      selectedIcon: newOrderSelectedIcon,
-      path: "NewOrder",
-    },
-    {
       text: t("orders"),
       icon: ordersIcon,
       selectedIcon: ordersSelectedIcon,
       path: "Orders",
-    },
-    {
-      text: t("chats"),
-      icon: chatsIcon,
-      selectedIcon: chatsSelectedIcon,
-      path: "Chats",
     },
     {
       text: t("payments"),
@@ -73,7 +61,7 @@ const Sidebar = () => {
           {menuItems.map((item) => (
             <button
               key={item.text}
-              onClick={() => router.push(`/${language}/${session.user.id}/${item.path}`)}
+              onClick={() => router.push(`/${language}/Admin_Restricted/${item.path}`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path==item.path?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path==item.path?item.selectedIcon:item.icon}
@@ -83,14 +71,14 @@ const Sidebar = () => {
         </div>
         <div className={`flex flex-col ${sidebarVisibility?"items-start":"items-center"} justify-between w-full gap-[16px]`}>
         <button
-              onClick={() => router.push(`/${language}/${session.user.id}/Settings`)}
+              onClick={() => router.push(`/${language}/Admin_Restricted/Settings`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path=="Settings"?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path=="Settings"?settingSelectedIcon:settingsIcon}
               <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>{t("settings")}</span>
             </button>
             <button
-              onClick={() => router.push(`/${language}/${session.user.id}/Logout`)}
+              onClick={() => router.push(`/${language}/Admin_Restricted/Logout`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px]`}
             >
               {logOutIcon}
