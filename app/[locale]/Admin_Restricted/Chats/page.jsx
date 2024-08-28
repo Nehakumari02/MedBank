@@ -58,10 +58,9 @@ const Chats = () => {
   
 
   useEffect(() => {
-    // const chatArray = createChatArray("user1", "user2", 10);
-    // setMessages(chatArray);
-    // {createChatArray("user1", "user2", 50)}
-    // console.log("genertaed chat array",chatArray)
+    const chatArray = createChatArray("user1", "user2", 10);
+    setMessages(chatArray);
+    console.log("genertaed chat array",chatArray)
 
     if (socket.connected) {
       onConnect();
@@ -83,7 +82,6 @@ const Chats = () => {
 
     // Listen for incoming messages
     socket.on("chat message", (message) => {
-      console.log(message)
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -103,12 +101,7 @@ const Chats = () => {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      socket.emit("chat message", {
-        id: generateRandomId(),
-        senderId: "user1",
-        text: message,
-        timestamp: Date.now(),
-      }); // Emit message to server
+      socket.emit("chat message", message); // Emit message to server
       setMessage(""); // Clear the input field after sending
     }
   };
@@ -118,6 +111,39 @@ const Chats = () => {
   };
 
   return (
+    // <div className='flex flex-col items-start pl-10 justify-center h-full gap-5'>
+    //   <div className="flex flex-col w-full">
+    //     <div className="group w--1/2 h-[38px] md:h-[50px] flex items-center justify-center flex-col">
+    //       <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
+    //         <input
+    //           className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+    //           placeholder="Send message"
+    //           value={message}
+    //           onChange={handleChange}
+    //           type="text"
+    //           name="message"
+    //           style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
+    //         />
+    //       </div>
+    //     </div>
+    //     <button
+    //       type="button"
+    //       className='h-[38px] md:h-[50px] px-10 rounded-[6px] md:flex items-center justify-center [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-bold text-[18px] leading-[24px]'
+    //       onClick={handleSendMessage}
+    //     >
+    //       Send Message
+    //     </button>
+    //   </div>
+    //   <div className='w-full'>
+    //     <div className='border-t border-gray-300'>
+    //       {messages.map((msg, index) => (
+    //         <div key={index} className='p-2'>
+    //           <p>{msg}</p> {/* Display each message */}
+    //         </div>
+    //       ))}
+    //     </div>
+    //   </div>
+    // </div>
     <div className="w-full h-full p-[13px] text-[#333333]">
       <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
         <div className="h-[66px] flex px-[40px] border-b-[1px] border-[#E2E8F0]">
@@ -145,24 +171,47 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <Messages messages={messages}/>
+            <div className="hidden space-y-2">
+              <div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
+              <div className="bg-pink-400 p-2 rounded">vnsda</div>
+              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
+              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
+              <div className="bg-pink-400 p-2 rounded">dsonmi</div>
+            </div>
+            <Messages initialMessages={createChatArray("user1", "user2", 50)}/>
           </div>
 
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
             <input
               type="text"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault()
-                  handleSendMessage()
-                }
-              }}
-              value={message}
-              onChange={handleChange}
               placeholder="Type your message"
               className="w-full h-[54px] bg-[#EFF4FB] outline-none px-3 rounded-md border-[1px] border-[#E2E8F0]"
             />
-            <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
+            <button className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
           </div>
         </div>
         <div className="h-[46px] pt-[10px] px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
