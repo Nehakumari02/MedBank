@@ -1,5 +1,5 @@
 import React from 'react'
-import {ArchiveDataTable} from '@/components/UserDashboard/Archive/ArchiveDataTable'
+import {ArchiveDataTable} from '@/components/AdminDashboard/Archive/ArchiveDataTable'
 
 const Archive = () => {
   const data= [
