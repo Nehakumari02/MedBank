@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Logo from "../../../../public/Images/Home/logo.png"
-import Messages from "../../../../components/UserDashboard/Chats/Messages";
+import Messages from "../../../../components/AdminDashboard/Chats/Messages";
 
 const Chats = () => {
   const [isConnected, setIsConnected] = useState(false);

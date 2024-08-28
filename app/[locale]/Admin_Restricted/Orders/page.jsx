@@ -1,5 +1,5 @@
 import React from 'react'
-import { OrdersDataTable } from '@/components/UserDashboard/Orders/OrdersDataTable'
+import { OrdersDataTable } from '@/components/AdminDashboard/Orders/OrdersDataTable'
 
 const Orders = () => {
   const data= [

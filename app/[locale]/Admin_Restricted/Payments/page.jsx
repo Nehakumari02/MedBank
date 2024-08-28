@@ -1,5 +1,5 @@
 import React from 'react'
-import { PaymentsDataTable } from '@/components/UserDashboard/Payments/PaymentsDataTable'
+import { PaymentsDataTable } from '@/components/AdminDashboard/Payments/PaymentsDataTable'
 
 const Payments = () => {
   const data = [
