@@ -8,7 +8,7 @@ const orderSchema = new Schema(
     },
     orderTitle: {
       type: String,
-      required: true,
+      required: false,
     },
     requestSheet: {
       type: new Schema({

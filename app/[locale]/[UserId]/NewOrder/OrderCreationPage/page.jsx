@@ -20,6 +20,8 @@ const OrderCreationPage = () => {
     
   };
 
+  console.log("order title",orderTitle)
+
   const onDrop = (acceptedFiles) => {
     setUploadedFile(acceptedFiles[0]); // Set the first file from the accepted files
   };
