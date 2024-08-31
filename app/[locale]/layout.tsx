@@ -6,6 +6,7 @@ import { cn } from '../../lib/utils';
 import { DMSans } from '../../lib/fonts';
 import { SidebarContextProvider } from '@/contexts/SidebarContext';
 import {AuthProvider} from "../Providers"
+import { Toaster } from '@/components/ui/toaster';
 
 export default async function LocaleLayout({
   children,
@@ -23,6 +24,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <SidebarContextProvider>
           <main>{children}</main>
+          <Toaster />
           </SidebarContextProvider>
         </NextIntlClientProvider>
         </AuthProvider>

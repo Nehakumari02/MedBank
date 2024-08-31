@@ -1,23 +1,67 @@
 import { NextResponse } from "next/server";
-import dbConnect from "../../../lib/dbConnect"
+import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/user";
-import bcrypt from "bcryptjs";
 
 export async function POST(req) {
-  const { name,email,password,confirmPassword, } = await req.json();
-  console.log("name",name,"\n","email",email,"\n","password",password,"\n","confirmPassword",confirmPassword)
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const {
+      Username,
+      name,
+      school,
+      faculty,
+      field,
+      others,
+      service,
+      phone,
+      email,
+      confirmEmail,
+      Perfecture,
+      postalCode,
+      city,
+    } = await req.json();
+
+    // Ensure email and confirmEmail match
+    if (email !== confirmEmail) {
+      return new NextResponse(JSON.stringify({ error: 'Emails do not match' }), {
+        status: 400,
+      });
+    }
+
     await dbConnect();
-    const res = await User.create({name,email,password:hashedPassword});
-    console.log("result",res)
-    return new NextResponse(JSON.stringify({ message: 'User registered successfully' }), {
+
+    // Update the user details based on email (assuming email is unique and used to identify the user)
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      {
+        Username,
+        name,
+        school,
+        faculty,
+        field,
+        others,
+        service,
+        phone,
+        Perfecture,
+        postalCode,
+        city,
+      },
+      { new: true } // Returns the updated document
+    );
+
+    if (!updatedUser) {
+      return new NextResponse(JSON.stringify({ error: 'User not found' }), {
+        status: 404,
+      });
+    }
+
+    return new NextResponse(JSON.stringify({ message: 'User details updated successfully' }), {
       status: 200,
     });
   } catch (error) {
-    console.log("error",error)
-    return new NextResponse(JSON.stringify({ error: 'Error registering user' }), {
+    console.error("Error updating user details:", error);
+    return new NextResponse(JSON.stringify({ error: 'Error updating user details' }), {
       status: 500,
     });
   }
 }
+

@@ -10,16 +10,16 @@ import deleteIcon from "../../../../../../public/dashboard/deleteIcon.png"
 import file1 from "../../../../../../public/dashboard/file.png"
 import { useOrder } from '@/contexts/OrderContext';
 import { useRouter } from 'next/navigation';
+import { toast } from '@/hooks/use-toast';
 
 const OrderCreationPage = () => {
   const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile} = useOrder();
   const [currentStep, setCurrentStep] = useState(1);
-  const [file, setFile] = useState(uploadedFile);
   const router = useRouter();
 
   const handleDelete = () => {
-    setFile(null); // Remove the file from state
-    
+    setUploadedFile(null); // Remove the file from state
+    console.log("file deleted")
   };
 
   console.log("order title",orderTitle)
@@ -39,6 +39,22 @@ const OrderCreationPage = () => {
   };
 
   const handleSubmit = () =>{
+    if(orderTitle==""){
+      toast({
+        variant:"error",
+        title:"Error",
+        description:"Title cannot be empty..."
+      })
+      return;
+    }
+    if(!uploadedFile){
+      toast({
+        variant:"error",
+        title:"Error",
+        description:"Please upload a file..."
+      })
+      return;
+    }
     router.back();
   }
   
@@ -178,7 +194,7 @@ const OrderCreationPage = () => {
                         </a>
                       </div>
                     </div>
-                    <div className="text-red-500 cursor-pointer">
+                    <div className="text-red-500 cursor-pointer" onClick={handleDelete}>
                       <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
                     </div>
                   </div>

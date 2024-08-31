@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import {signIn, useSession} from 'next-auth/react'
+import {signIn, useSession} from 'next-auth/react';
+import { toast } from '@/hooks/use-toast';
 
 const SignInPage = () => {
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
@@ -59,6 +60,11 @@ const SignInPage = () => {
         return;
       }
       if(res.ok){
+        toast({
+          variant:"success",
+          title:"Success",
+          description:"Login successful..."
+        })
         router.push(`/${language}/${session.user.id}/Dashboard`)
       }
     } catch (error) {
