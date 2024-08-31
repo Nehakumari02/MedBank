@@ -7,10 +7,11 @@ const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
 
 export const OrderProvider = ({ children }) => {
+  const [orderId,setOrderId]=useState("");
   const [orderTitle,setOrderTitle]=useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
   const [requestSheet,setRequestSheet]=useState({
-    status:"isCompleted",
+    status:"isPending",
     requestSheetLink:""
   });
   const [costEstimate,setCostEstimate]=useState({
@@ -59,6 +60,7 @@ export const OrderProvider = ({ children }) => {
   return (
     <OrderContext.Provider
     value={{
+      orderId,setOrderId,
       orderTitle, setOrderTitle,
       uploadedFile, setUploadedFile,
       requestSheet, setRequestSheet,

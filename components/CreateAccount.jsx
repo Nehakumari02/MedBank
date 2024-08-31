@@ -17,8 +17,8 @@ const CreateAccount = () => {
               {t("description")}
             </p>
             <div className='flex gap-[12px]'>
-            <Link href={`/${language}/signin`} className="h-[40px] p-[1px] rounded-[6px] flex items-center justify-center gradient-primary border-[#60B7CF]"><div className='bg-white w-full h-full px-[32px] py-[12px] rounded-[5px] flex items-center justify-center'><span className='gradient-primary bg-clip-text text-transparent'>Sign In</span></div></Link>
-            <Link href={`/${language}/Registration`} className="h-[40px] px-[32px] py-[12px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</Link>
+            <Link href={`/${language}/Loginn`} className="h-[40px] p-[1px] rounded-[6px] flex items-center justify-center gradient-primary border-[#60B7CF]"><div className='bg-white w-full h-full px-[32px] py-[12px] rounded-[5px] flex items-center justify-center'><span className='gradient-primary bg-clip-text text-transparent'>Sign In</span></div></Link>
+            <Link href={`/${language}/Signupp`} className="h-[40px] px-[32px] py-[12px] rounded-[6px] flex items-center justify-center gradient-primary text-white">Sign Up</Link>
             </div>
 
             <div className="w-full flex items-center justify-center">

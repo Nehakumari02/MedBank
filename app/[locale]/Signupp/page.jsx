@@ -124,7 +124,7 @@ const SignUp = () => {
               <div className='w-full flex flex-col gap-[10px] md:gap-[16px]'>
                 <div className='group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('name')}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -137,7 +137,7 @@ const SignUp = () => {
 
                 <div className='group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] ${emailError ? "bg-red-600" : "bg-gray-200"} ${emailError?"group-focus-within:bg-red-600":"group-focus-within:gradient-primary"}`} >
-                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('email')}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -151,7 +151,7 @@ const SignUp = () => {
 
                 <div className="group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col">
                   <div className={`w-full relative rounded-[7px] ${passwordError ? "bg-red-600" : "bg-gray-200"} ${passwordError?"group-focus-within:bg-red-600":"group-focus-within:gradient-primary"}`} >
-                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('password')}
                       value={password} 
                       type={passwordVisibility?"text":"password"} 
@@ -167,7 +167,7 @@ const SignUp = () => {
 
                 <div className="group w-full h-[38px] md:h-[50px] flex items-center justify-center flex-col">
                   <div className={`w-full relative rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                    <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('confirmPassword')}
                       value={confirmPassword}
                       onChange={handleConfirmPassword}
