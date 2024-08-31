@@ -23,11 +23,30 @@ const Settings = () => {
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
 
+  const updateUserDetals=async(e)=>{
+    e.preventDefault();
+    try{
+    const response = await fetch('/api/updateUserDetails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({Username,name,school,faculty,field,others,service,phone,email,confirmEmail,Perfecture,postalCode,city}),
+    });
+    const data = await response.json();
+    console.log(data.message)
+  }catch(error){
+    console.log(error)
+  }
+
+
+  }
+
 
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const { data } = await fetch('/api/fetchOrders', {
+        const data = await fetch('/api/fetchUserDetails', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -36,21 +55,22 @@ const Settings = () => {
         });
         const UserData = await data.json();
         console.log("user",UserData)
+        const user=UserData.user
 
-        setUserName(data.Username || "");
-        setName(data.name || "");
+        setUserName(user.Username || "");
+        setName(user.name || "");
         console.log(name)
-        setSchool(data.school || "");
-        setFaculty(data.faculty || "");
-        setField(data.field || "");
-        setOthers(data.others || "");
-        setService(data.service || "");
-        setPhone(data.phone || "");
-        setEmail(data.email || "");
-        setConfirmEmail(data.email || "");
-        setPerfecture(data.Perfecture || "");
-        setPostalCode(data.postalCode || "");
-        setCity(data.city || "");
+        setSchool(user.school || "");
+        setFaculty(user.faculty || "");
+        setField(user.field || "");
+        setOthers(user.others || "");
+        setService(user.service || "");
+        setPhone(user.phone || "");
+        setEmail(user.email || "");
+        setConfirmEmail(user.email || "");
+        setPerfecture(user.Perfecture || "");
+        setPostalCode(user.postalCode || "");
+        setCity(user.city || "");
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -331,7 +351,7 @@ const Settings = () => {
             </div>
             <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
               <button  className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.cancel")}</button>
-              <button  className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.confirm")}</button>
+              <button onClick={updateUserDetals}  className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.confirm")}</button>
             </div>
           </div>
         </div>
