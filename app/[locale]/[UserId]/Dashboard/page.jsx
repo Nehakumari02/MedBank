@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
 import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 const Dashboard = () => {
-  const {data:session} = useSession();
-  console.log(session)
+  const userId = usePathname().split("/")[2]
+  console.log(userId)
 
   const orderOverview ={
     pending:19,
@@ -269,7 +270,7 @@ const Dashboard = () => {
           body: JSON.stringify({userId:userId}),
         });
         const data = await response.json();
-        console.log("data",data)
+        // console.log("data",data)
         setData(data.data)
         
       }catch(error){
@@ -277,7 +278,7 @@ const Dashboard = () => {
       }
     }
 
-    fetchOrdersByUserId("66d2c0363193e5458df2f2a0");
+    fetchOrdersByUserId(userId);
   },[])
 
   return (

@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import CountryDropDown from "../../../../components/CountryDropdown"
 import { useTranslations } from 'next-intl'
 import { useModal } from '@/contexts/ModalContext'
+import { usePathname } from 'next/navigation'
 
 const Settings = () => {
+  const userId = usePathname().split("/")[2]
+
   const [Username, setUserName] = useState("");
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -19,6 +22,42 @@ const Settings = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
+
+
+  useEffect(() => {
+    const fetchUserData = async (userId) => {
+      try {
+        const { data } = await fetch('/api/fetchOrders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({userId:userId}),
+        });
+        const UserData = await data.json();
+        console.log("user",UserData)
+
+        setUserName(data.Username || "");
+        setName(data.name || "");
+        console.log(name)
+        setSchool(data.school || "");
+        setFaculty(data.faculty || "");
+        setField(data.field || "");
+        setOthers(data.others || "");
+        setService(data.service || "");
+        setPhone(data.phone || "");
+        setEmail(data.email || "");
+        setConfirmEmail(data.email || "");
+        setPerfecture(data.Perfecture || "");
+        setPostalCode(data.postalCode || "");
+        setCity(data.city || "");
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData(userId);
+  }, []);
 
 
   return (
