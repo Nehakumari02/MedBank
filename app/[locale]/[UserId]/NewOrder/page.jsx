@@ -7,26 +7,24 @@ import { useSession } from 'next-auth/react'
 
 const NewOrder = () => {
   const {data:session} = useSession();
-
-const createNewOrder =async()=>{
-  try{
-    const response = await fetch('/api/newOrder', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({userId:session.user.id}),
-    });
-    const data = await response.json();
-    console.log(data.message)
-  }catch(error){
-    console.log(error)
+  const createNewOrder =async()=>{
+    try{
+      const response = await fetch('/api/newOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userId:session.user.id}),
+      });
+      const data = await response.json();
+      console.log(data.message)
+    }catch(error){
+      console.log(error)
+    }
   }
-}
-
   useEffect(()=>{
     createNewOrder();
-  })
+  },[session])
   return (
     <OrderProvider>
       <div className='w-full h-full p-[10px] md:p-[19px]'>

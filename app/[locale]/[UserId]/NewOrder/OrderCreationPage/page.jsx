@@ -9,11 +9,13 @@ import folder1 from "../../../../../public/dashboard/folder.png"
 import deleteIcon from "../../../../../public/dashboard/deleteIcon.png"
 import file1 from "../../../../../public/dashboard/file.png"
 import { useOrder } from '@/contexts/OrderContext';
+import { useRouter } from 'next/navigation';
 
 const OrderCreationPage = () => {
   const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile} = useOrder();
   const [currentStep, setCurrentStep] = useState(1);
   const [file, setFile] = useState(uploadedFile);
+  const router = useRouter();
 
   const handleDelete = () => {
     setFile(null); // Remove the file from state
@@ -36,6 +38,9 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
+  const handleSubmit = () =>{
+    router.back();
+  }
   
 
   return (
@@ -184,7 +189,7 @@ const OrderCreationPage = () => {
 
               <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
                 <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={handleBack}>Edit</button>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleDelete}>Submit</button>
+                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           )}

@@ -8,9 +8,14 @@ export async function POST(req) {
   try {
     console.log("userid",userId)
     await dbConnect();
-    // const res = await User.create({});
-    // console.log("result",res)
-    return new NextResponse(JSON.stringify({ message: 'User registered successfully' }), {
+    const newOrder = await Order.create({orderId:12345});
+    const updateUser = await User.updateOne(
+      { _id: userId },
+      { $push: { orders: newOrder._id } }
+    );
+
+    console.log("result",newOrder)
+    return new NextResponse(JSON.stringify({ message: 'Order created successfully' }), {
       status: 200,
     });
   } catch (error) {
