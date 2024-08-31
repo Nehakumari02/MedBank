@@ -454,7 +454,7 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div> */}
-        <div className="space-x-2">
+        <div className="space-x-2 hidden">
           <Button
           className="bg-white"
             variant="outline"
