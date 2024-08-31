@@ -11,7 +11,7 @@ export async function POST(req) {
 
     // Find the user and populate their orders array
     const user = await User.findById(userId).populate('orders').exec();
-    console.log(user)
+    // console.log(user)
 
     if (!user || !user.orders || user.orders.length === 0) {
       return new NextResponse(
@@ -20,7 +20,7 @@ export async function POST(req) {
       );
     }
 
-    console.log("Orders found:", user.orders);
+    // console.log("Orders found:", user.orders);
     return new NextResponse(
       JSON.stringify({ message: "Orders fetched successfully", data: user.orders }),
       { status: 200 }
