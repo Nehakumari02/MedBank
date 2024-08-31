@@ -19,6 +19,23 @@ const Sidebar = () => {
   const t = useTranslations("UserSideBar");
   const {data:session} = useSession();
 
+  const handleNewOrder=async()=>{
+    try{
+      const response = await fetch('/api/newOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userId:session.user.id}),
+      });
+      const data = await response.json();
+      console.log(data.data,data.message)
+      router.push(`/${language}/${session.user.id}/${data.data._id}/NewOrder`)
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   const menuItems = [
     {
       text: t("dashboard"),
@@ -63,6 +80,15 @@ const Sidebar = () => {
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
+  
+  const handleMenuItemClick =(menuPath)=>{
+    if(menuPath==="NewOrder"){
+      handleNewOrder();
+    }
+    else{
+      router.push(`/${language}/${session.user.id}/${menuPath}`)
+    }
+  }
   return (
     <div className={`${sidebarVisibility?"w-[228px]":"w-[130px]"} h-full flex flex-col py-[35px] px-[25px] items-center gap-[57px] text-[#333333] border-r-[1px] border-[#3333331A]`}>
       <div className="w-[80px] h-[80px]">
@@ -73,7 +99,7 @@ const Sidebar = () => {
           {menuItems.map((item) => (
             <button
               key={item.text}
-              onClick={() => router.push(`/${language}/${session.user.id}/${item.path}`)}
+              onClick={()=>handleMenuItemClick(item.path)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path==item.path?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path==item.path?item.selectedIcon:item.icon}

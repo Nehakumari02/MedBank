@@ -6,23 +6,38 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Logo from "../../public/Images/Home/logo.png";
+import { useSession } from 'next-auth/react';
 
 const TopNav = () => {
   const path = usePathname().split("/")[3];
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
   const language = usePathname().split("/")[1];
   const router = useRouter();
-  const [userId, setUserId] = useState(1234);
+  const {data:session} = useSession();
 
   const t = useTranslations("TopNavBar");
 
   const updateLanguage = (newLanguage) => {
-    // Create new URL with updated language
     const newPath = `/${newLanguage}/${pathToRedirect}`;
-    
-    // Redirect to the new URL
     router.push(newPath);
   };
+  
+  const handleNewOrder=async()=>{
+    try{
+      const response = await fetch('/api/newOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userId:session.user.id}),
+      });
+      const data = await response.json();
+      console.log(data.data,data.message)
+      router.push(`/${language}/${session.user.id}/${data.data._id}/NewOrder`)
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -43,7 +58,7 @@ const TopNav = () => {
             <span className={`${language == "en" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
-        <Link href={`/${language}/${userId}/NewOrder`} id='highlight-step-2' className='h-[40px] w-[133px] rounded-[6px] hidden md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon}{t("newOrder")}</Link>
+        <button onClick={handleNewOrder} id='highlight-step-2' className='h-[40px] w-[133px] rounded-[6px] hidden md:flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[14px] leading-[20px] '>{plusIcon}{t("newOrder")}</button>
         <div>
           <button className='h-full flex items-center justify-center md:hidden pt-[2px]'>{hamburderMenuIcon}</button>
           {/* <div className={`flex flex-col  justify-between w-full gap-[16px]`}>
@@ -69,7 +84,7 @@ const TopNav = () => {
       <div>
         {path=="Dashboard"?<span className='font-DM-Sans font-bold text-[18px] leading-[24px] '>{t("welcomeMsg")}</span>:<></>}
       </div>
-      <Link href={`/${language}/${userId}/NewOrder`} className='h-[40px] w-[117px] rounded-[6px] flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] leading-[20px] '>{plusIcon}{t("newOrder")}</Link>
+      <button onClick={handleNewOrder} className='h-[40px] w-[117px] rounded-[6px] flex items-center justify-center gap-[10px] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] leading-[20px] '>{plusIcon}{t("newOrder")}</button>
     </div>
     </>
   )
