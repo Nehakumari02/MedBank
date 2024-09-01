@@ -9,14 +9,33 @@ import folder1 from "../../../../../../public/dashboard/folder.png"
 import deleteIcon from "../../../../../../public/dashboard/deleteIcon.png"
 import file1 from "../../../../../../public/dashboard/file.png"
 import { useOrder } from '@/contexts/OrderContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 
 const OrderCreationPage = () => {
-  const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile,setRequestSheet} = useOrder();
+  const {
+    orderTitle, setOrderTitle,
+    uploadedFile, setUploadedFile,
+    orderId,setOrderId,
+    requestSheet, setRequestSheet,
+    costEstimate, setCostEstimate,
+    formalRequest, setFormalRequest,
+    sampleShipping, setSampleShipping,
+    qualityCheck, setQualityCheck,
+    libraryPrep, setLibraryPrep,
+    analysisProgress, setAnalysisProgress,
+    analysisDone, setAnalysisDone,
+    analysisRawData, setAnalysisRawData,
+    analysisSpecification, setAnalysisSpecification,
+    invoice, setInvoice,
+    payment, setPayment
+  } = useOrder();
+  console.log("orderid",orderId)
+  console.log("analysis specification",analysisSpecification)
   const [currentStep, setCurrentStep] = useState(1);
   const [disabled,setDisabled] = useState(false);
   const router = useRouter();
+  const orderIdDB = usePathname().split("/")[3];
 
   const handleDelete = () => {
     setUploadedFile(null); // Remove the file from state
@@ -88,7 +107,59 @@ const OrderCreationPage = () => {
           'Content-Type': fileType,
         },
       });
-      console.log(res)
+      console.log(res.status)
+      console.log(res.url)
+
+      if(res.status!==200){
+        toast({
+          variant: "error",
+          title: "Upload Error",
+          description: "Try uploading file again...",
+        });
+        return;
+      }
+
+      setRequestSheet(prev => ({
+        ...prev,
+        status: "isCompleted",
+        requestSheetLink: res.url,
+      }));
+  
+      setCostEstimate(prev => ({
+        ...prev,
+        status: "inProgress",
+      }));
+
+      const orderData = {
+        orderTitle,
+        requestSheet: {
+          status: "isCompleted",
+          requestSheetLink: url,
+        },
+        costEstimate: {
+          status: "inProgress",
+        },
+      };
+
+      console.log(orderIdDB)
+      const saveApiResponse = await fetch('/api/updateOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+      });
+
+      console.log(saveApiResponse)
+
+      if(saveApiResponse.status!==200){
+        toast({
+          variant: "error",
+          title: "Updation Error",
+          description: "Failed to submit order, please try again...",
+        });
+        return;
+      }
   
       toast({
         variant: "success",
@@ -106,7 +177,7 @@ const OrderCreationPage = () => {
       setDisabled(false);
     }
 
-    // router.back();
+    router.back();
   }
   
 
@@ -240,7 +311,9 @@ const OrderCreationPage = () => {
                       </div>
                       <div>
                         <a href={URL.createObjectURL(uploadedFile)}>
-                          <div className='text-sm md:text-lg'>{uploadedFile.name}</div>
+                        <span className="text-sm md:text-lg">
+                          {uploadedFile.name.length > 20 ? `${uploadedFile.name.substring(0, 19)}...` : uploadedFile.name}
+                        </span>
                           <p className="text-sm text-[#717171]">{(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb</p>
                         </a>
                       </div>
