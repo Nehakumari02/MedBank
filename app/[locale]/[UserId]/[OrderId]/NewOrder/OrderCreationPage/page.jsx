@@ -13,8 +13,9 @@ import { useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 
 const OrderCreationPage = () => {
-  const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile} = useOrder();
+  const {orderTitle, setOrderTitle,uploadedFile, setUploadedFile,setRequestSheet} = useOrder();
   const [currentStep, setCurrentStep] = useState(1);
+  const [disabled,setDisabled] = useState(false);
   const router = useRouter();
 
   const handleDelete = () => {
@@ -23,10 +24,13 @@ const OrderCreationPage = () => {
   };
 
   console.log("order title",orderTitle)
-
-  const onDrop = (acceptedFiles) => {
-    setUploadedFile(acceptedFiles[0]); // Set the first file from the accepted files
+  const onDrop = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    setUploadedFile(file); // Update the state to show the file
+  
+    
   };
+  
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -38,7 +42,8 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = () =>{
+  const handleSubmit = async() =>{
+    setDisabled(true);
     if(orderTitle==""){
       toast({
         variant:"error",
@@ -55,7 +60,53 @@ const OrderCreationPage = () => {
       })
       return;
     }
-    router.back();
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+  
+      // Call the API to get the signed URL
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName, fileType }),
+      });
+  
+      const { url } = await response.json();
+      console.log(url)
+      console.log(url.url)
+      setRequestSheet((prev) => ({
+        ...prev,
+        requestSheetLink: url,
+      }));
+  
+      // Upload the file directly to S3 using the signed URL
+      const res=await fetch(url, {
+        method: 'PUT',
+        body: uploadedFile,
+        headers: {
+          'Content-Type': fileType,
+        },
+      });
+      console.log(res)
+  
+      toast({
+        variant: "success",
+        title: "Upload Successful",
+        description: "Your file has been uploaded to S3.",
+      });
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Upload Failed",
+        description: "There was an error uploading your file.",
+      });
+      console.error("Error uploading file:", err);
+    } finally{
+      setDisabled(false);
+    }
+
+    // router.back();
   }
   
 
@@ -205,7 +256,7 @@ const OrderCreationPage = () => {
 
               <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
                 <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={handleBack}>Edit</button>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleSubmit}>Submit</button>
+                <button disabled={disabled} className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`} onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           )}
@@ -217,5 +268,4 @@ const OrderCreationPage = () => {
 };
 
 export default OrderCreationPage;
-
 
