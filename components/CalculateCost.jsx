@@ -6,123 +6,133 @@ import LangDropdown from "../components/LangDropdown"
 const CalculateCost = () => {
     const [currency, setCurrency] = useState("JPY");
     return (
-        <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-auto my-10 font-DM-Sans md:h-[576px]">
-            <h2 className="md:text-[22px] font-medium text-center mb-6">Calculate Cost</h2>
+        <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
+            <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
             <div className='border border-dashed'></div>
             <div className='border border-dashed pt-[20px]'></div>
 
-            <table className="w-full mb-6 ">
-                <thead>
-                    <tr className="text-left font-medium text-sm">
-                        <th className="py-2">Sample ID</th>
-                        <th className="py-2">Sample Name</th>
-                        <th className="py-2">Quality check fees</th>
-                        <th className="py-2">Library adjustment fees</th>
-                        <th className="py-2">Next gen. sequencer analysis fees</th>
-                        <th className="py-2">Tax</th>
-                        <th className="py-2">Others</th>
-                        <th className="py-2">Amount</th>
-                    </tr>
+            <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                <table className="w-full mb-6 min-w-[768px]">
+                    <thead>
+                        <tr className="text-left font-medium text-sm">
+                            <th className="py-2">Sample ID</th>
+                            <th className="py-2">Sample Name</th>
+                            <th className="py-2">Quality check fees</th>
+                            <th className="py-2">Library adjustment fees</th>
+                            <th className="py-2">Next gen. sequencer analysis fees</th>
+                            <th className="py-2">Tax</th>
+                            <th className="py-2">Others</th>
+                            <th className="py-2">Amount</th>
+                        </tr>
+                    </thead>
 
-                </thead>
-
-                <tbody className='border-t'>
-                    {[1, 2, 3].map((_, index) => (
-                        <tr key={index} className=" text-[12px] font-normal">
-                            <td className="py-[12] md:w-[98px] pr-[20px]">
-                                <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder={`10${index + 1}`}
-                                />
-                            </td>
-                            <td className="md:w-[108px] py-[12px] pr-[20px]">
-                                <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
-                                />
-                            </td>
-                            <td className="md:w-[156px] py-[12px]">
-                                <div className='flex gap-[2px]'>
-                                    <div className="w-[108px] flex-shrink-0 group">
+                    <tbody className='border-t'>
+                        {[1, 2, 3].map((_, index) => (
+                            <tr key={index} className="text-[12px] font-normal">
+                                <td className="py-[12px] md:w-[98px] pr-[20px]">
                                     <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder=""
-                                />
-
-                                    </div>
-                                    <div className="w-[66px] flex-shrink-0">
-                                        <div className='group'>
-                                            <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
-                                            <LangDropdown 
-                                                    value={currency} 
-                                                    onChange={(e) => setCurrency(e.target.value)} 
-                                                />
+                                        type="text"
+                                        className="border rounded-md w-full p-2"
+                                        placeholder={`10${index + 1}`}
+                                    />
+                                </td>
+                                <td className="md:w-[108px] py-[12px] pr-[20px]">
+                                    <input
+                                        type="text"
+                                        className="border rounded-md w-full p-2"
+                                        placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
+                                    />
+                                </td>
+                                <td className="md:w-[156px] py-[12px]">
+                                    <div className='flex gap-[2px]'>
+                                        <div className="w-[108px] flex-shrink-0 group">
+                                            <input
+                                                type="text"
+                                                className="border rounded-md w-full p-2"
+                                                placeholder=""
+                                            />
+                                        </div>
+                                        <div className="w-[66px] flex-shrink-0">
+                                            <div className='group'>
+                                                <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                                    <LangDropdown
+                                                        value={currency}
+                                                        onChange={(e) => setCurrency(e.target.value)}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="md:w-[156px] py-[12px]">
-                                <div className='flex gap-[2px]'>
-                                    <div className="w-[108px] flex-shrink-0 group">
-                                    <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder=""
-                                />
-
-                                    </div>
-                                    <div className="w-[66px] flex-shrink-0">
-                                        <div className='group'>
-                                            <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
-                                            <LangDropdown 
-                                                    value={currency} 
-                                                    onChange={(e) => setCurrency(e.target.value)} 
-                                                />
+                                </td>
+                                <td className="md:w-[156px] py-[12px]">
+                                    <div className='flex gap-[2px]'>
+                                        <div className="w-[108px] flex-shrink-0 group">
+                                            <input
+                                                type="text"
+                                                className="border rounded-md w-full p-2"
+                                                placeholder=""
+                                            />
+                                        </div>
+                                        <div className="w-[66px] flex-shrink-0">
+                                            <div className='group'>
+                                                <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                                    <LangDropdown
+                                                        value={currency}
+                                                        onChange={(e) => setCurrency(e.target.value)}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="md:w-[156px] py-[12px]">
-                                <div className='flex gap-[2px]'>
-                                    <div className="md:w-[108px] flex-shrink-0 group">
-                                    <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder=""
-                                />
-
-                                    </div>
-                                    <div className="w-[66px] flex-shrink-0">
-                                        <div className='group'>
-                                            <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
-                                            <LangDropdown 
-                                                    value={currency} 
-                                                    onChange={(e) => setCurrency(e.target.value)} 
-                                                />
+                                </td>
+                                <td className="md:w-[156px] py-[12px]">
+                                    <div className='flex gap-[2px]'>
+                                        <div className="md:w-[108px] flex-shrink-0 group">
+                                            <input
+                                                type="text"
+                                                className="border rounded-md w-full p-2"
+                                                placeholder=""
+                                            />
+                                        </div>
+                                        <div className="w-[66px] flex-shrink-0">
+                                            <div className='group'>
+                                                <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                                    <LangDropdown
+                                                        value={currency}
+                                                        onChange={(e) => setCurrency(e.target.value)}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="md:w-[108px] py-[12px] pr-[20px]">
-                                <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2 bg-[#33333314]"
-                                    placeholder="JPY"
-                                />
-                            </td>
-                            <td className="md:w-[108px] py-[12px] pr-[20px]">
-                                <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2 bg-[#33333314]"
-                                    placeholder=""
-                                />
-                            </td>
+                                </td>
+                                <td className="md:w-[108px] py-[12px] pr-[20px]">
+                                    <input
+                                        type="text"
+                                        className="border rounded-md w-full p-2 bg-[#33333314]"
+                                        placeholder="JPY"
+                                    />
+                                </td>
+                                <td className="md:w-[108px] py-[12px] pr-[20px]">
+                                    <input
+                                        type="text"
+                                        className="border rounded-md w-full p-2 bg-[#33333314]"
+                                        placeholder=""
+                                    />
+                                </td>
+                                <td className="md:w-[108px]">
+                                    <input
+                                        type="text"
+                                        className="border rounded-md w-full p-2"
+                                        placeholder="JPY"
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot>
+                        <tr className="border-t font-medium text-[14px]">
+                            <td colSpan="7" className="text-right py-2 pr-6">Total</td>
                             <td className="md:w-[108px]">
                                 <input
                                     type="text"
@@ -131,21 +141,10 @@ const CalculateCost = () => {
                                 />
                             </td>
                         </tr>
-                    ))}
-                </tbody>
-                <tfoot>
-                    <tr className="border-t font-medium text-[14px]">
-                        <td colSpan="7" className="text-right py-2 pr-6">Total</td>
-                        <td className="md:w-[108px]">
-                                <input
-                                    type="text"
-                                    className="border rounded-md w-full p-2"
-                                    placeholder="JPY"
-                                />
-                            </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
+
             <div className="flex items-center text-[14px] font-normal">
                 <input type="checkbox" id="tax" className="mr-2" />
                 <label htmlFor="tax">Click to enter tax percent.</label>
@@ -157,7 +156,7 @@ const CalculateCost = () => {
             <p className="text-[14px] font-normal mb-6">
                 Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
             </p>
-            <div className='w-full flex items-end justify-end gap-[12px]'>
+            <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                 <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
                 <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
             </div>
@@ -166,3 +165,4 @@ const CalculateCost = () => {
 };
 
 export default CalculateCost;
+
