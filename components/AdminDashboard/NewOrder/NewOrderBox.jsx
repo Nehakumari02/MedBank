@@ -40,7 +40,7 @@ const NewOrderBox = () => {
   } = useOrder();
 
   const handleOrderCreation = () => {
-    router.push(`/${language}/${session.user.id}/NewOrder/OrderCreationPage`)
+    router.push(`/${language}/Admin_Restricted/NewOrder/OrderCreationPage`)
   }
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);
