@@ -1,22 +1,42 @@
 import { NextResponse } from "next/server";
-import dbConnect from "../../../lib/dbConnect"
-import User from "../../../models/user";
-import bcrypt from "bcryptjs";
+import dbConnect from "../../../lib/dbConnect";
+import Conversation from "../../../models/conversation";
+import Message from "../../../models/message";
 
 export async function POST(req) {
-  const { name,email,password,confirmPassword, } = await req.json();
-  console.log("name",name,"\n","email",email,"\n","password",password,"\n","confirmPassword",confirmPassword)
+  const { userId } = await req.json();
+
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Connect to the database
     await dbConnect();
-    const res = await User.create({name,email,password:hashedPassword});
-    console.log("result",res)
-    return new NextResponse(JSON.stringify({ message: 'User registered successfully' }), {
+
+    // Find the conversation with the given userId
+    const conversation = await Conversation.findOne({
+      participants: userId,
+    });
+
+    if (!conversation) {
+      return new NextResponse(JSON.stringify({ error: 'Conversation not found' }), {
+        status: 404,
+      });
+    }
+
+    // console.log("Conversation found:", conversation);
+
+    // Find messages with the conversationId
+    // const messages = await Message.find({ conversationId: conversation._id });
+    const messages = await Message.find({ conversationId: conversation._id }).sort({ createdAt: -1 });
+
+
+    // console.log("Messages found:", messages);
+
+    // Return the conversationId and messages
+    return new NextResponse(JSON.stringify({ conversationId: conversation._id, messages }), {
       status: 200,
     });
   } catch (error) {
-    console.log("error",error)
-    return new NextResponse(JSON.stringify({ error: 'Error registering user' }), {
+    console.log("error", error);
+    return new NextResponse(JSON.stringify({ error: 'Error registering user or retrieving messages' }), {
       status: 500,
     });
   }

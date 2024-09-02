@@ -150,10 +150,12 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) =>{
       const router = useRouter()
+      const { data: session } = useSession()
+      const userId = session.user.id 
       const orderId = row.original._id
       const language = usePathname().split("/")[1];
       return( <button onClick={()=>{
-        router.push(`/${language}/Admin_Restricted/OrderDetails/${orderId}`)
+        router.push(`/${language}/Admin_Restricted/${orderId}/NewOrder`)
     }} className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")===""?"Order...":row.getValue("orderTitle")}</button>)},
   },
   {

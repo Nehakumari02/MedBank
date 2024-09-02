@@ -209,6 +209,8 @@ const NewOrderBox = () => {
     fetchOrderByID(orderIdDB);
   },[])
 
+  console.log("orderid",orderId)
+
   return (
     <>
       <div className='text-[#333333] mb-[14px] flex flex-col justify-between h-full'>
