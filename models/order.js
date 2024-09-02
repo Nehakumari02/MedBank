@@ -2,162 +2,127 @@ import mongoose, { Schema, models } from "mongoose";
 
 const orderSchema = new Schema(
   {
+    userId:{type:mongoose.Schema.Types.ObjectId,ref:'User'},
     orderId: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     orderTitle: {
       type: String,
       required: false,
     },
     requestSheet: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        requestSheetLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      requestSheetLink: {
+        type: String,
+      },
     },
     costEstimate: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        costEstimationLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      costEstimationLink: {
+        type: String,
+      },
     },
     formalRequest: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
     },
     sampleShipping: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "inTransit", "isCompleted"],
-          default: "isPending",
-        },
-        sampleShippingStatus: {
-          type: String,
-          enum: ["ok","notOk"],
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "inTransit", "isCompleted"],
+        default: "isPending",
+      },
+      sampleShippingStatus: {
+        type: String,
+        enum: ["ok", "notOk"],
+      },
     },
     qualityCheck: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        qualityCheckReportLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      qualityCheckReportLink: {
+        type: String,
+      },
     },
     libraryPrep: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        libraryCheckReportLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      libraryCheckReportLink: {
+        type: String,
+      },
     },
     analysisProgress: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
     },
     analysisDone: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        }
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
     },
     analysisRawData: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        rawDataLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      rawDataLink: {
+        type: String,
+      },
     },
     analysisSpecification: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        analysisSpecificationReportLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      analysisSpecificationReportLink: {
+        type: String,
+      },
     },
     invoice: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        invoiceLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      invoiceLink: {
+        type: String,
+      },
     },
     payment: {
-      type: new Schema({
-        status: {
-          type: String,
-          enum: ["isPending", "inProgress", "isCompleted"],
-          default: "isPending",
-        },
-        paymentRecieptLink: {
-          type: String,
-        },
-      }),
-      required: false,
+      status: {
+        type: String,
+        enum: ["isPending", "inProgress", "isCompleted"],
+        default: "isPending",
+      },
+      paymentRecieptLink: {
+        type: String,
+      },
     },
   },
   { timestamps: true }

@@ -37,7 +37,7 @@ export async function POST(req) {
       invoice: { status: "isPending", invoiceLink: "" },
       payment: { status: "isPending", paymentRecieptLink: "" },
     });
-
+    console.log(newOrder)
     // Add the new order to the user's orders array
     await User.updateOne(
       { _id: userId },

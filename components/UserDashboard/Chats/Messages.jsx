@@ -7,7 +7,8 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 const Messages= ({
   messages,
-  // sessionId,
+  userIdDB
+  // userIdDB,
   // chatId,
   // chatPartner,
   // sessionImg,
@@ -15,7 +16,6 @@ const Messages= ({
   // const [messages, setMessages] = useState(initialMessages)
   // console.log(messages)
   // const messages= initialMessages;
-  const sessionId = "user1"
 
   const scrollDownRef = useRef(null)
 
@@ -23,9 +23,12 @@ const Messages= ({
     return format(timestamp, 'HH:mm')
   }
 
-  messages = messages.sort((a, b) => b.timestamp - a.timestamp);
+  // messages = messages.sort((a, b) => a.createdAt - b.createdAt)
+  messages = messages.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
+
 
   useEffect(() => {
+    // messages = messages.sort((a, b) => b.createdAt - a.createdAt);
     scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
   
@@ -37,7 +40,7 @@ const Messages= ({
       <div ref={scrollDownRef} />
 
       {messages.map((message, index) => {
-        const isCurrentUser = message.senderId === sessionId
+        const isCurrentUser = message.senderId === userIdDB
 
         const hasNextMessageFromSameUser =
           messages[index - 1]?.senderId === messages[index].senderId
@@ -45,7 +48,7 @@ const Messages= ({
         return (
           <div
             className='chat-message'
-            key={`${message.id}-${message.timestamp}`}>
+            key={`${message._id}-${message.createdAt}`}>
             <div
               className={cn('flex items-end', {
                 'justify-end': isCurrentUser,
@@ -69,7 +72,7 @@ const Messages= ({
                   })}>
                   {message.text}{' '}
                   <span className='ml-2 text-xs text-gray-400'>
-                    {formatTimestamp(message.timestamp)}
+                    {formatTimestamp(message.createdAt)}
                   </span>
                 </span>
               </div>
