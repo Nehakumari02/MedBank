@@ -18,6 +18,7 @@ export async function POST(req) {
 
     // Create a new order with default values
     const newOrder = await Order.create({
+      userId:userId,
       orderId: nextOrderId,
       orderTitle: "",
       requestSheet: { status: "inProgress", requestSheetLink: "" },
@@ -36,7 +37,7 @@ export async function POST(req) {
       invoice: { status: "isPending", invoiceLink: "" },
       payment: { status: "isPending", paymentRecieptLink: "" },
     });
-
+    console.log(newOrder)
     // Add the new order to the user's orders array
     await User.updateOne(
       { _id: userId },
