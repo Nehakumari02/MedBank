@@ -1,13 +1,12 @@
 "use client"
 
 import React, { useState } from 'react'
-import Logo from '../../../public/Images/Home/logo.png'
+import Logo from '@/public/Images/Home/logo.png'
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import {signIn, useSession} from 'next-auth/react';
-import { toast } from '@/hooks/use-toast';
+import {signIn, useSession} from 'next-auth/react'
 
 const SignInPage = () => {
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
@@ -52,32 +51,18 @@ const SignInPage = () => {
 
     try {
       const res = await signIn("credentials",{
-        email,password,redirect:false
+        email,password,admin:true,redirect:false
       })
 
       console.log(res)
       if(res.error){
-        toast({
-          variant:'error',
-          title:'Error',
-          description:"Password incorrect"
-        })
         return;
       }
       if(res.ok){
-        toast({
-          variant:"success",
-          title:"Success",
-          description:"Login successful..."
-        })
-        router.push(`/${language}/${session.user.id}/Dashboard`)
+        router.push(`/${language}/Admin_Restricted/Dashboard`)
       }
     } catch (error) {
-      toast({
-        variant:'error',
-        title:'Error',
-        description:error
-      })
+      
     }
 
     // const response = await fetch('/api/signin', {
@@ -114,8 +99,10 @@ const SignInPage = () => {
           <div className='font-DM-Sans w-full md:w-[309px] text-[#333333] flex flex-col items-center md:items-start gap-[12px] md:gap-[24px]'>
             <Image src={Logo} alt='Logo' className='h-[80px] w-[80px]'></Image>
             <div className='flex flex-col items-start gap-[8px]'>
-              <span className='font-bold text-center md:text-left w-full text-[20px] md:text-[40px] leading-[26px] md:leading-[40px]'>{t("title")}</span>
+              <span className='font-bold text-center md:text-left w-full text-[20px] md:text-[40px] leading-[26px] md:leading-[40px]'>Welcome Admin!!!</span>
               <span className='font-normal text-center md:text-left w-full text-[14px] md:text-[18px] leading-[18px] md:leading-[24px]'>{t("subTitle")}</span>
+              {/* <span className='font-bold text-center md:text-left w-full text-[20px] md:text-[40px] leading-[26px] md:leading-[40px]'>{t("title")}</span>
+              <span className='font-normal text-center md:text-left w-full text-[14px] md:text-[18px] leading-[18px] md:leading-[24px]'>{t("subTitle")}</span> */}
             </div>
           </div>
           <div className='flex md:items-end w-full md:w-[527px] md:mt-[104px]'>
@@ -139,12 +126,6 @@ const SignInPage = () => {
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('password')}
                       value={password}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault()
-                          handleLogin()
-                        }
-                      }}
                       type={passwordVisibility ? "text" : "password"}
                       name="password"
                       onChange={(e) => { setPassword(e.target.value) }}
