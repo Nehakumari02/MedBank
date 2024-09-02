@@ -11,12 +11,18 @@ const authOptions = {
       credentials: {},
 
       async authorize(credentials) {
-        const { email, password } = credentials;
+        const { email, password, admin } = credentials;
         console.log(email,password)
 
         try {
           await dbConnect();
-          const user = await User.findOne({ email });
+          let user;
+          if(admin){
+            user = await User.findOne({email,role:"admin"})
+          }
+          else{
+            user = await User.findOne({ email });
+          }
 
           console.log(user)
           if (!user) {
