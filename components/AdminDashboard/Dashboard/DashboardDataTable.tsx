@@ -151,7 +151,7 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) =>{
       const router = useRouter()
       const { data: session } = useSession()
-      const userId = session.user.id 
+      //const userId = session.user.id 
       const orderId = row.original._id
       const language = usePathname().split("/")[1];
       return( <button onClick={()=>{

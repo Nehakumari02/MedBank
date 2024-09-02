@@ -66,7 +66,7 @@ const NewOrderBox = () => {
   const handleGenerateClick1 = () => {
     setIsPopupVisible(true);
     //setOrderPopVisible(true);
-    setActivePopup('formalRequest');
+    setActivePopup('payment');
     setIsPopUp1(false);
 
   };
@@ -153,6 +153,7 @@ const NewOrderBox = () => {
     setOrderPopVisible(true);
     setActivePopup('analysisDone');
   };
+  
 
   const handleAnalysisRawDataClick = () => {
     setOrderPopVisible(true);
@@ -175,6 +176,19 @@ const NewOrderBox = () => {
     setActivePopup('payment');
   };
 
+  const handleConfirmRequestSheet = () => {
+    setOrderPopVisible(false);
+    setRequestSheet((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setCostEstimate((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+
+
   const handleConfirmCostEstimate = () => {
     setOrderPopVisible(false);
     setIsPopupVisible(false);
@@ -188,6 +202,8 @@ const NewOrderBox = () => {
     }));
   }
 
+  console.log(costEstimate,formalRequest,sampleShipping)
+  
   const handleConfirmFormalRequest = () => {
     setFormalRequest((prevState) => ({
       ...prevState,
@@ -204,6 +220,18 @@ const NewOrderBox = () => {
     setOrderPopVisible(false);
     setActivePopup('');
     setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+
+  const handleConfirQualityCheck = () => {
+    console.log(sampleShipping.status)
+    console.log("click on ok from sample shipping")
+    setIsPopupVisible(false);
+    setOrderPopVisible(false);
+    setActivePopup('');
+    libraryPrep((prevState) => ({
       ...prevState,
       status: "inProgress",
     }));
@@ -318,7 +346,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => handleFileDownload}>Download</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>Confirm</button>
                   </div>
                 </div>
               )}
@@ -494,13 +522,13 @@ const NewOrderBox = () => {
                   </div>
                 </div>
               )}
-              {activePopup === 'formalRequest' && (
+              {/* {activePopup === 'formalRequest' && (
                 <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
                   <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been received and an automated confirmation message has been sent to your email.</span>
                   <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
                 </div>
-              )}
+              )} */}
               {activePopup === 'sampleShippingConfirmation' && (
                 <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
@@ -509,7 +537,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>Confirm</button>
                   </div>
                 </div>
               )}
@@ -577,7 +605,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleQualityCheckClick}>Download</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck}>Download</button>
                   </div>
                 </div>
               )}
@@ -984,7 +1012,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
                   </div>
                 </div>
               )}
