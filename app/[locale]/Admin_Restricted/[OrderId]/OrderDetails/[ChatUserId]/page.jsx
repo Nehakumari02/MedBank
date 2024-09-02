@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { socket } from "../../../../socket";
+import { socket } from "@/socket";
 import { usePathname, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import Logo from "../../../../public/Images/Home/logo.png"
-import Messages from "../../../../components/UserDashboard/Chats/Messages";
+import Logo from "@/public/Images/Home/logo.png"
+import Messages from "@/components/UserDashboard/Chats/Messages";
 
 const Chats = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -13,8 +13,9 @@ const Chats = () => {
   const [message, setMessage] = useState(""); // State for the input message
   const [messages, setMessages] = useState([]); // State for storing chat messages
   const emails=["test@gmail.com","test2@gmail.com"]
-  const [chatId,setChatId] = useState();
-  const userIdDB = usePathname().split("/")[2];
+  const clientUserId = usePathname().split("/")[5]
+  const [chatId,setChatId] = useState("");
+  const userIdDB = "66d308aadaf5caa518f09426";
 
   const generateRandomId = () => {
     const timestamp = Date.now().toString(36); // Convert current timestamp to base-36
@@ -37,7 +38,7 @@ const Chats = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({userId:userIdDB}),
+          body: JSON.stringify({userId:clientUserId}),
         });
         const data = await response.json();
         setChatId(data.conversationId)

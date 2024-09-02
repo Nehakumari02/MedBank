@@ -7,6 +7,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 const Messages= ({
   initialMessages,
+  userIdDB
   // sessionId,
   // chatId,
   // chatPartner,
@@ -14,7 +15,6 @@ const Messages= ({
 }) => {
   const [messages, setMessages] = useState(initialMessages)
   console.log(messages)
-  const sessionId = "user1"
 
   const scrollDownRef = useRef(null)
 
@@ -29,7 +29,7 @@ const Messages= ({
       <div ref={scrollDownRef} />
 
       {messages.map((message, index) => {
-        const isCurrentUser = message.senderId === sessionId
+        const isCurrentUser = message.senderId === userIdDB
 
         const hasNextMessageFromSameUser =
           messages[index - 1]?.senderId === messages[index].senderId
