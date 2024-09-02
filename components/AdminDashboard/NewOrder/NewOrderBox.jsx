@@ -9,6 +9,9 @@ import Logo from '@/public/Images/Home/logo.png'
 import file1 from '../../../public/dashboard/pdf.png'
 import vector3 from '../../../public/dashboard/creation1.png'
 import downloadIcon from '../../../public/dashboard/downloadIcon.png'
+import CalculateCost from '../../../components/CalculateCost'
+import LangDropdown from "../../../components/LangDropdown"
+
 
 const NewOrderBox = () => {
   const router = useRouter();
@@ -23,7 +26,13 @@ const NewOrderBox = () => {
   const [check, setCheck] = useState(false);
   const { uploadedFile, setUploadedFile } = useOrder();
   const [file, setFile] = useState(uploadedFile);
-  const [userIdDB,setUserIdDB]=useState("");
+
+  const [currency, setCurrency] = useState("JPY");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPopUp1, setIsPopUp1] = useState(false);
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [confirmPopUp, setConfirmPopUp] = useState(false);
+
 
   const {
     orderId,setOrderId,
@@ -42,8 +51,72 @@ const NewOrderBox = () => {
     payment, setPayment,
   } = useOrder();
 
+  const handleFileDownload = () => {
+    
+    { setOrderPopVisible(false) }
+
+  }
+
+  const handleGenerateClick = () => {
+    setIsPopupVisible(true);
+    //setOrderPopVisible(true);
+    setActivePopup('formalRequest');
+
+  };
+  const handleGenerateClick1 = () => {
+    setIsPopupVisible(true);
+    //setOrderPopVisible(true);
+    setActivePopup('formalRequest');
+    setIsPopUp1(false);
+
+  };
+  const sampleDelelte = () => {
+    setDeletePopUp(true);
+    //setOrderPopVisible(true);
+    setActivePopup('qulalityCheck ');
+
+  }
+  const sampleConfirm = () => {
+    setConfirmPopUp(true);
+    //setOrderPopVisible(true);
+    setActivePopup('qulalityCheck ');
+
+  }
+
+  const handleDeleteOk = () => {
+    setDeletePopUp(false);
+    //setOrderPopVisible(true);
+    //setActivePopup('formalRequest');
+    setOrderPopVisible(false);
+    setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+
+  };
+  const handleConfirmOk = () => {
+    setConfirmPopUp(false);
+    setOrderPopVisible(false);
+    //setOrderPopVisible(true);
+    //setActivePopup('formalRequest');
+    setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+
+  };
+  const handleClick1 = () => {
+    setIsPopUp1(true);
+    //setOrderPopVisible(true);
+    //setActivePopup('formalRequest');
+
+  };
+
   const handleOrderCreation = () => {
-    router.push(`/${language}/${session.user.id}/${orderIdDB}/NewOrder/OrderCreationPage`)
+    //router.push(`/${language}/${orderIdDB}/Admin_Restricted/NewOrder/OrderCreationPage`)
+    setOrderPopVisible(true);
+    setActivePopup('requestSheet');
+
   }
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);
@@ -53,6 +126,7 @@ const NewOrderBox = () => {
   const handleFormalRequestClick = () => {
     setOrderPopVisible(true);
     setActivePopup('formalRequest');
+
   };
 
   const handleSampleShippingClick = () => {
@@ -88,6 +162,7 @@ const NewOrderBox = () => {
   const handleAnalysisSpecificationClick = () => {
     setOrderPopVisible(true);
     setActivePopup('analysisSpecification');
+
   };
 
   const handleInvoiceClick = () => {
@@ -102,6 +177,7 @@ const NewOrderBox = () => {
 
   const handleConfirmCostEstimate = () => {
     setOrderPopVisible(false);
+    setIsPopupVisible(false);
     setCostEstimate((prevState) => ({
       ...prevState,
       status: "isCompleted",
@@ -118,12 +194,13 @@ const NewOrderBox = () => {
       status: "isCompleted",
     }));
     setOrderPopVisible(false)
-    // setActivePopup('sampleShippingConfirmation');
+    setActivePopup('sampleShippingConfirmation');
   }
 
   const handleConfirmSampleShipping = () => {
     console.log(sampleShipping.status)
     console.log("click on ok from sample shipping")
+    setIsPopupVisible(false);
     setOrderPopVisible(false);
     setActivePopup('');
     setSampleShipping((prevState) => ({
@@ -139,6 +216,16 @@ const NewOrderBox = () => {
       status: "isCompleted",
     }));
   }
+
+  const handleInvoice = () => {
+    setOrderPopVisible(false);
+    setIsPopupVisible(false);
+    setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+  }
+
 
 
 
@@ -224,11 +311,257 @@ const NewOrderBox = () => {
           <div className='fixed top-0 left-0 backdrop-blur-[1px] flex items-center justify-center w-[100vw] h-[100vh] bg-[#00000066]'>
             <div ref={orderPopUpBoxRef}>
               {activePopup === 'requestSheet' && (
-                <div className='md:h-[287px] md:w-[658px] flex items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  Request Sheet Popup Placeholder
+                <div className='p-[10px] w-[298px] h-[197px] md:h-[334px] md:w-[760px] md:p-[120px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='flex flex-col gap-[12px] md:gap-[24px]'>
+                    <span className='text-[16px] font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Request Sheet</span>
+                    <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.</span>
+                  </div>
+                  <div className='flex items-center justify-center gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => handleFileDownload}>Download</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
+                  </div>
                 </div>
               )}
               {activePopup === 'costEstimate' && (
+                <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
+                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
+                  <div className='border border-dashed'></div>
+                  <div className='border border-dashed pt-[20px]'></div>
+
+                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                    <table className="w-full mb-6 min-w-[768px]">
+                      <thead>
+                        <tr className="text-left font-medium text-sm">
+                          <th className="py-2">Sample ID</th>
+                          <th className="py-2">Sample Name</th>
+                          <th className="py-2">Quality check fees</th>
+                          <th className="py-2">Library adjustment fees</th>
+                          <th className="py-2">Next gen. sequencer analysis fees</th>
+                          <th className="py-2">Tax</th>
+                          <th className="py-2">Others</th>
+                          <th className="py-2">Amount</th>
+                        </tr>
+                      </thead>
+
+                      <tbody className='border-t'>
+                        {[1, 2, 3].map((_, index) => (
+                          <tr key={index} className="text-[12px] font-normal">
+                            <td className="py-[12px] md:w-[98px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder={`10${index + 1}`}
+                              />
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
+                              />
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="md:w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2 bg-[#33333314]"
+                                placeholder="JPY"
+                              />
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2 bg-[#33333314]"
+                                placeholder=""
+                              />
+                            </td>
+                            <td className="md:w-[108px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder="JPY"
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <tfoot>
+                        <tr className="border-t font-medium text-[14px]">
+                          <td colSpan="7" className="text-right py-2 pr-6">Total</td>
+                          <td className="md:w-[108px]">
+                            <input
+                              type="text"
+                              className="border rounded-md w-full p-2"
+                              placeholder="JPY"
+                            />
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <div className="flex items-center text-[14px] font-normal">
+                    <input type="checkbox" id="tax" className="mr-2" />
+                    <label htmlFor="tax">Click to enter tax percent.</label>
+                  </div>
+                  <div className="flex items-center mb-[6px] text-[14px] font-normal">
+                    <input type="checkbox" id="amount" className="mr-2" />
+                    <label htmlFor="amount">Click to enter other amount.</label>
+                  </div>
+                  <p className="text-[14px] font-normal mb-6">
+                    Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
+                  </p>
+                  <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
+                    <button onClick={handleGenerateClick} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                  </div>
+
+                </div>
+              )}
+              {isPopupVisible && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
+                    <button
+                      className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleConfirmCostEstimate}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+              {activePopup === 'formalRequest' && (
+                <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been received and an automated confirmation message has been sent to your email.</span>
+                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
+                </div>
+              )}
+              {activePopup === 'sampleShippingConfirmation' && (
+                <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='flex flex-col gap-[24px]'>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
+                  </div>
+                  <div className='flex items-center justify-center gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
+                  </div>
+                </div>
+              )}
+              {activePopup === 'sampleShipping' && (
+                <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='flex flex-col gap-[24px]'>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'> Please confirm the condition of the received sample</span>
+                  </div>
+                  <div className='flex items-center justify-center gap-[6px] md:gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect Notification </button>
+                    <button className="h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt Confirmation</button>
+                  </div>
+                </div>
+              )}
+              {deletePopUp && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
+                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                    We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
+                    Thank you <br></br>
+                    Medbank Genetic Analysis Team</span>
+                  <button
+                    className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                    onClick={handleDeleteOk}
+                  >
+                    OK
+                  </button>
+                </div>
+              </div>
+              )}
+              {confirmPopUp && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                      We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
+                      Thank you <br></br>
+                      Medbank Genetic Analysis Team</span>
+                    <button
+                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleConfirmOk}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+
+
+              {activePopup === 'qualityCheck' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
                     <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Cost Estimation</span>
@@ -244,122 +577,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
-                  </div>
-                </div>
-              )}
-              {activePopup === 'formalRequest' && (
-                <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                  </div>
-                  <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
-                  </div>
-                </div>
-              )}
-              {activePopup === 'sampleShippingConfirmation' && (
-                <div className='w-[298px] h-[221px] md:h-[334px] md:w-[564px] p-[24px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
-                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
-                </div>
-              )}
-              {activePopup === 'sampleShipping' && (
-                sampleShipping.status == "isPending" ? (
-                  <div className='w-[298px] h-[221px] md:h-[334px] p-[24px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
-                    <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>OK</button>
-                  </div>
-                ) :
-                  sampleShipping.status == "inProgress" ? (
-                    <div className='w-[298px] h-[221px] md:h-[287px] md:w-[658px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                      <div className='flex flex-col gap-[24px]'>
-                        <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                        <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                      </div>
-                      <div className='flex items-center justify-center gap-[12px]'>
-                        <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                        <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Confirm</button>
-                      </div>
-                    </div>
-                  ) :
-                    (
-                      <div className='md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                        <div className='flex flex-col gap-[24px]'>
-                          <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                          <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                        </div>
-                        <div className='flex items-center justify-center gap-[12px]'>
-                          <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                          <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Confirm</button>
-                        </div>
-                      </div>
-                    )
-              )}
-              {activePopup === 'qualityCheck' && (
-                <div className='font-DM-Sans flex flex-col w-[306px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Quality Check report</div>
-                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
-                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the quality check report file.
-                    </div>
-                    <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
-                      Download quality report.
-                    </div>
-                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
-                      <div className='flex gap-[8px]'>
-                        <div className="flex items-center justify-center">
-                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
-                        </div>
-                        <div>
-                          {
-                            uploadedFile && uploadedFile instanceof File && (
-                              <a href={URL.createObjectURL(uploadedFile)}>
-                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                                <p className="text-sm text-[#717171]">
-                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                                </p>
-                              </a>
-                            )
-                          }
-                        </div>
-                      </div>
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
-                    </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I have reviewed the Quality Check Report.
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                          I have reviewed the contents of the quality check report and found no problems. I agree to proceed to the next step.
-                        </span>
-                      </span>
-                    </label>
-                    <div className='hidden md:block text-base font-normal leading-[24px]'>
-                      Note :For resending or cancelling the sample contact us via   chat.
-                    </div>
-                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed to library preparation</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
-                    </div>
-
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleQualityCheckClick}>Download</button>
                   </div>
                 </div>
               )}
@@ -427,13 +645,27 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'analysisProgress' && (
-                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  analysis progress
+                <div className='w-[298px] h-[221px] md:h-[278px] md:w-[445px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='flex flex-col gap-[24px]'>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Start the Analysis.</span>
+                  </div>
+                  <div className='flex items-center justify-center gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Start</button>
+                  </div>
                 </div>
               )}
               {activePopup === 'analysisDone' && (
-                <div className='font-DM-Sans flex flex-col w-[321px] h-[322px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  analysis done
+                <div className='w-[298px] h-[221px] md:h-[278px] md:w-[445px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='flex flex-col gap-[24px]'>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Analysis has completed.</span>
+                  </div>
+                  <div className='flex items-center justify-center gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Submit</button>
+                  </div>
                 </div>
               )}
               {activePopup === 'analysisRawData' && (
@@ -551,82 +783,210 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'invoice' && (
-                <div className='font-DM-Sans flex flex-col w-[317px] h-[247px] md:h-[351px] md:w-[564px] p-[28px] md:p-12  items-start justify-center bg-white border-[1px] border-[#D9D9D9] rounded-lg md:rounded-[22px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-6 leading-[40px]'>Invoice</div>
-                  <div className='w-full flex flex-col gap-[6px] md:gap-[8px]'>
-                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Download invoice.
-                    </div>
-                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
-                      <div className='flex gap-[8px]'>
-                        <div className="flex items-center justify-center">
-                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
-                        </div>
-                        <div>
-                          {
-                            uploadedFile && uploadedFile instanceof File && (
-                              <a href={URL.createObjectURL(uploadedFile)}>
-                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                                <p className="text-sm text-[#717171]">
-                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                                </p>
-                              </a>
-                            )
-                          }
-                        </div>
-                      </div>
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
-                    </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                        I have reviewed the Invoice.
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                        I have reviewed the Invoice.
-                        </span>
-                      </span>
-                    </label>
-                    <div className='w-full flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Confirm</button>
-                    </div>
+                <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
+                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
+                  <div className='border border-dashed'></div>
+                  <div className='border border-dashed pt-[20px]'></div>
 
+                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                    <table className="w-full mb-6 min-w-[768px]">
+                      <thead>
+                        <tr className="text-left font-medium text-sm">
+                          <th className="py-2">Sample ID</th>
+                          <th className="py-2">Sample Name</th>
+                          <th className="py-2">Quality check fees</th>
+                          <th className="py-2">Library adjustment fees</th>
+                          <th className="py-2">Next gen. sequencer analysis fees</th>
+                          <th className="py-2">Tax</th>
+                          <th className="py-2">Others</th>
+                          <th className="py-2">Amount</th>
+                        </tr>
+                      </thead>
+
+                      <tbody className='border-t'>
+                        {[1, 2, 3].map((_, index) => (
+                          <tr key={index} className="text-[12px] font-normal">
+                            <td className="py-[12px] md:w-[98px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder={`10${index + 1}`}
+                              />
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
+                              />
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[156px] py-[12px]">
+                              <div className='flex gap-[2px]'>
+                                <div className="md:w-[108px] flex-shrink-0 group">
+                                  <input
+                                    type="text"
+                                    className="border rounded-md w-full p-2"
+                                    placeholder=""
+                                  />
+                                </div>
+                                <div className="w-[66px] flex-shrink-0">
+                                  <div className='group'>
+                                    <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
+                                      <LangDropdown
+                                        value={currency}
+                                        onChange={(e) => setCurrency(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2 bg-[#33333314]"
+                                placeholder="JPY"
+                              />
+                            </td>
+                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2 bg-[#33333314]"
+                                placeholder=""
+                              />
+                            </td>
+                            <td className="md:w-[108px]">
+                              <input
+                                type="text"
+                                className="border rounded-md w-full p-2"
+                                placeholder="JPY"
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <tfoot>
+                        <tr className="border-t font-medium text-[14px]">
+                          <td colSpan="7" className="text-right py-2 pr-6">Total</td>
+                          <td className="md:w-[108px]">
+                            <input
+                              type="text"
+                              className="border rounded-md w-full p-2"
+                              placeholder="JPY"
+                            />
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <div className="flex items-center text-[14px] font-normal">
+                    <input type="checkbox" id="tax" className="mr-2" />
+                    <label htmlFor="tax">Click to enter tax percent.</label>
+                  </div>
+                  <div className="flex items-center mb-[6px] text-[14px] font-normal">
+                    <input type="checkbox" id="amount" className="mr-2" />
+                    <label htmlFor="amount">Click to enter other amount.</label>
+                  </div>
+                  <p className="text-[14px] font-normal mb-6">
+                    Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
+                  </p>
+                  <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
+                    <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                  </div>
+
+                </div>
+              )}
+              {isPopUp1 && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message6</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
+                    <button
+                      className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleGenerateClick1}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+              {isPopupVisible && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
+                    <button
+                      className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleInvoice}
+                    >
+                      OK
+                    </button>
                   </div>
                 </div>
               )}
               {activePopup === 'payment' && (
-                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                  <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
-                </div>
-                <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
-                  <div className='flex flex-col items-center justify-center gap-[14px]'>
-                    <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                    <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                      <span>Receipt.pdf</span><br />
-                      <span>1.2MB</span>
+                <div className='md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='md:h-[50px] flex items-center justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
+                    <span className='font-DM-Sans text-center font-medium md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
+                  </div>
+                  <div className='md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                    <div className='flex flex-col items-center justify-center gap-[14px]'>
+                      <Image className='md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
+                      <div className='font-DM-Sans font-normal md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
+                        <span>Receipt.pdf</span><br />
+                        <span>1.2MB</span>
+                      </div>
                     </div>
                   </div>
+                  <div className='md:w-[490px] flex items-center justify-end gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                  </div>
                 </div>
-                <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
-                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
-                </div>
-              </div>
               )}
             </div>
           </div>
