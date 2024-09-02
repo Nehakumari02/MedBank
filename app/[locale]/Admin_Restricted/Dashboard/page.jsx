@@ -1,12 +1,10 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import OrderOverView from '../../../../components/AdminDashboard/Dashboard/OrderOverView'
 import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 const Dashboard = () => {
-  const {data:session} = useSession();
-  console.log(session)
-  console.log(session?.user.id)
 
   const orderOverview ={
     pending:19,
@@ -14,40 +12,28 @@ const Dashboard = () => {
     completed:3
   }
 
-  const data= [
-    {
-      id: "m5gr84i9",
-      orderTitle:"DNA Test",
-      requestSheet:true,
-      costEstimate:true,
-      formalRequest:true,
-      sampleShipping:true,
-      qualityCheck:"inProgress",
-      libraryPrep:false,
-      analysisProgress:false,
-      analysisDone:false,
-      rawData:false,
-      analysisSpecification:false,
-      invoice:false,
-      payment:false,
-    },
-    {
-      id: "3u1reuv4",
-      orderTitle:"RNA",
-      requestSheet:true,
-      costEstimate:true,
-      formalRequest:true,
-      sampleShipping:"inProgress",
-      qualityCheck:false,
-      libraryPrep:false,
-      analysisProgress:false,
-      analysisDone:false,
-      rawData:false,
-      analysisSpecification:false,
-      invoice:false,
-      payment:false,
-    },
-  ]
+  const [data,setData] = useState([]);
+
+  useEffect(()=>{
+    const fetchOrdersByUserId = async()=>{
+      try{
+        const response = await fetch('/api/admin_fetchOrders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        console.log("data",data)
+        setData(data.data)
+        
+      }catch(error){
+        console.log("fetch orders error ",error)
+      }
+    }
+
+    fetchOrdersByUserId();
+  },[])
 
   return (
     <div className='w-full p-[10px] md:p-[19px]'>

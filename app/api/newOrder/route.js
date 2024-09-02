@@ -18,6 +18,7 @@ export async function POST(req) {
 
     // Create a new order with default values
     const newOrder = await Order.create({
+      userId:userId,
       orderId: nextOrderId,
       orderTitle: "",
       requestSheet: { status: "inProgress", requestSheetLink: "" },
