@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-
+import {toast} from '@/hooks/use-toast'
 
 const SignUp = () => {
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
@@ -80,9 +80,27 @@ const SignUp = () => {
       body: JSON.stringify({name,email,password,confirmPassword}),
     });
     const data = await response.json();
+    if(response.status==400){
+      toast({
+        variant:'error',
+        title:'User exists',
+        description:'Email already exists, kindly login...'
+      })
+      return;
+    }
+    toast({
+      variant:'success',
+      title:'Signup Success',
+      description:'User registered successfully!!!'
+    })
     console.log(data.message)
     router.push(`/${language}/Loginn`);
   }catch(error){
+    toast({
+      variant:'error',
+      title:'Error',
+      description:error
+    })
     console.log(error)
   }
   }
@@ -127,6 +145,12 @@ const SignUp = () => {
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('name')}
                       value={name}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault()
+                          document.getElementsByName('email')[0].focus();
+                        }
+                      }}
                       onChange={(e) => setName(e.target.value)}
                       style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                       type="text"
@@ -140,6 +164,12 @@ const SignUp = () => {
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('email')}
                       value={email}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault()
+                          document.getElementsByName('password')[0].focus();
+                        }
+                      }}
                       onChange={(e) => setEmail(e.target.value)}
                       onBlur={handleVerifyEmail}
                       type="email"
@@ -154,6 +184,12 @@ const SignUp = () => {
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('password')}
                       value={password} 
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault()
+                          document.getElementsByName('confirmPassword')[0].focus();
+                        }
+                      }}
                       type={passwordVisibility?"text":"password"} 
                       name="password"
                       onChange={handlePasswordUpdate}
@@ -170,6 +206,12 @@ const SignUp = () => {
                     <input className="w-full p-[10px] md:p-[12px] outline-none rounded-[7px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder={t('confirmPassword')}
                       value={confirmPassword}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          // e.preventDefault()
+                          handleSignUp();
+                        }
+                      }}
                       onChange={handleConfirmPassword}
                       onBlur={handleConfirmPassword}
                       style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
