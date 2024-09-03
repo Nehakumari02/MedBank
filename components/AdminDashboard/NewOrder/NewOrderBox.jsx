@@ -32,6 +32,7 @@ const NewOrderBox = () => {
   const [isPopUp1, setIsPopUp1] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
+  let userIdDB;
 
 
   const {
@@ -317,7 +318,6 @@ const NewOrderBox = () => {
         setAnalysisSpecification(orderData.analysisSpecification);
         setInvoice(orderData.invoice);
         setPayment(orderData.payment);
-        setUserIdDB(orderData.userId)
       }catch(error){
         console.log("fetch order error ",error)
       }
