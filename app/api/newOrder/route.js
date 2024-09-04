@@ -18,25 +18,33 @@ export async function POST(req) {
 
     // Create a new order with default values
     const newOrder = await Order.create({
-      userId:userId,
+      userId: userId,
       orderId: nextOrderId,
       orderTitle: "",
-      requestSheet: { status: "inProgress", requestSheetLink: "" },
-      costEstimate: { status: "isPending", costEstimationLink: "" },
-      formalRequest: { status: "isPending" },
-      sampleShipping: { status: "isPending", sampleShippingStatus: "ok" },
-      qualityCheck: { status: "isPending", qualityCheckReportLink: "" },
-      libraryPrep: { status: "isPending", libraryCheckReportLink: "" },
-      analysisProgress: { status: "isPending" },
-      analysisDone: { status: "isPending" },
-      analysisRawData: { status: "isPending", rawDataLink: "" },
-      analysisSpecification: {
-        status: "isPending",
-        analysisSpecificationReportLink: "",
-      },
-      invoice: { status: "isPending", invoiceLink: "" },
-      payment: { status: "isPending", paymentRecieptLink: "" },
+      requestSheetStatus: "inUserProgress",
+      requestSheetLink: "",
+      costEstimateStatus: "isPending",
+      costEstimationLink: "",
+      formalRequestStatus: "isPending",
+      sampleShippingStatus: "isPending",
+      sampleShipping:"",
+      qualityCheckStatus: "isPending",
+      qualityCheckReportLink: "",
+      libraryPrepStatus: "isPending",
+      libraryCheckReportLink: "",
+      analysisProgressStatus: "isPending",
+      analysisDoneStatus: "isPending",
+      analysisRawDataStatus: "isPending",
+      rawDataLink: "",
+      analysisSpecificationStatus: "isPending",
+      analysisSpecificationReportLink: "",
+      invoiceStatus: "isPending",
+      invoiceLink: "",
+      paymentStatus: "isPending",
+      paymentRecieptLink: "",
     });
+
+  
     console.log(newOrder)
     // Add the new order to the user's orders array
     await User.updateOne(

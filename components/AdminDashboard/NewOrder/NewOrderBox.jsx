@@ -52,11 +52,28 @@ const NewOrderBox = () => {
     payment, setPayment,
   } = useOrder();
 
-  const handleFileDownload = () => {
-    
-    { setOrderPopVisible(false) }
-
-  }
+    const handleFileDownload = () => {
+      // The URL with query parameters
+      const urlWithQuery = "https://medbank-orders.s3.ap-southeast-1.amazonaws.com/NOTICE%20003%20-%20Laptop%20policy.pdf?efhwejkfnh23489th2049g";
+      
+      // Create a URL object
+      const url = new URL(urlWithQuery);
+      
+      // Remove query parameters by setting the search property to an empty string
+      url.search = "";
+      
+      // Convert the URL object back to a string
+      const cleanedUrl = url.toString();
+      
+      // Create an anchor element
+      const anchor = document.createElement("a");
+      anchor.href = cleanedUrl;
+      anchor.download = "Laptop_Policy.pdf"; // Optional: set a custom filename
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+  };
+  
 
   const handleGenerateClick = () => {
     // setIsPopupVisible(true);
@@ -79,8 +96,16 @@ const NewOrderBox = () => {
   }
   const sampleConfirm = () => {
     setActivePopup(setConfirmPopUp);
-    //setOrderPopVisible(true);
+    setOrderPopVisible(false);
     //setActivePopup('qulalityCheck ');
+    setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setQualityCheck((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
 
   }
 
@@ -132,7 +157,7 @@ const NewOrderBox = () => {
 
   const handleSampleShippingClick = () => {
     setOrderPopVisible(true);
-    setActivePopup('sampleShipping');
+    setActivePopup('sampleShippingConfirmation');
   };
 
   const handleQualityCheckClick = () => {
@@ -210,7 +235,11 @@ const NewOrderBox = () => {
       ...prevState,
       status: "isCompleted",
     }));
-    setOrderPopVisible(false)
+    setSampleShipping((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+    setOrderPopVisible(false);
     setActivePopup('sampleShippingConfirmation');
   }
 
@@ -229,10 +258,55 @@ const NewOrderBox = () => {
   const handleConfirQualityCheck = () => {
     console.log(sampleShipping.status)
     console.log("click on ok from sample shipping")
-    setIsPopupVisible(false);
     setOrderPopVisible(false);
     setActivePopup('');
-    libraryPrep((prevState) => ({
+    setQualityCheck((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setLibraryPrep((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleLibraryPrepConfirmation = () => {
+    console.log(sampleShipping.status)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setLibraryPrep((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisProgress((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleAnalysisDoneConfirmation = () => {
+    console.log(sampleShipping.status)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisDone((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisRawData((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleAnalysisDone = () => {
+    console.log(sampleShipping.status)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisProgress((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisDone((prevState) => ({
       ...prevState,
       status: "inProgress",
     }));
@@ -255,9 +329,7 @@ const NewOrderBox = () => {
     }));
   }
 
-
-
-
+  
 
   const handleClickOutside = (event) => {
     if (orderPopUpBoxRef.current && !orderPopUpBoxRef.current.contains(event.target)) {
@@ -271,7 +343,7 @@ const NewOrderBox = () => {
     if (sampleShipping.status == "isPending" && formalRequest.status == "isCompleted") {
       setActivePopup("sampleShippingConfirmation");
       setOrderPopVisible(true);
-      setUploadedFile({ vector3 });
+      // setUploadedFile({ vector3 });
     }
   }, [])
 
@@ -302,6 +374,7 @@ const NewOrderBox = () => {
         });
         const order = await response.json();
         const orderData = order.data
+        console.log(orderData)
         console.log(orderData.requestSheet)
         console.log(orderData.costEstimate)
         setOrderId(orderData.orderId)
@@ -345,7 +418,9 @@ const NewOrderBox = () => {
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => handleFileDownload}>Download</button>
+                    <a href={requestSheet.requestSheetLink.split("?")[0]} download="RequestSheet">
+                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Download</button>
+                    </a>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>Confirm</button>
                   </div>
                 </div>
@@ -666,7 +741,7 @@ const NewOrderBox = () => {
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
                       <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>Proceed</button>
                     </div>
 
                   </div>
@@ -680,7 +755,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Start</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDoneConfirmation}>Start</button>
                   </div>
                 </div>
               )}
@@ -692,7 +767,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Submit</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDone}>Submit</button>
                   </div>
                 </div>
               )}

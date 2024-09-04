@@ -42,65 +42,28 @@ export type OrderList = {
   _id: string
   orderId: string
   orderTitle: string
-  requestSheet: {
-    status: "inProgress" | "completed" | "pending" // Define other statuses as needed
-    requestSheetLink: string
-    _id: string
-  }
-  costEstimate: {
-    status: "inProgress" | "completed" | "pending"
-    costEstimationLink: string
-    _id: string
-  }
-  formalRequest: {
-    status: "inProgress" | "completed" | "pending"
-    _id: string
-  }
-  sampleShipping: {
-    status: "inProgress" | "completed" | "pending"
-    sampleShippingStatus: string // Define possible statuses if needed
-    _id: string
-  }
-  qualityCheck: {
-    status: "inProgress" | "completed" | "pending"
-    qualityCheckReportLink: string
-    _id: string
-  }
-  libraryPrep: {
-    status: "inProgress" | "completed" | "pending"
-    libraryCheckReportLink: string
-    _id: string
-  }
-  analysisProgress: {
-    status: "inProgress" | "completed" | "pending"
-    _id: string
-  }
-  analysisDone: {
-    status: "inProgress" | "completed" | "pending"
-    _id: string
-  }
-  analysisRawData: {
-    status: "inProgress" | "completed" | "pending"
-    rawDataLink: string
-    _id: string
-  }
-  analysisSpecification: {
-    status: "inProgress" | "completed" | "pending"
-    analysisSpecificationReportLink: string
-    _id: string
-  }
-  invoice: {
-    status: "inProgress" | "completed" | "pending"
-    invoiceLink: string
-    _id: string
-  }
-  payment: {
-    status: "inProgress" | "completed" | "pending"
-    paymentReceiptLink: string
-    _id: string
-  }
-  createdAt: string // Date string or Date type if using actual Date objects
-  updatedAt: string // Date string or Date type if using actual Date objects
+  requestSheetStatus: "isPending" | "inUserProgress" | "isCompleted"
+  requestSheetLink: string
+  costEstimateStatus: "isPending" | "inUserProgress" | "isCompleted"
+  costEstimationLink: string
+  formalRequestStatus: "isPending" | "inUserProgress" | "isCompleted"
+  sampleShippingStatus: "isPending" | "inUserProgress" | "inTransit" | "isCompleted"
+  qualityCheckStatus: "isPending" | "inUserProgress" | "isCompleted"
+  qualityCheckReportLink: string
+  libraryPrepStatus: "isPending" | "inUserProgress" | "isCompleted"
+  libraryCheckReportLink: string
+  analysisProgressStatus: "isPending" | "inUserProgress" | "isCompleted"
+  analysisDoneStatus: "isPending" | "inUserProgress" | "isCompleted"
+  analysisRawDataStatus: "isPending" | "inUserProgress" | "isCompleted"
+  rawDataLink: string
+  analysisSpecificationStatus: "isPending" | "inUserProgress" | "isCompleted"
+  analysisSpecificationReportLink: string
+  invoiceStatus: "isPending" | "inUserProgress" | "isCompleted"
+  invoiceLink: string
+  paymentStatus: "isPending" | "inUserProgress" | "isCompleted"
+  paymentRecieptLink: string
+  createdAt: string
+  updatedAt: string
   __v: number
 }
 
@@ -164,9 +127,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) =>
       {
         const requestSheetStatus = row.getValue("requestSheet");
-        if (requestSheetStatus.status === "inProgress") {
+        if (requestSheetStatus === "inUserProgress") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
-        } else if (requestSheetStatus.status === "isCompleted") {
+        } else if (requestSheetStatus === "isCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
         } else {
           return <></>;
@@ -179,9 +142,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const costEstimateStatus = row.getValue("costEstimate");
   
-      if (costEstimateStatus.status === "inProgress") {
+      if (costEstimateStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
-      } else if (costEstimateStatus.status === "isCompleted") {
+      } else if (costEstimateStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
       } else {
         return <></>;
@@ -194,9 +157,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const formalRequestStatus = row.getValue("formalRequest");
   
-      if (formalRequestStatus.status === "inProgress") {
+      if (formalRequestStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
-      } else if (formalRequestStatus.status === "isCompleted") {
+      } else if (formalRequestStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
       } else {
         return <></>;
@@ -209,9 +172,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const sampleShippingStatus = row.getValue("sampleShipping");
   
-      if (sampleShippingStatus.status === "inProgress") {
+      if (sampleShippingStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
-      } else if (sampleShippingStatus.status === "isCompleted") {
+      } else if (sampleShippingStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
       } else {
         return <></>;
@@ -224,9 +187,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const qualityCheckStatus = row.getValue("qualityCheck");
   
-      if (qualityCheckStatus.status === "inProgress") {
+      if (qualityCheckStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
-      } else if (qualityCheckStatus.status === "isCompleted") {
+      } else if (qualityCheckStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
       } else {
         return <></>;
@@ -239,9 +202,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const libraryPrepStatus = row.getValue("libraryPrep");
   
-      if (libraryPrepStatus.status === "inProgress") {
+      if (libraryPrepStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
-      } else if (libraryPrepStatus.status === "isCompleted") {
+      } else if (libraryPrepStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
       } else {
         return <></>;
@@ -254,9 +217,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const analysisProgressStatus = row.getValue("analysisProgress");
   
-      if (analysisProgressStatus.status === "inProgress") {
+      if (analysisProgressStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
-      } else if (analysisProgressStatus.status === "isCompleted") {
+      } else if (analysisProgressStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
       } else {
         return <></>;
@@ -269,9 +232,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const analysisDoneStatus = row.getValue("analysisDone");
   
-      if (analysisDoneStatus.status === "inProgress") {
+      if (analysisDoneStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
-      } else if (analysisDoneStatus.status === "isCompleted") {
+      } else if (analysisDoneStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
       } else {
         return <></>;
@@ -284,9 +247,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const rawDataStatus = row.getValue("analysisRawData");
   
-      if (rawDataStatus.status === "inProgress") {
+      if (rawDataStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
-      } else if (rawDataStatus.status === "isCompleted") {
+      } else if (rawDataStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
       } else {
         return <></>;
@@ -299,9 +262,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const analysisSpecificationStatus = row.getValue("analysisSpecification");
   
-      if (analysisSpecificationStatus.status === "inProgress") {
+      if (analysisSpecificationStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
-      } else if (analysisSpecificationStatus.status === "isCompleted") {
+      } else if (analysisSpecificationStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
       } else {
         return <></>;
@@ -314,9 +277,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const invoiceStatus = row.getValue("invoice");
   
-      if (invoiceStatus.status === "inProgress") {
+      if (invoiceStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
-      } else if (invoiceStatus.status === "isCompleted") {
+      } else if (invoiceStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
       } else {
         return <></>;
@@ -329,9 +292,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => {
       const paymentStatus = row.getValue("payment");
   
-      if (paymentStatus.status === "inProgress") {
+      if (paymentStatus === "inUserProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
-      } else if (paymentStatus.status === "isCompleted") {
+      } else if (paymentStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
       } else {
         return <></>;
