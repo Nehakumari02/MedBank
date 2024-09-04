@@ -34,29 +34,44 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   let userIdDB;
 
+  const updateDataInDB = async(orderData)=>{
+    const saveApiResponse = await fetch('/api/updateOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+    });
+
+    console.log(saveApiResponse)
+  }
+
 
   const {
-    orderId,setOrderId,
+    orderId, setOrderId,
     orderTitle, setOrderTitle,
-    requestSheet, setRequestSheet,
-    costEstimate, setCostEstimate,
-    formalRequest, setFormalRequest,
+    requestSheetStatus, setRequestSheetStatus,
+    requestSheetLink, setRequestSheetLink,
+    costEstimateStatus, setCostEstimateStatus,
+    costEstimationLink, setCostEstimationLink,
+    formalRequestStatus, setFormalRequestStatus,
+    sampleShippingStatus, setSampleShippingStatus,
     sampleShipping, setSampleShipping,
-    qualityCheck, setQualityCheck,
-    libraryPrep, setLibraryPrep,
-    analysisProgress, setAnalysisProgress,
-    analysisDone, setAnalysisDone,
-    analysisRawData, setAnalysisRawData,
-    analysisSpecification, setAnalysisSpecification,
-    invoice, setInvoice,
-    payment, setPayment,
+    qualityCheckStatus, setQualityCheckStatus,
+    qualityCheckReportLink, setQualityCheckReportLink,
+    libraryPrepStatus, setLibraryPrepStatus,
+    libraryCheckReportLink, setLibraryCheckReportLink,
+    analysisProgressStatus, setAnalysisProgressStatus,
+    analysisDoneStatus, setAnalysisDoneStatus,
+    analysisRawDataStatus, setAnalysisRawDataStatus,
+    rawDataLink, setRawDataLink,
+    analysisSpecificationStatus, setAnalysisSpecificationStatus,
+    analysisSpecificationReportLink, setAnalysisSpecificationReportLink,
+    invoiceStatus, setInvoiceStatus,
+    invoiceLink, setInvoiceLink,
+    paymentStatus, setPaymentStatus,
+    paymentRecieptLink, setPaymentRecieptLink,
   } = useOrder();
-
-  const handleFileDownload = () => {
-    
-    { setOrderPopVisible(false) }
-
-  }
 
   const handleGenerateClick = () => {
     // setIsPopupVisible(true);
@@ -117,7 +132,6 @@ const NewOrderBox = () => {
     //router.push(`/${language}/${orderIdDB}/Admin_Restricted/NewOrder/OrderCreationPage`)
     setOrderPopVisible(true);
     setActivePopup('requestSheet');
-
   }
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);
@@ -179,43 +193,38 @@ const NewOrderBox = () => {
 
   const handleConfirmRequestSheet = () => {
     setOrderPopVisible(false);
-    setRequestSheet((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setCostEstimate((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
+    setRequestSheetStatus("isCompleted");
+    setCostEstimateStatus("inAdminProgress");
+    updateDataInDB({
+      requestSheetStatus:"isCompleted",
+      costEstimateStatus:"inAdminProgress"
+    })
   }
 
 
   const handleConfirmCostEstimate = () => {
     setOrderPopVisible(false);
     setIsPopupVisible(false);
-    setCostEstimate((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setFormalRequest((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
+    setCostEstimateStatus("inUserProgress");
+    updateDataInDB({
+      costEstimateStatus:"inUserProgress"
+    })
   }
 
-  console.log(costEstimate,formalRequest,sampleShipping)
   
   const handleConfirmFormalRequest = () => {
-    setFormalRequest((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setOrderPopVisible(false)
+    setFormalRequestStatus("isCompleted")
+    setSampleShippingStatus("inUserProgress")
+    setOrderPopVisible(false);
     setActivePopup('sampleShippingConfirmation');
+    updateDataInDB({
+      formalRequestStatus:"isCompleted",
+      sampleShippingStatus:"inUserProgress"
+    })
   }
 
   const handleConfirmSampleShipping = () => {
-    console.log(sampleShipping.status)
+    console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
     setIsPopupVisible(false);
     setOrderPopVisible(false);
@@ -227,12 +236,58 @@ const NewOrderBox = () => {
   }
 
   const handleConfirQualityCheck = () => {
-    console.log(sampleShipping.status)
+    console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
     setIsPopupVisible(false);
     setOrderPopVisible(false);
     setActivePopup('');
-    libraryPrep((prevState) => ({
+    setQualityCheck((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setLibraryPrep((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleLibraryPrepConfirmation = () => {
+    console.log(sampleShippingStatus)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setLibraryPrep((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisProgress((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleAnalysisDoneConfirmation = () => {
+    console.log(sampleShippingStatus)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisDone((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisRawData((prevState) => ({
+      ...prevState,
+      status: "inProgress",
+    }));
+  }
+  const handleAnalysisDone = () => {
+    console.log(sampleShippingStatus)
+    console.log("click on ok from sample shipping")
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisProgress((prevState) => ({
+      ...prevState,
+      status: "isCompleted",
+    }));
+    setAnalysisDone((prevState) => ({
       ...prevState,
       status: "inProgress",
     }));
@@ -268,7 +323,7 @@ const NewOrderBox = () => {
 
 
   useEffect(() => {
-    if (sampleShipping.status == "isPending" && formalRequest.status == "isCompleted") {
+    if (sampleShippingStatus == "isPending" && formalRequestStatus == "isCompleted") {
       setActivePopup("sampleShippingConfirmation");
       setOrderPopVisible(true);
       setUploadedFile({ vector3 });
@@ -304,20 +359,29 @@ const NewOrderBox = () => {
         const orderData = order.data
         console.log(orderData.requestSheet)
         console.log(orderData.costEstimate)
-        setOrderId(orderData.orderId)
+        setOrderId(orderData.orderId);
         setOrderTitle(orderData.orderTitle);
-        setRequestSheet(orderData.requestSheet);
-        setCostEstimate(orderData.costEstimate);
-        setFormalRequest(orderData.formalRequest);
+        setRequestSheetStatus(orderData.requestSheetStatus);
+        setRequestSheetLink(orderData.requestSheetLink);
+        setCostEstimateStatus(orderData.costEstimateStatus);
+        setCostEstimationLink(orderData.costEstimateLink);
+        setFormalRequestStatus(orderData.formalRequestStatus);
+        setSampleShippingStatus(orderData.sampleShippingStatus);
         setSampleShipping(orderData.sampleShipping);
-        setQualityCheck(orderData.qualityCheck);
-        setLibraryPrep(orderData.libraryPrep);
-        setAnalysisProgress(orderData.analysisProgress);
-        setAnalysisDone(orderData.analysisDone);
-        setAnalysisRawData(orderData.analysisRawData);
-        setAnalysisSpecification(orderData.analysisSpecification);
-        setInvoice(orderData.invoice);
-        setPayment(orderData.payment);
+        setQualityCheckStatus(orderData.qualityCheckStatus);
+        setQualityCheckReportLink(orderData.qualityCheckReportLink);
+        setLibraryPrepStatus(orderData.libraryPrepStatus);
+        setLibraryCheckReportLink(orderData.libraryPrepReportLink);
+        setAnalysisProgressStatus(orderData.analysisProgressStatus);
+        setAnalysisDoneStatus(orderData.analysisDoneStatus);
+        setAnalysisRawDataStatus(orderData.analysisRawDataStatus);
+        setRawDataLink(orderData.analysisRawDataRawDataLink);
+        setAnalysisSpecificationStatus(orderData.analysisSpecificationStatus);
+        setAnalysisSpecificationReportLink(orderData.analysisSpecificationReportLink);
+        setInvoiceStatus(orderData.invoiceStatus);
+        setInvoiceLink(orderData.invoiceLink);
+        setPaymentStatus(orderData.paymentStatus);
+        setPaymentRecieptLink(orderData.paymentRecieptLink);
       }catch(error){
         console.log("fetch order error ",error)
       }
@@ -345,7 +409,9 @@ const NewOrderBox = () => {
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => handleFileDownload}>Download</button>
+                    <a href={requestSheetLink.split("?")[0]} download="RequestSheet">
+                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Download</button>
+                    </a>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>Confirm</button>
                   </div>
                 </div>
@@ -1024,18 +1090,18 @@ const NewOrderBox = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{orderId}</span>
           </div>
           <div className='flex items-center justify-center md:justify-start gap-x-[6px] gap-y-[6px]  md:gap-x-[32px] md:gap-y-[8px] flex-wrap'>
-            <button onClick={handleOrderCreation} disabled={!(requestSheet.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheet.status == "isPending" ? "text-[#333333]" : "text-white"} ${requestSheet.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
-            <button onClick={handleCostEstimateClick} disabled={!(costEstimate.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimate.status == "isPending" ? "text-[#333333]" : "text-white"} ${costEstimate.status == "isPending" ? "bg-[#E2E8F0]" : costEstimate.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
-            <button onClick={handleFormalRequestClick} disabled={!(formalRequest.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequest.status == "isPending" ? "text-[#333333]" : "text-white"} ${formalRequest.status == "isPending" ? "bg-[#E2E8F0]" : formalRequest.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
-            <button onClick={handleSampleShippingClick} disabled={!(sampleShipping.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShipping.status == "isPending" ? "text-[#333333]" : "text-white"} ${sampleShipping.status == "isPending" ? "bg-[#E2E8F0]" : sampleShipping.status == "inProgress" ? "bg-[#FF914D]" : sampleShipping.status == "inTransit" ? "bg-[#79747E]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
-            <button onClick={handleQualityCheckClick} disabled={!(qualityCheck.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheck.status == "isPending" ? "text-[#333333]" : "text-white"} ${qualityCheck.status == "isPending" ? "bg-[#E2E8F0]" : qualityCheck.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
-            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrep.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrep.status == "isPending" ? "text-[#333333]" : "text-white"} ${libraryPrep.status == "isPending" ? "bg-[#E2E8F0]" : libraryPrep.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
-            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgress.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgress.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisProgress.status == "isPending" ? "bg-[#E2E8F0]" : analysisProgress.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
-            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDone.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDone.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisDone.status == "isPending" ? "bg-[#E2E8F0]" : analysisDone.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
-            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawData.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawData.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisRawData.status == "isPending" ? "bg-[#E2E8F0]" : analysisRawData.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
-            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecification.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecification.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisSpecification.status == "isPending" ? "bg-[#E2E8F0]" : analysisSpecification.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
-            <button onClick={handleInvoiceClick} disabled={!(invoice.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoice.status == "isPending" ? "text-[#333333]" : "text-white"} ${invoice.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "invoicerogress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
-            <button onClick={handlePaymentClick} disabled={!(payment.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${payment.status == "isPending" ? "text-[#333333]" : "text-white"} ${payment.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "paymentess" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
+            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" ? "bg-[#E2E8F0]" : requestSheetStatus == "inAdminProgress" ? "bg-[#FF914D]" : requestSheetStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
+            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" ? "bg-[#E2E8F0]" : costEstimateStatus == "inAdminProgress" ? "bg-[#FF914D]" : costEstimateStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
+            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" ? "bg-[#E2E8F0]" : formalRequestStatus == "inAdminProgress" ? "bg-[#FF914D]" : formalRequestStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
+            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inAdminProgress" ? "bg-[#FF914D]" : sampleShippingStatus == "inUserProgress" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#79747E]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
+            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inAdminProgress" ? "bg-[#FF914D]" : qualityCheckStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
+            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inAdminProgress" ? "bg-[#FF914D]" : libraryPrepStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
+            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inAdminProgress" ? "bg-[#FF914D]" : analysisProgressStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
+            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inAdminProgress" ? "bg-[#FF914D]" : analysisDoneStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
+            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inAdminProgress" ? "bg-[#FF914D]" : analysisRawDataStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
+            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inAdminProgress" ? "bg-[#FF914D]" : analysisSpecificationStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
+            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" ? "bg-[#E2E8F0]" : invoiceStatus == "inAdminProgress" ? "bg-[#FF914D]" : invoiceStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
+            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inAdminProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" ? "bg-[#E2E8F0]" : paymentStatus == "inAdminProgress" ? "bg-[#FF914D]" : paymentStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
           </div>
         </div>
         <div className="w-full h-[92px] md:px-[40px] flex flex-col justify-center border-[1px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
