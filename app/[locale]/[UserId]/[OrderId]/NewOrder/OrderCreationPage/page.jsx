@@ -16,22 +16,8 @@ const OrderCreationPage = () => {
   const {
     orderTitle, setOrderTitle,
     uploadedFile, setUploadedFile,
-    orderId,setOrderId,
-    requestSheet, setRequestSheet,
-    costEstimate, setCostEstimate,
-    formalRequest, setFormalRequest,
-    sampleShipping, setSampleShipping,
-    qualityCheck, setQualityCheck,
-    libraryPrep, setLibraryPrep,
-    analysisProgress, setAnalysisProgress,
-    analysisDone, setAnalysisDone,
-    analysisRawData, setAnalysisRawData,
-    analysisSpecification, setAnalysisSpecification,
-    invoice, setInvoice,
-    payment, setPayment
+    setRequestSheetLink, setCostEstimateStatus,
   } = useOrder();
-  console.log("orderid",orderId)
-  console.log("analysis specification",analysisSpecification)
   const [currentStep, setCurrentStep] = useState(1);
   const [disabled,setDisabled] = useState(false);
   const router = useRouter();
@@ -93,11 +79,8 @@ const OrderCreationPage = () => {
   
       const { url } = await response.json();
       console.log(url)
-      console.log(url.url)
-      setRequestSheet((prev) => ({
-        ...prev,
-        requestSheetLink: url,
-      }));
+      console.log("upload url",url.url)
+      setRequestSheetLink(url.split("?")[0]);
   
       // Upload the file directly to S3 using the signed URL
       const res=await fetch(url, {
@@ -107,8 +90,9 @@ const OrderCreationPage = () => {
           'Content-Type': fileType,
         },
       });
-      console.log(res.status)
-      console.log(res.url)
+      console.log("file upload status",res.status)
+      console.log("file upload url ",res.url)
+      console.log(res)
 
       if(res.status!==200){
         toast({
@@ -119,26 +103,18 @@ const OrderCreationPage = () => {
         return;
       }
 
-      setRequestSheet(prev => ({
-        ...prev,
-        status: "isCompleted",
-        requestSheetLink: res.url,
-      }));
+      setRequestSheetLink(res.url.split("?")[0]);
   
-      setCostEstimate(prev => ({
-        ...prev,
-        status: "inProgress",
-      }));
+      setRequestSheetStatus("isCompleted");
+      setCostEstimateStatus("inProgress");
+      const fileUrl = res.url.split("?")[0];
+      console.log(fileUrl)
 
       const orderData = {
         orderTitle,
-        requestSheet: {
-          status: "isCompleted",
-          requestSheetLink: url,
-        },
-        costEstimate: {
-          status: "inProgress",
-        },
+        requestSheetStatus:"isCompleted",
+        requestSheetLink: fileUrl,
+        costEstimateStatus:"inProgress"
       };
 
       console.log(orderIdDB)

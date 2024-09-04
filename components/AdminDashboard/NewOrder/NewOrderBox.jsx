@@ -142,7 +142,6 @@ const NewOrderBox = () => {
     //router.push(`/${language}/${orderIdDB}/Admin_Restricted/NewOrder/OrderCreationPage`)
     setOrderPopVisible(true);
     setActivePopup('requestSheet');
-
   }
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);

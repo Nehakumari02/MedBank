@@ -31,7 +31,7 @@ const NewOrderBox = () => {
   const [isPopUp1, setIsPopUp1] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
-  let userIdDB;
+  let userIdDB=usePathname().split('/')[2];
 
   const {
     orderId, setOrderId,
@@ -42,7 +42,7 @@ const NewOrderBox = () => {
     costEstimationLink, setCostEstimationLink,
     formalRequestStatus, setFormalRequestStatus,
     sampleShippingStatus, setSampleShippingStatus,
-    sampleShippingCheck, setSampleShippingCheck,
+    sampleShipping, setSampleShipping,
     qualityCheckStatus, setQualityCheckStatus,
     qualityCheckReportLink, setQualityCheckReportLink,
     libraryPrepStatus, setLibraryPrepStatus,
@@ -111,9 +111,10 @@ const NewOrderBox = () => {
   };
 
   const handleOrderCreation = () => {
-    setOrderPopVisible(true);
-    setActivePopup('requestSheet');
-  };
+    router.push(`/${language}/${userIdDB}/${orderIdDB}/NewOrder/OrderCreationPage`)
+    // setOrderPopVisible(true);
+    // setActivePopup('requestSheet');
+  }
 
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);
@@ -289,7 +290,7 @@ const NewOrderBox = () => {
         setAnalysisDoneStatus(orderData.analysisDoneStatus);
         setAnalysisRawDataStatus(orderData.analysisRawDataStatus);
         setRawDataLink(orderData.analysisRawDataRawDataLink);
-        setAnalysisSpecificationStatus(orderData.analysisSpecification.Status);
+        setAnalysisSpecificationStatus(orderData.analysisSpecificationStatus);
         setAnalysisSpecificationReportLink(orderData.analysisSpecificationReportLink);
         setInvoiceStatus(orderData.invoiceStatus);
         setInvoiceLink(orderData.invoiceLink);
@@ -355,7 +356,7 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'sampleShipping' && (
-                sampleShipping.status == "isPending" ? (
+                sampleShippingStatus == "isPending" ? (
                   <div className='w-[298px] h-[221px] md:h-[334px] p-[24px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
