@@ -21,7 +21,7 @@ export const OrderProvider = ({ children }) => {
   const [formalRequestStatus, setFormalRequestStatus] = useState("isPending");
 
   const [sampleShippingStatus, setSampleShippingStatus] = useState("isPending");
-  const [sampleShippingCheck, setSampleShippingCheck] = useState("ok");
+  const [sampleShipping, setSampleShipping] = useState("ok");
 
   const [qualityCheckStatus, setQualityCheckStatus] = useState("isPending");
   const [qualityCheckReportLink, setQualityCheckReportLink] = useState("");
@@ -57,7 +57,7 @@ export const OrderProvider = ({ children }) => {
         costEstimationLink, setCostEstimationLink,
         formalRequestStatus, setFormalRequestStatus,
         sampleShippingStatus, setSampleShippingStatus,
-        sampleShippingCheck, setSampleShippingCheck,
+        sampleShipping, setSampleShipping,
         qualityCheckStatus, setQualityCheckStatus,
         qualityCheckReportLink, setQualityCheckReportLink,
         libraryPrepStatus, setLibraryPrepStatus,
