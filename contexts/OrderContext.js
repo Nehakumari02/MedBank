@@ -7,75 +7,72 @@ const OrderContext = createContext();
 export const useOrder = () => useContext(OrderContext);
 
 export const OrderProvider = ({ children }) => {
-  const [orderId,setOrderId]=useState("");
-  const [orderTitle,setOrderTitle]=useState("");
+  const [orderId, setOrderId] = useState("");
+  const [orderTitle, setOrderTitle] = useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
-  const [requestSheet,setRequestSheet]=useState({
-    status:"isPending",
-    requestSheetLink:""
-  });
-  const [costEstimate,setCostEstimate]=useState({
-    status:"isPending",
-    costEstimationLink:""
-  });
-  const [formalRequest,setFormalRequest]=useState({
-    status:"isPending",
-    sampleShippingStatus:""
-  });
-  const [sampleShipping,setSampleShipping]=useState({
-    status:"isPending",
-    sampleShippingStatus:"ok"
-  });
-  const [qualityCheck,setQualityCheck]=useState({
-    status:"isPending",
-    qualityCheckReportLink:""
-  });
-  const [libraryPrep,setLibraryPrep]=useState({
-    status:"isPending",
-    libraryCheckReportLink:""
-  });
-  const [analysisProgress,setAnalysisProgress]=useState({
-    status:"isPending",
-  });
-  const [analysisDone,setAnalysisDone]=useState({
-    status:"isPending",
-  });
-  const [analysisRawData,setAnalysisRawData]=useState({
-    status:"isPending",
-    rawDataLink:""
-  });
-  const [analysisSpecification,setAnalysisSpecification]=useState({
-    status:"isPending",
-    analysisSpecificationReportLink:""
-  });
-  const [invoice,setInvoice]=useState({
-    status:"isPending",
-    invoiceLink:""
-  });
-  const [payment,setPayment]=useState({
-    status:"isPending",
-    paymentRecieptLink:""
-  });
+
+  // Separate state variables for each item in the orderSchema
+  const [requestSheetStatus, setRequestSheetStatus] = useState("isPending");
+  const [requestSheetLink, setRequestSheetLink] = useState("");
+
+  const [costEstimateStatus, setCostEstimateStatus] = useState("isPending");
+  const [costEstimationLink, setCostEstimationLink] = useState("");
+
+  const [formalRequestStatus, setFormalRequestStatus] = useState("isPending");
+
+  const [sampleShippingStatus, setSampleShippingStatus] = useState("isPending");
+  const [sampleShippingCheck, setSampleShippingCheck] = useState("ok");
+
+  const [qualityCheckStatus, setQualityCheckStatus] = useState("isPending");
+  const [qualityCheckReportLink, setQualityCheckReportLink] = useState("");
+
+  const [libraryPrepStatus, setLibraryPrepStatus] = useState("isPending");
+  const [libraryCheckReportLink, setLibraryCheckReportLink] = useState("");
+
+  const [analysisProgressStatus, setAnalysisProgressStatus] = useState("isPending");
+
+  const [analysisDoneStatus, setAnalysisDoneStatus] = useState("isPending");
+
+  const [analysisRawDataStatus, setAnalysisRawDataStatus] = useState("isPending");
+  const [rawDataLink, setRawDataLink] = useState("");
+
+  const [analysisSpecificationStatus, setAnalysisSpecificationStatus] = useState("isPending");
+  const [analysisSpecificationReportLink, setAnalysisSpecificationReportLink] = useState("");
+
+  const [invoiceStatus, setInvoiceStatus] = useState("isPending");
+  const [invoiceLink, setInvoiceLink] = useState("");
+
+  const [paymentStatus, setPaymentStatus] = useState("isPending");
+  const [paymentRecieptLink, setPaymentRecieptLink] = useState("");
 
   return (
     <OrderContext.Provider
-    value={{
-      orderId,setOrderId,
-      orderTitle, setOrderTitle,
-      uploadedFile, setUploadedFile,
-      requestSheet, setRequestSheet,
-      costEstimate, setCostEstimate,
-      formalRequest, setFormalRequest,
-      sampleShipping, setSampleShipping,
-      qualityCheck, setQualityCheck,
-      libraryPrep, setLibraryPrep,
-      analysisProgress, setAnalysisProgress,
-      analysisDone, setAnalysisDone,
-      analysisRawData,setAnalysisRawData,
-      analysisSpecification, setAnalysisSpecification,
-      invoice, setInvoice,
-      payment, setPayment,
-    }}
+      value={{
+        orderId, setOrderId,
+        orderTitle, setOrderTitle,
+        uploadedFile, setUploadedFile,
+        requestSheetStatus, setRequestSheetStatus,
+        requestSheetLink, setRequestSheetLink,
+        costEstimateStatus, setCostEstimateStatus,
+        costEstimationLink, setCostEstimationLink,
+        formalRequestStatus, setFormalRequestStatus,
+        sampleShippingStatus, setSampleShippingStatus,
+        sampleShippingCheck, setSampleShippingCheck,
+        qualityCheckStatus, setQualityCheckStatus,
+        qualityCheckReportLink, setQualityCheckReportLink,
+        libraryPrepStatus, setLibraryPrepStatus,
+        libraryCheckReportLink, setLibraryCheckReportLink,
+        analysisProgressStatus, setAnalysisProgressStatus,
+        analysisDoneStatus, setAnalysisDoneStatus,
+        analysisRawDataStatus, setAnalysisRawDataStatus,
+        rawDataLink, setRawDataLink,
+        analysisSpecificationStatus, setAnalysisSpecificationStatus,
+        analysisSpecificationReportLink, setAnalysisSpecificationReportLink,
+        invoiceStatus, setInvoiceStatus,
+        invoiceLink, setInvoiceLink,
+        paymentStatus, setPaymentStatus,
+        paymentRecieptLink, setPaymentRecieptLink,
+      }}
     >
       {children}
     </OrderContext.Provider>

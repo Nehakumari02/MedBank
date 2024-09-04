@@ -12,117 +12,93 @@ const orderSchema = new Schema(
       type: String,
       required: false,
     },
-    requestSheet: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      requestSheetLink: {
-        type: String,
-      },
+    requestSheetStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
     },
-    costEstimate: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      costEstimationLink: {
-        type: String,
-      },
+    requestSheetLink: {
+      type: String,
     },
-    formalRequest: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
+    costEstimateStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
+    },
+    costEstimationLink: {
+      type: String,
+    },
+    formalRequestStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
+    },
+    sampleShippingStatus: {
+      type: String,
+      enum: ["isPending", "inProgress", "inTransit", "isCompleted"],
+      default: "isPending",
     },
     sampleShipping: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "inTransit", "isCompleted"],
-        default: "isPending",
-      },
-      sampleShippingStatus: {
-        type: String,
-        enum: ["ok", "notOk"],
-      },
+      type: String,
+      enum: ["","ok", "notOk"],
     },
-    qualityCheck: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      qualityCheckReportLink: {
-        type: String,
-      },
+    qualityCheckStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
     },
-    libraryPrep: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      libraryCheckReportLink: {
-        type: String,
-      },
+    qualityCheckReportLink: {
+      type: String,
     },
-    analysisProgress: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
+    libraryPrepStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
     },
-    analysisDone: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
+    libraryCheckReportLink: {
+      type: String,
     },
-    analysisRawData: {
-      status: {
+    analysisProgressStatus: {
         type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
+        enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
         default: "isPending",
       },
-      rawDataLink: {
+    analysisDoneStatus: {
         type: String,
+        enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+        default: "isPending",
       },
+    analysisRawDataStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
     },
-    analysisSpecification: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      analysisSpecificationReportLink: {
-        type: String,
-      },
+    rawDataLink: {
+      type: String,
     },
-    invoice: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      invoiceLink: {
-        type: String,
-      },
+    analysisSpecificationStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
     },
-    payment: {
-      status: {
-        type: String,
-        enum: ["isPending", "inProgress", "isCompleted"],
-        default: "isPending",
-      },
-      paymentRecieptLink: {
-        type: String,
-      },
+    analysisSpecificationReportLink: {
+      type: String,
+    },
+    invoiceStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
+    },
+    invoiceLink: {
+      type: String,
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      default: "isPending",
+    },
+    paymentRecieptLink: {
+      type: String,
     },
   },
   { timestamps: true }

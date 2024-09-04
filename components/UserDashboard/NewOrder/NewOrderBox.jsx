@@ -1,19 +1,21 @@
-"use client"
-import { useOrder } from '@/contexts/OrderContext'
+"use client";
+import { useOrder } from '@/contexts/OrderContext';
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { useSession } from "next-auth/react";
-import FolderIcon from "../../../public/dashboard/folder.png"
+import FolderIcon from "../../../public/dashboard/folder.png";
 import Image from 'next/image';
-import Logo from '@/public/Images/Home/logo.png'
-import file1 from '../../../public/dashboard/pdf.png'
-import vector3 from '../../../public/dashboard/creation1.png'
-import downloadIcon from '../../../public/dashboard/downloadIcon.png'
+import Logo from '@/public/Images/Home/logo.png';
+import file1 from '../../../public/dashboard/pdf.png';
+import vector3 from '../../../public/dashboard/creation1.png';
+import downloadIcon from '../../../public/dashboard/downloadIcon.png';
+import CalculateCost from '../../../components/CalculateCost';
+import LangDropdown from "../../../components/LangDropdown";
 
 const NewOrderBox = () => {
   const router = useRouter();
-  const path = usePathname().split("/")[3];
-  const orderIdDB = usePathname().split("/")[3]
+  const path = usePathname();
+  const orderIdDB = usePathname().split("/")[3];
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
   const language = usePathname().split("/")[1];
   const { data: session } = useSession();
@@ -24,26 +26,95 @@ const NewOrderBox = () => {
   const { uploadedFile, setUploadedFile } = useOrder();
   const [file, setFile] = useState(uploadedFile);
 
+  const [currency, setCurrency] = useState("JPY");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPopUp1, setIsPopUp1] = useState(false);
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [confirmPopUp, setConfirmPopUp] = useState(false);
+  let userIdDB;
+
   const {
-    orderId,setOrderId,
+    orderId, setOrderId,
     orderTitle, setOrderTitle,
-    requestSheet, setRequestSheet,
-    costEstimate, setCostEstimate,
-    formalRequest, setFormalRequest,
-    sampleShipping, setSampleShipping,
-    qualityCheck, setQualityCheck,
-    libraryPrep, setLibraryPrep,
-    analysisProgress, setAnalysisProgress,
-    analysisDone, setAnalysisDone,
-    analysisRawData, setAnalysisRawData,
-    analysisSpecification, setAnalysisSpecification,
-    invoice, setInvoice,
-    payment, setPayment,
+    requestSheetStatus, setRequestSheetStatus,
+    requestSheetLink, setRequestSheetLink,
+    costEstimateStatus, setCostEstimateStatus,
+    costEstimationLink, setCostEstimationLink,
+    formalRequestStatus, setFormalRequestStatus,
+    sampleShippingStatus, setSampleShippingStatus,
+    sampleShippingCheck, setSampleShippingCheck,
+    qualityCheckStatus, setQualityCheckStatus,
+    qualityCheckReportLink, setQualityCheckReportLink,
+    libraryPrepStatus, setLibraryPrepStatus,
+    libraryCheckReportLink, setLibraryCheckReportLink,
+    analysisProgressStatus, setAnalysisProgressStatus,
+    analysisDoneStatus, setAnalysisDoneStatus,
+    analysisRawDataStatus, setAnalysisRawDataStatus,
+    rawDataLink, setRawDataLink,
+    analysisSpecificationStatus, setAnalysisSpecificationStatus,
+    analysisSpecificationReportLink, setAnalysisSpecificationReportLink,
+    invoiceStatus, setInvoiceStatus,
+    invoiceLink, setInvoiceLink,
+    paymentStatus, setPaymentStatus,
+    paymentRecieptLink, setPaymentRecieptLink,
   } = useOrder();
 
+  const handleFileDownload = () => {
+    const urlWithQuery = "https://medbank-orders.s3.ap-southeast-1.amazonaws.com/NOTICE%20003%20-%20Laptop%20policy.pdf?efhwejkfnh23489th2049g";
+    const url = new URL(urlWithQuery);
+    url.search = "";
+    const cleanedUrl = url.toString();
+    
+    const anchor = document.createElement("a");
+    anchor.href = cleanedUrl;
+    anchor.download = "Laptop_Policy.pdf";
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  };
+
+  const handleGenerateClick = () => {
+    setActivePopup('costEstimateConfirmation');
+  };
+
+  const handleGenerateClick1 = () => {
+    setIsPopupVisible(true);
+    setActivePopup('payment');
+    setIsPopUp1(false);
+  };
+
+  const sampleDelete = () => {
+    setActivePopup(setDeletePopUp);
+  };
+
+  const sampleConfirm = () => {
+    setActivePopup(setConfirmPopUp);
+    setOrderPopVisible(false);
+    setSampleShippingStatus("isCompleted");
+    setQualityCheckStatus("inUserProgress");
+  };
+
+  const handleDeleteOk = () => {
+    setDeletePopUp(false);
+    setOrderPopVisible(false);
+    setSampleShippingStatus("isCompleted");
+  };
+
+  const handleConfirmOk = () => {
+    setConfirmPopUp(false);
+    setOrderPopVisible(false);
+    setSampleShippingStatus("isCompleted");
+  };
+
+  const handleClick1 = () => {
+    setIsPopUp1(true);
+  };
+
   const handleOrderCreation = () => {
-    router.push(`/${language}/${session.user.id}/${orderIdDB}/NewOrder/OrderCreationPage`)
-  }
+    setOrderPopVisible(true);
+    setActivePopup('requestSheet');
+  };
+
   const handleCostEstimateClick = () => {
     setOrderPopVisible(true);
     setActivePopup('costEstimate');
@@ -56,7 +127,7 @@ const NewOrderBox = () => {
 
   const handleSampleShippingClick = () => {
     setOrderPopVisible(true);
-    setActivePopup('sampleShipping');
+    setActivePopup('sampleShippingConfirmation');
   };
 
   const handleQualityCheckClick = () => {
@@ -99,48 +170,66 @@ const NewOrderBox = () => {
     setActivePopup('payment');
   };
 
+  const handleConfirmRequestSheet = () => {
+    setOrderPopVisible(false);
+    setRequestSheetStatus("isCompleted");
+    setCostEstimateStatus("inUserProgress");
+  };
+
   const handleConfirmCostEstimate = () => {
     setOrderPopVisible(false);
-    setCostEstimate((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setFormalRequest((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
-  }
+    setIsPopupVisible(false);
+    setCostEstimateStatus("isCompleted");
+    setFormalRequestStatus("inUserProgress");
+  };
 
   const handleConfirmFormalRequest = () => {
-    setFormalRequest((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setOrderPopVisible(false)
-    // setActivePopup('sampleShippingConfirmation');
-  }
+    setFormalRequestStatus("isCompleted");
+    setSampleShippingStatus("inUserProgress");
+    setOrderPopVisible(false);
+    setActivePopup('sampleShippingConfirmation');
+  };
 
   const handleConfirmSampleShipping = () => {
-    console.log(sampleShipping.status)
-    console.log("click on ok from sample shipping")
+    setIsPopupVisible(false);
     setOrderPopVisible(false);
     setActivePopup('');
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
-  }
+    setSampleShippingStatus("inUserProgress");
+  };
 
-  const handleSampleShipping = () => {
+  const handleConfirmQualityCheck = () => {
     setOrderPopVisible(false);
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-  }
+    setActivePopup('');
+    setQualityCheckStatus("isCompleted");
+    setLibraryPrepStatus("inUserProgress");
+  };
 
+  const handleLibraryPrepConfirmation = () => {
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setLibraryPrepStatus("isCompleted");
+    setAnalysisProgressStatus("inUserProgress");
+  };
 
+  const handleAnalysisDoneConfirmation = () => {
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisDoneStatus("isCompleted");
+    setAnalysisRawDataStatus("inUserProgress");
+  };
 
+  const handleAnalysisDone = () => {
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisProgressStatus("isCompleted");
+    setAnalysisDoneStatus("inUserProgress");
+  };
+
+  const handleInvoice = () => {
+    setOrderPopVisible(false);
+    setIsPopupVisible(false);
+    setSampleShippingStatus("isCompleted");
+  };
 
   const handleClickOutside = (event) => {
     if (orderPopUpBoxRef.current && !orderPopUpBoxRef.current.contains(event.target)) {
@@ -148,15 +237,12 @@ const NewOrderBox = () => {
     }
   };
 
-
-
   useEffect(() => {
-    if (sampleShipping.status == "isPending" && formalRequest.status == "isCompleted") {
+    if (sampleShippingStatus === "isPending" && formalRequestStatus === "isCompleted") {
       setActivePopup("sampleShippingConfirmation");
       setOrderPopVisible(true);
-      setUploadedFile({ vector3 });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -173,43 +259,50 @@ const NewOrderBox = () => {
     };
   }, [uploadedFile]);
 
-  useEffect(()=>{
-    const fetchOrderByID = async(orderId)=>{
-      try{
+  useEffect(() => {
+    const fetchOrderByID = async (orderId) => {
+      try {
         const response = await fetch('/api/fetchOrder', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({orderId:orderId}),
+          body: JSON.stringify({ orderId }),
         });
         const order = await response.json();
-        const orderData = order.data
-        console.log(orderData.requestSheet)
-        console.log(orderData.costEstimate)
-        setOrderId(orderData.orderId)
+        const orderData = order.data;
+        console.log("order data in new order box",orderData);
+        setOrderId(orderData.orderId);
         setOrderTitle(orderData.orderTitle);
-        setRequestSheet(orderData.requestSheet);
-        setCostEstimate(orderData.costEstimate);
-        setFormalRequest(orderData.formalRequest);
+        setRequestSheetStatus(orderData.requestSheetStatus);
+        setRequestSheetLink(orderData.requestSheetLink);
+        setCostEstimateStatus(orderData.costEstimateStatus);
+        setCostEstimationLink(orderData.costEstimateLink);
+        setFormalRequestStatus(orderData.formalRequestStatus);
+        setSampleShippingStatus(orderData.sampleShippingStatus);
         setSampleShipping(orderData.sampleShipping);
-        setQualityCheck(orderData.qualityCheck);
-        setLibraryPrep(orderData.libraryPrep);
-        setAnalysisProgress(orderData.analysisProgress);
-        setAnalysisDone(orderData.analysisDone);
-        setAnalysisRawData(orderData.analysisRawData);
-        setAnalysisSpecification(orderData.analysisSpecification);
-        setInvoice(orderData.invoice);
-        setPayment(orderData.payment);
-      }catch(error){
-        console.log("fetch order error ",error)
+        setQualityCheckStatus(orderData.qualityCheckStatus);
+        setQualityCheckReportLink(orderData.qualityCheckReportLink);
+        setLibraryPrepStatus(orderData.libraryPrepStatus);
+        setLibraryCheckReportLink(orderData.libraryPrepReportLink);
+        setAnalysisProgressStatus(orderData.analysisProgressStatus);
+        setAnalysisDoneStatus(orderData.analysisDoneStatus);
+        setAnalysisRawDataStatus(orderData.analysisRawDataStatus);
+        setRawDataLink(orderData.analysisRawDataRawDataLink);
+        setAnalysisSpecificationStatus(orderData.analysisSpecification.Status);
+        setAnalysisSpecificationReportLink(orderData.analysisSpecificationReportLink);
+        setInvoiceStatus(orderData.invoiceStatus);
+        setInvoiceLink(orderData.invoiceLink);
+        setPaymentStatus(orderData.paymentStatus);
+        setPaymentRecieptLink(orderData.paymentRecieptLink);
+      } catch (error) {
+        console.error('Error fetching order by ID:', error);
       }
-    }
+    };
 
     fetchOrderByID(orderIdDB);
-  },[])
+  }, [orderIdDB]);
 
-  console.log("orderid",orderId)
 
   return (
     <>
@@ -269,7 +362,7 @@ const NewOrderBox = () => {
                     <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>OK</button>
                   </div>
                 ) :
-                  sampleShipping.status == "inProgress" ? (
+                  sampleShippingStatus == "inUserProgress" ? (
                     <div className='w-[298px] h-[221px] md:h-[287px] md:w-[658px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                       <div className='flex flex-col gap-[24px]'>
                         <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
@@ -630,18 +723,18 @@ const NewOrderBox = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{orderId}</span>
           </div>
           <div className='flex items-center justify-center md:justify-start gap-x-[6px] gap-y-[6px]  md:gap-x-[32px] md:gap-y-[8px] flex-wrap'>
-            <button onClick={handleOrderCreation} disabled={!(requestSheet.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheet.status == "isPending" ? "text-[#333333]" : "text-white"} ${requestSheet.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
-            <button onClick={handleCostEstimateClick} disabled={!(costEstimate.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimate.status == "isPending" ? "text-[#333333]" : "text-white"} ${costEstimate.status == "isPending" ? "bg-[#E2E8F0]" : costEstimate.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
-            <button onClick={handleFormalRequestClick} disabled={!(formalRequest.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequest.status == "isPending" ? "text-[#333333]" : "text-white"} ${formalRequest.status == "isPending" ? "bg-[#E2E8F0]" : formalRequest.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
-            <button onClick={handleSampleShippingClick} disabled={!(sampleShipping.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShipping.status == "isPending" ? "text-[#333333]" : "text-white"} ${sampleShipping.status == "isPending" ? "bg-[#E2E8F0]" : sampleShipping.status == "inProgress" ? "bg-[#FF914D]" : sampleShipping.status == "inTransit" ? "bg-[#79747E]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
-            <button onClick={handleQualityCheckClick} disabled={!(qualityCheck.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheck.status == "isPending" ? "text-[#333333]" : "text-white"} ${qualityCheck.status == "isPending" ? "bg-[#E2E8F0]" : qualityCheck.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
-            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrep.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrep.status == "isPending" ? "text-[#333333]" : "text-white"} ${libraryPrep.status == "isPending" ? "bg-[#E2E8F0]" : libraryPrep.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
-            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgress.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgress.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisProgress.status == "isPending" ? "bg-[#E2E8F0]" : analysisProgress.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
-            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDone.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDone.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisDone.status == "isPending" ? "bg-[#E2E8F0]" : analysisDone.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
-            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawData.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawData.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisRawData.status == "isPending" ? "bg-[#E2E8F0]" : analysisRawData.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
-            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecification.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecification.status == "isPending" ? "text-[#333333]" : "text-white"} ${analysisSpecification.status == "isPending" ? "bg-[#E2E8F0]" : analysisSpecification.status == "inProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
-            <button onClick={handleInvoiceClick} disabled={!(invoice.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoice.status == "isPending" ? "text-[#333333]" : "text-white"} ${invoice.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "invoicerogress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
-            <button onClick={handlePaymentClick} disabled={!(payment.status == "inProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${payment.status == "isPending" ? "text-[#333333]" : "text-white"} ${payment.status == "isPending" ? "bg-[#E2E8F0]" : requestSheet.status == "paymentess" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
+            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" ? "bg-[#E2E8F0]" : requestSheetStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
+            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" ? "bg-[#E2E8F0]" : costEstimateStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
+            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" ? "bg-[#E2E8F0]" : formalRequestStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
+            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inUserProgress" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#79747E]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
+            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
+            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
+            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
+            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
+            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
+            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inUserProgress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
+            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" ? "bg-[#E2E8F0]" : requestSheetStatus == "invoicerogress" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
+            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" ? "bg-[#E2E8F0]" : requestSheetStatus == "paymentess" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
           </div>
         </div>
         <div className="w-full h-[92px] md:px-[40px] flex flex-col justify-center border-[1px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
