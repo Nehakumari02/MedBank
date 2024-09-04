@@ -87,38 +87,40 @@ const NewOrderBox = () => {
 
   };
   const sampleDelelte = () => {
-    setActivePopup(setDeletePopUp);
+    setActivePopup('deletePopUp');
     //setOrderPopVisible(true);
     //setActivePopup('qulalityCheck ');
 
   }
   const sampleConfirm = () => {
-    setActivePopup(setConfirmPopUp);
+    setActivePopup('confirmPopUp');
     //setOrderPopVisible(true);
     //setActivePopup('qulalityCheck ');
 
   }
 
   const handleDeleteOk = () => {
-    setDeletePopUp(false);
+    //setDeletePopUp(false);
     //setOrderPopVisible(true);
     //setActivePopup('formalRequest');
     setOrderPopVisible(false);
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
+    setSampleShipping("isCompleted")
+    updateDataInDB({
+      sampleShippingStatus:"isCompleted",
+    })
 
   };
   const handleConfirmOk = () => {
-    setConfirmPopUp(false);
+    // setConfirmPopUp(false);
     setOrderPopVisible(false);
     //setOrderPopVisible(true);
     //setActivePopup('formalRequest');
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
+    setSampleShipping("isCompleted")
+    setQualityCheckStatus("inUserProgress")
+    updateDataInDB({
+      sampleShippingStatus:"isCompleted",
+      qualityCheckStatus:"inUserProgress"
+    })
 
   };
   const handleClick1 = () => {
@@ -146,12 +148,13 @@ const NewOrderBox = () => {
 
   const handleSampleShippingClick = () => {
     setOrderPopVisible(true);
-    setActivePopup('sampleShipping');
+    setActivePopup('sampleShippingConfirmation');
   };
 
   const handleQualityCheckClick = () => {
     setOrderPopVisible(true);
     setActivePopup('qualityCheck');
+   
   };
 
   const handleLibraryPrepClick = () => {
@@ -241,28 +244,24 @@ const NewOrderBox = () => {
     setIsPopupVisible(false);
     setOrderPopVisible(false);
     setActivePopup('');
-    setQualityCheck((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setLibraryPrep((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
+    setQualityCheckStatus("isCompleted")
+    setLibraryPrepStatus("inAdminProgress")
+    updateDataInDB({
+      qualityCheckStatus:"isCompleted",
+      libraryPrepStatus:"inAdminProgress"
+    })
   }
   const handleLibraryPrepConfirmation = () => {
     console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
     setOrderPopVisible(false);
     setActivePopup('');
-    setLibraryPrep((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
-    setAnalysisProgress((prevState) => ({
-      ...prevState,
-      status: "inProgress",
-    }));
+    setLibraryPrepStatus('inUserProgress')
+    updateDataInDB({
+     
+      libraryPrepStatus:"inUserProgress"
+    })
+    
   }
   const handleAnalysisDoneConfirmation = () => {
     console.log(sampleShippingStatus)
@@ -293,23 +292,51 @@ const NewOrderBox = () => {
     }));
   }
 
-  const handleSampleShipping = () => {
+
+  const handleAnalysisRawDataConfirm = () => {
     setOrderPopVisible(false);
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
+    setActivePopup('');
+    setAnalysisRawDataStatus("isCompleted")
+    setAnalysisSpecificationStatus("inUserProgress")
+    updateDataInDB({
+
+      analysisRawDataStatus:"isCompleted",
+      analysisSpecificationStatus:"inUserProgress"
+
+    })
   }
+
+  const handleAnalysisSpecification=()=>{
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setAnalysisSpecificationStatus("isCompleted")
+    setInvoiceStatus("inAdminProgress")
+    updateDataInDB({
+
+      analysisSpecificationStatus:"isCompleted",
+      invoiceStatus:"inAdminProgress"
+    })
+
+  }
+
 
   const handleInvoice = () => {
     setOrderPopVisible(false);
-    setIsPopupVisible(false);
-    setSampleShipping((prevState) => ({
-      ...prevState,
-      status: "isCompleted",
-    }));
+    setActivePopup('');
+    setInvoiceStatus("inUserProgress")
+    updateDataInDB({
+      invoiceStatus:"inUserProgress"
+    })
   }
-
+ 
+  const handleConfirmPayment= () => {
+    setOrderPopVisible(false);
+    setActivePopup('');
+    setPaymentStatus("inUserProgress")
+    updateDataInDB({
+      paymentStatus:"inUserProgress"
+    })
+  }
 
 
 
@@ -730,9 +757,9 @@ const NewOrderBox = () => {
                       Note :For resending or cancelling the sample contact us via   chat.
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleLibraryPrepConfirmation}>Proceed</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleLibraryPrepConfirmation}>Proceed</button>
                     </div>
 
                   </div>
@@ -808,9 +835,9 @@ const NewOrderBox = () => {
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed to library preparation</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisRawDataConfirm}>Proceed to library preparation</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisRawDataConfirm}>Proceed</button>
                     </div>
 
                   </div>
@@ -868,9 +895,9 @@ const NewOrderBox = () => {
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisSpecification}>Proceed</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisSpecification}>Proceed</button>
                     </div>
 
                   </div>
