@@ -17,6 +17,7 @@ const OrderCreationPage = () => {
     orderTitle, setOrderTitle,
     uploadedFile, setUploadedFile,
     setRequestSheetLink, setCostEstimateStatus,
+    setRequestSheetStatus
   } = useOrder();
   const [currentStep, setCurrentStep] = useState(1);
   const [disabled,setDisabled] = useState(false);
@@ -105,16 +106,14 @@ const OrderCreationPage = () => {
 
       setRequestSheetLink(res.url.split("?")[0]);
   
-      setRequestSheetStatus("isCompleted");
-      setCostEstimateStatus("inProgress");
+      setRequestSheetStatus("inAdminProgress");
       const fileUrl = res.url.split("?")[0];
       console.log(fileUrl)
 
       const orderData = {
         orderTitle,
-        requestSheetStatus:"isCompleted",
+        requestSheetStatus:"inAdminProgress",
         requestSheetLink: fileUrl,
-        costEstimateStatus:"inProgress"
       };
 
       console.log(orderIdDB)

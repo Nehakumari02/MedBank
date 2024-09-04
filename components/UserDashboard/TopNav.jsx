@@ -14,7 +14,7 @@ const TopNav = () => {
   const language = usePathname().split("/")[1];
   const router = useRouter();
   const {data:session} = useSession();
-
+  const userIdDB = usePathname().split("/")[2];
   const t = useTranslations("TopNavBar");
 
   const updateLanguage = (newLanguage) => {
@@ -29,11 +29,11 @@ const TopNav = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({userId:session.user.id}),
+        body: JSON.stringify({userId:userIdDB}),
       });
       const data = await response.json();
       console.log(data.data,data.message)
-      router.push(`/${language}/${session.user.id}/${data.data._id}/NewOrder`)
+      router.push(`/${language}/${userIdDB}/${data.data._id}/NewOrder`)
     }catch(error){
       console.log(error)
     }
