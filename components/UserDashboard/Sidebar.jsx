@@ -15,9 +15,9 @@ const Sidebar = () => {
   const path = usePathname().split("/")[3];
   const pathToRedirect = usePathname().split("/").slice(2).join("/");
   const language = usePathname().split("/")[1];
+  const userIdDB = usePathname().split("/")[2];
 
   const t = useTranslations("UserSideBar");
-  const {data:session} = useSession();
 
   const handleNewOrder=async()=>{
     try{
@@ -26,11 +26,11 @@ const Sidebar = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({userId:session.user.id}),
+        body: JSON.stringify({userId:userIdDB}),
       });
       const data = await response.json();
       console.log(data.data,data.message)
-      router.push(`/${language}/${session.user.id}/${data.data._id}/NewOrder`)
+      router.push(`/${language}/${userIdDB}/${data.data._id}/NewOrder`)
     }catch(error){
       console.log(error)
     }
@@ -86,7 +86,7 @@ const Sidebar = () => {
       handleNewOrder();
     }
     else{
-      router.push(`/${language}/${session.user.id}/${menuPath}`)
+      router.push(`/${language}/${userIdDB}/${menuPath}`)
     }
   }
   return (
@@ -109,14 +109,14 @@ const Sidebar = () => {
         </div>
         <div className={`flex flex-col ${sidebarVisibility?"items-start":"items-center"} justify-between w-full gap-[16px]`}>
         <button
-              onClick={() => router.push(`/${language}/${session.user.id}/Settings`)}
+              onClick={() => router.push(`/${language}/${userIdDB}/Settings`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px] ${path=="Settings"?"border-l-[1px] border-[#3E8DA7] rounded-[3px] bg-[#E8F3FE]":""}`}
             >
               {path=="Settings"?settingSelectedIcon:settingsIcon}
               <span className={`font-DM-Sans font-normal text-[16px] leading-[24px] ${path=="Settings"?"text-[#3E8DA7]":""} ${sidebarVisibility?"":"hidden"}`}>{t("settings")}</span>
             </button>
             <button
-              onClick={() => router.push(`/${language}/${session.user.id}/Logout`)}
+              onClick={() => router.push(`/${language}/${userIdDB}/Logout`)}
               className={`h-[40px] w-full flex items-center justify-start gap-[10px] py-[8px] pr-[12px] pl-[12px]`}
             >
               {logOutIcon}
