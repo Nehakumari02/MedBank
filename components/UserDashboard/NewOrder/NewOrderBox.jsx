@@ -70,21 +70,7 @@ const NewOrderBox = () => {
     paymentStatus, setPaymentStatus,
     paymentRecieptLink, setPaymentRecieptLink,
   } = useOrder();
-
-  const handleFileDownload = () => {
-    const urlWithQuery = "https://medbank-orders.s3.ap-southeast-1.amazonaws.com/NOTICE%20003%20-%20Laptop%20policy.pdf?efhwejkfnh23489th2049g";
-    const url = new URL(urlWithQuery);
-    url.search = "";
-    const cleanedUrl = url.toString();
-    
-    const anchor = document.createElement("a");
-    anchor.href = cleanedUrl;
-    anchor.download = "Laptop_Policy.pdf";
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-  };
-
+  
   const handleGenerateClick = () => {
     setActivePopup('costEstimateConfirmation');
   };
@@ -378,7 +364,7 @@ const NewOrderBox = () => {
                 <div className='w-[298px] h-[221px] md:h-[334px] md:w-[564px] p-[24px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
                   <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
-                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
+                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>OK</button>
                 </div>
               )}
               {activePopup === 'sampleShipping' && (
