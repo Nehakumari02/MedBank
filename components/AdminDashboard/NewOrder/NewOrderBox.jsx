@@ -11,9 +11,13 @@ import vector3 from '../../../public/dashboard/creation1.png'
 import downloadIcon from '../../../public/dashboard/downloadIcon.png'
 import CalculateCost from '../../../components/CalculateCost'
 import LangDropdown from "../../../components/LangDropdown"
+import { useDropzone } from 'react-dropzone';
+import folder1 from "../../../public/dashboard/folder.png"
+
 
 
 const NewOrderBox = () => {
+  const { getRootProps, getInputProps } = useDropzone();
   const router = useRouter();
   const path = usePathname();
   const orderIdDB = usePathname().split("/")[3]
@@ -34,13 +38,13 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   let userIdDB;
 
-  const updateDataInDB = async(orderData)=>{
+  const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+      body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
     });
 
     console.log(saveApiResponse)
@@ -71,7 +75,9 @@ const NewOrderBox = () => {
     invoiceLink, setInvoiceLink,
     paymentStatus, setPaymentStatus,
     paymentRecieptLink, setPaymentRecieptLink,
+
   } = useOrder();
+
 
   const handleGenerateClick = () => {
     // setIsPopupVisible(true);
@@ -80,12 +86,15 @@ const NewOrderBox = () => {
 
   };
   const handleGenerateClick1 = () => {
+    setIsPopUp1(false);
     setIsPopupVisible(true);
     //setOrderPopVisible(true);
     setActivePopup('payment');
-    setIsPopUp1(false);
+    console.log("hello", isPopUp1)
+
 
   };
+
   const sampleDelelte = () => {
     setActivePopup('deletePopUp');
     //setOrderPopVisible(true);
@@ -106,7 +115,7 @@ const NewOrderBox = () => {
     setOrderPopVisible(false);
     setSampleShipping("isCompleted")
     updateDataInDB({
-      sampleShippingStatus:"isCompleted",
+      sampleShippingStatus: "isCompleted",
     })
 
   };
@@ -118,8 +127,8 @@ const NewOrderBox = () => {
     setSampleShipping("isCompleted")
     setQualityCheckStatus("inUserProgress")
     updateDataInDB({
-      sampleShippingStatus:"isCompleted",
-      qualityCheckStatus:"inUserProgress"
+      sampleShippingStatus: "isCompleted",
+      qualityCheckStatus: "inUserProgress"
     })
 
   };
@@ -127,6 +136,7 @@ const NewOrderBox = () => {
     setIsPopUp1(true);
     //setOrderPopVisible(true);
     //setActivePopup('formalRequest');
+    console.log("hey", isPopUp1)
 
   };
 
@@ -148,13 +158,13 @@ const NewOrderBox = () => {
 
   const handleSampleShippingClick = () => {
     setOrderPopVisible(true);
-    setActivePopup('sampleShippingConfirmation');
+    setActivePopup('sampleShipping');
   };
 
   const handleQualityCheckClick = () => {
     setOrderPopVisible(true);
     setActivePopup('qualityCheck');
-   
+
   };
 
   const handleLibraryPrepClick = () => {
@@ -171,7 +181,7 @@ const NewOrderBox = () => {
     setOrderPopVisible(true);
     setActivePopup('analysisDone');
   };
-  
+
 
   const handleAnalysisRawDataClick = () => {
     setOrderPopVisible(true);
@@ -199,8 +209,8 @@ const NewOrderBox = () => {
     setRequestSheetStatus("isCompleted");
     setCostEstimateStatus("inAdminProgress");
     updateDataInDB({
-      requestSheetStatus:"isCompleted",
-      costEstimateStatus:"inAdminProgress"
+      requestSheetStatus: "isCompleted",
+      costEstimateStatus: "inAdminProgress"
     })
   }
 
@@ -210,19 +220,19 @@ const NewOrderBox = () => {
     setIsPopupVisible(false);
     setCostEstimateStatus("inUserProgress");
     updateDataInDB({
-      costEstimateStatus:"inUserProgress"
+      costEstimateStatus: "inUserProgress"
     })
   }
 
-  
+
   const handleConfirmFormalRequest = () => {
     setFormalRequestStatus("isCompleted")
     setSampleShippingStatus("inUserProgress")
     setOrderPopVisible(false);
-    setActivePopup('sampleShippingConfirmation');
+    setActivePopup('sampleShipping');
     updateDataInDB({
-      formalRequestStatus:"isCompleted",
-      sampleShippingStatus:"inUserProgress"
+      formalRequestStatus: "isCompleted",
+      sampleShippingStatus: "inUserProgress"
     })
   }
 
@@ -247,8 +257,8 @@ const NewOrderBox = () => {
     setQualityCheckStatus("isCompleted")
     setLibraryPrepStatus("inAdminProgress")
     updateDataInDB({
-      qualityCheckStatus:"isCompleted",
-      libraryPrepStatus:"inAdminProgress"
+      qualityCheckStatus: "isCompleted",
+      libraryPrepStatus: "inAdminProgress"
     })
   }
   const handleLibraryPrepConfirmation = () => {
@@ -258,10 +268,10 @@ const NewOrderBox = () => {
     setActivePopup('');
     setLibraryPrepStatus('inUserProgress')
     updateDataInDB({
-     
-      libraryPrepStatus:"inUserProgress"
+
+      libraryPrepStatus: "inUserProgress"
     })
-    
+
   }
   const handleAnalysisDoneConfirmation = () => {
     console.log(sampleShippingStatus)
@@ -300,21 +310,21 @@ const NewOrderBox = () => {
     setAnalysisSpecificationStatus("inUserProgress")
     updateDataInDB({
 
-      analysisRawDataStatus:"isCompleted",
-      analysisSpecificationStatus:"inUserProgress"
+      analysisRawDataStatus: "isCompleted",
+      analysisSpecificationStatus: "inUserProgress"
 
     })
   }
 
-  const handleAnalysisSpecification=()=>{
+  const handleAnalysisSpecification = () => {
     setOrderPopVisible(false);
     setActivePopup('');
     setAnalysisSpecificationStatus("isCompleted")
     setInvoiceStatus("inAdminProgress")
     updateDataInDB({
 
-      analysisSpecificationStatus:"isCompleted",
-      invoiceStatus:"inAdminProgress"
+      analysisSpecificationStatus: "isCompleted",
+      invoiceStatus: "inAdminProgress"
     })
 
   }
@@ -322,19 +332,19 @@ const NewOrderBox = () => {
 
   const handleInvoice = () => {
     setOrderPopVisible(false);
-    setActivePopup('');
+    //setActivePopup('');
     setInvoiceStatus("inUserProgress")
     updateDataInDB({
-      invoiceStatus:"inUserProgress"
+      invoiceStatus: "inUserProgress"
     })
   }
- 
-  const handleConfirmPayment= () => {
+
+  const handleConfirmPayment = () => {
     setOrderPopVisible(false);
-    setActivePopup('');
+    //setActivePopup('');
     setPaymentStatus("inUserProgress")
     updateDataInDB({
-      paymentStatus:"inUserProgress"
+      paymentStatus: "inUserProgress"
     })
   }
 
@@ -351,7 +361,7 @@ const NewOrderBox = () => {
 
   useEffect(() => {
     if (sampleShippingStatus == "isPending" && formalRequestStatus == "isCompleted") {
-      setActivePopup("sampleShippingConfirmation");
+      setActivePopup("sampleShipping");
       setOrderPopVisible(true);
       setUploadedFile({ vector3 });
     }
@@ -372,15 +382,15 @@ const NewOrderBox = () => {
     };
   }, [uploadedFile]);
 
-  useEffect(()=>{
-    const fetchOrderByID = async(orderId)=>{
-      try{
+  useEffect(() => {
+    const fetchOrderByID = async (orderId) => {
+      try {
         const response = await fetch('/api/fetchOrder', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({orderId:orderId}),
+          body: JSON.stringify({ orderId: orderId }),
         });
         const order = await response.json();
         const orderData = order.data
@@ -409,17 +419,17 @@ const NewOrderBox = () => {
         setInvoiceLink(orderData.invoiceLink);
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
-      }catch(error){
-        console.log("fetch order error ",error)
+      } catch (error) {
+        console.log("fetch order error ", error)
       }
     }
 
     fetchOrderByID(orderIdDB);
-  },[])
+  }, [])
 
-  console.log("orderid",orderId)
+  console.log("orderid", orderId)
 
-  const handleSendMessage = ()=>{
+  const handleSendMessage = () => {
     router.push(`${path}/${userIdDB}`)
   }
 
@@ -595,7 +605,7 @@ const NewOrderBox = () => {
                     Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
+                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
                     <button onClick={handleGenerateClick} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
                   </div>
 
@@ -604,8 +614,8 @@ const NewOrderBox = () => {
               {activePopup === 'costEstimateConfirmation' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Success!</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>You have successfully sent the Cost Estimate Sheet.</span>
                     <button
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmCostEstimate}
@@ -622,7 +632,7 @@ const NewOrderBox = () => {
                   <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
                 </div>
               )}
-              {activePopup === 'sampleShippingConfirmation' && (
+              {/* {activePopup === 'sampleShippingConfirmation' && (
                 <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
                     <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
@@ -633,8 +643,8 @@ const NewOrderBox = () => {
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={sampleConfirm}>Confirm</button>
                   </div>
                 </div>
-              )}
-              {/* {activePopup === 'sampleShipping' && (
+              )} */}
+              {activePopup === 'sampleShipping' && (
                 <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
                     <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
@@ -645,25 +655,25 @@ const NewOrderBox = () => {
                     <button className="h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt Confirmation</button>
                   </div>
                 </div>
-              )} */}
-              {activePopup==='deletePopUp' && (
-                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
-                <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
-                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
-                    We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
-                    Thank you <br></br>
-                    Medbank Genetic Analysis Team</span>
-                  <button
-                    className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
-                    onClick={handleDeleteOk}
-                  >
-                    OK
-                  </button>
-                </div>
-              </div>
               )}
-              {activePopup==='confirmPopUp' && (
+              {activePopup === 'deletePopUp' && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                      We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
+                      Thank you <br></br>
+                      Medbank Genetic Analysis Team</span>
+                    <button
+                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleDeleteOk}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              )}
+              {activePopup === 'confirmPopUp' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
@@ -683,85 +693,58 @@ const NewOrderBox = () => {
 
 
               {activePopup === 'qualityCheck' && (
+
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Cost Estimation</span>
-                  </div>
-                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
-                    <div className='flex flex-col items-center justify-center gap-[14px]'>
-                      <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                      <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                        <span>RequestSheet.pdf</span><br />
-                        <span>1.2MB</span>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Quality Check Report</div>
+                  <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
+                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                      <div {...getRootProps()} className="cursor-pointer">
+                        <input {...getInputProps()} />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <p className="text-[10px] md:text-sm font-normal">
+                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        </p>
+                        {uploadedFile && (
+                          <div className="mt-2">
+                            <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                            {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
+
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck}>Download</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck}>Upload</button>
                   </div>
                 </div>
               )}
               {activePopup === 'libraryPrep' && (
-                <div className='font-DM-Sans flex flex-col w-[358px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Library Preparation Report</div>
-                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
-                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the library preparation report.
-                    </div>
-                    <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
-                      Download library preparation report.
-                    </div>
-                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
-                      <div className='flex gap-[8px]'>
-                        <div className="flex items-center justify-center">
-                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
-                        </div>
-                        <div>
-                          {
-                            uploadedFile && uploadedFile instanceof File && (
-                              <a href={URL.createObjectURL(uploadedFile)}>
-                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                                <p className="text-sm text-[#717171]">
-                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                                </p>
-                              </a>
-                            )
-                          }
-                        </div>
-                      </div>
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
-                    </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I have reviewed the Library Preparation Report.
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                          I have reviewed the contents of the library preparation report and found no problems. I agree to proceed to the next step.
-                        </span>
-                      </span>
-                    </label>
-                    <div className='hidden md:block text-base font-normal leading-[24px]'>
-                      Note :For resending or cancelling the sample contact us via   chat.
-                    </div>
-                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleLibraryPrepConfirmation}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleLibraryPrepConfirmation}>Proceed</button>
-                    </div>
 
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Quality Check Report</div>
+                  <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
+                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                      <div {...getRootProps()} className="cursor-pointer">
+                        <input {...getInputProps()} />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <p className="text-[10px] md:text-sm font-normal">
+                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        </p>
+                        {uploadedFile && (
+                          <div className="mt-2">
+                            <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                            <p className="text-lg text-blue-600">{uploadedFile.name}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation}>Upload</button>
                   </div>
                 </div>
               )}
@@ -773,7 +756,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Start</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDoneConfirmation}>Start</button>
                   </div>
                 </div>
               )}
@@ -790,116 +773,58 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'analysisRawData' && (
-                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
-                  <div className='flex flex-col gap-[6px] md:gap-[12px]'>
-                    <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
-                      https:rawdatamedbank.com
-                    </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I have reviewed the Data Link.
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                          I have reviewed the Data Link.
-                        </span>
-                      </span>
-                    </label>
-                    <label className="hidden md:inline-flex items-center ">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I agree that Raw Data will be deleted in 3 months.
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                          I agree that Raw Data will be deleted in 3 months.
-                        </span>
-                      </span>
-                    </label>
-                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisRawDataConfirm}>Proceed to library preparation</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisRawDataConfirm}>Proceed</button>
-                    </div>
+                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[282px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-4 leading-[24px]'>Raw Data</div>
+                  <div className='w-full border-t-2 border-dashed border-gray-100 md:pb-4'></div>
 
+                  <div className="md:flex md:flex-row flex flex-col  gap-[6px] md:gap-4">
+                    <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm flex items-center md:pt-6">
+                      Paste data link
+                    </label>
+                    <div className='group w-[332px] md:w-[527px] h-[35px] md:h-[46px] flex items-center justify-center md:pt-8'>
+                      <div className={`w-[332px] md:w-[527px] rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
+                        <input className="w-[332px] md:w-[527px] p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
+                          placeholder="link"
+                          //value={city}
+                          //onChange={(e) => setCity(e.target.value)}
+                          style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
+                          type="text"
+                          name="name"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-full flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-12'>
+                    <button onClick={() => { setOrderPopVisible(false) }} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Back</button>
+                    <button onClick={ handleAnalysisRawDataConfirm } className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Send</button>
                   </div>
                 </div>
               )}
               {activePopup === 'analysisSpecification' && (
-                <div className='font-DM-Sans flex flex-col w-[321px] h-[322px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Analysis Specification Report</div>
-                  <div className='flex flex-col gap-[6px] md:gap-[8px]'>
-                    <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the analysis specification report.
-                    </div>
-                    <div className='text-[8px] md:text-xs font-normal leading-[24px] md:leading-[34px]'>
-                      Download report.
-                    </div>
-                    <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
-                      <div className='flex gap-[8px]'>
-                        <div className="flex items-center justify-center">
-                          <Image src={file1} className='w-[18px] h-[24px]'></Image>
-                        </div>
-                        <div>
-                          {
-                            uploadedFile && uploadedFile instanceof File && (
-                              <a href={URL.createObjectURL(uploadedFile)}>
-                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                                <p className="text-sm text-[#717171]">
-                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                                </p>
-                              </a>
-                            )
-                          }
-                        </div>
-                      </div>
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
-                    </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
-                      />
-                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I have reviewed the Analysis Specification Report
-                        </span>
-                        {/* Show the original text only on desktop */}
-                        <span className='hidden md:block'>
-                          I have reviewed the contents of the analysis specification report and found no problems.
-                        </span>
-                      </span>
-                    </label>
-                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisSpecification}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleAnalysisSpecification}>Proceed</button>
-                    </div>
 
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center">Analysis Specification</div>
+                  <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
+                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                      <div {...getRootProps()} className="cursor-pointer">
+                        <input {...getInputProps()} />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <p className="text-[10px] md:text-sm font-normal">
+                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        </p>
+                        {uploadedFile && (
+                          <div className="mt-2">
+                            <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                            {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification}>Upload</button>
                   </div>
                 </div>
               )}
@@ -909,7 +834,7 @@ const NewOrderBox = () => {
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
 
-                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-10">
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
@@ -1055,7 +980,7 @@ const NewOrderBox = () => {
                     Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
+                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
                     <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
                   </div>
 
@@ -1064,7 +989,7 @@ const NewOrderBox = () => {
               {isPopUp1 && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message6</span>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
                     <button
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
@@ -1090,24 +1015,25 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'payment' && (
-                <div className='md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='md:h-[50px] flex items-center justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                    <span className='font-DM-Sans text-center font-medium md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
-                  </div>
-                  <div className='md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
-                    <div className='flex flex-col items-center justify-center gap-[14px]'>
-                      <Image className='md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                      <div className='font-DM-Sans font-normal md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                        <span>Receipt.pdf</span><br />
-                        <span>1.2MB</span>
-                      </div>
+               
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
+                  <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
+                </div>
+                <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                  <div className='flex flex-col items-center justify-center gap-[14px]'>
+                    <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
+                    <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
+                      <span>RequestSheet.pdf</span><br />
+                      <span>1.2MB</span>
                     </div>
                   </div>
-                  <div className='md:w-[490px] flex items-center justify-end gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
-                  </div>
                 </div>
+                <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
+                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment }>Download</button>
+                </div>
+              </div>
               )}
             </div>
           </div>
