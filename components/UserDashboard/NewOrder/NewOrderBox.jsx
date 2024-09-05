@@ -93,15 +93,30 @@ const NewOrderBox = () => {
   };
 
   const handleDeleteOk = () => {
-    setDeletePopUp(false);
     setOrderPopVisible(false);
-    setSampleShippingStatus("isCompleted");
+    //setOrderPopVisible(true);
+    //setActivePopup('formalRequest');
+    setOrderPopVisible(false);
+    setSampleShippingStatus("inUserProgress")
+    updateDataInDB({
+      sampleShippingStatus: "inUserProgress"
+    })
+
   };
 
   const handleConfirmOk = () => {
-    setConfirmPopUp(false);
+    setOrderPopVisible(false);
+    //setOrderPopVisible(true);
+    //setActivePopup('formalRequest');
     setOrderPopVisible(false);
     setSampleShippingStatus("isCompleted");
+    setQualityCheckStatus('inAdminProgress')
+    updateDataInDB({
+      sampleShippingStatus: "isCompleted",
+      qualityCheckStatus:'inAdminProgress'
+
+    })
+
   };
 
   const handleClick1 = () => {
@@ -126,7 +141,16 @@ const NewOrderBox = () => {
 
   const handleSampleShippingClick = () => {
     setOrderPopVisible(true);
-    setActivePopup('sampleShippingConfirmation');
+    if(sampleShippingStatus=="inUserProgress")
+      setActivePopup('sampleShippingSend');
+    else{
+      if(sampleShipping=="ok"){
+        setActivePopup('sampleShippingOk');
+      }
+      else{
+        setActivePopup('sampleShippingDefect')
+      }
+    }
   };
 
   const handleQualityCheckClick = () => {
@@ -190,11 +214,11 @@ const NewOrderBox = () => {
   };
 
   const handleConfirmFormalRequest = () => {
-    setFormalRequestStatus("inAdminProgress");
+    setFormalRequestStatus("isUserCompleted");
     setOrderPopVisible(false);
     //setActivePopup('sampleShippingConfirmation');
     updateDataInDB({
-      formalRequestStatus:"inAdminProgress"
+      formalRequestStatus:"isUserCompleted"
     })
   };
 
@@ -202,10 +226,10 @@ const NewOrderBox = () => {
     setIsPopupVisible(false);
     setOrderPopVisible(false);
     //setActivePopup('');
-    setSampleShippingStatus("inAdminProgress")
+    setSampleShippingStatus("inTransit")
     //setSampleShippingStatus("inUserProgress");
     updateDataInDB({
-      sampleShippingStatus:"inAdminProgress"
+      sampleShippingStatus:"inTransit"
     })
 
   };
@@ -213,10 +237,11 @@ const NewOrderBox = () => {
   const handleConfirmQualityCheck = () => {
     setOrderPopVisible(false);
     //setActivePopup('');
-    setQualityCheckStatus("inAdminProgress");
-    //setLibraryPrepStatus("inUserProgress");
+    setQualityCheckStatus("isCompleted");
+    setLibraryPrepStatus("inAdminProgress");
     updateDataInDB({
-      qualityCheckStatus:"inAdminProgress"
+      qualityCheckStatus:"isCompleted",
+      libraryPrepStatus:"inAdminProgress"
     })
   };
 
@@ -225,11 +250,10 @@ const NewOrderBox = () => {
     setActivePopup('');
     setLibraryPrepStatus("isCompleted");
     //setAnalysisProgressStatus("inUserProgress");
-    setAnalysisRawDataStatus("inUserProgress")
+    setAnalysisProgressStatus('inAdminProgress');
     updateDataInDB({
       libraryPrepStatus:"isCompleted",
-      //analysisProgressStatus:"inUserProgress"
-      analysisRawDataStatus:"inUserProgress"
+      analysisProgressStatus:'inAdminProgress'
     })
   };
 
@@ -249,34 +273,35 @@ const NewOrderBox = () => {
 
   const handleAnalysisRawDataConfirm=()=>{
     setOrderPopVisible(false);
-    setActivePopup('');
-    setAnalysisRawDataStatus("inAdminProgress")
+    setAnalysisRawDataStatus("inCompleted")
     updateDataInDB({
-
-      analysisRawDataStatus:"inAdminProgress"
+      analysisRawDataStatus:"isCompleted"
     })
 
   }
 
   const handleAnalysisSpecification=()=>{
     setOrderPopVisible(false);
-    //setActivePopup('');
-    setAnalysisSpecificationStatus("inAdminProgress")
+    setAnalysisSpecificationStatus("isCompleted")
     updateDataInDB({
-
-      analysisSpecificationStatus:"inAdminProgress"
+      analysisSpecificationStatus:"isCompleted"
     })
 
   }
 
   const handleInvoice = () => {
     setOrderPopVisible(false);
-    //setActivePopup('');
     setInvoiceStatus("isCompleted")
-    setPaymentStatus("inAdminProgress")
     updateDataInDB({
-      invoiceStatus:"isCompleted",
-      paymentStatus:"inAdminProgress"
+      invoiceStatus:"isCompleted"
+    })
+  }
+  
+  const handleConfirmPayment = () => {
+    setOrderPopVisible(false);
+    setPaymentStatus("isCompleted")
+    updateDataInDB({
+      paymentStatus:"isCompleted"
     })
   }
 
@@ -396,45 +421,93 @@ const NewOrderBox = () => {
                   </div>
                 </div>
               )}
-              {activePopup === 'sampleShippingConfirmation' && (
-                <div className='w-[298px] h-[221px] md:h-[334px] md:w-[564px] p-[24px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
-                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>OK</button>
+              {activePopup === 'sampleShippingSend' && (
+                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
+                <div className='flex flex-col gap-[6px] md:gap-[12px]'>
+                  <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
+                    https:rawdatamedbank.com
+                  </div>
+                  <label className="inline-flex items-center pt-[8px] md:pt-4">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox accent-[#3e8ca7]"
+                      checked={check}
+                      onChange={() => setCheck(!check)}
+                      required
+                    />
+                    <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                      {/* Show this text only on mobile */}
+                      <span className='block md:hidden'>
+                        I have reviewed the Data Link.
+                      </span>
+                      {/* Show the original text only on desktop */}
+                      <span className='hidden md:block'>
+                        I have reviewed the Data Link.
+                      </span>
+                    </span>
+                  </label>
+                  <label className="hidden md:inline-flex items-center ">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox accent-[#3e8ca7]"
+                      checked={check}
+                      onChange={() => setCheck(!check)}
+                      required
+                    />
+                    <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                      {/* Show this text only on mobile */}
+                      <span className='block md:hidden'>
+                        I agree that Raw Data will be deleted in 3 months.
+                      </span>
+                      {/* Show the original text only on desktop */}
+                      <span className='hidden md:block'>
+                        I agree that Raw Data will be deleted in 3 months.
+                      </span>
+                    </span>
+                  </label>
+                  <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
+                    <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleConfirmSampleShipping}>Proceed to library preparation</button>
+                    <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] 'onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
+                    <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'onClick={handleConfirmSampleShipping}>Proceed</button>
+                  </div>
+
+                </div>
+              </div>
+              )}
+              {activePopup === 'sampleShippingDefect' && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                      We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
+                      Thank you <br></br>
+                      Medbank Genetic Analysis Team</span>
+                    <button
+                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleDeleteOk}
+                    >
+                      OK
+                    </button>
+                  </div>
                 </div>
               )}
-              {activePopup === 'sampleShipping' && (
-                sampleShippingStatus == "isPending" ? (
-                  <div className='w-[298px] h-[221px] md:h-[334px] p-[24px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
-                    <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmSampleShipping}>OK</button>
+              {activePopup === 'sampleShippingOk' && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                  <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                      We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
+                      Thank you <br></br>
+                      Medbank Genetic Analysis Team</span>
+                    <button
+                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                      onClick={handleConfirmOk}
+                    >
+                      OK
+                    </button>
                   </div>
-                ) :
-                  sampleShippingStatus == "inUserProgress" ? (
-                    <div className='w-[298px] h-[221px] md:h-[287px] md:w-[658px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                      <div className='flex flex-col gap-[24px]'>
-                        <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                        <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                      </div>
-                      <div className='flex items-center justify-center gap-[12px]'>
-                        <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                        <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Confirm</button>
-                      </div>
-                    </div>
-                  ) :
-                    (
-                      <div className='md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                        <div className='flex flex-col gap-[24px]'>
-                          <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                          <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                        </div>
-                        <div className='flex items-center justify-center gap-[12px]'>
-                          <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                          <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleSampleShipping}>Confirm</button>
-                        </div>
-                      </div>
-                    )
+                </div>
               )}
               {activePopup === 'qualityCheck' && (
                 <div className='font-DM-Sans flex flex-col w-[306px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
@@ -760,7 +833,7 @@ const NewOrderBox = () => {
                 </div>
                 <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                   <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
                 </div>
               </div>
               )}
@@ -772,18 +845,18 @@ const NewOrderBox = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{orderId}</span>
           </div>
           <div className='flex items-center justify-center md:justify-start gap-x-[6px] gap-y-[6px]  md:gap-x-[32px] md:gap-y-[8px] flex-wrap'>
-            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" ? "bg-[#E2E8F0]" : requestSheetStatus == "inUserProgress" ? "bg-[#FF914D]" : requestSheetStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
-            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" ? "bg-[#E2E8F0]" : costEstimateStatus == "inUserProgress" ? "bg-[#FF914D]" : costEstimateStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
-            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" ? "bg-[#E2E8F0]" : formalRequestStatus == "inUserProgress" ? "bg-[#FF914D]" : formalRequestStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
-            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inUserProgress" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#79747E]" : requestSheetStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample Shipment</button>
-            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inUserProgress" ? "bg-[#FF914D]" : qualityCheckStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
-            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inUserProgress" ? "bg-[#FF914D]" : libraryPrepStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
-            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inUserProgress" ? "bg-[#FF914D]" : analysisProgressStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
-            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inUserProgress" ? "bg-[#FF914D]" : analysisDoneStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
-            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inUserProgress" ? "bg-[#FF914D]" : analysisRawDataStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
-            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inUserProgress" ? "bg-[#FF914D]" : analysisSpecificationStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
-            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" ? "bg-[#E2E8F0]" : invoiceStatus == "invoicerogress" ? "bg-[#FF914D]" : invoiceStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
-            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inUserProgress")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" ? "bg-[#E2E8F0]" : paymentStatus == "paymentess" ? "bg-[#FF914D]" : paymentStatus == "inAdminProgress" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
+            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inUserProgress" || requestSheetStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" || requestSheetStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" || requestSheetStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : requestSheetStatus == "inUserProgress" || requestSheetStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
+            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inUserProgress" || costEstimateStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" || costEstimateStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" || costEstimateStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : costEstimateStatus == "inUserProgress" || costEstimateStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
+            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inUserProgress" || formalRequestStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" || formalRequestStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" || formalRequestStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : formalRequestStatus == "inUserProgress" || formalRequestStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
+            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inUserProgress" || sampleShippingStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inUserProgress" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" || sampleShippingStatus == "isAdminCompleted" ? "bg-[#79747E]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample Shipment</button>
+            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inUserProgress" || qualityCheckStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inUserProgress" || qualityCheckStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
+            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inUserProgress" || libraryPrepStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inUserProgress" || libraryPrepStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
+            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inUserProgress" || analysisProgressStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inUserProgress" || analysisProgressStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
+            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inUserProgress" || analysisDoneStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inUserProgress" || analysisDoneStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
+            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inUserProgress" || analysisRawDataStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inUserProgress" || analysisRawDataStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
+            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inUserProgress" || analysisSpecificationStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inUserProgress" || analysisSpecificationStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
+            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inUserProgress" || invoiceStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" || invoiceStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" || invoiceStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : invoiceStatus == "invoicerogress" || invoiceStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
+            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inUserProgress" || paymentStatus == "isAdminCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" || paymentStatus == "inAdminProgress" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" || paymentStatus == "inAdminProgress" ? "bg-[#E2E8F0]" : paymentStatus == "paymentess" || paymentStatus == "isAdminCompleted" ? "bg-[#FF914D]"  : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
           </div>
         </div>
         <div className="w-full h-[92px] md:px-[40px] flex flex-col justify-center border-[1px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">

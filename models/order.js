@@ -14,7 +14,7 @@ const orderSchema = new Schema(
     },
     requestSheetStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     requestSheetLink: {
@@ -22,7 +22,7 @@ const orderSchema = new Schema(
     },
     costEstimateStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     costEstimationLink: {
@@ -30,7 +30,7 @@ const orderSchema = new Schema(
     },
     formalRequestStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     sampleShippingStatus: {
@@ -44,7 +44,7 @@ const orderSchema = new Schema(
     },
     qualityCheckStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     qualityCheckReportLink: {
@@ -52,7 +52,7 @@ const orderSchema = new Schema(
     },
     libraryPrepStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     libraryCheckReportLink: {
@@ -60,17 +60,17 @@ const orderSchema = new Schema(
     },
     analysisProgressStatus: {
         type: String,
-        enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+        enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
         default: "isPending",
       },
     analysisDoneStatus: {
         type: String,
-        enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+        enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
         default: "isPending",
       },
     analysisRawDataStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     rawDataLink: {
@@ -78,7 +78,7 @@ const orderSchema = new Schema(
     },
     analysisSpecificationStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     analysisSpecificationReportLink: {
@@ -86,7 +86,7 @@ const orderSchema = new Schema(
     },
     invoiceStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     invoiceLink: {
@@ -94,7 +94,7 @@ const orderSchema = new Schema(
     },
     paymentStatus: {
       type: String,
-      enum: ["isPending", "inUserProgress", "inAdminProgress", "isCompleted"],
+      enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
       default: "isPending",
     },
     paymentRecieptLink: {
