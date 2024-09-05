@@ -106,13 +106,13 @@ const OrderCreationPage = () => {
 
       setRequestSheetLink(res.url.split("?")[0]);
   
-      setRequestSheetStatus("inAdminProgress");
+      setRequestSheetStatus("isUserCompleted");
       const fileUrl = res.url.split("?")[0];
       console.log(fileUrl)
 
       const orderData = {
         orderTitle,
-        requestSheetStatus:"inAdminProgress",
+        requestSheetStatus:"isUserCompleted",
         requestSheetLink: fileUrl,
       };
 

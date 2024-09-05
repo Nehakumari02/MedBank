@@ -24,7 +24,8 @@ const Messages= ({
   }
 
   // messages = messages.sort((a, b) => a.createdAt - b.createdAt)
-  messages = messages.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
+  if(messages)
+    messages = messages.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
 
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const Messages= ({
       className='flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'>
       <div ref={scrollDownRef} />
 
-      {messages.map((message, index) => {
+      {messages && messages.map((message, index) => {
         const isCurrentUser = message.senderId === userIdDB
 
         const hasNextMessageFromSameUser =
