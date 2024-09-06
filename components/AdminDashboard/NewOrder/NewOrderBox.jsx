@@ -13,11 +13,12 @@ import CalculateCost from '../../../components/CalculateCost'
 import LangDropdown from "../../../components/LangDropdown"
 import { useDropzone } from 'react-dropzone';
 import folder1 from "../../../public/dashboard/folder.png"
+import { toast } from '@/hooks/use-toast';
 
 
 
 const NewOrderBox = () => {
-  const { getRootProps, getInputProps } = useDropzone();
+  // const { getRootProps, getInputProps } = useDropzone();
   const router = useRouter();
   const path = usePathname();
   const orderIdDB = usePathname().split("/")[3]
@@ -29,8 +30,6 @@ const NewOrderBox = () => {
   const [activePopup, setActivePopup] = useState('');
   const [check, setCheck] = useState(false);
   const { uploadedFile, setUploadedFile } = useOrder();
-  const [file, setFile] = useState(uploadedFile);
-
 
   const [currency, setCurrency] = useState("JPY");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -78,6 +77,18 @@ const NewOrderBox = () => {
     paymentRecieptLink, setPaymentRecieptLink,
 
   } = useOrder();
+  const [disabled,setDisabled] = useState(false);
+
+  console.log("order title",orderTitle)
+  const onDrop = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    setUploadedFile(file); // Update the state to show the file
+  
+    
+  };
+  
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 
   const handleGenerateClick = () => {
@@ -250,28 +261,215 @@ const NewOrderBox = () => {
     }));
   }
 
-  const handleConfirQualityCheck = () => {
-
-    console.log(sampleShippingStatus)
-    console.log("click on ok from sample shipping")
+  const handleConfirQualityCheck = async() => {
     setIsPopupVisible(false);
     setOrderPopVisible(false);
-    setActivePopup('');
-    setQualityCheckStatus("isAdminCompleted")
+    //setActivePopup('');
+   
     // setLibraryPrepStatus("inAdminProgress")
-    updateDataInDB({
-      qualityCheckStatus: "isAdminCompleted"
-    })
+    // updateDataInDB({
+    //   qualityCheckStatus: "isAdminCompleted"
+    // })
+
+
+    setDisabled(true);
+    if(!uploadedFile){
+      toast({
+        variant:"error",
+        title:"Error",
+        description:"Please upload a file..."
+      })
+      return;
+    }
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+  
+      // Call the API to get the signed URL
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName, fileType }),
+      });
+  
+      const { url } = await response.json();
+      console.log(url)
+      console.log("upload url",url.url)
+      setQualityCheckReportLink(url.split("?")[0]);
+      
+      // Upload the file directly to S3 using the signed URL
+      const res=await fetch(url, {
+        method: 'PUT',
+        body: uploadedFile,
+        headers: {
+          'Content-Type': fileType,
+        },
+      });
+      console.log("file upload status",res.status)
+      console.log("file upload url ",res.url)
+      console.log(res)
+
+      if(res.status!==200){
+        toast({
+          variant: "error",
+          title: "Upload Error",
+          description: "Try uploading file again...",
+        });
+        return;
+      }
+
+      setQualityCheckReportLink(res.url.split("?")[0]);
+  
+      setQualityCheckStatus("isAdminCompleted")
+      const fileUrl = res.url.split("?")[0];
+      console.log(fileUrl)
+
+      const orderData = {
+        orderTitle,
+        qualityCheckStatus:"isAdminCompleted",
+        qualityCheckReportLink: fileUrl,
+      };
+
+      console.log(orderIdDB)
+      const saveApiResponse = await fetch('/api/updateOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+      });
+
+      console.log(saveApiResponse)
+
+      if(saveApiResponse.status!==200){
+        toast({
+          variant: "error",
+          title: "Updation Error",
+          description: "Failed to submit order, please try again...",
+        });
+        return;
+      }
+  
+      toast({
+        variant: "success",
+        title: "Upload Successful",
+        description: "Your file has been uploaded to S3.",
+      });
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Upload Failed",
+        description: "There was an error uploading your file.",
+      });
+      console.error("Error uploading file:", err);
+    } finally{
+      setDisabled(false);
+    }
   }
-  const handleLibraryPrepConfirmation = () => {
-    console.log(sampleShippingStatus)
-    console.log("click on ok from sample shipping")
+  const handleLibraryPrepConfirmation = async() => {
+    //console.log(sampleShippingStatus)
+    //console.log("click on ok from sample shipping")
     setOrderPopVisible(false);
-    setActivePopup('');
-    setLibraryPrepStatus('isAdminCompleted')
-    updateDataInDB({
-      libraryPrepStatus: "isAdminCompleted"
-    })
+    //setActivePopup('');
+    // setLibraryPrepStatus('isAdminCompleted')
+    // updateDataInDB({
+    //   libraryPrepStatus: "isAdminCompleted"
+    // })
+    setDisabled(true);
+    if(!uploadedFile){
+      toast({
+        variant:"error",
+        title:"Error",
+        description:"Please upload a file..."
+      })
+      return;
+    }
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+  
+      // Call the API to get the signed URL
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName, fileType }),
+      });
+  
+      const { url } = await response.json();
+      console.log(url)
+      console.log("upload url",url.url)
+      setLibraryCheckReportLink(url.split("?")[0]);
+      
+      // Upload the file directly to S3 using the signed URL
+      const res=await fetch(url, {
+        method: 'PUT',
+        body: uploadedFile,
+        headers: {
+          'Content-Type': fileType,
+        },
+      });
+      console.log("file upload status",res.status)
+      console.log("file upload url ",res.url)
+      console.log(res)
+
+      if(res.status!==200){
+        toast({
+          variant: "error",
+          title: "Upload Error",
+          description: "Try uploading file again...",
+        });
+        return;
+      }
+
+      setLibraryCheckReportLink(res.url.split("?")[0]);
+  
+      setLibraryPrepStatus("isAdminCompleted")
+      const fileUrl = res.url.split("?")[0];
+      console.log(fileUrl)
+
+      const orderData = {
+        orderTitle,
+        libraryPrepStatus:"isAdminCompleted",
+        libraryCheckReportLink: fileUrl,
+      };
+
+      console.log(orderIdDB)
+      const saveApiResponse = await fetch('/api/updateOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+      });
+
+      console.log(saveApiResponse)
+
+      if(saveApiResponse.status!==200){
+        toast({
+          variant: "error",
+          title: "Updation Error",
+          description: "Failed to submit order, please try again...",
+        });
+        return;
+      }
+  
+      toast({
+        variant: "success",
+        title: "Upload Successful",
+        description: "Your file has been uploaded to S3.",
+      });
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Upload Failed",
+        description: "There was an error uploading your file.",
+      });
+      console.error("Error uploading file:", err);
+    } finally{
+      setDisabled(false);
+    }
 
   }
   const handleAnalysisDoneConfirmation = async() => {
@@ -736,7 +934,7 @@ const NewOrderBox = () => {
 
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile}>Upload</button>
                   </div>
                 </div>
               )}
@@ -755,7 +953,7 @@ const NewOrderBox = () => {
                         {uploadedFile && (
                           <div className="mt-2">
                             <p className="text-sm md:text-base font-medium">File Uploaded</p>
-                            <p className="text-lg text-blue-600">{uploadedFile.name}</p>
+                            {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                       </div>
@@ -764,7 +962,7 @@ const NewOrderBox = () => {
 
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile}>Upload</button>
                   </div>
                 </div>
               )}
