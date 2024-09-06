@@ -58,6 +58,8 @@ const Chats = () => {
       setIsConnected(true);
       setTransport(socket.io.engine.transport.name);
 
+      socket.emit('join', { userId: userIdDB, conversationId: chatId, isAdmin: false });
+
       socket.io.engine.on("upgrade", (transport) => {
         setTransport(transport.name);
       });

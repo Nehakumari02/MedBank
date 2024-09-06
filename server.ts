@@ -18,17 +18,17 @@ app.prepare().then(() => {
 
   const io = new Server(httpServer);
 
-  io.on("connection",(socket)=>{
-    console.log("connection done")
-    socket.on('chat message', (msg) => {
-      console.log(msg)
-      io.emit('chat message', msg); // Broadcast the message to all connected clients
-    });
+  // io.on("connection",(socket)=>{
+  //   console.log("connection done")
+  //   socket.on('chat message', (msg) => {
+  //     console.log(msg)
+  //     io.emit('chat message', msg); // Broadcast the message to all connected clients
+  //   });
   
-    socket.on('disconnect', () => {
-      console.log('User disconnected');
-    });
-  })
+  //   socket.on('disconnect', () => {
+  //     console.log('User disconnected');
+  //   });
+  // })
 
   const userConnections = new Map(); // Maps conversationId to {userSocketId, adminSocketId}
 

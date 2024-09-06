@@ -40,6 +40,7 @@ import { useSession } from "next-auth/react"
 
 export type OrderList = {
   _id: string
+  userId: string
   orderId: string
   orderTitle: string
   requestSheet: {
@@ -104,6 +105,27 @@ export type OrderList = {
   __v: number
 }
 
+interface OrderTitleCellProps {
+  userId: string;
+  orderId: string;
+  orderTitle: string;
+}
+
+const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderTitle }) => {
+  const router = useRouter();
+  const language = usePathname().split("/")[1];
+
+  return (
+    <button
+      onClick={() => {
+        router.push(`/${language}/${userId}/${orderId}/OrderDetails`);
+      }}
+      className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center"
+    >
+      {orderTitle === "" ? "Order..." : orderTitle}
+    </button>
+  );
+};
 
 export const columns: ColumnDef<OrderList>[] = [
   // {
@@ -148,16 +170,14 @@ export const columns: ColumnDef<OrderList>[] = [
         </Button>
       )
     },
-    cell: ({ row }) =>{
-      const router = useRouter()
-      const { data: session } = useSession()
-      //const userId = session.user.id 
-      const orderId = row.original._id
-      const language = usePathname().split("/")[1];
-      return( <button onClick={()=>{
-        router.push(`/${language}/Admin_Restricted/${orderId}/NewOrder`)
-    }} className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")===""?"Order...":row.getValue("orderTitle")}</button>)},
-  },
+    cell: ({ row }) =>(
+      <OrderTitleCell
+        userId={row.original.userId}
+        orderId={row.original._id}
+        orderTitle={row.getValue("orderTitle")}
+      />
+    )
+    },
   {
     accessorKey: "requestSheetStatus",
     header: "Request Sheet",
