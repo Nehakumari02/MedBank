@@ -36,7 +36,7 @@ const NewOrderBox = () => {
   const [isPopUp1, setIsPopUp1] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
-  const [userIdDB,setUserIdDB] = useState("");
+  const [userIdDB, setUserIdDB] = useState("");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -77,16 +77,20 @@ const NewOrderBox = () => {
     paymentRecieptLink, setPaymentRecieptLink,
 
   } = useOrder();
-  const [disabled,setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [isTaxChecked, setIsTaxChecked] = useState(false);
+  const [isAmountChecked, setIsAmountChecked] = useState(false);
+  const [isInvoiceChecked1, setIsInvoiceChecked1] = useState(false);
+  const [isInvoiceChecked2, setIsInvoiceChecked2] = useState(false);
 
-  console.log("order title",orderTitle)
+  console.log("order title", orderTitle)
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     setUploadedFile(file); // Update the state to show the file
-  
-    
+
+
   };
-  
+
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -94,7 +98,29 @@ const NewOrderBox = () => {
   const handleGenerateClick = () => {
     // setIsPopupVisible(true);
     //setOrderPopVisible(true);
-    setActivePopup('costEstimateConfirmation');
+    if (!isAmountChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+      //return;
+    }
+    else if (!isTaxChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+      //return;
+    }
+    else {
+      setActivePopup('costEstimateConfirmation');
+
+    }
+
 
   };
   const handleGenerateClick1 = () => {
@@ -103,8 +129,6 @@ const NewOrderBox = () => {
     //setOrderPopVisible(true);
     setActivePopup('payment');
     console.log("hello", isPopUp1)
-
-
   };
 
   const sampleDelelte = () => {
@@ -128,7 +152,7 @@ const NewOrderBox = () => {
     setSampleShippingStatus("isAdminCompleted")
     updateDataInDB({
       sampleShippingStatus: "isAdminCompleted",
-      sampleShipping:"notOk"
+      sampleShipping: "notOk"
     })
 
   };
@@ -141,17 +165,57 @@ const NewOrderBox = () => {
     setSampleShippingStatus("isAdminCompleted")
     updateDataInDB({
       sampleShippingStatus: "isAdminCompleted",
-      sampleShipping:"ok"
+      sampleShipping: "ok"
     })
 
   };
   const handleClick1 = () => {
-    setIsPopUp1(true);
-    //setOrderPopVisible(true);
-    //setActivePopup('formalRequest');
-    console.log("hey", isPopUp1)
+    if (!isInvoiceChecked1) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    if (!isInvoiceChecked2) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else{
+      setIsPopUp1(true);
+      //setOrderPopVisible(true);
+      //setActivePopup('formalRequest');
+      console.log("hey", isPopUp1)
 
+    }
   };
+
+  const handleTaxCheckboxChange = (e) => {
+    setIsTaxChecked(e.target.checked);
+  };
+  const handleAmountCheckboxChange = (e) => {
+    setIsAmountChecked(e.target.checked);
+  };
+
+  const handleRawDataLink = (e) => {
+    setRawDataLink(e.target.value);
+  };
+
+  const handleInvoiceChecked1 = (e) => {
+    setIsInvoiceChecked1(e.target.value);
+  };
+  const handleInvoiceChecked2 = (e) => {
+    setIsInvoiceChecked2(e.target.value);
+  };
+
+
+
+
 
   const handleOrderCreation = () => {
     //router.push(`/${language}/${orderIdDB}/Admin_Restricted/NewOrder/OrderCreationPage`)
@@ -261,11 +325,11 @@ const NewOrderBox = () => {
     }));
   }
 
-  const handleConfirQualityCheck = async() => {
+  const handleConfirQualityCheck = async () => {
     setIsPopupVisible(false);
     setOrderPopVisible(false);
     //setActivePopup('');
-   
+
     // setLibraryPrepStatus("inAdminProgress")
     // updateDataInDB({
     //   qualityCheckStatus: "isAdminCompleted"
@@ -273,17 +337,17 @@ const NewOrderBox = () => {
 
 
     setDisabled(true);
-    if(!uploadedFile){
+    if (!uploadedFile) {
       toast({
-        variant:"error",
-        title:"Error",
-        description:"Please upload a file..."
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file..."
       })
       return;
     }
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -292,25 +356,25 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
       console.log(url)
-      console.log("upload url",url.url)
+      console.log("upload url", url.url)
       setQualityCheckReportLink(url.split("?")[0]);
-      
+
       // Upload the file directly to S3 using the signed URL
-      const res=await fetch(url, {
+      const res = await fetch(url, {
         method: 'PUT',
         body: uploadedFile,
         headers: {
           'Content-Type': fileType,
         },
       });
-      console.log("file upload status",res.status)
-      console.log("file upload url ",res.url)
+      console.log("file upload status", res.status)
+      console.log("file upload url ", res.url)
       console.log(res)
 
-      if(res.status!==200){
+      if (res.status !== 200) {
         toast({
           variant: "error",
           title: "Upload Error",
@@ -320,14 +384,14 @@ const NewOrderBox = () => {
       }
 
       setQualityCheckReportLink(res.url.split("?")[0]);
-  
+
       setQualityCheckStatus("isAdminCompleted")
       const fileUrl = res.url.split("?")[0];
       console.log(fileUrl)
 
       const orderData = {
         orderTitle,
-        qualityCheckStatus:"isAdminCompleted",
+        qualityCheckStatus: "isAdminCompleted",
         qualityCheckReportLink: fileUrl,
       };
 
@@ -337,12 +401,12 @@ const NewOrderBox = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+        body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
       });
 
       console.log(saveApiResponse)
 
-      if(saveApiResponse.status!==200){
+      if (saveApiResponse.status !== 200) {
         toast({
           variant: "error",
           title: "Updation Error",
@@ -350,7 +414,7 @@ const NewOrderBox = () => {
         });
         return;
       }
-  
+
       toast({
         variant: "success",
         title: "Upload Successful",
@@ -363,11 +427,11 @@ const NewOrderBox = () => {
         description: "There was an error uploading your file.",
       });
       console.error("Error uploading file:", err);
-    } finally{
+    } finally {
       setDisabled(false);
     }
   }
-  const handleLibraryPrepConfirmation = async() => {
+  const handleLibraryPrepConfirmation = async () => {
     //console.log(sampleShippingStatus)
     //console.log("click on ok from sample shipping")
     setOrderPopVisible(false);
@@ -377,17 +441,17 @@ const NewOrderBox = () => {
     //   libraryPrepStatus: "isAdminCompleted"
     // })
     setDisabled(true);
-    if(!uploadedFile){
+    if (!uploadedFile) {
       toast({
-        variant:"error",
-        title:"Error",
-        description:"Please upload a file..."
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file..."
       })
       return;
     }
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -396,25 +460,25 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
       console.log(url)
-      console.log("upload url",url.url)
+      console.log("upload url", url.url)
       setLibraryCheckReportLink(url.split("?")[0]);
-      
+
       // Upload the file directly to S3 using the signed URL
-      const res=await fetch(url, {
+      const res = await fetch(url, {
         method: 'PUT',
         body: uploadedFile,
         headers: {
           'Content-Type': fileType,
         },
       });
-      console.log("file upload status",res.status)
-      console.log("file upload url ",res.url)
+      console.log("file upload status", res.status)
+      console.log("file upload url ", res.url)
       console.log(res)
 
-      if(res.status!==200){
+      if (res.status !== 200) {
         toast({
           variant: "error",
           title: "Upload Error",
@@ -424,14 +488,14 @@ const NewOrderBox = () => {
       }
 
       setLibraryCheckReportLink(res.url.split("?")[0]);
-  
+
       setLibraryPrepStatus("isAdminCompleted")
       const fileUrl = res.url.split("?")[0];
       console.log(fileUrl)
 
       const orderData = {
         orderTitle,
-        libraryPrepStatus:"isAdminCompleted",
+        libraryPrepStatus: "isAdminCompleted",
         libraryCheckReportLink: fileUrl,
       };
 
@@ -441,12 +505,12 @@ const NewOrderBox = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+        body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
       });
 
       console.log(saveApiResponse)
 
-      if(saveApiResponse.status!==200){
+      if (saveApiResponse.status !== 200) {
         toast({
           variant: "error",
           title: "Updation Error",
@@ -454,7 +518,7 @@ const NewOrderBox = () => {
         });
         return;
       }
-  
+
       toast({
         variant: "success",
         title: "Upload Successful",
@@ -467,48 +531,48 @@ const NewOrderBox = () => {
         description: "There was an error uploading your file.",
       });
       console.error("Error uploading file:", err);
-    } finally{
+    } finally {
       setDisabled(false);
     }
 
   }
-  const handleAnalysisDoneConfirmation = async() => {
+  const handleAnalysisDoneConfirmation = async () => {
     console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
     setOrderPopVisible(false);
-    try{
+    try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId:userIdDB,message:`Dear user\n Analysis has been started for your order ${orderId}` }),
+        body: JSON.stringify({ userId: userIdDB, message: `Dear user\n Analysis has been started for your order ${orderId}` }),
       });
       console.log(res)
       setAnalysisProgressStatus('isCompleted');
       setAnalysisDoneStatus('inAdminProgress');
       handleSendMessage();
       updateDataInDB({
-       analysisProgressStatus:"isCompleted",
-        analysisDoneStatus:"inAdminProgress"
-       })
-    }catch{
+        analysisProgressStatus: "isCompleted",
+        analysisDoneStatus: "inAdminProgress"
+      })
+    } catch {
 
     }
-    
+
   }
-  
-  const handleAnalysisDone = async() => {
+
+  const handleAnalysisDone = async () => {
     console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
     setOrderPopVisible(false);
-    try{
+    try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId:userIdDB,message:`Dear user\n Analysis has been completed for your order ${orderId}` }),
+        body: JSON.stringify({ userId: userIdDB, message: `Dear user\n Analysis has been completed for your order ${orderId}` }),
       });
       console.log(res)
       setAnalysisDoneStatus('isCompleted');
@@ -517,34 +581,142 @@ const NewOrderBox = () => {
       setInvoiceStatus('inAdminProgress')
       handleSendMessage();
       updateDataInDB({
-       analysisDoneStatus:"isCompleted",
-        analysisRawDataStatus:"inAdminProgress",
-        analysisSpecificationStatus:"inAdminProgress",
-        invoiceStatus:"inAdminProgress"
-       })
-    }catch{
+        analysisDoneStatus: "isCompleted",
+        analysisRawDataStatus: "inAdminProgress",
+        analysisSpecificationStatus: "inAdminProgress",
+        invoiceStatus: "inAdminProgress"
+      })
+    } catch {
 
     }
-    
+
   }
 
 
   const handleAnalysisRawDataConfirm = () => {
-    setOrderPopVisible(false);
-    setActivePopup('');
-    setAnalysisRawDataStatus("isAdminCompleted")
-    updateDataInDB({
-      analysisRawDataStatus: "isAdminCompleted",
-    })
+    if (!rawDataLink) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "Please paste the data link..."
+      })
+      return;
+    }
+    else {
+      setOrderPopVisible(false);
+      setActivePopup('');
+      setAnalysisRawDataStatus("isAdminCompleted")
+      setRawDataLink(rawDataLink)
+      updateDataInDB({
+        analysisRawDataStatus: "isAdminCompleted",
+        rawDataLink:rawDataLink
+      })
+    }
+
   }
 
-  const handleAnalysisSpecification = () => {
+  const handleAnalysisSpecification = async () => {
     setOrderPopVisible(false);
-    setActivePopup('');
-    setAnalysisSpecificationStatus("isAdminCompleted")
-    updateDataInDB({
-      analysisSpecificationStatus: "isAdminCompleted",
-    })
+    // setActivePopup('');
+    // setAnalysisSpecificationStatus("isAdminCompleted")
+    // updateDataInDB({
+    //   analysisSpecificationStatus: "isAdminCompleted",
+    // })
+
+    setDisabled(true);
+    if (!uploadedFile) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file..."
+      })
+      return;
+    }
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+
+      // Call the API to get the signed URL
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName, fileType }),
+      });
+
+      const { url } = await response.json();
+      console.log(url)
+      console.log("upload url", url.url)
+      setAnalysisSpecificationReportLink(url.split("?")[0]);
+
+      // Upload the file directly to S3 using the signed URL
+      const res = await fetch(url, {
+        method: 'PUT',
+        body: uploadedFile,
+        headers: {
+          'Content-Type': fileType,
+        },
+      });
+      console.log("file upload status", res.status)
+      console.log("file upload url ", res.url)
+      console.log(res)
+
+      if (res.status !== 200) {
+        toast({
+          variant: "error",
+          title: "Upload Error",
+          description: "Try uploading file again...",
+        });
+        return;
+      }
+
+      setAnalysisSpecificationReportLink(res.url.split("?")[0]);
+
+      setAnalysisSpecificationStatus("isAdminCompleted")
+      const fileUrl = res.url.split("?")[0];
+      console.log(fileUrl)
+
+      const orderData = {
+        orderTitle,
+        analysisSpecificationStatus: "isAdminCompleted",
+        analysisSpecificationReportLink: fileUrl,
+      };
+
+      console.log(orderIdDB)
+      const saveApiResponse = await fetch('/api/updateOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
+      });
+
+      console.log(saveApiResponse)
+
+      if (saveApiResponse.status !== 200) {
+        toast({
+          variant: "error",
+          title: "Updation Error",
+          description: "Failed to Analysis Specification, please try again...",
+        });
+        return;
+      }
+
+      toast({
+        variant: "success",
+        title: "Upload Successful",
+        description: "Your file has been uploaded to S3.",
+      });
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Upload Failed",
+        description: "There was an error uploading your file.",
+      });
+      console.error("Error uploading file:", err);
+    } finally {
+      setDisabled(false);
+    }
 
   }
 
@@ -612,7 +784,7 @@ const NewOrderBox = () => {
         const order = await response.json();
         const orderData = order.data
         console.log(orderData.userId)
-        
+
         setUserIdDB(orderData.userId);
         setOrderId(orderData.orderId);
         setOrderTitle(orderData.orderTitle);
@@ -812,11 +984,23 @@ const NewOrderBox = () => {
                   </div>
 
                   <div className="flex items-center text-[14px] font-normal">
-                    <input type="checkbox" id="tax" className="mr-2" />
+                    <input
+                      type="checkbox"
+                      id="tax"
+                      className="form-checkbox accent-[#3e8ca7] mr-2"
+                      checked={isTaxChecked}
+                      onChange={handleTaxCheckboxChange}
+                    />
                     <label htmlFor="tax">Click to enter tax percent.</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
-                    <input type="checkbox" id="amount" className="mr-2" />
+                    <input
+                      type="checkbox"
+                      id="amount"
+                       className="form-checkbox accent-[#3e8ca7] mr-2"
+                      checked={isAmountChecked}
+                      onChange={handleAmountCheckboxChange}
+                    />
                     <label htmlFor="amount">Click to enter other amount.</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
@@ -914,8 +1098,8 @@ const NewOrderBox = () => {
 
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Quality Check Report</div>
-                  <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                  <div className="container mx-auto md:px-4 w-auto md:w-[490px] md:h-[203px]">
+                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
@@ -943,7 +1127,7 @@ const NewOrderBox = () => {
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Quality Check Report</div>
                   <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
@@ -1003,8 +1187,8 @@ const NewOrderBox = () => {
                       <div className={`w-[332px] md:w-[527px] rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
                         <input className="w-[332px] md:w-[527px] p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                           placeholder="link"
-                          //value={city}
-                          //onChange={(e) => setCity(e.target.value)}
+                          value={rawDataLink}
+                          onChange={handleRawDataLink}
                           style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                           type="text"
                           name="name"
@@ -1014,7 +1198,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-12'>
                     <button onClick={() => { setOrderPopVisible(false) }} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Back</button>
-                    <button onClick={ handleAnalysisRawDataConfirm } className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Send</button>
+                    <button onClick={handleAnalysisRawDataConfirm} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Send</button>
                   </div>
                 </div>
               )}
@@ -1022,8 +1206,8 @@ const NewOrderBox = () => {
 
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center">Analysis Specification</div>
-                  <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                  <div className="container mx-auto md:px-4 w-auto md:w-[490px] md:h-[203px]">
+                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
@@ -1187,11 +1371,19 @@ const NewOrderBox = () => {
                   </div>
 
                   <div className="flex items-center text-[14px] font-normal">
-                    <input type="checkbox" id="tax" className="mr-2" />
+                    <input  type="checkbox"
+                      id="invoice1"
+                      className="form-checkbox accent-[#3e8ca7] mr-2"
+                      checked={isInvoiceChecked1}
+                      onChange={handleInvoiceChecked1} />
                     <label htmlFor="tax">Click to enter tax percent.</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
-                    <input type="checkbox" id="amount" className="mr-2" />
+                    <input  type="checkbox"
+                      id="invoice2"
+                      className="form-checkbox accent-[#3e8ca7] mr-2"
+                      checked={isInvoiceChecked2}
+                      onChange={handleInvoiceChecked2} />
                     <label htmlFor="amount">Click to enter other amount.</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
@@ -1233,25 +1425,25 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'payment' && (
-               
+
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                  <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
-                </div>
-                <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
-                  <div className='flex flex-col items-center justify-center gap-[14px]'>
-                    <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                    <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                      <span>RequestSheet.pdf</span><br />
-                      <span>1.2MB</span>
+                  <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
+                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
+                  </div>
+                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                    <div className='flex flex-col items-center justify-center gap-[14px]'>
+                      <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
+                      <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
+                        <span>RequestSheet.pdf</span><br />
+                        <span>1.2MB</span>
+                      </div>
                     </div>
                   </div>
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
+                  </div>
                 </div>
-                <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
-                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                  <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment }>Download</button>
-                </div>
-              </div>
               )}
             </div>
           </div>
@@ -1261,18 +1453,18 @@ const NewOrderBox = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{orderId}</span>
           </div>
           <div className='flex items-center justify-center md:justify-start gap-x-[6px] gap-y-[6px]  md:gap-x-[32px] md:gap-y-[8px] flex-wrap'>
-            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" || requestSheetStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
-            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" || costEstimateStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
-            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" || formalRequestStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
-            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inTransit" || sampleShippingStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" || sampleShippingStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inAdminProgress" || sampleShippingStatus == "isUserCompleted" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
-            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" || qualityCheckStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
-            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" || libraryPrepStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
-            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" || analysisProgressStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
-            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" || analysisDoneStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
-            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" || analysisRawDataStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
-            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
-            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" || invoiceStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
-            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted" )} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" || paymentStatus  == "inUserProgress" ? "bg-[#E2E8F0]" : paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
+            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "bg-[#E2E8F0]" : requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
+            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "bg-[#E2E8F0]" : costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
+            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "bg-[#E2E8F0]" : formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
+            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inTransit" || sampleShippingStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inAdminProgress" || sampleShippingStatus == "isUserCompleted" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
+            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
+            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
+            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
+            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
+            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
+            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
+            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "bg-[#E2E8F0]" : invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
+            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "bg-[#E2E8F0]" : paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
           </div>
         </div>
         <div className="w-full h-[92px] md:px-[40px] flex flex-col justify-center border-[1px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
