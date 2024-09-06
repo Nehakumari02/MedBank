@@ -11,6 +11,7 @@ import vector3 from '../../../public/dashboard/creation1.png';
 import downloadIcon from '../../../public/dashboard/downloadIcon.png';
 import CalculateCost from '../../../components/CalculateCost';
 import LangDropdown from "../../../components/LangDropdown";
+import { toast } from '@/hooks/use-toast';
 
 const NewOrderBox = () => {
   const router = useRouter();
@@ -70,6 +71,55 @@ const NewOrderBox = () => {
     paymentStatus, setPaymentStatus,
     paymentRecieptLink, setPaymentRecieptLink,
   } = useOrder();
+  const [isSampleSendChecked1, setIsSampleSendChecked1] = useState(false);
+  const [isSampleSendChecked2, setIsSampleSendChecked2] = useState(false);
+  const [isSampleSendChecked3, setIsSampleSendChecked3] = useState(false);
+  const [isQualityChecked, setIsQulaityChecked] = useState(false);
+  const [isLibraryPrepChecked, setIsLibraryChecked] = useState(false);
+  //const [isQualityChecked3, setIsQulaityChecked3] = useState(false);
+  const [isAnalysisSpecificationChecked, setIsAnalysisSpecificationChecked] = useState(false);
+  const [isAnalysisRawChecked1, setIsAnalysisRawChecked1] = useState(false);
+  const [isAnalysisRawChecked2, setIsAnalysisRawChecked2] = useState(false);
+  const [isInvoiceChecked, setIsInvoiceChecked] = useState(false);
+
+
+  const handleSampleSendChecked1 = (e) => {
+    setIsSampleSendChecked1(e.target.checked);
+  };
+  const handleSampleSendChecked2 = (e) => {
+    setIsSampleSendChecked2(e.target.checked);
+  };
+
+  const handleSampleSendChecked3 = (e) => {
+    setIsSampleSendChecked3(e.target.checked);
+  };
+
+  const handleQualityChecked = (e) => {
+    setIsQulaityChecked(e.target.checked);
+  };
+
+
+  const handleLibraryPrepChecked = (e) => {
+    setIsLibraryChecked(e.target.checked);
+  };
+
+
+  const handleAnalysisSpecificationChecked = (e) => {
+    setIsAnalysisSpecificationChecked(e.target.checked);
+  };
+
+  const handleRawAnalysisChecked1 = (e) => {
+    setIsAnalysisRawChecked1(e.target.checked);
+  };
+
+  const handleRawAnalysisChecked2 = (e) => {
+    setIsAnalysisRawChecked2(e.target.checked);
+  };
+
+  const handleInvoiceChecked = (e) => {
+    setIsInvoiceChecked(e.target.value);
+  };
+
 
   const handleGenerateClick = () => {
     setActivePopup('costEstimateConfirmation');
@@ -223,38 +273,85 @@ const NewOrderBox = () => {
   };
 
   const handleConfirmSampleShipping = () => {
-    setIsPopupVisible(false);
-    setOrderPopVisible(false);
-    //setActivePopup('');
-    setSampleShippingStatus("inTransit")
-    //setSampleShippingStatus("inUserProgress");
-    updateDataInDB({
-      sampleShippingStatus: "inTransit"
-    })
-
+    //setIsPopupVisible(false);
+    if (!isSampleSendChecked1) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else if (!isSampleSendChecked2) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else if (!isSampleSendChecked3) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setSampleShippingStatus("inTransit")
+      updateDataInDB({
+        sampleShippingStatus: "inTransit"
+      })
+    }
   };
 
   const handleConfirmQualityCheck = () => {
-    setOrderPopVisible(false);
-    //setActivePopup('');
-    setQualityCheckStatus("isCompleted");
-    setLibraryPrepStatus("inAdminProgress");
-    updateDataInDB({
-      qualityCheckStatus: "isCompleted",
-      libraryPrepStatus: "inAdminProgress"
-    })
+
+    if (!isQualityChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      //setActivePopup('');
+      setQualityCheckStatus("isCompleted");
+      setLibraryPrepStatus("inAdminProgress");
+      updateDataInDB({
+        qualityCheckStatus: "isCompleted",
+        libraryPrepStatus: "inAdminProgress"
+      })
+
+    }
+
   };
 
   const handleLibraryPrepConfirmation = () => {
-    setOrderPopVisible(false);
-    setActivePopup('');
-    setLibraryPrepStatus("isCompleted");
-    //setAnalysisProgressStatus("inUserProgress");
-    setAnalysisProgressStatus('inAdminProgress');
-    updateDataInDB({
-      libraryPrepStatus: "isCompleted",
-      analysisProgressStatus: 'inAdminProgress'
-    })
+    if (!isLibraryPrepChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setActivePopup('');
+      setLibraryPrepStatus("isCompleted");
+      //setAnalysisProgressStatus("inUserProgress");
+      setAnalysisProgressStatus('inAdminProgress');
+      updateDataInDB({
+        libraryPrepStatus: "isCompleted",
+        analysisProgressStatus: 'inAdminProgress'
+      })
+
+    }
+
+
   };
 
   const handleAnalysisDoneConfirmation = () => {
@@ -272,29 +369,72 @@ const NewOrderBox = () => {
   };
 
   const handleAnalysisRawDataConfirm = () => {
-    setOrderPopVisible(false);
-    setAnalysisRawDataStatus("inCompleted")
-    updateDataInDB({
-      analysisRawDataStatus: "isCompleted"
-    })
+    if (!isAnalysisRawChecked1) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+
+    else if (!isAnalysisRawChecked2) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+
+    else {
+      setOrderPopVisible(false);
+      setAnalysisRawDataStatus("inCompleted")
+      updateDataInDB({
+        analysisRawDataStatus: "isCompleted"
+      })
+
+    }
+
 
   }
 
   const handleAnalysisSpecification = () => {
-    setOrderPopVisible(false);
-    setAnalysisSpecificationStatus("isCompleted")
-    updateDataInDB({
-      analysisSpecificationStatus: "isCompleted"
-    })
+    if (!isAnalysisSpecificationChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setAnalysisSpecificationStatus("isCompleted")
+      updateDataInDB({
+        analysisSpecificationStatus: "isCompleted"
+      })
 
+    }
   }
 
   const handleInvoice = () => {
-    setOrderPopVisible(false);
-    setInvoiceStatus("isCompleted")
-    updateDataInDB({
-      invoiceStatus: "isCompleted"
-    })
+    if (!isInvoiceChecked) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setInvoiceStatus("isCompleted")
+      updateDataInDB({
+        invoiceStatus: "isCompleted"
+      })
+
+    }
   }
 
   const handleConfirmPayment = () => {
@@ -358,7 +498,7 @@ const NewOrderBox = () => {
         setQualityCheckStatus(orderData.qualityCheckStatus);
         setQualityCheckReportLink(orderData.qualityCheckReportLink);
         setLibraryPrepStatus(orderData.libraryPrepStatus);
-        setLibraryCheckReportLink(orderData.libraryPrepReportLink);
+        setLibraryCheckReportLink(orderData.libraryCheckReportLink);
         setAnalysisProgressStatus(orderData.analysisProgressStatus);
         setAnalysisDoneStatus(orderData.analysisDoneStatus);
         setAnalysisRawDataStatus(orderData.analysisRawDataStatus);
@@ -422,54 +562,68 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'sampleShippingSend' && (
-                <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
+                <div className='font-DM-Sans flex flex-col w-[298px] h-[221px] md:h-[398px] md:w-[658px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Sample Send</div>
                   <div className='flex flex-col gap-[6px] md:gap-[12px]'>
-                    <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
-                      https:rawdatamedbank.com
+                    <div className="hidden md:block md:text-[20px] leading-6 ">
+                      The sample has been sent.
                     </div>
-                    <label className="inline-flex items-center pt-[8px] md:pt-4">
+                    <p className="block md:hidden text-[18px] leading-6 pt-[8px]">
+                      The sample has been sent by the Customer.
+                    </p>
+                    <p className="hidden md:block">
+                      Check how to send a sample.
+                      <a href="/path/to/download" className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
+                        Visit Website
+                      </a>
+                    </p>
+
+                    <label className="hidden md:inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="samplsend1"
+                        checked={isSampleSendChecked1}
+                        onChange={handleSampleSendChecked1}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I have reviewed the Data Link.
-                        </span>
-                        {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the Data Link.
+                          I have carefully read the shipping and sending instructions.
                         </span>
                       </span>
                     </label>
                     <label className="hidden md:inline-flex items-center ">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="samplesend2"
+                        checked={isSampleSendChecked2}
+                        onChange={handleSampleSendChecked2}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
-                        {/* Show this text only on mobile */}
-                        <span className='block md:hidden'>
-                          I agree that Raw Data will be deleted in 3 months.
-                        </span>
-                        {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I agree that Raw Data will be deleted in 3 months.
+                          Samples are labelled.
                         </span>
                       </span>
                     </label>
-                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Proceed to library preparation</button>
+                    <label className="hidden md:inline-flex items-center ">
+                      <input
+                        className="form-checkbox accent-[#3e8ca7]"
+                        type="checkbox"
+                        id="samplesend3"
+                        checked={isSampleSendChecked3}
+                        onChange={handleSampleSendChecked3}
+                      />
+                      <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
+                        <span className='hidden md:block'>
+                          Did you enclose a signed request sheet?
+                        </span>
+                      </span>
+                    </label>
+                    <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3 pt-[24px]'>
+                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Ok</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Proceed</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Confirm</button>
                     </div>
 
                   </div>
@@ -545,11 +699,11 @@ const NewOrderBox = () => {
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="qualitycheck"
+                        checked={isQualityChecked}
+                        onChange={handleQualityChecked}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
@@ -602,18 +756,18 @@ const NewOrderBox = () => {
                         </div>
                       </div>
                       <a href={libraryCheckReportLink.split("?")[0]} download="libraryReport">
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
+                        <div className="text-red-500 cursor-pointer">
+                          <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
+                        </div>
                       </a>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="libraryprep"
+                        checked={isLibraryPrepChecked}
+                        onChange={handleLibraryPrepChecked}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
@@ -653,15 +807,16 @@ const NewOrderBox = () => {
                   <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
                   <div className='flex flex-col gap-[6px] md:gap-[12px]'>
                     <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
-                      https:rawdatamedbank.com
+                      rawDataLink
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
+
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="analysisraw1"
+                        checked={isAnalysisRawChecked1}
+                        onChange={handleRawAnalysisChecked1}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
@@ -676,11 +831,11 @@ const NewOrderBox = () => {
                     </label>
                     <label className="hidden md:inline-flex items-center ">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="analysisraw2"
+                        checked={isAnalysisRawChecked2}
+                        onChange={handleRawAnalysisChecked2}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
@@ -718,29 +873,30 @@ const NewOrderBox = () => {
                           <Image src={file1} className='w-[18px] h-[24px]'></Image>
                         </div>
                         <div>
-                          {
-                            uploadedFile && uploadedFile instanceof File && (
-                              <a href={URL.createObjectURL(uploadedFile)}>
-                                <div className="text-sm md:text-lg">{uploadedFile.name}</div>
-                                <p className="text-sm text-[#717171]">
-                                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} Mb
-                                </p>
-                              </a>
-                            )
-                          }
+                          {uploadedFile instanceof File && uploadedFile.type === 'application/pdf' ? (
+                            <a href={URL.createObjectURL(uploadedFile)} target="_blank" rel="noopener noreferrer">
+                              <span className="text-sm md:text-lg">
+                                {uploadedFile.name.length > 20 ? `${uploadedFile.name.substring(0, 19)}...` : uploadedFile.name}
+                              </span>
+                            </a>
+                          ) : (
+                            <p>Analysis Specification</p>
+                          )}
                         </div>
                       </div>
-                      <div className="text-red-500 cursor-pointer">
-                        <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
+                      <a href={analysisSpecificationReportLink.split("?")[0]} download="analysisSpecification">
+                        <div className="text-red-500 cursor-pointer">
+                          <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
+                        </div>
+                      </a>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="analysisraw1"
+                        checked={isAnalysisSpecificationChecked}
+                        onChange={handleAnalysisSpecificationChecked}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
@@ -794,11 +950,11 @@ const NewOrderBox = () => {
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
-                        type="checkbox"
                         className="form-checkbox accent-[#3e8ca7]"
-                        checked={check}
-                        onChange={() => setCheck(!check)}
-                        required
+                        type="checkbox"
+                        id="invoice"
+                        checked={isInvoiceChecked}
+                        onChange={handleInvoiceChecked}
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
