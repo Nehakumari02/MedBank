@@ -412,6 +412,25 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [totalPages,setTotalPages] = React.useState(10);
+  const [currentPage,setCurrentPage] = React.useState(2);
+  const [buttons,setButtons] = React.useState([1,2,3,4,5,6,"..."]);
+  
+  React.useEffect(()=>{
+    if(currentPage<4){
+      setButtons(()=>{
+        return([1,2,3,4,"...",totalPages])
+      })
+    }else if(currentPage>totalPages-3&&currentPage<=totalPages){
+      setButtons(()=>{
+        return([1,"...",totalPages-3,totalPages-2,totalPages-1,totalPages])
+      })
+    }else{
+      setButtons(()=>{
+        return([1,"...",currentPage-1,currentPage,currentPage+1,"...",totalPages])
+      })
+    }
+  },[currentPage])
 
   const table = useReactTable({
     data,
@@ -526,30 +545,63 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div> */}
-        <div className="space-x-2">
-          <Button
-          className="bg-white"
+      <div className="flex items-center justify-start space-x-2 py-4">
+        <div className="space-x-[2px]">
+        {/* <Button
+          className="border-none"
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => (setCurrentPage(1))}
+            disabled={currentPage==1}
           >
-            Previous
-          </Button>
+            &lt;&lt;
+          </Button> */}
           <Button
-          className="bg-white"
+          className="border-none py-[6px] px-[12px] font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => (setCurrentPage(prev=>(prev-1)))}
+            disabled={currentPage==1}
           >
-            Next
+            &lt;
           </Button>
+          {buttons.map((pageNumber,index)=>{
+            return(
+              <Button
+                id={`${index}`}
+                className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const numericPageNumber = Number(pageNumber);
+                  if (!isNaN(numericPageNumber)) {
+                    setCurrentPage(numericPageNumber);
+                  }
+                }}
+              >
+                {pageNumber}
+              </Button>
+            )
+          })}
+
+          <Button
+          className="border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(prev=>(prev+1)))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;
+          </Button>
+          {/* <Button
+          className="border-none"
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(totalPages))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;&gt;
+          </Button> */}
         </div>
       </div>
     </div>
