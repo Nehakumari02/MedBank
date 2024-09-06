@@ -118,7 +118,7 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
   return (
     <button
       onClick={() => {
-        router.push(`/${language}/${userId}/${orderId}/OrderDetails`);
+        router.push(`/${language}/Admin_Restricted/${orderId}/NewOrder`);
       }}
       className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center"
     >
