@@ -48,7 +48,7 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = async() =>{toas
+  const handleSubmit = async() =>{toast
     setDisabled(true);
     if(orderTitle==""){
       toast({
@@ -228,7 +228,7 @@ const OrderCreationPage = () => {
               </div>
 
               <div className="container mx-auto md:px-4 w-auto md:max-w-[490px] md:h-[203px]">
-                <div className="border-dashed border-[0.4px]  border-[#0033DD] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
                   <div {...getRootProps()} className="cursor-pointer">
                     <input {...getInputProps()} />
                     <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
@@ -237,7 +237,7 @@ const OrderCreationPage = () => {
                     </p>
                     {uploadedFile && (
                       <div className="mt-2">
-                        <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                        <p className="text-sm md:text-base text- [#606060] font-normal">File Uploaded</p>
                         {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                       </div>
                     )}
