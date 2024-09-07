@@ -43,6 +43,10 @@ const Chats = () => {
         setChatId(data.conversationId)
         setMessages(data.messages)
         console.log(data)
+        if (socket.connected) {
+          console.log(data.conversationId)
+          onConnect(data.conversationId);
+        }
       }catch(error){
         console.log(error)
       }
@@ -50,15 +54,14 @@ const Chats = () => {
 
     fetchMessages();
 
-    if (socket.connected) {
-      onConnect();
-    }
+    
 
-    function onConnect() {
+    function onConnect(chatIdd) {
       setIsConnected(true);
+      console.log(chatIdd)
       setTransport(socket.io.engine.transport.name);
 
-      socket.emit('join', { userId: userIdDB, conversationId: chatId, isAdmin: false });
+      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
 
       socket.io.engine.on("upgrade", (transport) => {
         setTransport(transport.name);
@@ -103,12 +106,12 @@ const Chats = () => {
 
     if (message.trim()) {
       try {
-        socket.emit("chat message", {
+        socket.emit("chat message", {conversationId:chatId,message:{
           id: generateRandomId(),
           senderId: userIdDB,
           text: message,
           createdAt: new Date().toISOString()
-        });
+        }});
 
         setMessage(""); // Clear the input field after sending
         const response = await fetch('/api/sendMessage', {
