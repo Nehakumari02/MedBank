@@ -14,7 +14,6 @@ import LangDropdown from "../../../components/LangDropdown"
 import { useDropzone } from 'react-dropzone';
 import folder1 from "../../../public/dashboard/folder.png"
 import { toast } from '@/hooks/use-toast';
-import deleteIcon from "../../../public/dashboard/deleteIcon.png"
 
 
 
@@ -83,8 +82,6 @@ const NewOrderBox = () => {
   const [isAmountChecked, setIsAmountChecked] = useState(false);
   const [isInvoiceChecked1, setIsInvoiceChecked1] = useState(false);
   const [isInvoiceChecked2, setIsInvoiceChecked2] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
   console.log("order title", orderTitle)
   const onDrop = async (acceptedFiles) => {
@@ -190,7 +187,7 @@ const NewOrderBox = () => {
         description: "please check the box"
       })
     }
-    else {
+    else{
       setActivePopup("invoice1")
       //setOrderPopVisible(true);
       //setActivePopup('formalRequest');
@@ -327,32 +324,26 @@ const NewOrderBox = () => {
   }
 
   const handleConfirQualityCheck = async () => {
-    // Prevent the popup from disappearing immediately
-    setDisabled(true);
+    setIsPopupVisible(false);
+    setOrderPopVisible(false);
+    //setActivePopup('');
 
+    // setLibraryPrepStatus("inAdminProgress")
+    // updateDataInDB({
+    //   qualityCheckStatus: "isAdminCompleted"
+    // })
+
+
+    setDisabled(true);
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
         description: "Please upload a file..."
-      });
-      setDisabled(false);
+      })
       return;
     }
-
     try {
-      // Show the progress bar when the upload starts
-      setIsUploading(true);
-      let progress = 0;
-      const interval = setInterval(() => {
-        if (progress < 100) {
-          progress += 10; // Increment progress by 10%
-          setUploadProgress(progress);
-        } else {
-          clearInterval(interval); // Stop once upload is complete
-        }
-      }, 500); // Simulate progress every 500ms
-
       const { name: fileName, type: fileType } = uploadedFile;
 
       // Call the API to get the signed URL
@@ -365,7 +356,8 @@ const NewOrderBox = () => {
       });
 
       const { url } = await response.json();
-      console.log(url);
+      console.log(url)
+      console.log("upload url", url.url)
       setQualityCheckReportLink(url.split("?")[0]);
 
       // Upload the file directly to S3 using the signed URL
@@ -376,6 +368,9 @@ const NewOrderBox = () => {
           'Content-Type': fileType,
         },
       });
+      console.log("file upload status", res.status)
+      console.log("file upload url ", res.url)
+      console.log(res)
 
       if (res.status !== 200) {
         toast({
@@ -386,12 +381,11 @@ const NewOrderBox = () => {
         return;
       }
 
-      // Update after successful upload
       setQualityCheckReportLink(res.url.split("?")[0]);
-      setQualityCheckStatus("isAdminCompleted");
 
+      setQualityCheckStatus("isAdminCompleted")
       const fileUrl = res.url.split("?")[0];
-      console.log(fileUrl);
+      console.log(fileUrl)
 
       const orderData = {
         orderTitle,
@@ -399,6 +393,7 @@ const NewOrderBox = () => {
         qualityCheckReportLink: fileUrl,
       };
 
+      console.log(orderIdDB)
       const saveApiResponse = await fetch('/api/updateOrder', {
         method: 'POST',
         headers: {
@@ -406,6 +401,8 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
       });
+
+      console.log(saveApiResponse)
 
       if (saveApiResponse.status !== 200) {
         toast({
@@ -416,17 +413,11 @@ const NewOrderBox = () => {
         return;
       }
 
-      // Success notification
       toast({
         variant: "success",
         title: "Upload Successful",
         description: "Your file has been uploaded to S3.",
       });
-
-      // Only now hide the popup after the upload is successful
-      setIsPopupVisible(false);
-      setOrderPopVisible(false);
-
     } catch (err) {
       toast({
         variant: "error",
@@ -436,10 +427,8 @@ const NewOrderBox = () => {
       console.error("Error uploading file:", err);
     } finally {
       setDisabled(false);
-      setIsUploading(false); // Hide the progress bar after completion
     }
-  };
-
+  }
   const handleLibraryPrepConfirmation = async () => {
     //console.log(sampleShippingStatus)
     //console.log("click on ok from sample shipping")
@@ -618,7 +607,7 @@ const NewOrderBox = () => {
       setRawDataLink(rawDataLink)
       updateDataInDB({
         analysisRawDataStatus: "isAdminCompleted",
-        rawDataLink: rawDataLink
+        rawDataLink:rawDataLink
       })
     }
 
@@ -1006,7 +995,7 @@ const NewOrderBox = () => {
                     <input
                       type="checkbox"
                       id="amount"
-                      className="form-checkbox accent-[#3e8ca7] mr-2"
+                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isAmountChecked}
                       onChange={handleAmountCheckboxChange}
                     />
@@ -1122,24 +1111,6 @@ const NewOrderBox = () => {
                           </div>
                         )}
                       </div>
-                      {isUploading && (
-                        <div>
-                          <div className="flex justify-between mt-2 text-xs text-gray-500">
-                            <span>Uploading</span>
-                            <span>{uploadProgress}%</span>
-                          </div>
-                          <div className="w-full mt-2 flex">
-                            <div className="w-full bg-gray-200 h-[4px] rounded-full">
-                              <div className="bg-[#60b7cf] h-[4px] rounded-full" style={{ width: `${uploadProgress}%` }}></div>
-                            </div>
-
-                            <div className=" text-red-500 cursor-pointer ml-2">
-                              <Image src={deleteIcon} className='h-[16px] w-[16px]'></Image>
-                            </div>
-
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
@@ -1398,7 +1369,7 @@ const NewOrderBox = () => {
                   </div>
 
                   <div className="flex items-center text-[14px] font-normal">
-                    <input type="checkbox"
+                    <input  type="checkbox"
                       id="invoice1"
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked1}
@@ -1406,7 +1377,7 @@ const NewOrderBox = () => {
                     <label htmlFor="tax">Click to enter tax percent.</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
-                    <input type="checkbox"
+                    <input  type="checkbox"
                       id="invoice2"
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked2}
@@ -1423,7 +1394,7 @@ const NewOrderBox = () => {
 
                 </div>
               )}
-              {activePopup === "invoice1" && (
+              {activePopup==="invoice1"&& (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
@@ -1437,7 +1408,7 @@ const NewOrderBox = () => {
                   </div>
                 </div>
               )}
-              {activePopup === "invoice2" && (
+              {activePopup==="invoice2" && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
