@@ -37,6 +37,9 @@ const NewOrderBox = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [userIdDB, setUserIdDB] = useState("");
+  const [uploadPercentage,setUploadPercentage] = useState(0);
+
+  const [uploadStatus,setUploadStatus] = useState(false);
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -87,7 +90,7 @@ const NewOrderBox = () => {
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     setUploadedFile(file); // Update the state to show the file
-
+    setUploadStatus(true)
 
   };
 
@@ -323,29 +326,130 @@ const NewOrderBox = () => {
     }));
   }
 
+  // const handleConfirQualityCheck = async () => {
+  //   setIsPopupVisible(false);
+  //   setOrderPopVisible(false);
+  //   //setActivePopup('');
+
+  //   // setLibraryPrepStatus("inAdminProgress")
+  //   // updateDataInDB({
+  //   //   qualityCheckStatus: "isAdminCompleted"
+  //   // })
+
+
+  //   setDisabled(true);
+  //   if (!uploadedFile) {
+  //     toast({
+  //       variant: "error",
+  //       title: "Error",
+  //       description: "Please upload a file..."
+  //     })
+  //     return;
+  //   }
+  //   try {
+  //     const { name: fileName, type: fileType } = uploadedFile;
+
+  //     // Call the API to get the signed URL
+  //     const response = await fetch('/api/fileUpload', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ fileName, fileType }),
+  //     });
+
+  //     const { url } = await response.json();
+  //     console.log(url)
+  //     console.log("upload url", url.url)
+  //     setQualityCheckReportLink(url.split("?")[0]);
+
+  //     // Upload the file directly to S3 using the signed URL
+  //     const res = await fetch(url, {
+  //       method: 'PUT',
+  //       body: uploadedFile,
+  //       headers: {
+  //         'Content-Type': fileType,
+  //       },
+  //     });
+  //     console.log("file upload status", res.status)
+  //     console.log("file upload url ", res.url)
+  //     console.log(res)
+
+  //     if (res.status !== 200) {
+  //       toast({
+  //         variant: "error",
+  //         title: "Upload Error",
+  //         description: "Try uploading file again...",
+  //       });
+  //       return;
+  //     }
+
+  //     setQualityCheckReportLink(res.url.split("?")[0]);
+
+  //     setQualityCheckStatus("isAdminCompleted")
+  //     const fileUrl = res.url.split("?")[0];
+  //     console.log(fileUrl)
+
+  //     const orderData = {
+  //       orderTitle,
+  //       qualityCheckStatus: "isAdminCompleted",
+  //       qualityCheckReportLink: fileUrl,
+  //     };
+
+  //     console.log(orderIdDB)
+  //     const saveApiResponse = await fetch('/api/updateOrder', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
+  //     });
+
+  //     console.log(saveApiResponse)
+
+  //     if (saveApiResponse.status !== 200) {
+  //       toast({
+  //         variant: "error",
+  //         title: "Updation Error",
+  //         description: "Failed to submit order, please try again...",
+  //       });
+  //       return;
+  //     }
+
+  //     toast({
+  //       variant: "success",
+  //       title: "Upload Successful",
+  //       description: "Your file has been uploaded to S3.",
+  //     });
+  //   } catch (err) {
+  //     toast({
+  //       variant: "error",
+  //       title: "Upload Failed",
+  //       description: "There was an error uploading your file.",
+  //     });
+  //     console.error("Error uploading file:", err);
+  //   } finally {
+  //     setDisabled(false);
+  //   }
+  // }
+
   const handleConfirQualityCheck = async () => {
     setIsPopupVisible(false);
-    setOrderPopVisible(false);
-    //setActivePopup('');
-
-    // setLibraryPrepStatus("inAdminProgress")
-    // updateDataInDB({
-    //   qualityCheckStatus: "isAdminCompleted"
-    // })
-
-
+    // setOrderPopVisible(false);
     setDisabled(true);
+  
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
         description: "Please upload a file..."
-      })
+      });
       return;
     }
+  
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-
+  
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -354,70 +458,93 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-
+  
       const { url } = await response.json();
-      console.log(url)
-      console.log("upload url", url.url)
+      console.log(url);
+      console.log("upload url", url.url);
       setQualityCheckReportLink(url.split("?")[0]);
-
-      // Upload the file directly to S3 using the signed URL
-      const res = await fetch(url, {
-        method: 'PUT',
-        body: uploadedFile,
-        headers: {
-          'Content-Type': fileType,
-        },
-      });
-      console.log("file upload status", res.status)
-      console.log("file upload url ", res.url)
-      console.log(res)
-
-      if (res.status !== 200) {
-        toast({
-          variant: "error",
-          title: "Upload Error",
-          description: "Try uploading file again...",
-        });
-        return;
-      }
-
-      setQualityCheckReportLink(res.url.split("?")[0]);
-
-      setQualityCheckStatus("isAdminCompleted")
-      const fileUrl = res.url.split("?")[0];
-      console.log(fileUrl)
-
-      const orderData = {
-        orderTitle,
-        qualityCheckStatus: "isAdminCompleted",
-        qualityCheckReportLink: fileUrl,
+  
+      // Upload the file directly to S3 using XMLHttpRequest
+      const uploadRequest = new XMLHttpRequest();
+      uploadRequest.open('PUT', url, true);
+      uploadRequest.setRequestHeader('Content-Type', fileType);
+  
+      // Update progress
+      uploadRequest.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          setUploadPercentage(percentComplete);
+        }
       };
-
-      console.log(orderIdDB)
-      const saveApiResponse = await fetch('/api/updateOrder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
-      });
-
-      console.log(saveApiResponse)
-
-      if (saveApiResponse.status !== 200) {
+  
+      // Handle upload complete
+      uploadRequest.onload = () => {
+        if (uploadRequest.status === 200) {
+          setQualityCheckReportLink(url.split("?")[0]);
+  
+          setQualityCheckStatus("isAdminCompleted");
+          const fileUrl = url.split("?")[0];
+          console.log(fileUrl);
+  
+          const orderData = {
+            orderTitle,
+            qualityCheckStatus: "isAdminCompleted",
+            qualityCheckReportLink: fileUrl,
+          };
+  
+          // Save order data
+          fetch('/api/updateOrder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ order: orderData, orderIdDB }),
+          }).then(saveApiResponse => {
+            if (saveApiResponse.status === 200) {
+              toast({
+                variant: "success",
+                title: "Upload Successful",
+                description: "Your file has been uploaded to S3.",
+              });
+            } else {
+              toast({
+                variant: "error",
+                title: "Updation Error",
+                description: "Failed to submit order, please try again...",
+              });
+            }
+          }).catch(err => {
+            toast({
+              variant: "error",
+              title: "Updation Error",
+              description: "Failed to submit order, please try again...",
+            });
+            console.error("Error updating order:", err);
+          }).finally(
+            setOrderPopVisible(false)
+          )
+  
+        } else {
+          toast({
+            variant: "error",
+            title: "Upload Error",
+            description: "Try uploading file again...",
+          });
+        }
+      };
+  
+      // Handle upload error
+      uploadRequest.onerror = () => {
         toast({
           variant: "error",
-          title: "Updation Error",
-          description: "Failed to submit order, please try again...",
+          title: "Upload Failed",
+          description: "There was an error uploading your file.",
         });
-        return;
-      }
-
-      toast({
-        variant: "success",
-        title: "Upload Successful",
-        description: "Your file has been uploaded to S3.",
-      });
+        console.error("Error uploading file:", uploadRequest.statusText);
+      };
+  
+      uploadRequest.send(uploadedFile);
+  
     } catch (err) {
       toast({
         variant: "error",
@@ -427,8 +554,10 @@ const NewOrderBox = () => {
       console.error("Error uploading file:", err);
     } finally {
       setDisabled(false);
+      setUploadPercentage(0); // Optionally reset upload percentage
     }
-  }
+  };
+
   const handleLibraryPrepConfirmation = async () => {
     //console.log(sampleShippingStatus)
     //console.log("click on ok from sample shipping")
@@ -1105,9 +1234,18 @@ const NewOrderBox = () => {
                           Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
                         </p>
                         {uploadedFile && (
-                          <div className="mt-2">
+                          <div className="mt-2 hidden">
                             <p className="text-sm md:text-base font-medium">File Uploaded</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
+                        {uploadStatus && (
+                          <div className='mt-[20px] py-auto'>
+                            <div className='border-t-[2px] w-[200px] rounded-full'></div>
+                            <div
+                              className='border-t-[4px] rounded-full translate-y-[-3px] border-[#3E8DA7]'
+                              style={{ width: `${uploadPercentage*2}px` }} // Use inline styles for dynamic width
+                            ></div>
                           </div>
                         )}
                       </div>
