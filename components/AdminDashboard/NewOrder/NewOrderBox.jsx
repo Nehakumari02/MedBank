@@ -1141,7 +1141,7 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'costEstimateConfirmation' && (
-                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
+                <div id="cost-estimate-table" className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Success!</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>You have successfully sent the Cost Estimate Sheet.</span>
