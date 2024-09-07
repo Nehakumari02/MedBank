@@ -502,7 +502,7 @@ const NewOrderBox = () => {
         setAnalysisProgressStatus(orderData.analysisProgressStatus);
         setAnalysisDoneStatus(orderData.analysisDoneStatus);
         setAnalysisRawDataStatus(orderData.analysisRawDataStatus);
-        setRawDataLink(orderData.analysisRawDataRawDataLink);
+        setRawDataLink(orderData.rawDataLink);
         setAnalysisSpecificationStatus(orderData.analysisSpecificationStatus);
         setAnalysisSpecificationReportLink(orderData.analysisSpecificationReportLink);
         setInvoiceStatus(orderData.invoiceStatus);
@@ -807,7 +807,9 @@ const NewOrderBox = () => {
                   <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
                   <div className='flex flex-col gap-[6px] md:gap-[12px]'>
                     <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
-                      rawDataLink
+                      <a href={rawDataLink.startsWith('http') ? rawDataLink : `https://${rawDataLink}`} target="_blank" rel="noopener noreferrer">
+                        RawDataLink
+                      </a>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
