@@ -1,71 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';  // Assuming you're using axios to fetch data from your database
+import { NextResponse } from "next/server";
+import dbConnect from "../../../lib/dbConnect"; // Import your database connection logic
+import Quotation from "../../../models/quotation"; // Import the Quotation model
 
-const QuotationTable = () => {
-  const [quotationData, setQuotationData] = useState({
-    recipientInfo: { name: '', address: '' },
-    date: '',
-    quotationNumber: '',
-    contents: '',
-    totalPrice: ''
-  });
+export async function GET() {
+  try {
+    console.log("Fetching all quotations");
 
-  // Fetch data from the database
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/get-quotation'); // Replace with your API route
-        setQuotationData(response.data);
-      } catch (error) {
-        console.error('Error fetching quotation data:', error);
-      }
+    // Establish a connection to the database
+    await dbConnect();
+
+    // Fetch all quotations from the database
+    const quotations = await Quotation.find({}).exec();
+
+    // Check if any quotations are found
+    if (!quotations || quotations.length === 0) {
+      return new NextResponse(
+        JSON.stringify({ error: "No quotations found" }),
+        { status: 404 }
+      );
+    }
+
+    // Fetch recipient name and address from settings API
+    const settingsResponse = await fetch('https://yourdomain.com/api/settings'); // Adjust to your settings API URL
+    const settingsData = await settingsResponse.json();
+
+    // Extract name and address from the settings API response
+    const recipientInfo = {
+      name: settingsData.name,  // Assuming the API returns a 'name' field
+      address: settingsData.address,  // Assuming the API returns an 'address' field
     };
-    fetchData();
-  }, []);
 
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full table-auto border-collapse border border-gray-400">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">Items to be included in the quotation</th>
-            <th className="border border-gray-300 px-4 py-2">ENGLISH</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">1. Recipient Information</td>
-            <td className="border border-gray-300 px-4 py-2">
-              {quotationData.recipientInfo.name} <br />
-              {quotationData.recipientInfo.address}
-            </td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">2. Date</td>
-            <td className="border border-gray-300 px-4 py-2">{quotationData.date}</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">3. Quotation Number</td>
-            <td className="border border-gray-300 px-4 py-2">{quotationData.quotationNumber}</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">4. Title of document</td>
-            <td className="border border-gray-300 px-4 py-2">Quotation</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">5. Contents</td>
-            <td className="border border-gray-300 px-4 py-2">
-              {quotationData.contents}
-            </td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2">6. Total Price</td>
-            <td className="border border-gray-300 px-4 py-2">{quotationData.totalPrice}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
+    // Map over the quotations to include recipientInfo and table contents
+    const responseQuotations = quotations.map((quotation) => ({
+      recipientInfo, // Use the recipient info from the settings API
+      date: quotation.date,
+      quotationNumber: quotation.quotationNumber,
+      contents: [
+        {
+          section: "Sample Number",
+          value: quotation.sampleNumber || "N/A",
+        },
+        {
+          section: "Sample Name",
+          value: quotation.sampleName || "N/A",
+        },
+        {
+          section: "Sample Check Price",
+          value: quotation.sampleCheckPrice || "N/A",
+        },
+        {
+          section: "Library Preparation Price",
+          value: quotation.libraryPreparationPrice || "N/A",
+        },
+        {
+          section: "NGS Fee",
+          value: quotation.ngsFee || "N/A",
+        },
+        {
+          section: "Total Amount",
+          value: quotation.totalPrice || "N/A",
+        },
+        {
+          section: "GST",
+          value: quotation.gst || "N/A", // Assuming GST is part of the model
+        },
+      ],
+      totalPrice: quotation.totalPrice,
+    }));
 
-export default QuotationTable;
+    // Return all the fetched quotations with the updated structure
+    return new NextResponse(
+      JSON.stringify({
+        message: "Quotations fetched successfully",
+        data: responseQuotations,
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("Error fetching quotations:", error);
+    return new NextResponse(
+      JSON.stringify({ error: "Error fetching quotations" }),
+      { status: 500 }
+    );
+  }
+}

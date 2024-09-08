@@ -53,6 +53,19 @@ const NewOrderBox = () => {
     console.log(saveApiResponse)
   }
 
+  const updateDataInDB1 = async (samples) => {
+    const saveApiResponse = await fetch('/api/get-quotation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ samples: samples, orderIdDB: orderIdDB }),
+    });
+
+    console.log(saveApiResponse)
+  }
+
+
 
   const {
     orderId, setOrderId,
@@ -86,6 +99,18 @@ const NewOrderBox = () => {
   const [isInvoiceChecked1, setIsInvoiceChecked1] = useState(false);
   const [isInvoiceChecked2, setIsInvoiceChecked2] = useState(false);
 
+  const [samples, setSamples] = useState([
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' }
+  ]);
+
+  const handleInputChange = (index, field, value) => {
+    const updatedSamples = [...samples];
+    updatedSamples[index][field] = value;
+    setSamples(updatedSamples);
+  };
+
   console.log("order title", orderTitle)
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -96,7 +121,7 @@ const NewOrderBox = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async() => {
     // setIsPopupVisible(true);
     //setOrderPopVisible(true);
     if (!isAmountChecked) {
@@ -118,7 +143,30 @@ const NewOrderBox = () => {
       //return;
     }
     else {
-      setActivePopup('costEstimateConfirmation');
+      const requestData = {
+        samples, orderIdDB
+      };
+      
+      try {
+        const response = await fetch('/api/get-quotation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          console.log('API response:', data);
+          setActivePopup('costEstimateConfirmation');
+        } else {
+          console.error('API error:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Request failed', error);
+      }
+      // setActivePopup('costEstimateConfirmation');
 
     }
 
@@ -1042,6 +1090,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2"
+                                onChange={(e) => handleInputChange(index, 'id', e.target.value)}
                                 placeholder={`10${index + 1}`}
                               />
                             </td>
@@ -1049,6 +1098,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2"
+                                onChange={(e) => handleInputChange(index, 'name', e.target.value)}
                                 placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
                               />
                             </td>
@@ -1058,6 +1108,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChange(index, 'qualityFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1079,6 +1130,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChange(index, 'libraryFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1100,6 +1152,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChange(index, 'analysisFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1119,6 +1172,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
+                                onChange={(e) => handleInputChange(index, 'tax', e.target.value)}
                                 placeholder="JPY"
                               />
                             </td>
@@ -1126,6 +1180,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
+                                onChange={(e) => handleInputChange(index, 'other', e.target.value)}
                                 placeholder=""
                               />
                             </td>
@@ -1133,6 +1188,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2"
+                                onChange={(e) => handleInputChange(index, 'total1', e.target.value)}
                                 placeholder="JPY"
                               />
                             </td>
@@ -1146,6 +1202,7 @@ const NewOrderBox = () => {
                             <input
                               type="text"
                               className="border rounded-md w-full p-2"
+                              //onChange={(e) => handleInputChange('totalFees', e.target.value)}
                               placeholder="JPY"
                             />
                           </td>

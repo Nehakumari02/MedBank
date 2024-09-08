@@ -84,6 +84,7 @@ const orderSchema = new Schema(
     analysisSpecificationReportLink: {
       type: String,
     },
+    
     invoiceStatus: {
       type: String,
       enum: ["isPending", "inUserProgress", "inAdminProgress", "isAdminCompleted", "isUserCompleted", "isCompleted"],
@@ -100,6 +101,19 @@ const orderSchema = new Schema(
     paymentRecieptLink: {
       type: String,
     },
+
+    samples: [
+      {
+        id: { type: String, required: true },
+        name: { type: String, required: true },
+        qualityFees: { type: String },
+        libraryFees: { type: String },
+        AnalysisFees: { type: String },
+        tax: { type: String },
+        others: { type: String },
+        total: { type: String }
+      }
+    ]
   },
   { timestamps: true }
 );
