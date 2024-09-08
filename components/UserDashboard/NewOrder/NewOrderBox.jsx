@@ -12,6 +12,8 @@ import downloadIcon from '../../../public/dashboard/downloadIcon.png';
 import CalculateCost from '../../../components/CalculateCost';
 import LangDropdown from "../../../components/LangDropdown";
 import { toast } from '@/hooks/use-toast';
+import html2pdf from 'html2pdf.js';
+import QuotationTable from '../../../components/QuotationTable';
 
 const NewOrderBox = () => {
   const router = useRouter();
@@ -81,6 +83,7 @@ const NewOrderBox = () => {
   const [isAnalysisRawChecked1, setIsAnalysisRawChecked1] = useState(false);
   const [isAnalysisRawChecked2, setIsAnalysisRawChecked2] = useState(false);
   const [isInvoiceChecked, setIsInvoiceChecked] = useState(false);
+  const printRef= useRef();
 
 
   const handleSampleSendChecked1 = (e) => {
@@ -252,16 +255,43 @@ const NewOrderBox = () => {
     })
   };
 
-  const handleConfirmCostEstimate = () => {
-    setOrderPopVisible(false);
-    setIsPopupVisible(false);
-    setCostEstimateStatus("isCompleted");
-    setFormalRequestStatus("inUserProgress");
-    updateDataInDB({
-      costEstimateStatus: "isCompleted",
-      formalRequestStatus: "inUserProgress"
-    })
+  const handleConfirmCostEstimate = async () => {
+    const element = printRef.current;
+  
+    if (!element) {
+      console.error("QuotationTable is not loaded yet.");
+      return;
+    }
+  
+    // Ensure the element and its content are fully loaded
+    try {
+      const options = {
+        margin: 0.5,
+        filename: 'quotation.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+  
+      // Wait for the PDF generation to complete
+      await html2pdf().from(element).set(options).save();
+  
+      // Update statuses and close the popup
+      setOrderPopVisible(false);
+      setIsPopupVisible(false);
+      setCostEstimateStatus("isCompleted");
+      setFormalRequestStatus("inUserProgress");
+  
+      // Update the database
+      updateDataInDB({
+        costEstimateStatus: "isCompleted",
+        formalRequestStatus: "inUserProgress"
+      });
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
   };
+  
 
   const handleConfirmFormalRequest = () => {
     setFormalRequestStatus("isUserCompleted");
@@ -538,7 +568,7 @@ const NewOrderBox = () => {
                     <div className='flex flex-col items-center justify-center gap-[14px]'>
                       <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
                       <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                        <span>RequestSheet.pdf</span><br />
+                        <span>CostEstimation.pdf</span><br />
                         <span>1.2MB</span>
                       </div>
                     </div>
@@ -546,6 +576,11 @@ const NewOrderBox = () => {
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                  </div>
+                  <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+                    <div ref={printRef}>
+                      <QuotationTable orderId={orderIdDB} />
+                    </div>
                   </div>
                 </div>
               )}

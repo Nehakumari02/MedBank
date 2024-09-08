@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import { useRef } from 'react';
 import QuotationTable from '../../../../../../components/QuotationTable';
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 import html2pdf from 'html2pdf.js';
 
 const QuotationPage = () => {
@@ -20,18 +20,24 @@ const QuotationPage = () => {
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
+    // Generate the PDF from the hidden element
     html2pdf().from(element).set(options).save();
   };
 
   return (
     <div>
-      <h1>Quotation Table</h1>
+      <h1>Quotation Page</h1>
       <button onClick={generatePDF}>Download PDF</button>
-      <div ref={printRef}>
-        <QuotationTable orderId={orderId} />
+      
+      {/* Hidden table content (still present in DOM but hidden from view) */}
+      <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+        <div ref={printRef}>
+          <QuotationTable orderId={orderId} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default QuotationPage;
+
