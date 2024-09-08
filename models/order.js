@@ -104,8 +104,8 @@ const orderSchema = new Schema(
 
     samples: [
       {
-        id: { type: String, required: true },
-        name: { type: String, required: true },
+        id: { type: String},
+        name: { type: String},
         qualityFees: { type: String },
         libraryFees: { type: String },
         AnalysisFees: { type: String },
