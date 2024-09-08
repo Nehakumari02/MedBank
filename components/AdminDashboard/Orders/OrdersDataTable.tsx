@@ -576,7 +576,7 @@ export const OrdersDataTable: React.FC<OrdersDataTableProps> = ({ data=[], total
           {buttons.map((pageNumber,index)=>{
             return(
               <Button
-                id={`${index}`}
+                key={`${index}`}
                 className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
                 variant="outline"
                 size="sm"
