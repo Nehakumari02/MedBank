@@ -1,86 +1,80 @@
-import { NextResponse } from "next/server";
-import dbConnect from "../../../lib/dbConnect"; // Import your database connection logic
-import Quotation from "../../../models/quotation"; // Import the Quotation model
+'use client'
+import { useState, useEffect } from 'react';
 
-export async function GET() {
-  try {
-    console.log("Fetching all quotations");
+import { usePathname, useRouter } from "next/navigation";
 
-    // Establish a connection to the database
-    await dbConnect();
 
-    // Fetch all quotations from the database
-    const quotations = await Quotation.find({}).exec();
+const QuotationTable = ({ orderId }) => {
+  const path = usePathname();
+  const [samples, setSamples] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    // Check if any quotations are found
-    if (!quotations || quotations.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ error: "No quotations found" }),
-        { status: 404 }
-      );
-    }
+  useEffect(() => {
+    const fetchSamples = async () => {
+      try {
+        const response = await fetch('/api/fetchQuotation', { // Adjust the API endpoint as needed
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ orderId }),
+        });
 
-    // Fetch recipient name and address from settings API
-    const settingsResponse = await fetch('https://yourdomain.com/api/settings'); // Adjust to your settings API URL
-    const settingsData = await settingsResponse.json();
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
 
-    // Extract name and address from the settings API response
-    const recipientInfo = {
-      name: settingsData.name,  // Assuming the API returns a 'name' field
-      address: settingsData.address,  // Assuming the API returns an 'address' field
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        setSamples(data.data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    // Map over the quotations to include recipientInfo and table contents
-    const responseQuotations = quotations.map((quotation) => ({
-      recipientInfo, // Use the recipient info from the settings API
-      date: quotation.date,
-      quotationNumber: quotation.quotationNumber,
-      contents: [
-        {
-          section: "Sample Number",
-          value: quotation.sampleNumber || "N/A",
-        },
-        {
-          section: "Sample Name",
-          value: quotation.sampleName || "N/A",
-        },
-        {
-          section: "Sample Check Price",
-          value: quotation.sampleCheckPrice || "N/A",
-        },
-        {
-          section: "Library Preparation Price",
-          value: quotation.libraryPreparationPrice || "N/A",
-        },
-        {
-          section: "NGS Fee",
-          value: quotation.ngsFee || "N/A",
-        },
-        {
-          section: "Total Amount",
-          value: quotation.totalPrice || "N/A",
-        },
-        {
-          section: "GST",
-          value: quotation.gst || "N/A", // Assuming GST is part of the model
-        },
-      ],
-      totalPrice: quotation.totalPrice,
-    }));
+    fetchSamples();
+  }, [orderId]);
 
-    // Return all the fetched quotations with the updated structure
-    return new NextResponse(
-      JSON.stringify({
-        message: "Quotations fetched successfully",
-        data: responseQuotations,
-      }),
-      { status: 200 }
-    );
-  } catch (error) {
-    console.log("Error fetching quotations:", error);
-    return new NextResponse(
-      JSON.stringify({ error: "Error fetching quotations" }),
-      { status: 500 }
-    );
-  }
-}
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return (
+    <table border="1" cellspacing="0" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Sample ID</th>
+          <th>Name</th>
+          <th>Quality Fees</th>
+          <th>Library Fees</th>
+          <th>Analysis Fees</th>
+          <th>Tax</th>
+          <th>Others</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {samples.map(sample => (
+          <tr key={sample.id}>
+            <td>{sample.id}</td>
+            <td>{sample.name}</td>
+            <td>{sample.qualityFees || 'N/A'}</td>
+            <td>{sample.libraryFees || 'N/A'}</td>
+            <td>{sample.AnalysisFees || 'N/A'}</td>
+            <td>{sample.tax || 'N/A'}</td>
+            <td>{sample.others || 'N/A'}</td>
+            <td>{sample.total || 'N/A'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default QuotationTable;
