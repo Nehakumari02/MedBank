@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from "next/navigation";
 
-const QuotationTable = ({ orderId, userId }) => {
+const QuotationTable = ({ orderIdDB, orderId, userId }) => {
   const path = usePathname();
   const [samples, setSamples] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -17,7 +17,7 @@ const QuotationTable = ({ orderId, userId }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ orderId }),
+          body: JSON.stringify({ orderIdDB }),
         });
 
         if (!response.ok) {
@@ -79,6 +79,7 @@ const QuotationTable = ({ orderId, userId }) => {
           <p><strong>Name:</strong> {userDetails.name}</p>
           <p><strong>City:</strong> {userDetails.city}</p>
           <p><strong>Postal Code:</strong> {userDetails.postalCode}</p>
+          <p><strong>Order ID:</strong> {orderId}</p>
         </div>
       ) : (
         <p>No user details available.</p>
