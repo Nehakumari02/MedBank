@@ -403,8 +403,17 @@ export const columns: ColumnDef<OrderList>[] = [
   //   },
   // },
 ]
+interface OrdersDataTableProps {
+  data: OrderList[];
+  totalPages: number;
+  currentPage: number;
+  searchQuery: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  buttons: (number | string)[];
+}
 
-export function OrdersDataTable({ data }: { data: OrderList[] }) {
+export const OrdersDataTable: React.FC<OrdersDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) =>{
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -412,25 +421,6 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [totalPages,setTotalPages] = React.useState(10);
-  const [currentPage,setCurrentPage] = React.useState(2);
-  const [buttons,setButtons] = React.useState([1,2,3,4,5,6,"..."]);
-  
-  React.useEffect(()=>{
-    if(currentPage<4){
-      setButtons(()=>{
-        return([1,2,3,4,"...",totalPages])
-      })
-    }else if(currentPage>totalPages-3&&currentPage<=totalPages){
-      setButtons(()=>{
-        return([1,"...",totalPages-3,totalPages-2,totalPages-1,totalPages])
-      })
-    }else{
-      setButtons(()=>{
-        return([1,"...",currentPage-1,currentPage,currentPage+1,"...",totalPages])
-      })
-    }
-  },[currentPage])
 
   const table = useReactTable({
     data,
@@ -459,9 +449,12 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
-          value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("orderTitle")?.setFilterValue(event.target.value)
+          // value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
+          value={searchQuery}
+          onChange={(event) =>{
+            setSearchQuery(event.target.value);
+            setCurrentPage(1);
+          }
           }
           className="max-w-sm hidden md:block md:max-w-[360px] md:w-[360px]"
         />
@@ -514,35 +507,50 @@ export function OrdersDataTable({ data }: { data: OrderList[] }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="border-none"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+          {data.length!==0?
+            (<TableBody className="">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className="border-none"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>):
+            (
+              <TableBody className="">
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+            )
+          }
+            
         </Table>
       </div>
       <div className="flex items-center justify-start space-x-2 py-4">

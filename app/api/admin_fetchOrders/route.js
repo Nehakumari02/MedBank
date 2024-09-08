@@ -4,10 +4,29 @@ import Order from "../../../models/order";
 
 export async function POST(req) {
   try {
+    const {page,limit,searchQuery} = await req.json();
+    console.log(page,limit)
     await dbConnect();
 
-    // Fetch all orders from the Order collection
-    const orders = await Order.find({});
+    const skip = (page- 1) * limit;
+    const searchRegex = searchQuery ? new RegExp(searchQuery, 'i') : /.*/;
+
+    // Fetch orders with pagination
+    const orders = await Order.find({ 
+      $or: [
+        { orderTitle: { $regex: searchRegex } },
+        // Add more fields if you need to search in additional fields
+      ]
+    })
+      .skip(skip)
+      .limit(limit);
+
+    // Fetch total count of orders for pagination info
+    const totalOrders = await Order.countDocuments({ 
+      $or: [
+        { orderTitle: { $regex: searchRegex } },
+      ]
+    });
 
     if (!orders || orders.length === 0) {
       return new NextResponse(
@@ -16,9 +35,13 @@ export async function POST(req) {
       );
     }
 
-    console.log("Orders found:", orders);
     return new NextResponse(
-      JSON.stringify({ message: "Orders fetched successfully", data: orders }),
+      JSON.stringify({
+        message: "Orders fetched successfully",
+        data: orders,
+        totalPages: Math.ceil(totalOrders / limit),
+        currentPage: page
+      }),
       { status: 200 }
     );
   } catch (error) {

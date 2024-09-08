@@ -20,7 +20,7 @@ export async function POST(req) {
     const newOrder = await Order.create({
       userId: userId,
       orderId: nextOrderId,
-      orderTitle: "",
+      orderTitle: "Order",
       requestSheetStatus: "inUserProgress",
       requestSheetLink: "",
       costEstimateStatus: "isPending",

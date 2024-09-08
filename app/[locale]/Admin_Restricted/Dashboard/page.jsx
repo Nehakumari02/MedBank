@@ -10,6 +10,25 @@ const AdminDashboard = () => {
   }
 
   const [data, setData] = useState([]);
+  const [totalPages,setTotalPages] = React.useState(10);
+  const [currentPage,setCurrentPage] = React.useState(2);
+  const [buttons,setButtons] = React.useState([1,2,3,4,5,6,"..."]);
+  
+  React.useEffect(()=>{
+    if(currentPage<4){
+      setButtons(()=>{
+        return([1,2,3,4,"...",totalPages])
+      })
+    }else if(currentPage>totalPages-3&&currentPage<=totalPages){
+      setButtons(()=>{
+        return([1,"...",totalPages-3,totalPages-2,totalPages-1,totalPages])
+      })
+    }else{
+      setButtons(()=>{
+        return([1,"...",currentPage-1,currentPage,currentPage+1,"...",totalPages])
+      })
+    }
+  },[currentPage])
 
   useEffect(() => {
     const fetchAllOrders = async () => {
@@ -33,7 +52,7 @@ const AdminDashboard = () => {
 
   return (
     <div className='w-full p-[10px] md:p-[19px]'>
-      <OrderOverView orderOverview={orderOverview} data={data} />
+      <OrderOverView orderOverview={orderOverview} data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} />
     </div>
   )
 }

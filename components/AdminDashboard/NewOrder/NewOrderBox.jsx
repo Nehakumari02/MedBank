@@ -1342,7 +1342,7 @@ const NewOrderBox = () => {
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                          <span className='w-full flex justify-between'><span>Progress</span> <span>{uploadPercentage} %</span> </span>
+                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
                           <Progress value={uploadPercentage} />
                           </div>
                         )}
@@ -1370,8 +1370,14 @@ const NewOrderBox = () => {
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                            <p className="text-sm md:text-base font-medium">File Selected</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
+                        {uploadStatus && (
+                          <div className='w-full flex flex-col items-start'>
+                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                          <Progress value={uploadPercentage} />
                           </div>
                         )}
                       </div>
@@ -1450,8 +1456,14 @@ const NewOrderBox = () => {
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-sm md:text-base font-medium">File Uploaded</p>
+                            <p className="text-sm md:text-base font-medium">File Selected</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
+                        {uploadStatus && (
+                          <div className='w-full flex flex-col items-start'>
+                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                          <Progress value={uploadPercentage} />
                           </div>
                         )}
                       </div>
