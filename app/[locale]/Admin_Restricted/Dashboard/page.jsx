@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   const [data,setData] = useState([]);
   const [totalPages,setTotalPages] = React.useState(1);
   const [currentPage,setCurrentPage] = React.useState(1);
-  const [buttons,setButtons] = React.useState([1,2,3,4,"..."]);
+  const [buttons,setButtons] = React.useState([1]);
   const [searchQuery,setSearchQuery] = useState("");
 
   React.useEffect(() => {

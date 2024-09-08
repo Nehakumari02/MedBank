@@ -579,7 +579,7 @@ const NewOrderBox = () => {
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef}>
-                      <QuotationTable orderId={orderIdDB} userId={userIdDB}  />
+                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB}  />
                     </div>
                   </div>
                 </div>
