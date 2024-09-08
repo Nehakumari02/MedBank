@@ -51,7 +51,7 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
   return (
     <button
       onClick={() => {
-        router.push(`/${language}/${userId}/${orderId}/OrderDetails`);
+        router.push(`/${language}/Admin_Restricted/${orderId}/NewOrder`);
       }}
       className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center"
     >
@@ -405,7 +405,16 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
 ]
 
-export function ArchiveDataTable({ data }: { data: OrderList[] }) {
+interface ArchiveDataTableProps {
+  data: OrderList[];
+  totalPages: number;
+  currentPage: number;
+  searchQuery: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  buttons: (number | string)[];
+}
+export const  ArchiveDataTable: React.FC<ArchiveDataTableProps>=({data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery}) =>{
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -441,9 +450,11 @@ export function ArchiveDataTable({ data }: { data: OrderList[] }) {
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
-          value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
+          // value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
+          value={searchQuery}
           onChange={(event) =>
-            table.getColumn("orderTitle")?.setFilterValue(event.target.value)
+            // table.getColumn("orderTitle")?.setFilterValue(event.target.value)
+            setSearchQuery(event.target.value)
           }
           className="max-w-sm hidden md:block md:max-w-[360px] md:w-[360px]"
         />
@@ -496,61 +507,108 @@ export function ArchiveDataTable({ data }: { data: OrderList[] }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="border-none"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+          {data.length!==0?
+            (<TableBody className="">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className="border-none"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>):
+            (
+              <TableBody className="">
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+            )
+          }
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div> */}
-        <div className="space-x-2">
-          <Button
-          className="bg-white"
+      <div className="flex items-center justify-start space-x-2 py-4">
+        <div className="space-x-[2px]">
+        {/* <Button
+          className="border-none"
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => (setCurrentPage(1))}
+            disabled={currentPage==1}
           >
-            Previous
-          </Button>
+            &lt;&lt;
+          </Button> */}
           <Button
-          className="bg-white"
+          className="border-none py-[6px] px-[12px] font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => (setCurrentPage(prev=>(prev-1)))}
+            disabled={currentPage==1}
           >
-            Next
+            &lt;
           </Button>
+          {buttons.map((pageNumber,index)=>{
+            return(
+              <Button
+                id={`${index}`}
+                className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const numericPageNumber = Number(pageNumber);
+                  if (!isNaN(numericPageNumber)) {
+                    setCurrentPage(numericPageNumber);
+                  }
+                }}
+              >
+                {pageNumber}
+              </Button>
+            )
+          })}
+
+          <Button
+          className="border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(prev=>(prev+1)))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;
+          </Button>
+          {/* <Button
+          className="border-none"
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(totalPages))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;&gt;
+          </Button> */}
         </div>
       </div>
     </div>

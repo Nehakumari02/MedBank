@@ -408,10 +408,12 @@ interface DashboardDataTableProps {
   data: OrderList[];
   totalPages: number;
   currentPage: number;
+  searchQuery: string;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   buttons: (number | string)[];
 }
-export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data, totalPages, currentPage, setCurrentPage, buttons }) => {
+export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -447,9 +449,11 @@ export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data, to
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
-          value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
+          // value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
+          value={searchQuery}
           onChange={(event) =>
-            table.getColumn("orderTitle")?.setFilterValue(event.target.value)
+            // table.getColumn("orderTitle")?.setFilterValue(event.target.value)
+            setSearchQuery(event.target.value)
           }
           className="max-w-sm hidden md:block md:max-w-[360px] md:w-[360px]"
         />
