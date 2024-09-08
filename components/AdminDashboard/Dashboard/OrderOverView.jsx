@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import {pendingIcon,progressIcon,completedIcon} from '../Icons'
 import Tutorial from  '@/components/Tutorial'
 
-const OrderOverView = ({orderOverview, data, totalPages, currentPage, setCurrentPage, buttons}) => {
+const OrderOverView = ({data, totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery}) => {
   const [showTutorial, setShowTutorial] = useState(false);
   
   
@@ -43,7 +43,7 @@ const OrderOverView = ({orderOverview, data, totalPages, currentPage, setCurrent
   const t = useTranslations("DashBoard.orderOverView")
   return (
     <div className={`${showTutorial?"h-[calc(100vh-146px)] overflow-y-hidden":""}`}>
-    <DashboardDataTable data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} />
+    <DashboardDataTable data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     </div>
   )
 }
