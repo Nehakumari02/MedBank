@@ -8,6 +8,11 @@ const QuotationTable = ({ orderId, userId }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const formattedDate = `${day}-${month}-${year}`;
 
   useEffect(() => {
     const fetchSamples = async () => {
@@ -73,18 +78,19 @@ const QuotationTable = ({ orderId, userId }) => {
 
   return (
     <div>
-      <h2>User Details</h2>
       {userDetails ? (
-        <div>
-          <p><strong>Name:</strong> {userDetails.name}</p>
-          <p><strong>City:</strong> {userDetails.city}</p>
-          <p><strong>Postal Code:</strong> {userDetails.postalCode}</p>
+        <div className='flex flex-col gap-2 font-medium text-xl'>
+          <div className='font-medium' >Name: {userDetails.name}</div>
+          <div>City: {userDetails.city}</div>
+          <div>Postal Code:{userDetails.postalCode}</div>
+          <div>{orderId}</div>
         </div>
       ) : (
         <p>No user details available.</p>
       )}
+      <div className="pb-9 pt-2">{formattedDate}</div>
 
-      <h2>Quotation</h2>
+      <div className='pb-5 font-medium text-2xl' > Quotation</div>
       <table border="1" cellspacing="0" cellpadding="5">
         <thead>
           <tr>
