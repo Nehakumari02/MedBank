@@ -42,6 +42,39 @@ export async function POST(req) {
       invoiceLink: "",
       paymentStatus: "isPending",
       paymentRecieptLink: "",
+
+      samples: [
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        },
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        },
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        }
+      ]
     });
 
   
