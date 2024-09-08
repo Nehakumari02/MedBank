@@ -22,7 +22,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ orderIdDB }),
+          body: JSON.stringify({ orderId:orderIdDB }),
         });
 
         if (!response.ok) {
