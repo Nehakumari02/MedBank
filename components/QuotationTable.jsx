@@ -68,7 +68,7 @@ const QuotationTable = ({ orderId, userId }) => {
     fetchUserDetails1();
   }, [orderId, userId]);
 
-  if (loading) return <p>Loading...</p>;
+  //if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -84,14 +84,14 @@ const QuotationTable = ({ orderId, userId }) => {
         <p>No user details available.</p>
       )}
 
-      <h2>Quotation Table</h2>
+      <h2>Quotation</h2>
       <table border="1" cellspacing="0" cellpadding="5">
         <thead>
           <tr>
             <th>Sample ID</th>
             <th>Name</th>
-            <th>Quality Fees</th>
-            <th>Library Fees</th>
+            <th>Quality check Fees</th>
+            <th>Library adjustment Fees</th>
             <th>Analysis Fees</th>
             <th>Tax</th>
             <th>Others</th>
