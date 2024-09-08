@@ -76,7 +76,7 @@ const SignInPage = () => {
       toast({
         variant:'error',
         title:'Error',
-        description:error
+        description:'Something went wrong please try again'
       })
     }
 

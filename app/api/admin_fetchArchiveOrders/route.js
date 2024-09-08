@@ -2,13 +2,34 @@ import { NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Order from "../../../models/order";
 
-export async function POST() {
+export async function POST(req) {
   try {
-    console.log("Fetching all orders");
+    const { page = 1, limit = 10, searchQuery = '' } = await req.json();
+    console.log(page, limit, searchQuery);
+
     await dbConnect();
 
-    // Find all orders in the database
-    const orders = await Order.find({paymentStatus:'isCompleted'}).exec();
+    const skip = (page - 1) * limit;
+    const searchRegex = searchQuery ? new RegExp(searchQuery, 'i') : /.*/;
+
+    // Fetch orders with pagination and search
+    const orders = await Order.find({
+      paymentStatus: 'isCompleted',
+      $or: [
+        { orderTitle: { $regex: searchRegex } },
+        // Add more fields if you need to search in additional fields
+      ]
+    })
+      .skip(skip)
+      .limit(limit)
+
+    // Fetch total count of orders for pagination info
+    const totalOrders = await Order.countDocuments({
+      paymentStatus: 'isCompleted',
+      $or: [
+        { orderTitle: { $regex: searchRegex } },
+      ]
+    }).exec();
 
     if (!orders || orders.length === 0) {
       return new NextResponse(
@@ -17,9 +38,13 @@ export async function POST() {
       );
     }
 
-    // Return the fetched orders
     return new NextResponse(
-      JSON.stringify({ message: "Orders fetched successfully", data: orders }),
+      JSON.stringify({
+        message: "Orders fetched successfully",
+        data: orders,
+        totalPages: Math.ceil(totalOrders / limit),
+        currentPage: page
+      }),
       { status: 200 }
     );
   } catch (error) {
