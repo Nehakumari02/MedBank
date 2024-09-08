@@ -100,13 +100,37 @@ const NewOrderBox = () => {
   const [isInvoiceChecked2, setIsInvoiceChecked2] = useState(false);
 
   const [samples, setSamples] = useState([
-    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' },
-    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' },
-    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', amount: '' }
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' }
   ]);
+
+  const calculateTotal = (sample) => {
+    const qualityFees = parseFloat(sample.qualityFees || 0);
+    const libraryFees = parseFloat(sample.libraryFees || 0);
+    const analysisFees = parseFloat(sample.analysisFees || 0);
+    const others = parseFloat(sample.others || 0);
+    const tax = parseFloat(sample.tax || 0);
+  
+    // Apply tax to sum of fees
+    const subtotal = qualityFees + libraryFees + analysisFees + others;
+    const total = subtotal + (subtotal * (tax / 100));
+    
+    return total.toFixed(2);  // Return a fixed decimal string
+  };
+  
 
   const handleInputChange = (index, field, value) => {
     const updatedSamples = [...samples];
+    if (field === 'tax') {
+      updatedSamples.forEach(sample => sample.tax = value);
+      //setGlobalTax(value);
+      console.log("hye");
+    } 
+    else {
+      updatedSamples[index][field] = value;
+    }
+    updatedSamples[index].total = calculateTotal(updatedSamples[index]);
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
   };
@@ -1079,7 +1103,7 @@ const NewOrderBox = () => {
                           <th className="py-2">Next gen. sequencer analysis fees</th>
                           <th className="py-2">Tax</th>
                           <th className="py-2">Others</th>
-                          <th className="py-2">Amount</th>
+                          <th className="py-2">Total Amount</th>
                         </tr>
                       </thead>
 
@@ -1173,6 +1197,7 @@ const NewOrderBox = () => {
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
                                 onChange={(e) => handleInputChange(index, 'tax', e.target.value)}
+                                value={samples[index].tax}
                                 placeholder="JPY"
                               />
                             </td>
@@ -1190,6 +1215,7 @@ const NewOrderBox = () => {
                                 className="border rounded-md w-full p-2"
                                 onChange={(e) => handleInputChange(index, 'total1', e.target.value)}
                                 placeholder="JPY"
+                                value={samples[index].total}
                               />
                             </td>
                           </tr>
@@ -1493,7 +1519,7 @@ const NewOrderBox = () => {
                           <th className="py-2">Next gen. sequencer analysis fees</th>
                           <th className="py-2">Tax</th>
                           <th className="py-2">Others</th>
-                          <th className="py-2">Amount</th>
+                          <th className="py-2">Total Amount</th>
                         </tr>
                       </thead>
 
@@ -1596,6 +1622,7 @@ const NewOrderBox = () => {
                                 type="text"
                                 className="border rounded-md w-full p-2"
                                 placeholder="JPY"
+                                value={samples[index].total}
                               />
                             </td>
                           </tr>
