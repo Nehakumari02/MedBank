@@ -7,6 +7,7 @@ import html2pdf from 'html2pdf.js';
 const QuotationPage = () => {
   const path = usePathname();
   const orderId = path.split("/")[3]; // Adjust based on your URL structure
+  const userId = path.split("/")[2];
   const printRef = useRef();
 
   const generatePDF = () => {
@@ -32,7 +33,7 @@ const QuotationPage = () => {
       {/* Hidden table content (still present in DOM but hidden from view) */}
       <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
         <div ref={printRef}>
-          <QuotationTable orderId={orderId} />
+          <QuotationTable orderId={orderId} userId={userId} />
         </div>
       </div>
     </div>
