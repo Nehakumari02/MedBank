@@ -35,23 +35,98 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { usePathname, useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+
+interface OrderTitleCellProps {
+  userId: string;
+  orderId: string;
+  orderTitle: string;
+}
+
+const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderTitle }) => {
+  const router = useRouter();
+  const language = usePathname().split("/")[1];
+
+  return (
+    <button
+      onClick={() => {
+        router.push(`/${language}/${userId}/${orderId}/OrderDetails`);
+      }}
+      className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center"
+    >
+      {orderTitle === "" ? "Order..." : orderTitle}
+    </button>
+  );
+};
 
 export type OrderList = {
-  id: string
-  orderTitle:string,
-  requestSheet:boolean|"inProgress",
-  costEstimate:boolean|"inProgress",
-  formalRequest:boolean|"inProgress",
-  sampleShipping:boolean|"inProgress",
-  qualityCheck:boolean|"inProgress",
-  libraryPrep:boolean|"inProgress",
-  analysisProgress:boolean|"inProgress",
-  analysisDone:boolean|"inProgress",
-  rawData:boolean|"inProgress",
-  analysisSpecification:boolean|"inProgress",
-  invoice:boolean|"inProgress",
-  payment:boolean|"inProgress"
+  _id: string
+  userId: string
+  orderId: string
+  orderTitle: string
+  requestSheet: {
+    status: "inAdminProgress" | "completed" | "pending" // Define other statuses as needed
+    requestSheetLink: string
+    _id: string
+  }
+  costEstimate: {
+    status: "inAdminProgress" | "completed" | "pending"
+    costEstimationLink: string
+    _id: string
+  }
+  formalRequest: {
+    status: "inAdminProgress" | "completed" | "pending"
+    _id: string
+  }
+  sampleShipping: {
+    status: "inAdminProgress" | "completed" | "pending"
+    sampleShippingStatus: string // Define possible statuses if needed
+    _id: string
+  }
+  qualityCheck: {
+    status: "inAdminProgress" | "completed" | "pending"
+    qualityCheckReportLink: string
+    _id: string
+  }
+  libraryPrep: {
+    status: "inAdminProgress" | "completed" | "pending"
+    libraryCheckReportLink: string
+    _id: string
+  }
+  analysisProgress: {
+    status: "inAdminProgress" | "completed" | "pending"
+    _id: string
+  }
+  analysisDone: {
+    status: "inAdminProgress" | "completed" | "pending"
+    _id: string
+  }
+  analysisRawData: {
+    status: "inAdminProgress" | "completed" | "pending"
+    rawDataLink: string
+    _id: string
+  }
+  analysisSpecification: {
+    status: "inAdminProgress" | "completed" | "pending"
+    analysisSpecificationReportLink: string
+    _id: string
+  }
+  invoice: {
+    status: "inAdminProgress" | "completed" | "pending"
+    invoiceLink: string
+    _id: string
+  }
+  payment: {
+    status: "inAdminProgress" | "completed" | "pending"
+    paymentReceiptLink: string
+    _id: string
+  }
+  createdAt: string // Date string or Date type if using actual Date objects
+  updatedAt: string // Date string or Date type if using actual Date objects
+  __v: number
 }
+
 
 export const columns: ColumnDef<OrderList>[] = [
   // {
@@ -77,10 +152,10 @@ export const columns: ColumnDef<OrderList>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "id",
+    accessorKey: "orderId",
     header: "OrderId",
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("id")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
   },
   {
@@ -96,18 +171,23 @@ export const columns: ColumnDef<OrderList>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")}</div>,
+    cell: ({ row }) =>(
+      <OrderTitleCell
+        userId={row.original.userId}
+        orderId={row.original._id}
+        orderTitle={row.getValue("orderTitle")}
+      />
+    )
   },
   {
-    accessorKey: "requestSheet",
+    accessorKey: "requestSheetStatus",
     header: "Request Sheet",
     cell: ({ row }) =>
       {
-        const requestSheetStatus = row.getValue("requestSheet");
-
-        if (requestSheetStatus === "inProgress") {
+        const requestSheetStatus = row.getValue("requestSheetStatus");
+        if (requestSheetStatus === "inAdminProgress") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
-        } else if (requestSheetStatus === true) {
+        } else if (requestSheetStatus === "isCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
         } else {
           return <></>;
@@ -115,14 +195,14 @@ export const columns: ColumnDef<OrderList>[] = [
       },
   },
   {
-    accessorKey: "costEstimate",
+    accessorKey: "costEstimateStatus",
     header: "Cost Estimate",
     cell: ({ row }) => {
-      const costEstimateStatus = row.getValue("costEstimate");
+      const costEstimateStatus = row.getValue("costEstimateStatus");
   
-      if (costEstimateStatus === "inProgress") {
+      if (costEstimateStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
-      } else if (costEstimateStatus === true) {
+      } else if (costEstimateStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
       } else {
         return <></>;
@@ -130,14 +210,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "formalRequest",
+    accessorKey: "formalRequestStatus",
     header: "Formal Request",
     cell: ({ row }) => {
-      const formalRequestStatus = row.getValue("formalRequest");
+      const formalRequestStatus = row.getValue("formalRequestStatus");
   
-      if (formalRequestStatus === "inProgress") {
+      if (formalRequestStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
-      } else if (formalRequestStatus === true) {
+      } else if (formalRequestStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
       } else {
         return <></>;
@@ -145,14 +225,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "sampleShipping",
+    accessorKey: "sampleShippingStatus",
     header: "Sample Shipping",
     cell: ({ row }) => {
-      const sampleShippingStatus = row.getValue("sampleShipping");
+      const sampleShippingStatus = row.getValue("sampleShippingStatus");
   
-      if (sampleShippingStatus === "inProgress") {
+      if (sampleShippingStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
-      } else if (sampleShippingStatus === true) {
+      } else if (sampleShippingStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
       } else {
         return <></>;
@@ -160,14 +240,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "qualityCheck",
+    accessorKey: "qualityCheckStatus",
     header: "Quality Check",
     cell: ({ row }) => {
-      const qualityCheckStatus = row.getValue("qualityCheck");
+      const qualityCheckStatus = row.getValue("qualityCheckStatus");
   
-      if (qualityCheckStatus === "inProgress") {
+      if (qualityCheckStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
-      } else if (qualityCheckStatus === true) {
+      } else if (qualityCheckStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
       } else {
         return <></>;
@@ -175,14 +255,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "libraryPrep",
+    accessorKey: "libraryPrepStatus",
     header: "Library Prep",
     cell: ({ row }) => {
-      const libraryPrepStatus = row.getValue("libraryPrep");
+      const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
-      if (libraryPrepStatus === "inProgress") {
+      if (libraryPrepStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
-      } else if (libraryPrepStatus === true) {
+      } else if (libraryPrepStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
       } else {
         return <></>;
@@ -190,14 +270,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "analysisProgress",
+    accessorKey: "analysisProgressStatus",
     header: "Analysis Progress",
     cell: ({ row }) => {
-      const analysisProgressStatus = row.getValue("analysisProgress");
+      const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
-      if (analysisProgressStatus === "inProgress") {
+      if (analysisProgressStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
-      } else if (analysisProgressStatus === true) {
+      } else if (analysisProgressStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
       } else {
         return <></>;
@@ -205,14 +285,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "analysisDone",
+    accessorKey: "analysisDoneStatus",
     header: "Analysis Done",
     cell: ({ row }) => {
-      const analysisDoneStatus = row.getValue("analysisDone");
+      const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
-      if (analysisDoneStatus === "inProgress") {
+      if (analysisDoneStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
-      } else if (analysisDoneStatus === true) {
+      } else if (analysisDoneStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
       } else {
         return <></>;
@@ -220,14 +300,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "rawData",
+    accessorKey: "analysisRawDataStatus",
     header: "Raw Data",
     cell: ({ row }) => {
-      const rawDataStatus = row.getValue("rawData");
+      const rawDataStatus = row.getValue("analysisRawDataStatus");
   
-      if (rawDataStatus === "inProgress") {
+      if (rawDataStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
-      } else if (rawDataStatus === true) {
+      } else if (rawDataStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
       } else {
         return <></>;
@@ -235,14 +315,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "analysisSpecification",
+    accessorKey: "analysisSpecificationStatus",
     header: "Analysis Specification",
     cell: ({ row }) => {
-      const analysisSpecificationStatus = row.getValue("analysisSpecification");
+      const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
-      if (analysisSpecificationStatus === "inProgress") {
+      if (analysisSpecificationStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
-      } else if (analysisSpecificationStatus === true) {
+      } else if (analysisSpecificationStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
       } else {
         return <></>;
@@ -250,14 +330,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "invoice",
+    accessorKey: "invoiceStatus",
     header: "Invoice",
     cell: ({ row }) => {
-      const invoiceStatus = row.getValue("invoice");
+      const invoiceStatus = row.getValue("invoiceStatus");
   
-      if (invoiceStatus === "inProgress") {
+      if (invoiceStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
-      } else if (invoiceStatus === true) {
+      } else if (invoiceStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
       } else {
         return <></>;
@@ -265,14 +345,14 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   {
-    accessorKey: "payment",
+    accessorKey: "paymentStatus",
     header: "Payment",
     cell: ({ row }) => {
-      const paymentStatus = row.getValue("payment");
+      const paymentStatus = row.getValue("paymentStatus");
   
-      if (paymentStatus === "inProgress") {
+      if (paymentStatus === "inAdminProgress") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
-      } else if (paymentStatus === true) {
+      } else if (paymentStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
       } else {
         return <></>;
@@ -280,7 +360,7 @@ export const columns: ColumnDef<OrderList>[] = [
     },
   },
   // {
-  //   accessorKey: "amount",
+  //   accessorKey: "amountStatus",
   //   header: () => <div className="text-right">Amount</div>,
   //   cell: ({ row }) => {
   //     const amount = parseFloat(row.getValue("amount"))
@@ -325,7 +405,11 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
 ]
 
-export function ArchiveDataTable({ data }: { data: OrderList[] }) {
+interface DashboardDataTableProps {
+  data: OrderList[];
+}
+
+export const  ArchiveDataTable: React.FC<DashboardDataTableProps>=({data=[]}) =>{
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -416,35 +500,49 @@ export function ArchiveDataTable({ data }: { data: OrderList[] }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="border-none"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+          {data.length!==0?
+            (<TableBody className="">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className="border-none"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>):
+            (
+              <TableBody className="">
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+            )
+          }
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
