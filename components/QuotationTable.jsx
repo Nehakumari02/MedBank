@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from "next/navigation";
+import { useOrder } from '@/contexts/OrderContext';
 
 const QuotationTable = ({ orderIdDB, orderId, userId }) => {
   const path = usePathname();
@@ -13,6 +14,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
   const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
   const day = String(currentDate.getDate()).padStart(2, '0');
   const formattedDate = `${day}-${month}-${year}`;
+  const { grandTotal, setGrandTotal } = useOrder();
 
   useEffect(() => {
     const fetchSamples = async () => {
@@ -84,6 +86,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
             <p><strong>Postal Code:</strong> {userDetails.postalCode}</p>
             <p><strong>Order ID:</strong> {orderId}</p>
             <p><strong>Date:</strong> {formattedDate}</p>
+            <p><strong>{grandTotal}</strong></p>
           </div>
         </div>
       ) : (

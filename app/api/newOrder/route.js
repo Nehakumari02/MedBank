@@ -42,6 +42,7 @@ export async function POST(req) {
       invoiceLink: "",
       paymentStatus: "isPending",
       paymentRecieptLink: "",
+      grandTotal: "",
 
       samples: [
         {
