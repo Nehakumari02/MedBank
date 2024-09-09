@@ -25,17 +25,26 @@ export async function POST(req) {
   } = await req.json();
   console.log("name",name,"\n","email",email,"\n","password",password,"\n","confirmPassword",confirmPassword)
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await dbConnect();
-    const existingUser = await User.findOne({email:email});
-    console.log(existingUser);
-    if(existingUser){
+    const existingUser = await User.findOne({ email: email });
+    if (existingUser) {
       return new NextResponse(JSON.stringify({ message: 'User already registered' }), {
         status: 400,
       });
     }
+
+    // Get the latest user and generate the next memberId
+    const latestUser = await User.findOne().sort({ memberId: -1 }).exec();
+    const nextMemberIdNumber = latestUser
+      ? parseInt(latestUser.memberId.replace(/^0+/, "")) + 1
+      : 1;
+    const nextMemberId = nextMemberIdNumber.toString().padStart(4, "0"); // Adjust length as needed
+      
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await dbConnect();
+
     const res = await User.create({
       Username,
+      memberId:nextMemberId,
       name,
       school,
       faculty,
