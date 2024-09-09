@@ -18,6 +18,7 @@ export async function POST(req) {
         // Add more fields if you need to search in additional fields
       ]
     })
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
