@@ -37,9 +37,9 @@ const NewOrderBox = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [userIdDB, setUserIdDB] = useState("");
-  const [uploadPercentage,setUploadPercentage] = useState(0);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
-  const [uploadStatus,setUploadStatus] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState(false);
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -104,7 +104,14 @@ const NewOrderBox = () => {
     { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
     { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' }
   ]);
+  const [samples1, setSamples1] = useState([
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
+    { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' }
+  ]);
+
   const [grandTotal, setGrandTotal] = useState(0);
+  const [grandTotal1, setGrandTotal1] = useState(0);
 
   const calculateTotal = (sample) => {
     const qualityFees = parseFloat(sample.qualityFees || 0);
@@ -112,18 +119,32 @@ const NewOrderBox = () => {
     const analysisFees = parseFloat(sample.analysisFees || 0);
     const others = parseFloat(sample.others || 0);
     const tax = parseFloat(sample.tax || 0);
-  
+
     // Apply tax to sum of fees
     const subtotal = qualityFees + libraryFees + analysisFees + others;
     const total = subtotal + (subtotal * (tax / 100));
-    
+
+    return total.toFixed(2);  // Return a fixed decimal string
+  };
+
+  const calculateTotal1 = (sample) => {
+    const qualityFees = parseFloat(sample.qualityFees || 0);
+    const libraryFees = parseFloat(sample.libraryFees || 0);
+    const analysisFees = parseFloat(sample.analysisFees || 0);
+    const others = parseFloat(sample.others || 0);
+    const tax = parseFloat(sample.tax || 0);
+
+    // Apply tax to sum of fees
+    const subtotal = qualityFees + libraryFees + analysisFees + others;
+    const total = subtotal + (subtotal * (tax / 100));
+
     return total.toFixed(2);  // Return a fixed decimal string
   };
 
   const calculateGrandTotal = (updatedSamples) => {
     return updatedSamples.reduce((acc, sample) => acc + parseFloat(sample.total || 0), 0).toFixed(2);
   };
-  
+
 
   const handleInputChange = (index, field, value) => {
     const updatedSamples = [...samples];
@@ -131,16 +152,34 @@ const NewOrderBox = () => {
       updatedSamples.forEach(sample => sample.tax = value);
       //setGlobalTax(value);
       console.log("hye");
-    } 
+    }
     else {
       updatedSamples[index][field] = value;
     }
     updatedSamples[index].total = calculateTotal(updatedSamples[index]);
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
-      // Calculate and update the grand total
-  const grandTotal = calculateGrandTotal(updatedSamples);
-  setGrandTotal(grandTotal); // Update grand total state
+    // Calculate and update the grand total
+    const grandTotal = calculateGrandTotal(updatedSamples);
+    setGrandTotal(grandTotal); // Update grand total state
+  };
+
+  const handleInputChangeInvoice = (index, field, value) => {
+    const updatedSamples = [...samples1];
+    if (field === 'tax') {
+      updatedSamples.forEach(sample => sample.tax = value);
+      //setGlobalTax(value);
+      console.log("hye");
+    }
+    else {
+      updatedSamples[index][field] = value;
+    }
+    updatedSamples[index].total = calculateTotal1(updatedSamples[index]);
+    updatedSamples[index][field] = value;
+    setSamples1(updatedSamples);
+    // Calculate and update the grand total
+    const grandTotal1 = calculateGrandTotal(updatedSamples);
+    setGrandTotal1(grandTotal1); // Update grand total state
   };
 
   console.log("order title", orderTitle)
@@ -153,7 +192,7 @@ const NewOrderBox = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 
-  const handleGenerateClick = async() => {
+  const handleGenerateClick = async () => {
     // setIsPopupVisible(true);
     //setOrderPopVisible(true);
     if (!isAmountChecked) {
@@ -176,9 +215,9 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples, orderIdDB,grandTotal
+        samples, orderIdDB, grandTotal
       };
-      
+
       try {
         const response = await fetch('/api/get-quotation', {
           method: 'POST',
@@ -187,7 +226,7 @@ const NewOrderBox = () => {
           },
           body: JSON.stringify(requestData)
         });
-  
+
         if (response.ok) {
           const data = await response.json();
           console.log('API response:', data);
@@ -251,7 +290,7 @@ const NewOrderBox = () => {
     })
 
   };
-  const handleClick1 = () => {
+  const handleClick1 = async() => {
     if (!isInvoiceChecked1) {
       // Show toast if checkbox is not checked
       toast({
@@ -268,11 +307,31 @@ const NewOrderBox = () => {
         description: "please check the box"
       })
     }
-    else{
-      setActivePopup("invoice1")
-      //setOrderPopVisible(true);
-      //setActivePopup('formalRequest');
-      //console.log("hey", isPopUp1)
+    else {
+      const requestData = {
+        samples1, orderIdDB, grandTotal1
+      };
+
+      try {
+        const response = await fetch('/api/get-quotation-invoice', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('API response:', data);
+          setActivePopup('invoice1');
+        } else {
+          console.error('API error:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Request failed', error);
+      }
+      // setActivePopup('costEstimateConfirmation');
 
     }
   };
@@ -516,7 +575,7 @@ const NewOrderBox = () => {
     // setOrderPopVisible(false);
     setDisabled(true);
     setUploadStatus(true)
-  
+
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -525,10 +584,10 @@ const NewOrderBox = () => {
       });
       return;
     }
-  
+
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -537,17 +596,17 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
       console.log(url);
       console.log("upload url", url.url);
       setQualityCheckReportLink(url.split("?")[0]);
-  
+
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
       uploadRequest.open('PUT', url, true);
       uploadRequest.setRequestHeader('Content-Type', fileType);
-  
+
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
@@ -555,22 +614,22 @@ const NewOrderBox = () => {
           setUploadPercentage(percentComplete);
         }
       };
-  
+
       // Handle upload complete
       uploadRequest.onload = () => {
         if (uploadRequest.status === 200) {
           setQualityCheckReportLink(url.split("?")[0]);
-  
+
           setQualityCheckStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
           console.log(fileUrl);
-  
+
           const orderData = {
             orderTitle,
             qualityCheckStatus: "isAdminCompleted",
             qualityCheckReportLink: fileUrl,
           };
-  
+
           // Save order data
           fetch('/api/updateOrder', {
             method: 'POST',
@@ -603,7 +662,7 @@ const NewOrderBox = () => {
             setOrderPopVisible(false),
             setUploadStatus(false)
           )
-  
+
         } else {
           toast({
             variant: "error",
@@ -612,7 +671,7 @@ const NewOrderBox = () => {
           });
         }
       };
-  
+
       // Handle upload error
       uploadRequest.onerror = () => {
         toast({
@@ -622,9 +681,9 @@ const NewOrderBox = () => {
         });
         console.error("Error uploading file:", uploadRequest.statusText);
       };
-  
+
       uploadRequest.send(uploadedFile);
-  
+
     } catch (err) {
       toast({
         variant: "error",
@@ -643,7 +702,7 @@ const NewOrderBox = () => {
     // setOrderPopVisible(false);
     setDisabled(true);
     setUploadStatus(true)
-  
+
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -652,10 +711,10 @@ const NewOrderBox = () => {
       });
       return;
     }
-  
+
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -664,17 +723,17 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
       console.log(url);
       console.log("upload url", url.url);
       setLibraryCheckReportLink(url.split("?")[0]);
-  
+
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
       uploadRequest.open('PUT', url, true);
       uploadRequest.setRequestHeader('Content-Type', fileType);
-  
+
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
@@ -682,22 +741,22 @@ const NewOrderBox = () => {
           setUploadPercentage(percentComplete);
         }
       };
-  
+
       // Handle upload complete
       uploadRequest.onload = () => {
         if (uploadRequest.status === 200) {
           setLibraryCheckReportLink(url.split("?")[0]);
-  
+
           setLibraryPrepStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
           console.log(fileUrl);
-  
+
           const orderData = {
             orderTitle,
             libraryPrepStatus: "isAdminCompleted",
             libraryCheckReportLink: fileUrl,
           };
-  
+
           // Save order data
           fetch('/api/updateOrder', {
             method: 'POST',
@@ -730,7 +789,7 @@ const NewOrderBox = () => {
             setOrderPopVisible(false),
             setUploadStatus(false)
           )
-  
+
         } else {
           toast({
             variant: "error",
@@ -739,7 +798,7 @@ const NewOrderBox = () => {
           });
         }
       };
-  
+
       // Handle upload error
       uploadRequest.onerror = () => {
         toast({
@@ -749,9 +808,9 @@ const NewOrderBox = () => {
         });
         console.error("Error uploading file:", uploadRequest.statusText);
       };
-  
+
       uploadRequest.send(uploadedFile);
-  
+
     } catch (err) {
       toast({
         variant: "error",
@@ -838,7 +897,7 @@ const NewOrderBox = () => {
       setRawDataLink(rawDataLink)
       updateDataInDB({
         analysisRawDataStatus: "isAdminCompleted",
-        rawDataLink:rawDataLink
+        rawDataLink: rawDataLink
       })
     }
 
@@ -849,7 +908,7 @@ const NewOrderBox = () => {
     // setOrderPopVisible(false);
     setDisabled(true);
     setUploadStatus(true)
-  
+
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -858,10 +917,10 @@ const NewOrderBox = () => {
       });
       return;
     }
-  
+
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -870,17 +929,17 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
       console.log(url);
       console.log("upload url", url.url);
       setAnalysisSpecificationReportLink(url.split("?")[0]);
-  
+
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
       uploadRequest.open('PUT', url, true);
       uploadRequest.setRequestHeader('Content-Type', fileType);
-  
+
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
@@ -888,22 +947,22 @@ const NewOrderBox = () => {
           setUploadPercentage(percentComplete);
         }
       };
-  
+
       // Handle upload complete
       uploadRequest.onload = () => {
         if (uploadRequest.status === 200) {
           setAnalysisSpecificationReportLink(url.split("?")[0]);
-  
+
           setAnalysisSpecificationStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
           console.log(fileUrl);
-  
+
           const orderData = {
             orderTitle,
             analysisSpecificationStatus: "isAdminCompleted",
             analysisSpecificationReportLink: fileUrl,
           };
-  
+
           // Save order data
           fetch('/api/updateOrder', {
             method: 'POST',
@@ -936,7 +995,7 @@ const NewOrderBox = () => {
             setOrderPopVisible(false),
             setUploadStatus(false)
           )
-  
+
         } else {
           toast({
             variant: "error",
@@ -945,7 +1004,7 @@ const NewOrderBox = () => {
           });
         }
       };
-  
+
       // Handle upload error
       uploadRequest.onerror = () => {
         toast({
@@ -955,9 +1014,9 @@ const NewOrderBox = () => {
         });
         console.error("Error uploading file:", uploadRequest.statusText);
       };
-  
+
       uploadRequest.send(uploadedFile);
-  
+
     } catch (err) {
       toast({
         variant: "error",
@@ -1060,7 +1119,7 @@ const NewOrderBox = () => {
         setInvoiceLink(orderData.invoiceLink);
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
-        
+
 
       } catch (error) {
         console.log("fetch order error ", error)
@@ -1102,7 +1161,7 @@ const NewOrderBox = () => {
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
 
-                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                  <div className="overflow-x-scroll">
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
@@ -1208,7 +1267,7 @@ const NewOrderBox = () => {
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
                                 onChange={(e) => handleInputChange(index, 'tax', e.target.value)}
                                 value={samples[index].tax}
-                                placeholder="JPY"
+                                placeholder=""
                               />
                             </td>
                             <td className="md:w-[108px] py-[12px] pr-[20px]">
@@ -1224,7 +1283,7 @@ const NewOrderBox = () => {
                                 type="text"
                                 className="border rounded-md w-full p-2"
                                 onChange={(e) => handleInputChange(index, 'total1', e.target.value)}
-                                placeholder="JPY"
+                                placeholder=""
                                 value={samples[index].total}
                               />
                             </td>
@@ -1239,7 +1298,7 @@ const NewOrderBox = () => {
                               type="text"
                               className="border rounded-md w-full p-2"
                               //onChange={(e) => handleInputChange('totalFees', e.target.value)}
-                              placeholder="JPY"
+                              placeholder=""
                               value={grandTotal}
                             />
                           </td>
@@ -1262,7 +1321,7 @@ const NewOrderBox = () => {
                     <input
                       type="checkbox"
                       id="amount"
-                       className="form-checkbox accent-[#3e8ca7] mr-2"
+                      className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isAmountChecked}
                       onChange={handleAmountCheckboxChange}
                     />
@@ -1293,8 +1352,8 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'formalRequest' && (
-                <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
+                <div className='p-[24px] md:p-0 w-[298px] h-[259px] md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center md:justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] gap-[16px] md:gap-0'>
+                  <span className=' w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
                   <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been received and an automated confirmation message has been sent to your email.</span>
                   <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
                 </div>
@@ -1312,14 +1371,16 @@ const NewOrderBox = () => {
                 </div>
               )} */}
               {activePopup === 'sampleShipping' && (
-                <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                <div className='p-[24px] w-[361px] h-[215px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
                     <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'> Please confirm the condition of the received sample</span>
+                    <span className='font-DM-Sans text-start items-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'> Please confirm the condition of the received sample</span>
                   </div>
                   <div className='flex items-center justify-center gap-[6px] md:gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect Notification </button>
-                    <button className="h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt Confirmation</button>
+                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect Notification </button>
+                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt Confirmation</button>
+                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect </button>
+                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt</button>
                   </div>
                 </div>
               )}
@@ -1327,7 +1388,7 @@ const NewOrderBox = () => {
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
                       We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
                       Thank you <br></br>
                       Medbank Genetic Analysis Team</span>
@@ -1344,7 +1405,7 @@ const NewOrderBox = () => {
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
                       We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
                       Thank you <br></br>
                       Medbank Genetic Analysis Team</span>
@@ -1361,69 +1422,71 @@ const NewOrderBox = () => {
 
               {activePopup === 'qualityCheck' && (
 
-                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Quality Check Report</div>
-                  <div className="container mx-auto md:px-4 w-auto md:w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Quality Check Report</div>
+                  <div className='border border-dashed bg-gray-100 w-full'></div>
+                  <div className="mx-auto">
+                    <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
-                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
                           Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-sm md:text-base font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
-                          <Progress value={uploadPercentage} />
+                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <Progress value={uploadPercentage} />
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile||uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}
               {activePopup === 'libraryPrep' && (
 
-                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center">Upload Library Preparation Report</div>
-                  <div className="container mx-auto md:px-4 w-auto md:w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Library Preparation Report</div>
+                  <div className='border border-dashed bg-gray-100 w-full'></div>
+                  <div className="mx-auto">
+                    <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
-                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
                           Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-sm md:text-base font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
-                          <Progress value={uploadPercentage} />
+                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <Progress value={uploadPercentage} />
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation } disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}
@@ -1481,35 +1544,36 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'analysisSpecification' && (
 
-                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center">Analysis Specification</div>
-                  <div className="container mx-auto md:px-4 w-auto md:w-[490px] md:h-[203px]">
-                    <div className="border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg p-4 md:p-10 mt-[12px] md:mt-8 text-center">
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Analysis Specification</div>
+                  <div className='border border-dashed bg-gray-100 w-full'></div>
+                  <div className="mx-auto">
+                    <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
                       <div {...getRootProps()} className="cursor-pointer">
                         <input {...getInputProps()} />
-                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
                           Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-sm md:text-base font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                          <span className='w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
-                          <Progress value={uploadPercentage} />
+                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <Progress value={uploadPercentage} />
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] md:pt-10'>
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification} disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}
@@ -1541,6 +1605,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2"
+                                onChange={(e) => handleInputChangeInvoice(index, 'id', e.target.value)}
                                 placeholder={`10${index + 1}`}
                               />
                             </td>
@@ -1548,6 +1613,7 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2"
+                                onChange={(e) => handleInputChangeInvoice(index, 'name', e.target.value)}
                                 placeholder={`${index === 0 ? 'Red' : index === 1 ? 'White' : 'Yellow'} mouse`}
                               />
                             </td>
@@ -1557,6 +1623,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChangeInvoice(index, 'qualityFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1578,6 +1645,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChangeInvoice(index, 'libraryFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1599,6 +1667,7 @@ const NewOrderBox = () => {
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
+                                    onChange={(e) => handleInputChangeInvoice(index, 'analysisFees', e.target.value)}
                                     placeholder=""
                                   />
                                 </div>
@@ -1618,13 +1687,16 @@ const NewOrderBox = () => {
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
-                                placeholder="JPY"
+                                onChange={(e) => handleInputChangeInvoice(index, 'tax', e.target.value)}
+                                value={samples1[index].tax}
+                                placeholder="%"
                               />
                             </td>
                             <td className="md:w-[108px] py-[12px] pr-[20px]">
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
+                                onChange={(e) => handleInputChangeInvoice(index, 'other', e.target.value)}
                                 placeholder=""
                               />
                             </td>
@@ -1633,7 +1705,8 @@ const NewOrderBox = () => {
                                 type="text"
                                 className="border rounded-md w-full p-2"
                                 placeholder="JPY"
-                                value={samples[index].total}
+                                onChange={(e) => handleInputChangeInvoice(index, 'total', e.target.value)}
+                                value={samples1[index].total}
                               />
                             </td>
                           </tr>
@@ -1646,7 +1719,8 @@ const NewOrderBox = () => {
                             <input
                               type="text"
                               className="border rounded-md w-full p-2"
-                              placeholder="JPY"
+                              placeholder=""
+                              value={grandTotal1}
                             />
                           </td>
                         </tr>
@@ -1655,7 +1729,7 @@ const NewOrderBox = () => {
                   </div>
 
                   <div className="flex items-center text-[14px] font-normal">
-                    <input  type="checkbox"
+                    <input type="checkbox"
                       id="invoice1"
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked1}
@@ -1663,7 +1737,7 @@ const NewOrderBox = () => {
                     <label htmlFor="tax">Click to enter tax percent.</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
-                    <input  type="checkbox"
+                    <input type="checkbox"
                       id="invoice2"
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked2}
@@ -1680,21 +1754,21 @@ const NewOrderBox = () => {
 
                 </div>
               )}
-              {activePopup==="invoice1"&& (
+              {activePopup === "invoice1" && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been accepted and Medbank is requesting the sample shipment.</span>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Success!</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>You have successfully sent the Invoice.</span>
                     <button
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
-                      onClick={handleGenerateClick1}
+                      onClick={handleInvoice}
                     >
                       OK
                     </button>
                   </div>
                 </div>
               )}
-              {activePopup==="invoice2" && (
+              {/* {activePopup === "invoice2" && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
@@ -1707,7 +1781,7 @@ const NewOrderBox = () => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
               {activePopup === 'payment' && (
 
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>

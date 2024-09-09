@@ -43,6 +43,38 @@ export async function POST(req) {
       paymentStatus: "isPending",
       paymentRecieptLink: "",
       grandTotal: "",
+      samples1: [
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        },
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        },
+        {
+          id: "",
+          name: "",
+          qualityFees: "",
+          libraryFees: "",
+          analysisFees: "",
+          tax: "",
+          others: "",
+          total: ""
+        }
+      ],
 
       samples: [
         {

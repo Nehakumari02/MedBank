@@ -84,7 +84,8 @@ const NewOrderBox = () => {
   const [isAnalysisRawChecked1, setIsAnalysisRawChecked1] = useState(false);
   const [isAnalysisRawChecked2, setIsAnalysisRawChecked2] = useState(false);
   const [isInvoiceChecked, setIsInvoiceChecked] = useState(false);
-  const printRef= useRef();
+  const printRef = useRef();
+  const printRef1 = useRef();
 
 
   const handleSampleSendChecked1 = (e) => {
@@ -258,12 +259,12 @@ const NewOrderBox = () => {
 
   const handleConfirmCostEstimate = async () => {
     const element = printRef.current;
-  
+
     if (!element) {
       console.error("QuotationTable is not loaded yet.");
       return;
     }
-  
+
     // Ensure the element and its content are fully loaded
     try {
       const options = {
@@ -273,16 +274,16 @@ const NewOrderBox = () => {
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
-  
+
       // Wait for the PDF generation to complete
       await html2pdf().from(element).set(options).save();
-  
+
       // Update statuses and close the popup
       setOrderPopVisible(false);
       setIsPopupVisible(false);
       setCostEstimateStatus("isCompleted");
       setFormalRequestStatus("inUserProgress");
-  
+
       // Update the database
       updateDataInDB({
         costEstimateStatus: "isCompleted",
@@ -292,7 +293,33 @@ const NewOrderBox = () => {
       console.error("Error generating PDF:", error);
     }
   };
+  const handleGenerateInvoice = async () => {
+    const element = printRef1.current;
+
+    if (!element) {
+      console.error("Invoice is not loaded yet.");
+      return;
+    }
+
+    // Ensure the element and its content are fully loaded
+    try {
+      const options = {
+        margin: 0.5,
+        filename: 'receipt.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      // Wait for the PDF generation to complete
+      await html2pdf().from(element).set(options).save();
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+  };
+
   
+
 
   const handleConfirmFormalRequest = () => {
     setFormalRequestStatus("isUserCompleted");
@@ -300,6 +327,15 @@ const NewOrderBox = () => {
     //setActivePopup('sampleShippingConfirmation');
     updateDataInDB({
       formalRequestStatus: "isUserCompleted"
+    })
+  };
+
+  const handleConfirmSampleShippingok = () => {
+    //setIsPopupVisible(false);
+    setOrderPopVisible(false);
+    setSampleShippingStatus("inTransit")
+    updateDataInDB({
+      sampleShippingStatus: "inTransit"
     })
   };
 
@@ -399,6 +435,25 @@ const NewOrderBox = () => {
     setAnalysisDoneStatus("inUserProgress");
   };
 
+  const handleAnalysisRawDataConfirmMobile = () => {
+    if (!isAnalysisRawChecked1) {
+      // Show toast if checkbox is not checked
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setAnalysisRawDataStatus("inCompleted")
+      updateDataInDB({
+        analysisRawDataStatus: "isCompleted"
+      })
+
+    }
+  }
+
   const handleAnalysisRawDataConfirm = () => {
     if (!isAnalysisRawChecked1) {
       // Show toast if checkbox is not checked
@@ -424,10 +479,7 @@ const NewOrderBox = () => {
       updateDataInDB({
         analysisRawDataStatus: "isCompleted"
       })
-
     }
-
-
   }
 
   const handleAnalysisSpecification = () => {
@@ -581,7 +633,7 @@ const NewOrderBox = () => {
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef}>
-                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB}  />
+                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
                     </div>
                   </div>
                 </div>
@@ -658,7 +710,7 @@ const NewOrderBox = () => {
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3 pt-[24px]'>
-                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Ok</button>
+                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShippingok}>Ok</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Confirm</button>
                     </div>
@@ -670,7 +722,7 @@ const NewOrderBox = () => {
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
                       We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
                       Thank you <br></br>
                       Medbank Genetic Analysis Team</span>
@@ -687,7 +739,7 @@ const NewOrderBox = () => {
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear Taruko,<br></br>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
                       We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
                       Thank you <br></br>
                       Medbank Genetic Analysis Team</span>
@@ -757,8 +809,8 @@ const NewOrderBox = () => {
                       Note :For resending or cancelling the sample contact us via   chat.
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Proceed to library preparation</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' >Cancel</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>Proceed to library preparation</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>Proceed</button>
                     </div>
 
@@ -888,7 +940,7 @@ const NewOrderBox = () => {
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirm}>Proceed to library preparation</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirmMobile}>Proceed</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirm}>Proceed</button>
                     </div>
@@ -969,8 +1021,9 @@ const NewOrderBox = () => {
                       <div className='flex gap-[8px]'>
                         <div className="flex items-center justify-center">
                           <Image src={file1} className='w-[18px] h-[24px]'></Image>
+                          <p className='pl-2 text-xs md:text-base'>Receipt.pdf</p>
                         </div>
-                        <div>
+                        {/* <div>
                           {
                             uploadedFile && uploadedFile instanceof File && (
                               <a href={URL.createObjectURL(uploadedFile)}>
@@ -981,11 +1034,12 @@ const NewOrderBox = () => {
                               </a>
                             )
                           }
-                        </div>
+                        </div> */}
                       </div>
-                      <div className="text-red-500 cursor-pointer">
+                     
+                      <button onClick={handleGenerateInvoice} className="text-red-500 cursor-pointer ">
                         <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
-                      </div>
+                      </button>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
@@ -1012,6 +1066,11 @@ const NewOrderBox = () => {
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleInvoice}>Confirm</button>
                     </div>
 
+                  </div>
+                  <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+                    <div ref={printRef1}>
+                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
+                    </div>
                   </div>
                 </div>
               )}
