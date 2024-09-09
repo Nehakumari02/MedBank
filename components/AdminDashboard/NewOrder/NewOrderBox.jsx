@@ -1060,6 +1060,8 @@ const NewOrderBox = () => {
         setInvoiceLink(orderData.invoiceLink);
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
+        
+
       } catch (error) {
         console.log("fetch order error ", error)
       }

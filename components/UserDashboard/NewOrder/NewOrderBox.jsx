@@ -72,6 +72,7 @@ const NewOrderBox = () => {
     invoiceLink, setInvoiceLink,
     paymentStatus, setPaymentStatus,
     paymentRecieptLink, setPaymentRecieptLink,
+    grandTotal, setGrandTotal,
   } = useOrder();
   const [isSampleSendChecked1, setIsSampleSendChecked1] = useState(false);
   const [isSampleSendChecked2, setIsSampleSendChecked2] = useState(false);
@@ -539,6 +540,7 @@ const NewOrderBox = () => {
         setInvoiceLink(orderData.invoiceLink);
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
+        setGrandTotal(orderData.grandTotal);
       } catch (error) {
         console.error('Error fetching order by ID:', error);
       }
