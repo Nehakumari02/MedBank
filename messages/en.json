@@ -552,7 +552,8 @@
         "logout":"Logout"
     },
     "AdminTopNavBar":{
-        "welcomeMsg":"Welcome, Admin!"
+        "welcomeMsg":"Welcome, Admin!",
+        "newOrder":"New Order"
     },
     "AdminDashBoard":{
         "orderOverView":{

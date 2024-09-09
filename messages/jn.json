@@ -524,7 +524,8 @@
         "logout": "ログアウト"
     },
     "AdminTopNavBar": {
-        "welcomeMsg": "ようこそ"
+        "welcomeMsg": "ようこそ",
+        "newOrder":"New Order"
     },
     "AdminDashBoard": {
         "orderOverView": {
