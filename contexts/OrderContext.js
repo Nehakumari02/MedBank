@@ -45,6 +45,7 @@ export const OrderProvider = ({ children }) => {
   const [paymentStatus, setPaymentStatus] = useState("isPending");
   const [paymentRecieptLink, setPaymentRecieptLink] = useState("");
   const [grandTotal, setGrandTotal] = useState("");
+  const [grandTotal1, setGrandTotal1] = useState("");
 
   return (
     <OrderContext.Provider
@@ -73,7 +74,8 @@ export const OrderProvider = ({ children }) => {
         invoiceLink, setInvoiceLink,
         paymentStatus, setPaymentStatus,
         paymentRecieptLink, setPaymentRecieptLink,
-        grandTotal,setGrandTotal
+        grandTotal,setGrandTotal,
+        grandTotal1,setGrandTotal1
       }}
     >
       {children}

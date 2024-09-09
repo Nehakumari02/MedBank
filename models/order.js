@@ -104,6 +104,18 @@ const orderSchema = new Schema(
     grandTotal:{
       type: String,
     },
+    samples1: [
+      {
+        id: { type: String},
+        name: { type: String},
+        qualityFees: { type: String },
+        libraryFees: { type: String },
+        AnalysisFees: { type: String },
+        tax: { type: String },
+        others: { type: String },
+        total: { type: String }
+      }
+    ],
 
     samples: [
       {
