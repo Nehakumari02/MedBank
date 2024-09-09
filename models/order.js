@@ -101,6 +101,9 @@ const orderSchema = new Schema(
     paymentRecieptLink: {
       type: String,
     },
+    grandTotal:{
+      type: String,
+    },
 
     samples: [
       {

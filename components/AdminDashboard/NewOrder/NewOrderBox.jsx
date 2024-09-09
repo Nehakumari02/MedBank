@@ -104,6 +104,7 @@ const NewOrderBox = () => {
     { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' },
     { id: '', name: '', qualityFees: '', libraryFees: '', analysisFees: '', tax: '', others: '', total: '' }
   ]);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const calculateTotal = (sample) => {
     const qualityFees = parseFloat(sample.qualityFees || 0);
@@ -117,6 +118,10 @@ const NewOrderBox = () => {
     const total = subtotal + (subtotal * (tax / 100));
     
     return total.toFixed(2);  // Return a fixed decimal string
+  };
+
+  const calculateGrandTotal = (updatedSamples) => {
+    return updatedSamples.reduce((acc, sample) => acc + parseFloat(sample.total || 0), 0).toFixed(2);
   };
   
 
@@ -133,6 +138,9 @@ const NewOrderBox = () => {
     updatedSamples[index].total = calculateTotal(updatedSamples[index]);
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
+      // Calculate and update the grand total
+  const grandTotal = calculateGrandTotal(updatedSamples);
+  setGrandTotal(grandTotal); // Update grand total state
   };
 
   console.log("order title", orderTitle)
@@ -168,7 +176,7 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples, orderIdDB
+        samples, orderIdDB,grandTotal
       };
       
       try {
@@ -1230,6 +1238,7 @@ const NewOrderBox = () => {
                               className="border rounded-md w-full p-2"
                               //onChange={(e) => handleInputChange('totalFees', e.target.value)}
                               placeholder="JPY"
+                              value={grandTotal}
                             />
                           </td>
                         </tr>
