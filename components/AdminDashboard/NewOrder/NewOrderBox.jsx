@@ -193,6 +193,7 @@ const NewOrderBox = () => {
 
 
   const handleGenerateClick = async () => {
+    setDisabled(true);
     // setIsPopupVisible(true);
     //setOrderPopVisible(true);
     if (!isAmountChecked) {
@@ -238,6 +239,10 @@ const NewOrderBox = () => {
         console.error('Request failed', error);
       }
       // setActivePopup('costEstimateConfirmation');
+      finally{
+        setDisabled(false);
+      }
+  
 
     }
 
@@ -290,7 +295,7 @@ const NewOrderBox = () => {
     })
 
   };
-  const handleClick1 = async() => {
+  const handleClick1 = async () => {
     if (!isInvoiceChecked1) {
       // Show toast if checkbox is not checked
       toast({
@@ -1039,13 +1044,131 @@ const NewOrderBox = () => {
     })
   }
 
-  const handleConfirmPayment = () => {
-    setOrderPopVisible(false);
-    //setActivePopup('');
-    setPaymentStatus("isAdminCompleted")
-    updateDataInDB({
-      paymentStatus: "isAdminCompleted"
-    })
+  const handleConfirmPayment = async() => {
+    setIsPopupVisible(false);
+    // setOrderPopVisible(false);
+    setDisabled(true);
+    setUploadStatus(true)
+
+    if (!uploadedFile) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file..."
+      });
+      return;
+    }
+
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+
+      // Call the API to get the signed URL
+      const response = await fetch('/api/fileUpload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileName, fileType }),
+      });
+
+      const { url } = await response.json();
+      console.log(url);
+      console.log("upload url", url.url);
+      setPaymentRecieptLink(url.split("?")[0]);
+
+      // Upload the file directly to S3 using XMLHttpRequest
+      const uploadRequest = new XMLHttpRequest();
+      uploadRequest.open('PUT', url, true);
+      uploadRequest.setRequestHeader('Content-Type', fileType);
+
+      // Update progress
+      uploadRequest.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          setUploadPercentage(percentComplete);
+        }
+      };
+
+      // Handle upload complete
+      uploadRequest.onload = () => {
+        if (uploadRequest.status === 200) {
+          setPaymentRecieptLink(url.split("?")[0]);
+
+          setPaymentStatus("isAdminCompleted");
+          const fileUrl = url.split("?")[0];
+          console.log(fileUrl);
+
+          const orderData = {
+            orderTitle,
+            paymentStatus: "isAdminCompleted",
+            paymentRecieptLink: fileUrl,
+          };
+
+          // Save order data
+          fetch('/api/updateOrder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ order: orderData, orderIdDB }),
+          }).then(saveApiResponse => {
+            if (saveApiResponse.status === 200) {
+              toast({
+                variant: "success",
+                title: "Upload Successful",
+                description: "Your file has been uploaded to S3.",
+              });
+            } else {
+              toast({
+                variant: "error",
+                title: "Updation Error",
+                description: "Failed to submit order, please try again...",
+              });
+            }
+          }).catch(err => {
+            toast({
+              variant: "error",
+              title: "Updation Error",
+              description: "Failed to submit order, please try again...",
+            });
+            console.error("Error updating order:", err);
+          }).finally(
+            setOrderPopVisible(false),
+            setUploadStatus(false)
+          )
+
+        } else {
+          toast({
+            variant: "error",
+            title: "Upload Error",
+            description: "Try uploading file again...",
+          });
+        }
+      };
+
+      // Handle upload error
+      uploadRequest.onerror = () => {
+        toast({
+          variant: "error",
+          title: "Upload Failed",
+          description: "There was an error uploading your file.",
+        });
+        console.error("Error uploading file:", uploadRequest.statusText);
+      };
+
+      uploadRequest.send(uploadedFile);
+
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Upload Failed",
+        description: "There was an error uploading your file.",
+      });
+      console.error("Error uploading file:", err);
+    } finally {
+      setDisabled(false);
+      setUploadPercentage(0); // Optionally reset upload percentage
+    }
   }
 
 
@@ -1332,7 +1455,7 @@ const NewOrderBox = () => {
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
-                    <button onClick={handleGenerateClick} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                    <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
                   </div>
 
                 </div>
@@ -1486,7 +1609,7 @@ const NewOrderBox = () => {
 
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation } disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}
@@ -1784,22 +1907,36 @@ const NewOrderBox = () => {
               )} */}
               {activePopup === 'payment' && (
 
-                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
-                  </div>
-                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
-                    <div className='flex flex-col items-center justify-center gap-[14px]'>
-                      <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
-                      <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                        <span>RequestSheet.pdf</span><br />
-                        <span>1.2MB</span>
+                <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Receipt</div>
+                  <div className='border border-dashed bg-gray-100 w-full'></div>
+                  <div className="mx-auto">
+                    <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
+                      <div {...getRootProps()} className="cursor-pointer">
+                        <input {...getInputProps()} />
+                        <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
+                        <p className="text-[10px] md:text-sm font-normal">
+                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        </p>
+                        {uploadedFile && (
+                          <div className="mt-2">
+                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
+                            {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
+                          </div>
+                        )}
+                        {uploadStatus && (
+                          <div className='w-full flex flex-col items-start'>
+                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <Progress value={uploadPercentage} />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
+
+                  <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}

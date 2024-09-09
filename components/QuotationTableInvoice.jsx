@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from "next/navigation";
 import { useOrder } from '@/contexts/OrderContext';
 
-const QuotationTable = ({ orderIdDB, orderId, userId }) => {
+const QuotationTableInvoice = ({ orderIdDB, orderId, userId }) => {
   const path = usePathname();
   const [samples1, setSamples1] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -130,4 +130,4 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
   );
 };
 
-export default QuotationTable;
+export default QuotationTableInvoice;

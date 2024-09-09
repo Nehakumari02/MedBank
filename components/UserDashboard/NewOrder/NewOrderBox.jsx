@@ -14,6 +14,7 @@ import LangDropdown from "../../../components/LangDropdown";
 import { toast } from '@/hooks/use-toast';
 import html2pdf from 'html2pdf.js';
 import QuotationTable from '../../../components/QuotationTable';
+import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
 
 const NewOrderBox = () => {
   const router = useRouter();
@@ -73,6 +74,7 @@ const NewOrderBox = () => {
     paymentStatus, setPaymentStatus,
     paymentRecieptLink, setPaymentRecieptLink,
     grandTotal, setGrandTotal,
+    grandTotal1, setGrandTotal1,
   } = useOrder();
   const [isSampleSendChecked1, setIsSampleSendChecked1] = useState(false);
   const [isSampleSendChecked2, setIsSampleSendChecked2] = useState(false);
@@ -122,7 +124,7 @@ const NewOrderBox = () => {
   };
 
   const handleInvoiceChecked = (e) => {
-    setIsInvoiceChecked(e.target.value);
+    setIsInvoiceChecked(e.target.checked);
   };
 
 
@@ -513,8 +515,10 @@ const NewOrderBox = () => {
     else {
       setOrderPopVisible(false);
       setInvoiceStatus("isCompleted")
+      setPaymentStatus("inAdminProgress")
       updateDataInDB({
-        invoiceStatus: "isCompleted"
+        invoiceStatus: "isCompleted",
+        paymentStatus: "inAdminProgress"
       })
 
     }
@@ -593,6 +597,7 @@ const NewOrderBox = () => {
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
         setGrandTotal(orderData.grandTotal);
+        setGrandTotal1(orderData.grandTotal1);
       } catch (error) {
         console.error('Error fetching order by ID:', error);
       }
@@ -1069,7 +1074,7 @@ const NewOrderBox = () => {
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef1}>
-                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
+                      <QuotationTableInvoice orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
                     </div>
                   </div>
                 </div>
@@ -1090,7 +1095,9 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <a href={paymentRecieptLink.split("?")[0]} download="qualityReport">
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
+                    </a>
                   </div>
                 </div>
               )}

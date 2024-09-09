@@ -104,6 +104,9 @@ const orderSchema = new Schema(
     grandTotal:{
       type: String,
     },
+    grandTotal1:{
+      type: String,
+    },
     samples1: [
       {
         id: { type: String},
