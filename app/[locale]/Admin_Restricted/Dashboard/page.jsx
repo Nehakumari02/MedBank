@@ -1,54 +1,42 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import OrderOverView from '../../../../components/AdminDashboard/Dashboard/OrderOverView'
+import { DashboardOrderDataTable } from '@/components/AdminDashboard/Dashboard/DashboardOrderDataTable';
+import { DashboardCustomerListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardCustomerListDataTable';
 
 const AdminDashboard = () => {
-  const [data,setData] = useState([]);
-  const [totalPages,setTotalPages] = React.useState(1);
-  const [currentPage,setCurrentPage] = React.useState(1);
-  const [buttons,setButtons] = React.useState([1]);
-  const [searchQuery,setSearchQuery] = useState("");
+  const [ordersData,setOrdersData] = useState([]);
+  const [searchQueryOrders,setSearchQueryOrders] = useState("");
+  const [customersData,setCustomersData] = useState([]);
+  const [searchQueryCustomers,setSearchQueryCustomers] = useState("");
+  const [paymentData,setPaymentData] = useState([]);
+  const [searchQueryPayment,setSearchQueryPayment] = useState("");
+  const [sampleData,setSampleData] = useState([]);
+  const [searchQuerySample,setSearchQuerySample] = useState("");
 
-  React.useEffect(() => {
-    if (totalPages <= 5) {
-      // If totalPages is 5 or fewer, show buttons for all pages
-      setButtons(() => {
-        return Array.from({ length: totalPages }, (_, i) => i + 1);
-      });
-    } else {
-      // Handle pagination for more than 5 pages
-      if (currentPage < 4) {
-        // Show buttons for the start and end pages
-        setButtons(() => [1, 2, 3, 4, '...', totalPages]);
-      } else if (currentPage > totalPages - 3 && currentPage <= totalPages) {
-        // Show buttons for the end of the range
-        setButtons(() => [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages]);
-      } else {
-        // Show buttons around the current page with ellipses
-        setButtons(() => [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages]);
+  useEffect(()=>{
+    const fetchOrdersByUserId = async()=>{
+      try{
+        const response = await fetch('/api/admin_fetchCustomers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ page:1, limit:2, searchQueryCustomers}),
+        });
+        const data = await response.json();
+        if(data.error){
+          setCustomersData([]);
+        }
+        console.log("data for customers",data)
+        setCustomersData(data.data)
+        
+      }catch(error){
+        console.log("fetch orders error ",error)
       }
     }
-  }, [currentPage, totalPages]);
 
-  // useEffect(() => {
-  //   const fetchAllOrders = async () => {
-  //     try {
-  //       const response = await fetch('/api/fetchAllOrders', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       const data = await response.json();
-  //       // console.log("data", data)
-  //       setData(data.data)
-  //     } catch (error) {
-  //       console.log("Error fetching all orders: ", error)
-  //     }
-  //   }
-
-  //   fetchAllOrders();
-  // }, [])
+    fetchOrdersByUserId();
+  },[searchQueryCustomers])
 
   useEffect(()=>{
     const fetchOrdersByUserId = async()=>{
@@ -58,17 +46,14 @@ const AdminDashboard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ page:currentPage, limit:10, searchQuery }),
+          body: JSON.stringify({ page:1, limit:2, searchQueryOrders }),
         });
         const data = await response.json();
         if(data.error){
-          setCurrentPage(1);
-          setData([]);
-          setTotalPages(1);
+          setOrdersData([]);
         }
         console.log("data",data)
-        setData(data.data)
-        setTotalPages(data.totalPages)
+        setOrdersData(data.data)
         
       }catch(error){
         console.log("fetch orders error ",error)
@@ -76,11 +61,63 @@ const AdminDashboard = () => {
     }
 
     fetchOrdersByUserId();
-  },[currentPage,searchQuery])
+  },[searchQueryOrders])
+
+  // useEffect(()=>{
+  //   const fetchOrdersByUserId = async()=>{
+  //     try{
+  //       const response = await fetch('/api/admin_fetchOrders', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ page:1, limit:2, searchQueryOrders }),
+  //       });
+  //       const data = await response.json();
+  //       if(data.error){
+  //         setData([]);
+  //       }
+  //       console.log("data",data)
+  //       setData(data.data)
+        
+  //     }catch(error){
+  //       console.log("fetch orders error ",error)
+  //     }
+  //   }
+
+  //   fetchOrdersByUserId();
+  // },[searchQueryPayment])
+
+  // useEffect(()=>{
+  //   const fetchOrdersByUserId = async()=>{
+  //     try{
+  //       const response = await fetch('/api/admin_fetchOrders', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ page:1, limit:2, searchQueryOrders }),
+  //       });
+  //       const data = await response.json();
+  //       if(data.error){
+  //         setData([]);
+  //       }
+  //       console.log("data",data)
+  //       setData(data.data)
+        
+  //     }catch(error){
+  //       console.log("fetch orders error ",error)
+  //     }
+  //   }
+
+  //   fetchOrdersByUserId();
+  // },[searchQuerySample])
 
   return (
-    <div className='w-full p-[10px] md:p-[19px]'>
-      <OrderOverView data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className='w-full p-[10px] md:p-[19px] space-y-6'>
+      <DashboardOrderDataTable data={ordersData} searchQuery={searchQueryOrders} setSearchQuery={setSearchQueryOrders} />
+      <DashboardCustomerListDataTable data={customersData} searchQuery={searchQueryCustomers} setSearchQuery={setSearchQueryCustomers} />
+
     </div>
   )
 }
