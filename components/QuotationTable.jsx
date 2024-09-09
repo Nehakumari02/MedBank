@@ -75,9 +75,6 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
 
   if (error) return <p>Error: {error}</p>;
 
-  // Calculate overall total
-  const overallTotal = samples.reduce((acc, sample) => acc + (sample.total || 0), 0);
-
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
       {userDetails ? (
@@ -87,9 +84,8 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
             <p><strong>Name:</strong> {userDetails.name}</p>
             <p><strong>City:</strong> {userDetails.city}</p>
             <p><strong>Postal Code:</strong> {userDetails.postalCode}</p>
-            <p><strong>Order ID:</strong> {orderId}</p>
+            <p><strong>Quotation Number:</strong> {orderId}</p>
             <p><strong>Date:</strong> {formattedDate}</p>
-            <p><strong>{grandTotal}</strong></p>
           </div>
         </div>
       ) : (
@@ -126,7 +122,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
           ))}
           <tr className="bg-gray-100 font-bold">
             <td colSpan="7" className="border px-4 py-2 text-left">Overall Total</td>
-            <td className="border px-4 py-2">{overallTotal}</td>
+            <td className="border px-4 py-2">{grandTotal}</td>
           </tr>
         </tbody>
       </table>
