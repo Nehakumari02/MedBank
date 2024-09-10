@@ -11,6 +11,7 @@ export async function POST(req) {
       faculty,
       field,
       others,
+      country,
       service,
       phone,
       email,
