@@ -88,28 +88,28 @@ export const columns: ColumnDef<UserList>[] = [
     accessorKey: "memberId",
     header: "Member ID",
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "school",
     header: "Affiliation",
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "Username",
     header: "Username",
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "postalCode",
     header: "Country",
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("postalCode")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("postalCode")||"N/A"}</div>
     ),
   },
   {
@@ -117,7 +117,7 @@ export const columns: ColumnDef<UserList>[] = [
     header: "Address",
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
-        {`${row.getValue("city")}`}
+        {row.getValue("city")||"N/A"}
       </div>
     ),
   },
