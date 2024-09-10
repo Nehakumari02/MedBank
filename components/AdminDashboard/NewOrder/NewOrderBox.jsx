@@ -37,6 +37,7 @@ const NewOrderBox = () => {
   const [userIdDB, setUserIdDB] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadStatus, setUploadStatus] = useState(false);
+  const [fileType, setFileType] = useState("");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -133,6 +134,48 @@ const NewOrderBox = () => {
     return updatedSamples.reduce((acc, sample) => acc + parseFloat(sample.total || 0), 0).toFixed(2);
   };
 
+ 
+  const handleDownload = async (url, filename) => {
+    try {
+      // Notify that download is in progress
+      toast({
+        variant: "success",
+        title: "In Progress",
+        description: "Download started"
+      });
+  
+      setDisabled(true);
+  
+      // Fetch the file from the URL as a blob
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const blob = await response.blob();
+  
+      // Determine the file type for proper handling
+      const fileType = blob.type;
+      setFileType(fileType);
+      console.log(`File type: ${fileType}`); // For debugging
+  
+      // Create a link element, set its href to the blob URL and trigger the download
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', filename); // Use the passed filename
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+  
+      // Optionally, revoke the blob URL after download
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+    } finally {
+      setDisabled(false);
+    }
+  };
 
   const handleInputChange = (index, field, value) => {
     const updatedSamples = [...samples];
@@ -146,7 +189,7 @@ const NewOrderBox = () => {
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
     const grandTotal = calculateGrandTotal(updatedSamples);
-    setGrandTotal(grandTotal); 
+    setGrandTotal(grandTotal);
   };
 
   const handleInputChangeInvoice = (index, field, value) => {
@@ -161,7 +204,7 @@ const NewOrderBox = () => {
     updatedSamples[index][field] = value;
     setSamples1(updatedSamples);
     const grandTotal1 = calculateGrandTotal(updatedSamples);
-    setGrandTotal1(grandTotal1); 
+    setGrandTotal1(grandTotal1);
   };
 
   console.log("order title", orderTitle)
@@ -173,12 +216,12 @@ const NewOrderBox = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleGenerateClick = async () => {
-    setDisabled(true);
     if (!isAmountChecked) {
       toast({
         variant: "error",
         title: "Error",
         description: "please check the box"
+
       })
     }
     else if (!isTaxChecked) {
@@ -189,6 +232,7 @@ const NewOrderBox = () => {
       })
     }
     else {
+      setDisabled(true);
       const requestData = {
         samples, orderIdDB, grandTotal
       };
@@ -211,7 +255,7 @@ const NewOrderBox = () => {
       } catch (error) {
         console.error('Request failed', error);
       }
-      finally{
+      finally {
         setDisabled(false);
       }
     }
@@ -265,6 +309,7 @@ const NewOrderBox = () => {
       })
     }
     else {
+      setDisabled(true);
       const requestData = {
         samples1, orderIdDB, grandTotal1
       };
@@ -287,6 +332,9 @@ const NewOrderBox = () => {
         }
       } catch (error) {
         console.error('Request failed', error);
+      }
+      finally{
+        setDisabled(false);
       }
       // setActivePopup('costEstimateConfirmation');
 
@@ -651,10 +699,8 @@ const NewOrderBox = () => {
 
   const handleLibraryPrepConfirmation = async () => {
     setIsPopupVisible(false);
-    // setOrderPopVisible(false);
     setDisabled(true);
     setUploadStatus(true)
-
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -666,8 +712,6 @@ const NewOrderBox = () => {
 
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-
-      // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
         headers: {
@@ -990,7 +1034,7 @@ const NewOrderBox = () => {
     })
   }
 
-  const handleConfirmPayment = async() => {
+  const handleConfirmPayment = async () => {
     setIsPopupVisible(false);
     // setOrderPopVisible(false);
     setDisabled(true);
@@ -1207,9 +1251,12 @@ const NewOrderBox = () => {
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <a href={requestSheetLink.split("?")[0]} download="RequestSheet">
-                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Download</button>
-                    </a>
+                    <button
+                      onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)}
+                      className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`} disabled={disabled}
+                    >
+                      Download
+                    </button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>Confirm</button>
                   </div>
                 </div>
@@ -1388,7 +1435,7 @@ const NewOrderBox = () => {
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
-                    <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                    <button disabled={disabled} onClick={handleGenerateClick} className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`}>Generate</button>
                   </div>
                 </div>
               )}
@@ -1780,7 +1827,7 @@ const NewOrderBox = () => {
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
-                    <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                    <button disabled={disabled} onClick={handleClick1} className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`}>Generate</button>
                   </div>
                 </div>
               )}
@@ -1841,7 +1888,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment} disabled={!uploadedFile || uploadStatus}>Upload</button>
                   </div>
                 </div>
               )}

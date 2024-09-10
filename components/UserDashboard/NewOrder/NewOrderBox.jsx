@@ -16,6 +16,7 @@ import html2pdf from 'html2pdf.js';
 import QuotationTable from '../../../components/QuotationTable';
 import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
 
+
 const NewOrderBox = () => {
   const router = useRouter();
   const path = usePathname();
@@ -34,6 +35,7 @@ const NewOrderBox = () => {
   const [isPopUp1, setIsPopUp1] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
+  const [fileType, setFileType] = useState("");
   let userIdDB = usePathname().split('/')[2];
 
   const updateDataInDB = async (orderData) => {
@@ -83,6 +85,7 @@ const NewOrderBox = () => {
   const [isAnalysisRawChecked1, setIsAnalysisRawChecked1] = useState(false);
   const [isAnalysisRawChecked2, setIsAnalysisRawChecked2] = useState(false);
   const [isInvoiceChecked, setIsInvoiceChecked] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const printRef = useRef();
   const printRef1 = useRef();
 
@@ -226,6 +229,49 @@ const NewOrderBox = () => {
     setActivePopup('payment');
   };
 
+  const handleDownload = async (url, filename) => {
+    try {
+      // Notify that download is in progress
+      toast({
+        variant: "success",
+        title: "In Progress",
+        description: "Download started"
+      });
+  
+      setDisabled(true);
+  
+      // Fetch the file from the URL as a blob
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const blob = await response.blob();
+  
+      // Determine the file type for proper handling
+      const fileType = blob.type;
+      setFileType(fileType);
+      console.log(`File type: ${fileType}`); // For debugging
+  
+      // Create a link element, set its href to the blob URL and trigger the download
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', filename); // Use the passed filename
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+  
+      // Optionally, revoke the blob URL after download
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+    } finally {
+      setDisabled(false);
+    }
+  };
+  
+
   const handleConfirmRequestSheet = () => {
     setOrderPopVisible(false);
     setRequestSheetStatus("isCompleted");
@@ -242,6 +288,7 @@ const NewOrderBox = () => {
       return;
     }
     try {
+      setDisabled(true);
       const options = {
         margin: 0.5,
         filename: 'quotation.pdf',
@@ -262,6 +309,10 @@ const NewOrderBox = () => {
     } catch (error) {
       console.error("Error generating PDF:", error);
     }
+    finally{
+      setDisabled(false);
+    }
+
   };
   const handleGenerateInvoice = async () => {
     const element = printRef1.current;
@@ -270,6 +321,7 @@ const NewOrderBox = () => {
       return;
     }
     try {
+      setDisabled(true);
       const options = {
         margin: 0.5,
         filename: 'receipt.pdf',
@@ -281,6 +333,9 @@ const NewOrderBox = () => {
       await html2pdf().from(element).set(options).save();
     } catch (error) {
       console.error("Error generating PDF:", error);
+    }
+    finally{
+      setDisabled(false);
     }
   };
 
@@ -572,7 +627,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmCostEstimate}>Download</button>
+                    <button className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]  ${disabled?"opacity-75":""}`} onClick={handleConfirmCostEstimate} disabled={disabled}>Download</button>
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef}>
@@ -723,11 +778,11 @@ const NewOrderBox = () => {
                         </div>
 
                       </div>
-                      <a href={qualityCheckReportLink.split("?")[0]} download="qualityReport">
+                      <button onClick={() => handleDownload(qualityCheckReportLink.split("?")[0], `QualityCheckReport.{$fileType}`)} disabled={disabled} className={`${disabled?"opacity-75":""}`}>
                         <div className="text-red-500 cursor-pointer">
                           <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
                         </div>
-                      </a>
+                      </button>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
@@ -787,11 +842,11 @@ const NewOrderBox = () => {
                           )}
                         </div>
                       </div>
-                      <a href={libraryCheckReportLink.split("?")[0]} download="libraryReport">
+                      <button onClick={() => handleDownload(libraryCheckReportLink.split("?")[0], `LibraryPrepReport.{$fileType}`)} disabled={disabled} className={`${disabled?"opacity-75":""}`}>
                         <div className="text-red-500 cursor-pointer">
                           <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
                         </div>
-                      </a>
+                      </button>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
@@ -918,11 +973,11 @@ const NewOrderBox = () => {
                           )}
                         </div>
                       </div>
-                      <a href={analysisSpecificationReportLink.split("?")[0]} download="analysisSpecification">
+                      <button onClick={() => handleDownload(analysisSpecificationReportLink.split("?")[0], `AnalysiSpecification.{$fileType}`)} disabled={disabled}  className={`${disabled?"opacity-75":""}`}>
                         <div className="text-red-500 cursor-pointer">
                           <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
                         </div>
-                      </a>
+                      </button>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
                       <input
@@ -979,8 +1034,8 @@ const NewOrderBox = () => {
                           }
                         </div> */}
                       </div>
-                     
-                      <button onClick={handleGenerateInvoice} className="text-red-500 cursor-pointer ">
+
+                      <button disabled={disabled} onClick={handleGenerateInvoice} className={`text-red-500 cursor-pointer ${disabled?"opacity-75":""}`}>
                         <Image src={downloadIcon} className='h-[13px] w-[13px]'></Image>
                       </button>
                     </div>
@@ -1033,9 +1088,9 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <a href={paymentRecieptLink.split("?")[0]} download="qualityReport">
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
-                    </a>
+                    <button onClick={() => handleDownload(paymentRecieptLink.split("?")[0], `PaymentReceipt.{$fileType}`)} disabled={disabled} className={` ${disabled?"opacity-75":""}`}>
+                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
+                    </button>
                   </div>
                 </div>
               )}
