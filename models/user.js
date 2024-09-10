@@ -15,9 +15,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    country:{
-      type:String
-    },
     school: {
       type: String,
       required: false,
