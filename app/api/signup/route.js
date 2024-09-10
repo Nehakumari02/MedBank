@@ -25,6 +25,7 @@ export async function POST(req) {
   } = await req.json();
   console.log("name",name,"\n","email",email,"\n","password",password,"\n","confirmPassword",confirmPassword)
   try {
+    await dbConnect();
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return new NextResponse(JSON.stringify({ message: 'User already registered' }), {
@@ -40,7 +41,7 @@ export async function POST(req) {
     const nextMemberId = nextMemberIdNumber.toString().padStart(4, "0"); // Adjust length as needed
       
     const hashedPassword = await bcrypt.hash(password, 10);
-    await dbConnect();
+    
 
     const res = await User.create({
       Username,
@@ -51,6 +52,7 @@ export async function POST(req) {
       field,
       others,
       service,
+      country:"",
       phone,
       email,
       Perfecture,
@@ -61,7 +63,7 @@ export async function POST(req) {
     console.log("result",res)
 
     // Create a conversation with the admin
-    const adminId = new mongoose.Types.ObjectId("66d308aadaf5caa518f09426");
+    const adminId = "admin";
     const conversation = await Conversation.create({
       participants: [res._id, adminId],
     });

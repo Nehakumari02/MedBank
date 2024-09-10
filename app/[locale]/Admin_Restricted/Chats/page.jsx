@@ -171,37 +171,6 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <div className="hidden space-y-2">
-              <div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div><div className="bg-pink-400 p-2 rounded">advsn</div>
-              <div className="bg-pink-400 p-2 rounded">vnsda</div>
-              <div className="bg-pink-400 p-2 rounded">nsdfvj</div>
-              <div className="bg-pink-400 p-2 rounded">vnsdavsondvos</div>
-              <div className="bg-pink-400 p-2 rounded">dsonmi</div>
-            </div>
             <Messages initialMessages={createChatArray("user1", "user2", 50)}/>
           </div>
 

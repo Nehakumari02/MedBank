@@ -15,7 +15,7 @@ const Settings = () => {
   const [field, setField] = useState("");
   const [others, setOthers] = useState("");
   const [service, setService] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Andorra");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
@@ -40,18 +40,23 @@ const Settings = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({Username,name,school,faculty,field,others,service,phone,email,confirmEmail,Perfecture,postalCode,city}),
+      body: JSON.stringify({Username,name,school,faculty,field,others,service,country,phone,email,confirmEmail,Perfecture,postalCode,city}),
     });
     const data = await response.json();
     console.log(data.message)
   }catch(error){
     console.log(error)
+    toast({
+      variant: "error",
+      title: "Error",
+      description: "Your details have'nt been updated, Please try again."
+    });
   }
   finally{
     toast({
       variant: "success",
-      title: "In Progress",
-      description: "Download started"
+      title: "Success",
+      description: "Your details have been updated."
     });
   }
   }
@@ -239,7 +244,7 @@ const Settings = () => {
                 </label>
                 <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                    <CountryDropDown></CountryDropDown>
+                    <CountryDropDown country={country} setCountry={setCountry} selectedFlag={selectedFlag} setSelectedFlag={setSelectedFlag}></CountryDropDown>
                   </div>
                 </div>
               </div>
@@ -304,7 +309,7 @@ const Settings = () => {
                 <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
                     
-                    <CountryDropDown></CountryDropDown>
+                    <CountryDropDown country={country} setCountry={setCountry} selectedFlag={selectedFlag} setSelectedFlag={setSelectedFlag}></CountryDropDown>
                   </div>
                 </div>
               </div>
