@@ -575,7 +575,6 @@ const NewOrderBox = () => {
     // setOrderPopVisible(false);
     setDisabled(true);
     setUploadStatus(true)
-
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -587,7 +586,6 @@ const NewOrderBox = () => {
 
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-
       // Call the API to get the signed URL
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
@@ -619,7 +617,6 @@ const NewOrderBox = () => {
       uploadRequest.onload = () => {
         if (uploadRequest.status === 200) {
           setQualityCheckReportLink(url.split("?")[0]);
-
           setQualityCheckStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
           console.log(fileUrl);
