@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Select,
     SelectContent,
@@ -291,10 +291,10 @@ const flagToCountry = {
 };
 
 
-export default function CountryDropdown() {
+export default function CountryDropdown({country,setCountry,selectedFlag,setSelectedFlag}) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedFlag, setSelectedFlag] = useState('ad.svg');
-    const [country, setCountry] = useState('Andorra');
+    // const [selectedFlag, setSelectedFlag] = useState('ad.svg');
+    // const [country, setCountry] = useState('Andorra');
    // const [selectedFlag, setSelectedFlag] = useState('ad.svg');
 
     const handleFlagSelect = async (flag) => {
@@ -311,6 +311,14 @@ export default function CountryDropdown() {
     //     setSelectedFlag(flag);
     //     setIsOpen(false);
     // };
+
+    useEffect(() => {
+        // Find flag by country name
+        const flag = Object.keys(flagToCountry).find(key => flagToCountry[key] === country);
+        if (flag) {
+            setSelectedFlag(flag);
+        }
+    }, [country, setSelectedFlag]);
 
     return (
         <div className="">
