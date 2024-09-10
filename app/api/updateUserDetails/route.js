@@ -12,6 +12,7 @@ export async function POST(req) {
       field,
       others,
       service,
+      country,
       phone,
       email,
       confirmEmail,
