@@ -5,7 +5,7 @@ import Message from "../../../models/message";
 
 export async function POST(req) {
   const { userId, message } = await req.json();
-  const hardcodedSenderId = "admin"; // Replace with actual hardcoded sender ID
+  const hardcodedSenderId = "66e055de6ddc7825fbd8a103"; // Replace with actual hardcoded sender ID
 
   try {
     await dbConnect();

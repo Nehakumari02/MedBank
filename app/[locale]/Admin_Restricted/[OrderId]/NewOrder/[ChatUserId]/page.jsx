@@ -15,7 +15,7 @@ const Chats = () => {
   const emails=["test@gmail.com","test2@gmail.com"]
   const clientUserId = usePathname().split("/")[5]
   const [chatId,setChatId] = useState("");
-  const userIdDB = "admin";
+  const userIdDB = "66e055de6ddc7825fbd8a103";
 
   const generateRandomId = () => {
     const timestamp = Date.now().toString(36); // Convert current timestamp to base-36

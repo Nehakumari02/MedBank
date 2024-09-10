@@ -63,7 +63,7 @@ export async function POST(req) {
     console.log("result",res)
 
     // Create a conversation with the admin
-    const adminId = "admin";
+    const adminId = new mongoose.Types.ObjectId("66e055de6ddc7825fbd8a103");
     const conversation = await Conversation.create({
       participants: [res._id, adminId],
     });
