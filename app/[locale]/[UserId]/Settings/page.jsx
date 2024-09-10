@@ -50,8 +50,8 @@ const Settings = () => {
   finally{
     toast({
       variant: "success",
-      title: "In Progress",
-      description: "Download started"
+      title: "Sucess!!",
+      description: "Data Saved Sucessfully"
     });
   }
   }
