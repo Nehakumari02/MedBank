@@ -4,10 +4,10 @@ import CountryDropDown from "../../../../components/CountryDropdown"
 import { useTranslations } from 'next-intl'
 import { useModal } from '@/contexts/ModalContext'
 import { usePathname } from 'next/navigation'
+import { toast } from '@/hooks/use-toast';
 
 const Settings = () => {
   const userId = usePathname().split("/")[2]
-
   const [Username, setUserName] = useState("");
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -15,6 +15,7 @@ const Settings = () => {
   const [field, setField] = useState("");
   const [others, setOthers] = useState("");
   const [service, setService] = useState("");
+  const [country, setCountry] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
@@ -22,6 +23,14 @@ const Settings = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
+  const [selectedFlag, setSelectedFlag] = useState('ad.svg');
+
+  const handleFlagSelect = (flag) => {
+    setSelectedFlag(flag);
+    if (onCountryChange) {
+        onCountryChange(flagToCountry[flag]);
+    }
+};
 
   const updateUserDetals=async(e)=>{
     e.preventDefault();
@@ -38,11 +47,14 @@ const Settings = () => {
   }catch(error){
     console.log(error)
   }
-
-
+  finally{
+    toast({
+      variant: "success",
+      title: "In Progress",
+      description: "Download started"
+    });
   }
-
-
+  }
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
@@ -65,6 +77,7 @@ const Settings = () => {
         setField(user.field || "");
         setOthers(user.others || "");
         setService(user.service || "");
+        setCountry(user.country ||"");
         setPhone(user.phone || "");
         setEmail(user.email || "");
         setConfirmEmail(user.email || "");
@@ -226,7 +239,6 @@ const Settings = () => {
                 </label>
                 <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
-                    
                     <CountryDropDown></CountryDropDown>
                   </div>
                 </div>
@@ -305,7 +317,7 @@ const Settings = () => {
                     <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                       placeholder=""
                       value={postalCode}
-                      onChange={(e) => setpostalCode(e.target.value)}
+                      onChange={(e) => setPostalCode(e.target.value)}
                       style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                       type="text"
                       name="name"

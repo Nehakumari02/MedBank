@@ -385,24 +385,91 @@ const NewOrderBox = () => {
       })
     }
   };
-  const handleConfirmQualityCheck = () => {
-    if (!isQualityChecked) {
+  const handleDownloadQualityCheck = async () => {
+    // Ensure there is a report to download
+    if (!qualityCheckReportLink) {
       toast({
         variant: "error",
-        title: "Error",
-        description: "please check the box"
-      })
+        title: "Download Error",
+        description: "No quality check report available for download.",
+      });
+      return;
     }
-    else {
-      setOrderPopVisible(false);
-      setQualityCheckStatus("isCompleted");
-      setLibraryPrepStatus("inAdminProgress");
-      updateDataInDB({
-        qualityCheckStatus: "isCompleted",
-        libraryPrepStatus: "inAdminProgress"
-      })
+  
+    try {
+      // Call the API to get the signed URL for downloading the file
+      const response = await fetch('/api/getSignedDownloadUrl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileUrl: qualityCheckReportLink }),
+      });
+  
+      const { url } = await response.json();
+      console.log("download url", url);
+  
+      // Download the file using XMLHttpRequest
+      const downloadRequest = new XMLHttpRequest();
+      downloadRequest.open('GET', url, true);
+      downloadRequest.responseType = 'blob'; // So we get the file as a blob
+  
+      // Track download progress
+      downloadRequest.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          setDownloadPercentage(percentComplete); // Optionally track download progress
+        }
+      };
+  
+      // Handle download complete
+      downloadRequest.onload = () => {
+        if (downloadRequest.status === 200) {
+          const blob = new Blob([downloadRequest.response], { type: downloadRequest.getResponseHeader('Content-Type') });
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = qualityCheckReportLink.split('/').pop(); // Extract file name from the link
+          link.click();
+  
+          toast({
+            variant: "success",
+            title: "Download Successful",
+            description: "The quality check report has been downloaded.",
+          });
+        } else {
+          toast({
+            variant: "error",
+            title: "Download Error",
+            description: "Failed to download the report, please try again.",
+          });
+        }
+      };
+  
+      // Handle download error
+      downloadRequest.onerror = () => {
+        toast({
+          variant: "error",
+          title: "Download Failed",
+          description: "There was an error downloading your file.",
+        });
+        console.error("Error downloading file:", downloadRequest.statusText);
+      };
+  
+      // Send the request to start downloading the file
+      downloadRequest.send();
+  
+    } catch (err) {
+      toast({
+        variant: "error",
+        title: "Download Failed",
+        description: "There was an error downloading your file.",
+      });
+      console.error("Error downloading file:", err);
+    } finally {
+      setDownloadPercentage(0); // Optionally reset download percentage
     }
   };
+  
 
   const handleLibraryPrepConfirmation = () => {
     if (!isLibraryPrepChecked) {
