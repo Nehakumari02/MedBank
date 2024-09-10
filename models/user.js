@@ -1,5 +1,6 @@
 import mongoose, { Schema, models } from "mongoose";
 import Order from './order'
+import { type } from "os";
 
 const userSchema = new Schema(
   {
@@ -13,6 +14,9 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: true,
+    },
+    country:{
+      type:String
     },
     school: {
       type: String,
