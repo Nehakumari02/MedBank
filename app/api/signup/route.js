@@ -53,7 +53,7 @@ export async function POST(req) {
       field,
       others,
       service,
-      country:"",
+      country,
       phone,
       email,
       Perfecture,
