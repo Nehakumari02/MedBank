@@ -16,7 +16,6 @@ import folder1 from "../../../public/dashboard/folder.png"
 import { toast } from '@/hooks/use-toast';
 import { Progress } from "@/components/ui/progress"
 
-
 const NewOrderBox = () => {
   // const { getRootProps, getInputProps } = useDropzone();
   const router = useRouter();
@@ -30,7 +29,6 @@ const NewOrderBox = () => {
   const [activePopup, setActivePopup] = useState('');
   const [check, setCheck] = useState(false);
   const { uploadedFile, setUploadedFile } = useOrder();
-
   const [currency, setCurrency] = useState("JPY");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isPopUp1, setIsPopUp1] = useState(false);
@@ -38,7 +36,6 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [userIdDB, setUserIdDB] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
-
   const [uploadStatus, setUploadStatus] = useState(false);
 
   const updateDataInDB = async (orderData) => {
@@ -61,11 +58,8 @@ const NewOrderBox = () => {
       },
       body: JSON.stringify({ samples: samples, orderIdDB: orderIdDB }),
     });
-
     console.log(saveApiResponse)
   }
-
-
 
   const {
     orderId, setOrderId,
@@ -119,12 +113,9 @@ const NewOrderBox = () => {
     const analysisFees = parseFloat(sample.analysisFees || 0);
     const others = parseFloat(sample.others || 0);
     const tax = parseFloat(sample.tax || 0);
-
-    // Apply tax to sum of fees
     const subtotal = qualityFees + libraryFees + analysisFees + others;
     const total = subtotal + (subtotal * (tax / 100));
-
-    return total.toFixed(2);  // Return a fixed decimal string
+    return total.toFixed(2);
   };
 
   const calculateTotal1 = (sample) => {
@@ -133,12 +124,9 @@ const NewOrderBox = () => {
     const analysisFees = parseFloat(sample.analysisFees || 0);
     const others = parseFloat(sample.others || 0);
     const tax = parseFloat(sample.tax || 0);
-
-    // Apply tax to sum of fees
     const subtotal = qualityFees + libraryFees + analysisFees + others;
     const total = subtotal + (subtotal * (tax / 100));
-
-    return total.toFixed(2);  // Return a fixed decimal string
+    return total.toFixed(2);
   };
 
   const calculateGrandTotal = (updatedSamples) => {
@@ -150,8 +138,6 @@ const NewOrderBox = () => {
     const updatedSamples = [...samples];
     if (field === 'tax') {
       updatedSamples.forEach(sample => sample.tax = value);
-      //setGlobalTax(value);
-      console.log("hye");
     }
     else {
       updatedSamples[index][field] = value;
@@ -159,17 +145,14 @@ const NewOrderBox = () => {
     updatedSamples[index].total = calculateTotal(updatedSamples[index]);
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
-    // Calculate and update the grand total
     const grandTotal = calculateGrandTotal(updatedSamples);
-    setGrandTotal(grandTotal); // Update grand total state
+    setGrandTotal(grandTotal); 
   };
 
   const handleInputChangeInvoice = (index, field, value) => {
     const updatedSamples = [...samples1];
     if (field === 'tax') {
       updatedSamples.forEach(sample => sample.tax = value);
-      //setGlobalTax(value);
-      console.log("hye");
     }
     else {
       updatedSamples[index][field] = value;
@@ -177,48 +160,38 @@ const NewOrderBox = () => {
     updatedSamples[index].total = calculateTotal1(updatedSamples[index]);
     updatedSamples[index][field] = value;
     setSamples1(updatedSamples);
-    // Calculate and update the grand total
     const grandTotal1 = calculateGrandTotal(updatedSamples);
-    setGrandTotal1(grandTotal1); // Update grand total state
+    setGrandTotal1(grandTotal1); 
   };
 
   console.log("order title", orderTitle)
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
-    setUploadedFile(file); // Update the state to show the file
+    setUploadedFile(file);
   };
-
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-
   const handleGenerateClick = async () => {
     setDisabled(true);
-    // setIsPopupVisible(true);
-    //setOrderPopVisible(true);
     if (!isAmountChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
         description: "please check the box"
       })
-      //return;
     }
     else if (!isTaxChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
         description: "please check the box"
       })
-      //return;
     }
     else {
       const requestData = {
         samples, orderIdDB, grandTotal
       };
-
       try {
         const response = await fetch('/api/get-quotation', {
           method: 'POST',
@@ -238,42 +211,24 @@ const NewOrderBox = () => {
       } catch (error) {
         console.error('Request failed', error);
       }
-      // setActivePopup('costEstimateConfirmation');
       finally{
         setDisabled(false);
       }
-  
-
     }
-
-
   };
   const handleGenerateClick1 = () => {
-    //setIsPopUp1(false);
-    //setIsPopupVisible(true);
     setActivePopup("invoice2")
-    //setOrderPopVisible(true);
-    //setActivePopup('payment');
     console.log("hello", isPopUp1)
   };
 
   const sampleDelelte = () => {
     setActivePopup('deletePopUp');
-    //setOrderPopVisible(true);
-    //setActivePopup('qulalityCheck ');
-
   }
   const sampleConfirm = () => {
     setActivePopup('confirmPopUp');
-    //setOrderPopVisible(true);
-    //setActivePopup('qulalityCheck ');
-
   }
 
   const handleDeleteOk = () => {
-    //setDeletePopUp(false);
-    //setOrderPopVisible(true);
-    //setActivePopup('formalRequest');
     setOrderPopVisible(false);
     setSampleShippingStatus("isAdminCompleted")
     updateDataInDB({
@@ -283,10 +238,7 @@ const NewOrderBox = () => {
 
   };
   const handleConfirmOk = () => {
-    // setConfirmPopUp(false);
     setOrderPopVisible(false);
-    //setOrderPopVisible(true);
-    //setActivePopup('formalRequest');
     setOrderPopVisible(false);
     setSampleShippingStatus("isAdminCompleted")
     updateDataInDB({
@@ -359,9 +311,7 @@ const NewOrderBox = () => {
     setIsInvoiceChecked2(e.target.checked);
   };
 
-
   const handleOrderCreation = () => {
-    //router.push(`/${language}/${orderIdDB}/Admin_Restricted/NewOrder/OrderCreationPage`)
     setOrderPopVisible(true);
     setActivePopup('requestSheet');
   }
@@ -402,7 +352,6 @@ const NewOrderBox = () => {
     setActivePopup('analysisDone');
   };
 
-
   const handleAnalysisRawDataClick = () => {
     setOrderPopVisible(true);
     setActivePopup('analysisRawData');
@@ -434,7 +383,6 @@ const NewOrderBox = () => {
     })
   }
 
-
   const handleConfirmCostEstimate = () => {
     setOrderPopVisible(false);
     setIsPopupVisible(false);
@@ -443,7 +391,6 @@ const NewOrderBox = () => {
       costEstimateStatus: "isAdminCompleted"
     })
   }
-
 
   const handleConfirmFormalRequest = () => {
     setFormalRequestStatus("isCompleted")
@@ -885,7 +832,6 @@ const NewOrderBox = () => {
 
   }
 
-
   const handleAnalysisRawDataConfirm = () => {
     if (!rawDataLink) {
       toast({
@@ -1171,16 +1117,11 @@ const NewOrderBox = () => {
     }
   }
 
-
-
-
   const handleClickOutside = (event) => {
     if (orderPopUpBoxRef.current && !orderPopUpBoxRef.current.contains(event.target)) {
       setOrderPopVisible(false);
     }
   };
-
-
 
   useEffect(() => {
     if (sampleShippingStatus == "isPending" && formalRequestStatus == "isCompleted") {
@@ -1217,7 +1158,6 @@ const NewOrderBox = () => {
         const order = await response.json();
         const orderData = order.data
         console.log(orderData.userId)
-
         setUserIdDB(orderData.userId);
         setOrderId(orderData.orderId);
         setOrderTitle(orderData.orderTitle);
@@ -1242,18 +1182,14 @@ const NewOrderBox = () => {
         setInvoiceLink(orderData.invoiceLink);
         setPaymentStatus(orderData.paymentStatus);
         setPaymentRecieptLink(orderData.paymentRecieptLink);
-
-
       } catch (error) {
         console.log("fetch order error ", error)
       }
     }
-
     fetchOrderByID(orderIdDB);
   }, [])
 
   console.log("orderid", orderId)
-
   const handleSendMessage = () => {
     router.push(`${path}/${userIdDB}`)
   }
@@ -1298,7 +1234,6 @@ const NewOrderBox = () => {
                           <th className="py-2">Total Amount</th>
                         </tr>
                       </thead>
-
                       <tbody className='border-t'>
                         {[1, 2, 3].map((_, index) => (
                           <tr key={index} className="text-[12px] font-normal">
@@ -1420,7 +1355,6 @@ const NewOrderBox = () => {
                             <input
                               type="text"
                               className="border rounded-md w-full p-2"
-                              //onChange={(e) => handleInputChange('totalFees', e.target.value)}
                               placeholder=""
                               value={grandTotal}
                             />
@@ -1429,7 +1363,6 @@ const NewOrderBox = () => {
                       </tfoot>
                     </table>
                   </div>
-
                   <div className="flex items-center text-[14px] font-normal">
                     <input
                       type="checkbox"
@@ -1457,7 +1390,6 @@ const NewOrderBox = () => {
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
                     <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
                   </div>
-
                 </div>
               )}
               {activePopup === 'costEstimateConfirmation' && (
@@ -1481,18 +1413,6 @@ const NewOrderBox = () => {
                   <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
                 </div>
               )}
-              {/* {activePopup === 'sampleShippingConfirmation' && (
-                <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
-                  </div>
-                  <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick= { sampleDelelte}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={sampleConfirm}>Confirm</button>
-                  </div>
-                </div>
-              )} */}
               {activePopup === 'sampleShipping' && (
                 <div className='p-[24px] w-[361px] h-[215px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
@@ -1541,10 +1461,7 @@ const NewOrderBox = () => {
                   </div>
                 </div>
               )}
-
-
               {activePopup === 'qualityCheck' && (
-
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Quality Check Report</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
@@ -1571,7 +1488,6 @@ const NewOrderBox = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile || uploadStatus}>Upload</button>
@@ -1579,7 +1495,6 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'libraryPrep' && (
-
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Library Preparation Report</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
@@ -1606,7 +1521,6 @@ const NewOrderBox = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile || uploadStatus}>Upload</button>
@@ -1641,7 +1555,6 @@ const NewOrderBox = () => {
                 <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[282px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-4 leading-[24px]'>Raw Data</div>
                   <div className='w-full border-t-2 border-dashed border-gray-100 md:pb-4'></div>
-
                   <div className="md:flex md:flex-row flex flex-col  gap-[6px] md:gap-4">
                     <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm flex items-center md:pt-6">
                       Paste data link
@@ -1666,7 +1579,6 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'analysisSpecification' && (
-
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Analysis Specification</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
@@ -1693,7 +1605,6 @@ const NewOrderBox = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification} disabled={!uploadedFile || uploadStatus}>Upload</button>
@@ -1705,8 +1616,7 @@ const NewOrderBox = () => {
                   <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
-
-                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-10">
+                  <div className="w-full overflow-x-auto">
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
@@ -1720,7 +1630,6 @@ const NewOrderBox = () => {
                           <th className="py-2">Total Amount</th>
                         </tr>
                       </thead>
-
                       <tbody className='border-t'>
                         {[1, 2, 3].map((_, index) => (
                           <tr key={index} className="text-[12px] font-normal">
@@ -1850,7 +1759,6 @@ const NewOrderBox = () => {
                       </tfoot>
                     </table>
                   </div>
-
                   <div className="flex items-center text-[14px] font-normal">
                     <input type="checkbox"
                       id="invoice1"
@@ -1874,7 +1782,6 @@ const NewOrderBox = () => {
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
                     <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
                   </div>
-
                 </div>
               )}
               {activePopup === "invoice1" && (
@@ -1906,7 +1813,6 @@ const NewOrderBox = () => {
                 </div>
               )} */}
               {activePopup === 'payment' && (
-
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Receipt</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
@@ -1933,7 +1839,6 @@ const NewOrderBox = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>Upload</button>

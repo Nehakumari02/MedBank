@@ -29,7 +29,6 @@ const NewOrderBox = () => {
   const [check, setCheck] = useState(false);
   const { uploadedFile, setUploadedFile } = useOrder();
   const [file, setFile] = useState(uploadedFile);
-
   const [currency, setCurrency] = useState("JPY");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isPopUp1, setIsPopUp1] = useState(false);
@@ -45,7 +44,6 @@ const NewOrderBox = () => {
       },
       body: JSON.stringify({ order: orderData, orderIdDB: orderIdDB }),
     });
-
     console.log(saveApiResponse)
   }
 
@@ -81,7 +79,6 @@ const NewOrderBox = () => {
   const [isSampleSendChecked3, setIsSampleSendChecked3] = useState(false);
   const [isQualityChecked, setIsQulaityChecked] = useState(false);
   const [isLibraryPrepChecked, setIsLibraryChecked] = useState(false);
-  //const [isQualityChecked3, setIsQulaityChecked3] = useState(false);
   const [isAnalysisSpecificationChecked, setIsAnalysisSpecificationChecked] = useState(false);
   const [isAnalysisRawChecked1, setIsAnalysisRawChecked1] = useState(false);
   const [isAnalysisRawChecked2, setIsAnalysisRawChecked2] = useState(false);
@@ -89,45 +86,33 @@ const NewOrderBox = () => {
   const printRef = useRef();
   const printRef1 = useRef();
 
-
   const handleSampleSendChecked1 = (e) => {
     setIsSampleSendChecked1(e.target.checked);
   };
   const handleSampleSendChecked2 = (e) => {
     setIsSampleSendChecked2(e.target.checked);
   };
-
   const handleSampleSendChecked3 = (e) => {
     setIsSampleSendChecked3(e.target.checked);
   };
-
   const handleQualityChecked = (e) => {
     setIsQulaityChecked(e.target.checked);
   };
-
-
   const handleLibraryPrepChecked = (e) => {
     setIsLibraryChecked(e.target.checked);
   };
-
-
   const handleAnalysisSpecificationChecked = (e) => {
     setIsAnalysisSpecificationChecked(e.target.checked);
   };
-
   const handleRawAnalysisChecked1 = (e) => {
     setIsAnalysisRawChecked1(e.target.checked);
   };
-
   const handleRawAnalysisChecked2 = (e) => {
     setIsAnalysisRawChecked2(e.target.checked);
   };
-
   const handleInvoiceChecked = (e) => {
     setIsInvoiceChecked(e.target.checked);
   };
-
-
   const handleGenerateClick = () => {
     setActivePopup('costEstimateConfirmation');
   };
@@ -151,29 +136,22 @@ const NewOrderBox = () => {
 
   const handleDeleteOk = () => {
     setOrderPopVisible(false);
-    //setOrderPopVisible(true);
-    //setActivePopup('formalRequest');
     setOrderPopVisible(false);
     setSampleShippingStatus("inUserProgress")
     updateDataInDB({
       sampleShippingStatus: "inUserProgress"
     })
-
   };
 
   const handleConfirmOk = () => {
     setOrderPopVisible(false);
-    //setOrderPopVisible(true);
-    //setActivePopup('formalRequest');
     setOrderPopVisible(false);
     setSampleShippingStatus("isCompleted");
     setQualityCheckStatus('inAdminProgress')
     updateDataInDB({
       sampleShippingStatus: "isCompleted",
       qualityCheckStatus: 'inAdminProgress'
-
     })
-
   };
 
   const handleClick1 = () => {
@@ -182,8 +160,6 @@ const NewOrderBox = () => {
 
   const handleOrderCreation = () => {
     router.push(`/${language}/${userIdDB}/${orderIdDB}/NewOrder/OrderCreationPage`)
-    // setOrderPopVisible(true);
-    // setActivePopup('requestSheet');
   }
 
   const handleCostEstimateClick = () => {
@@ -261,13 +237,10 @@ const NewOrderBox = () => {
 
   const handleConfirmCostEstimate = async () => {
     const element = printRef.current;
-
     if (!element) {
       console.error("QuotationTable is not loaded yet.");
       return;
     }
-
-    // Ensure the element and its content are fully loaded
     try {
       const options = {
         margin: 0.5,
@@ -276,17 +249,12 @@ const NewOrderBox = () => {
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
-
-      // Wait for the PDF generation to complete
       await html2pdf().from(element).set(options).save();
-
-      // Update statuses and close the popup
       setOrderPopVisible(false);
       setIsPopupVisible(false);
       setCostEstimateStatus("isCompleted");
       setFormalRequestStatus("inUserProgress");
 
-      // Update the database
       updateDataInDB({
         costEstimateStatus: "isCompleted",
         formalRequestStatus: "inUserProgress"
@@ -297,13 +265,10 @@ const NewOrderBox = () => {
   };
   const handleGenerateInvoice = async () => {
     const element = printRef1.current;
-
     if (!element) {
       console.error("Invoice is not loaded yet.");
       return;
     }
-
-    // Ensure the element and its content are fully loaded
     try {
       const options = {
         margin: 0.5,
@@ -313,27 +278,21 @@ const NewOrderBox = () => {
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
 
-      // Wait for the PDF generation to complete
       await html2pdf().from(element).set(options).save();
     } catch (error) {
       console.error("Error generating PDF:", error);
     }
   };
 
-  
-
-
   const handleConfirmFormalRequest = () => {
     setFormalRequestStatus("isUserCompleted");
     setOrderPopVisible(false);
-    //setActivePopup('sampleShippingConfirmation');
     updateDataInDB({
       formalRequestStatus: "isUserCompleted"
     })
   };
 
   const handleConfirmSampleShippingok = () => {
-    //setIsPopupVisible(false);
     setOrderPopVisible(false);
     setSampleShippingStatus("inTransit")
     updateDataInDB({
@@ -342,9 +301,7 @@ const NewOrderBox = () => {
   };
 
   const handleConfirmSampleShipping = () => {
-    //setIsPopupVisible(false);
     if (!isSampleSendChecked1) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -373,11 +330,8 @@ const NewOrderBox = () => {
       })
     }
   };
-
   const handleConfirmQualityCheck = () => {
-
     if (!isQualityChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -386,21 +340,17 @@ const NewOrderBox = () => {
     }
     else {
       setOrderPopVisible(false);
-      //setActivePopup('');
       setQualityCheckStatus("isCompleted");
       setLibraryPrepStatus("inAdminProgress");
       updateDataInDB({
         qualityCheckStatus: "isCompleted",
         libraryPrepStatus: "inAdminProgress"
       })
-
     }
-
   };
 
   const handleLibraryPrepConfirmation = () => {
     if (!isLibraryPrepChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -411,16 +361,12 @@ const NewOrderBox = () => {
       setOrderPopVisible(false);
       setActivePopup('');
       setLibraryPrepStatus("isCompleted");
-      //setAnalysisProgressStatus("inUserProgress");
       setAnalysisProgressStatus('inAdminProgress');
       updateDataInDB({
         libraryPrepStatus: "isCompleted",
         analysisProgressStatus: 'inAdminProgress'
       })
-
     }
-
-
   };
 
   const handleAnalysisDoneConfirmation = () => {
@@ -439,7 +385,6 @@ const NewOrderBox = () => {
 
   const handleAnalysisRawDataConfirmMobile = () => {
     if (!isAnalysisRawChecked1) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -452,13 +397,11 @@ const NewOrderBox = () => {
       updateDataInDB({
         analysisRawDataStatus: "isCompleted"
       })
-
     }
   }
 
   const handleAnalysisRawDataConfirm = () => {
     if (!isAnalysisRawChecked1) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -467,7 +410,6 @@ const NewOrderBox = () => {
     }
 
     else if (!isAnalysisRawChecked2) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -486,7 +428,6 @@ const NewOrderBox = () => {
 
   const handleAnalysisSpecification = () => {
     if (!isAnalysisSpecificationChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -499,13 +440,11 @@ const NewOrderBox = () => {
       updateDataInDB({
         analysisSpecificationStatus: "isCompleted"
       })
-
     }
   }
 
   const handleInvoice = () => {
     if (!isInvoiceChecked) {
-      // Show toast if checkbox is not checked
       toast({
         variant: "error",
         title: "Error",
@@ -520,7 +459,6 @@ const NewOrderBox = () => {
         invoiceStatus: "isCompleted",
         paymentStatus: "inAdminProgress"
       })
-
     }
   }
 
