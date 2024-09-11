@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { CustomersDataTable } from '@/components/AdminDashboard/Customers/CustomersDataTable'
+import { PaymentsDataTable } from '@/components/AdminDashboard/Payments/PaymentsDataTable';
 
 const Orders = () => {
   const [data,setData] = useState([]);
@@ -34,7 +35,7 @@ const Orders = () => {
   useEffect(()=>{
     const fetchOrdersByUserId = async()=>{
       try{
-        const response = await fetch('/api/admin_fetchCustomers', {
+        const response = await fetch('/api/admin_fetchPaymentList', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ const Orders = () => {
 
   return (
     <div className='w-full p-[19px] md:h-[calc(100vh-104px)] overflow-y-scroll'>
-      <CustomersDataTable data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <PaymentsDataTable data={data} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} buttons={buttons} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     </div>
   )
 }

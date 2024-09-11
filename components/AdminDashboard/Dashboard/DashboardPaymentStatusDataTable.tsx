@@ -37,72 +37,16 @@ import {
 } from "@/components/ui/table"
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 
-export type OrderList = {
+export type PaymentList = {
   _id: string
-  userId: string
   orderId: string
   orderTitle: string
-  requestSheet: {
-    status: "inAdminProgress" | "completed" | "pending" // Define other statuses as needed
-    requestSheetLink: string
-    _id: string
-  }
-  costEstimate: {
-    status: "inAdminProgress" | "completed" | "pending"
-    costEstimationLink: string
-    _id: string
-  }
-  formalRequest: {
-    status: "inAdminProgress" | "completed" | "pending"
-    _id: string
-  }
-  sampleShipping: {
-    status: "inAdminProgress" | "completed" | "pending"
-    sampleShippingStatus: string // Define possible statuses if needed
-    _id: string
-  }
-  qualityCheck: {
-    status: "inAdminProgress" | "completed" | "pending"
-    qualityCheckReportLink: string
-    _id: string
-  }
-  libraryPrep: {
-    status: "inAdminProgress" | "completed" | "pending"
-    libraryCheckReportLink: string
-    _id: string
-  }
-  analysisProgress: {
-    status: "inAdminProgress" | "completed" | "pending"
-    _id: string
-  }
-  analysisDone: {
-    status: "inAdminProgress" | "completed" | "pending"
-    _id: string
-  }
-  analysisRawData: {
-    status: "inAdminProgress" | "completed" | "pending"
-    rawDataLink: string
-    _id: string
-  }
-  analysisSpecification: {
-    status: "inAdminProgress" | "completed" | "pending"
-    analysisSpecificationReportLink: string
-    _id: string
-  }
-  invoice: {
-    status: "inAdminProgress" | "completed" | "pending"
-    invoiceLink: string
-    _id: string
-  }
-  payment: {
-    status: "inAdminProgress" | "completed" | "pending"
-    paymentReceiptLink: string
-    _id: string
-  }
-  createdAt: string // Date string or Date type if using actual Date objects
-  updatedAt: string // Date string or Date type if using actual Date objects
-  __v: number
+  paymentStatus: string
+  grandTotal1: string
+  Username: string
+  school: string
 }
 
 interface OrderTitleCellProps {
@@ -127,285 +71,74 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
   );
 };
 
-export const columns: ColumnDef<OrderList>[] = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && "indeterminate")
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+export const columns: ColumnDef<PaymentList>[] = [
   {
-    accessorKey: "orderId",
-    header: "OrderId",
+    accessorKey: 'orderId',
+    header: 'Order ID',
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
+      <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('orderId')}
+      </div>
     ),
   },
   {
-    accessorKey: "orderTitle",
-    header: ({ column }) => {
+    accessorKey: 'orderTitle',
+    header: 'Order Title',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('orderTitle')}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'school',
+    header: 'Affiliation of Customer',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('school') || 'N/A'}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'Username',
+    header: 'Username',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('Username') || 'N/A'}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'grandTotal1',
+    header: 'Grand Total',
+    cell: ({ row }) => (
+      <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('grandTotal1') || 'N/A'}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'paymentStatus',
+    header: 'Payment Status',
+    cell: ({ row }) => {
+      const status = row.getValue('paymentStatus');
+      const bgColor = status === 'isPending' ? '#FF914D' : '#5CE1E6';
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        <div
+          className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
+          style={{ backgroundColor: bgColor }}
         >
-          Order Title
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      )
-    },
-    cell: ({ row }) =>(
-      <OrderTitleCell
-        userId={row.original.userId}
-        orderId={row.original._id}
-        orderTitle={row.getValue("orderTitle")}
-      />
-    )
-  },
-  {
-    accessorKey: "requestSheetStatus",
-    header: "Request Sheet",
-    cell: ({ row }) =>
-      {
-        const requestSheetStatus = row.getValue("requestSheetStatus");
-        if (requestSheetStatus === "inAdminProgress") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
-        } else if (requestSheetStatus === "isCompleted") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
-        } else {
-          return <></>;
-        }
-      },
-  },
-  {
-    accessorKey: "costEstimateStatus",
-    header: "Cost Estimate",
-    cell: ({ row }) => {
-      const costEstimateStatus = row.getValue("costEstimateStatus");
-  
-      if (costEstimateStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
-      } else if (costEstimateStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
-      } else {
-        return <></>;
-      }
+          {status === 'isPending' ? 'Pending' : 'Completed'}
+        </div>
+      );
     },
   },
-  {
-    accessorKey: "formalRequestStatus",
-    header: "Formal Request",
-    cell: ({ row }) => {
-      const formalRequestStatus = row.getValue("formalRequestStatus");
-  
-      if (formalRequestStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
-      } else if (formalRequestStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "sampleShippingStatus",
-    header: "Sample Shipping",
-    cell: ({ row }) => {
-      const sampleShippingStatus = row.getValue("sampleShippingStatus");
-  
-      if (sampleShippingStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
-      } else if (sampleShippingStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "qualityCheckStatus",
-    header: "Quality Check",
-    cell: ({ row }) => {
-      const qualityCheckStatus = row.getValue("qualityCheckStatus");
-  
-      if (qualityCheckStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
-      } else if (qualityCheckStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "libraryPrepStatus",
-    header: "Library Prep",
-    cell: ({ row }) => {
-      const libraryPrepStatus = row.getValue("libraryPrepStatus");
-  
-      if (libraryPrepStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
-      } else if (libraryPrepStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "analysisProgressStatus",
-    header: "Analysis Progress",
-    cell: ({ row }) => {
-      const analysisProgressStatus = row.getValue("analysisProgressStatus");
-  
-      if (analysisProgressStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
-      } else if (analysisProgressStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "analysisDoneStatus",
-    header: "Analysis Done",
-    cell: ({ row }) => {
-      const analysisDoneStatus = row.getValue("analysisDoneStatus");
-  
-      if (analysisDoneStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
-      } else if (analysisDoneStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "analysisRawDataStatus",
-    header: "Raw Data",
-    cell: ({ row }) => {
-      const rawDataStatus = row.getValue("analysisRawDataStatus");
-  
-      if (rawDataStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
-      } else if (rawDataStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "analysisSpecificationStatus",
-    header: "Analysis Specification",
-    cell: ({ row }) => {
-      const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
-  
-      if (analysisSpecificationStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
-      } else if (analysisSpecificationStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "invoiceStatus",
-    header: "Invoice",
-    cell: ({ row }) => {
-      const invoiceStatus = row.getValue("invoiceStatus");
-  
-      if (invoiceStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
-      } else if (invoiceStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  {
-    accessorKey: "paymentStatus",
-    header: "Payment",
-    cell: ({ row }) => {
-      const paymentStatus = row.getValue("paymentStatus");
-  
-      if (paymentStatus === "inAdminProgress") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
-      } else if (paymentStatus === "isCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
-      } else {
-        return <></>;
-      }
-    },
-  },
-  // {
-  //   accessorKey: "amountStatus",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount"))
-
-  //     // Format the amount as a dollar amount
-  //     const formatted = new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD",
-  //     }).format(amount)
-
-  //     return <div className="text-right font-medium">{formatted}</div>
-  //   },
-  // },
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   cell: ({ row }) => {
-  //     const payment = row.original
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(payment.id)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     )
-  //   },
-  // },
-]
+  // Add additional columns for requestSheet, costEstimate, etc., if needed
+  // Refer to the previous implementation for those columns
+];
 
 interface DashboardDataTableProps {
-  data: OrderList[];
+  data: PaymentList[];
   totalPages: number;
   currentPage: number;
   searchQuery: string;
@@ -413,7 +146,7 @@ interface DashboardDataTableProps {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   buttons: (number | string)[];
 }
-export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) => {
+export const DashboardPaymentListDataTable: React.FC<DashboardDataTableProps> = ({ data=[], searchQuery, setSearchQuery }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -421,6 +154,7 @@ export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data=[],
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const language = usePathname().split("/")[1];
 
   const table = useReactTable({
     data,
@@ -445,7 +179,7 @@ export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data=[],
     <div className="w-full h-full">
       <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
-        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Order List</span>
+        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Payment List</span>
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
@@ -536,65 +270,7 @@ export const DashboardDataTable: React.FC<DashboardDataTableProps> = ({ data=[],
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center justify-start space-x-2 py-4">
-        <div className="space-x-[2px]">
-        {/* <Button
-          className="border-none"
-            variant="outline"
-            size="sm"
-            onClick={() => (setCurrentPage(1))}
-            disabled={currentPage==1}
-          >
-            &lt;&lt;
-          </Button> */}
-          <Button
-          className="border-none py-[6px] px-[12px] font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
-            variant="outline"
-            size="sm"
-            onClick={() => (setCurrentPage(prev=>(prev-1)))}
-            disabled={currentPage==1}
-          >
-            &lt;
-          </Button>
-          {buttons.map((pageNumber,index)=>{
-            return(
-              <Button
-                key={`${index}`}
-                className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  const numericPageNumber = Number(pageNumber);
-                  if (!isNaN(numericPageNumber)) {
-                    setCurrentPage(numericPageNumber);
-                  }
-                }}
-              >
-                {pageNumber}
-              </Button>
-            )
-          })}
-
-          <Button
-          className="border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
-            variant="outline"
-            size="sm"
-            onClick={() => (setCurrentPage(prev=>(prev+1)))}
-            disabled={currentPage==totalPages}
-          >
-            &gt;
-          </Button>
-          {/* <Button
-          className="border-none"
-            variant="outline"
-            size="sm"
-            onClick={() => (setCurrentPage(totalPages))}
-            disabled={currentPage==totalPages}
-          >
-            &gt;&gt;
-          </Button> */}
-        </div>
+        <div className="w-full border-t-[1px] flex items-center justify-center pt-[4px]"><Link href={`/${language}/Admin_Restricted/Payments`} className="font-DM-Sans font-normal text-[12px] text-[#3E8DA7] leading-[24px] text-center">View full table</Link></div>
       </div>
     </div>
   )
