@@ -719,6 +719,23 @@
             "invoice":"請求書",
             "receipt":"領収書"
         },
+        "orderList":{
+            "title":"発注一覧",
+            "orderId":"発注 ID",
+            "orderTitle":"発注タイトル",
+            "requestSheet":"依頼シート",
+            "costEstimate":"見積り",
+            "formalRequest":"正式な依頼",
+            "sampleShipping":"サンプル 送付",
+            "qualityCheck":"クオリティ チェック",
+            "libraryPrep":"ライブラリ 調製",
+            "analysisProgress":"解析中",
+            "analysisDone":"解析終了",
+            "rawData":"元データ",
+            "analysisSpecification":"解析仕様書",
+            "invoice":"請求書",
+            "payment":"お支払い 領収証"
+        },
         "chat":{
             "title":"MedBank Team",
             "online":"Online"
@@ -884,6 +901,15 @@
         "chat":{
             "title":"MedBank Team",
             "online":"Online"
+        },
+        "paymentBox":{
+            "heading":"支払い状況",
+            "orderId":"発注ID",
+            "title":"発注タイトル",
+            "affiliation":"大学/研究 機関名",
+            "userName":"ユーザーネーム",
+            "invoice":"請求金額",
+            "receipt":"領収書"
         }
     }
 }
