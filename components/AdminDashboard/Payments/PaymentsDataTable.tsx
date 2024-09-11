@@ -17,6 +17,7 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useTranslations } from 'next-intl'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -49,7 +50,10 @@ export type PaymentList = {
 export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: 'orderId',
-    header: 'Order ID',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.orderId")}</span>)
+    },
     cell: ({ row }) => (
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderId')}
@@ -58,7 +62,10 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'orderTitle',
-    header: 'Order Title',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.title")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderTitle')}
@@ -67,7 +74,10 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'school',
-    header: 'Affiliation of Customer',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.affiliation")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('school') || 'N/A'}
@@ -76,7 +86,10 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'Username',
-    header: 'Username',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.userName")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('Username') || 'N/A'}
@@ -85,7 +98,10 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'grandTotal1',
-    header: 'Grand Total',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.invoice")}</span>)
+    },
     cell: ({ row }) => (
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('grandTotal1') || 'N/A'}
@@ -94,7 +110,10 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'paymentStatus',
-    header: 'Payment Status',
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("paymentBox.receipt")}</span>)
+    },
     cell: ({ row }) => {
       const status = row.getValue('paymentStatus');
       const bgColor = status === 'isPending' ? '#FF914D' : '#5CE1E6';
@@ -124,6 +143,7 @@ interface OrdersDataTableProps {
 
 export const PaymentsDataTable: React.FC<OrdersDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const t = useTranslations("AdminDashboard");
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
@@ -154,7 +174,7 @@ export const PaymentsDataTable: React.FC<OrdersDataTableProps> = ({ data=[], tot
     <div className="w-full">
       <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
-        <span className="font-DM-Sans font-bold text-[#333333] md:text-[22px] md:leading-[28px] pl-[40px]">Payment Status</span>
+        <span className="font-DM-Sans font-bold text-[#333333] md:text-[22px] md:leading-[28px] pl-[40px]">{t("paymentBox.heading")}</span>
         <div className="flex items-center gap-[12px] mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"

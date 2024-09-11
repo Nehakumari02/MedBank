@@ -471,6 +471,26 @@ const NewOrderBox = () => {
       setDownloadPercentage(0); // Optionally reset download percentage
     }
   };
+
+  const handleConfirmQualityCheck = () => {
+    if (!isQualityChecked) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "please check the box"
+      })
+    }
+    else {
+      setOrderPopVisible(false);
+      setActivePopup('');
+      setQualityCheckStatus("isCompleted");
+      setLibraryPrepStatus('inAdminProgress');
+      updateDataInDB({
+        qualityCheckStatus: "isCompleted",
+        libraryPrepStatus: 'inAdminProgress'
+      })
+    }
+  };
   
 
   const handleLibraryPrepConfirmation = () => {

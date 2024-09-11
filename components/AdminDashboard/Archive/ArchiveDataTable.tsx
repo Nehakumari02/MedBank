@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/table"
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
+import { useTranslations } from 'next-intl'
 
 interface OrderTitleCellProps {
   userId: string;
@@ -153,7 +154,10 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
   {
     accessorKey: "orderId",
-    header: "OrderId",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.orderId")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
@@ -161,12 +165,13 @@ export const columns: ColumnDef<OrderList>[] = [
   {
     accessorKey: "orderTitle",
     header: ({ column }) => {
+      const t = useTranslations("UserDashboard");
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Order Title
+          {t("orderList.orderTitle")}
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
         </Button>
       )
@@ -181,7 +186,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "requestSheetStatus",
-    header: "Request Sheet",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.requestSheet")}</span>)
+    },
     cell: ({ row }) =>
       {
         const requestSheetStatus = row.getValue("requestSheetStatus");
@@ -196,7 +204,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "costEstimateStatus",
-    header: "Cost Estimate",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.costEstimate")}</span>)
+    },
     cell: ({ row }) => {
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
@@ -211,7 +222,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "formalRequestStatus",
-    header: "Formal Request",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.formalRequest")}</span>)
+    },
     cell: ({ row }) => {
       const formalRequestStatus = row.getValue("formalRequestStatus");
   
@@ -226,7 +240,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "sampleShippingStatus",
-    header: "Sample Shipping",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.sampleShipping")}</span>)
+    },
     cell: ({ row }) => {
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
   
@@ -241,7 +258,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "qualityCheckStatus",
-    header: "Quality Check",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.qualityCheck")}</span>)
+    },
     cell: ({ row }) => {
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
   
@@ -256,7 +276,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "libraryPrepStatus",
-    header: "Library Prep",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.libraryPrep")}</span>)
+    },
     cell: ({ row }) => {
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
@@ -271,7 +294,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisProgressStatus",
-    header: "Analysis Progress",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisProgress")}</span>)
+    },
     cell: ({ row }) => {
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
@@ -286,7 +312,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisDoneStatus",
-    header: "Analysis Done",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisDone")}</span>)
+    },
     cell: ({ row }) => {
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
@@ -301,7 +330,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisRawDataStatus",
-    header: "Raw Data",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.rawData")}</span>)
+    },
     cell: ({ row }) => {
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
@@ -316,7 +348,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisSpecificationStatus",
-    header: "Analysis Specification",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisSpecification")}</span>)
+    },
     cell: ({ row }) => {
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
@@ -331,7 +366,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "invoiceStatus",
-    header: "Invoice",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.invoice")}</span>)
+    },
     cell: ({ row }) => {
       const invoiceStatus = row.getValue("invoiceStatus");
   
@@ -346,7 +384,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "paymentStatus",
-    header: "Payment",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.payment")}</span>)
+    },
     cell: ({ row }) => {
       const paymentStatus = row.getValue("paymentStatus");
   
@@ -416,6 +457,7 @@ interface ArchiveDataTableProps {
 }
 export const  ArchiveDataTable: React.FC<ArchiveDataTableProps>=({data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery}) =>{
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const t = useTranslations("UserDashboard");
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
@@ -446,7 +488,7 @@ export const  ArchiveDataTable: React.FC<ArchiveDataTableProps>=({data=[], total
     <div className="w-full h-full">
       <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
-        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Order List</span>
+        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">{t("orderList.title")}</span>
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"

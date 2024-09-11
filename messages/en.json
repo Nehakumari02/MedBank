@@ -722,6 +722,23 @@
         "chat":{
             "title":"MedBank Team",
             "online":"Online"
+        },
+        "orderList":{
+            "title":"Order List",
+            "orderId":"OrderId",
+            "orderTitle":"Order Title",
+            "requestSheet":"Request Sheet",
+            "costEstimate":"Cost Estimate",
+            "formalRequest":"Formal request",
+            "sampleShipping":"Sample Shipping",
+            "qualityCheck":"Quality Check",
+            "libraryPrep":"Library Prep",
+            "analysisProgress":"Analysis Progress",
+            "analysisDone":"Analysis Done",
+            "rawData":"Raw data",
+            "analysisSpecification":"Aanalysis Specification",
+            "invoice":"Invoice",
+            "payment":"Payment"
         }
     },
 
@@ -884,6 +901,15 @@
         "chat":{
             "title":"MedBank Team",
             "online":"Online"
+        },
+        "PaymentBox":{
+            "heading":"Payment Status",
+            "orderId":"Order ID",
+            "title":"Title",
+            "affiliation":"Affiliation of Customer",
+            "userName":"Username",
+            "invoice":"Invoice Amount",
+            "receipt":"Receipt"
         }
     }
 }
