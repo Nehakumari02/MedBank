@@ -37,13 +37,13 @@ export async function POST(req) {
         const { userId, ...orderData } = order.toObject(); // Convert mongoose document to plain object
         return {
           ...orderData,
-          username: userId?.username || '', // Directly include user data
-          school: userId?.affiliation || '', // Assuming 'affiliation' was meant to be 'school'
+          Username: userId?.Username || '', // Directly include user data
+          school: userId?.school|| '', // Assuming 'affiliation' was meant to be 'school'
         };
       });
 
 
-      console.log("order payments",orders)
+      console.log("Payment payments",orders)
     // Fetch total count of orders for pagination info
     const totalOrders = await Order.countDocuments({ 
       $and: [
@@ -59,14 +59,14 @@ export async function POST(req) {
 
     if (!flattenedOrders || flattenedOrders.length === 0) {
       return new NextResponse(
-        JSON.stringify({ error: "No orders found" }),
+        JSON.stringify({ error: "No Payment found" }),
         { status: 404 }
       );
     }
 
     return new NextResponse(
       JSON.stringify({
-        message: "Orders fetched successfully",
+        message: "Payment fetched successfully",
         data: flattenedOrders,
         totalPages: Math.ceil(totalOrders / limit),
         currentPage: page
@@ -74,9 +74,9 @@ export async function POST(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("Error fetching orders:", error);
+    console.log("Error fetching Payment:", error);
     return new NextResponse(
-      JSON.stringify({ error: "Error fetching orders" }),
+      JSON.stringify({ error: "Error fetching Payment" }),
       { status: 500 }
     );
   }

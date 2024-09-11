@@ -36,151 +36,93 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-export type Payments = {
-  id: string
-  title:string,
-  invoice:string,
-  payment:boolean|"inProgress"
+export type PaymentList = {
+  _id: string
+  orderId: string
+  orderTitle: string
+  paymentStatus: string
+  grandTotal1: string
+  Username: string
+  school: string
 }
 
-export const columns: ColumnDef<Payments>[] = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && "indeterminate")
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+export const columns: ColumnDef<PaymentList>[] = [
   {
-    accessorKey: "id",
-    header: "OrderId",
+    accessorKey: 'orderId',
+    header: 'Order ID',
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("id")}</div>
+      <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('orderId')}
+      </div>
     ),
   },
   {
-    accessorKey: "title",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("title")}</div>,
+    accessorKey: 'orderTitle',
+    header: 'Order Title',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('orderTitle')}
+      </div>
+    ),
   },
   {
-    accessorKey: "invoice",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Invoice
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("invoice")}</div>,
+    accessorKey: 'school',
+    header: 'Affiliation of Customer',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('school') || 'N/A'}
+      </div>
+    ),
   },
-  // {
-  //   accessorKey: "requestSheet",
-  //   header: "Request Sheet",
-  //   cell: ({ row }) =>
-  //     {
-  //       const requestSheetStatus = row.getValue("requestSheet");
-
-  //       if (requestSheetStatus === "inProgress") {
-  //         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request Sheet Sent</div>;
-  //       } else if (requestSheetStatus === true) {
-  //         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request Sheet Sent</div>;
-  //       } else {
-  //         return <></>;
-  //       }
-  //     },
-  // },
   {
-    accessorKey: "payment",
-    header: "Payment",
+    accessorKey: 'Username',
+    header: 'Username',
+    cell: ({ row }) => (
+      <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('Username') || 'N/A'}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'grandTotal1',
+    header: 'Grand Total',
+    cell: ({ row }) => (
+      <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
+        {row.getValue('grandTotal1') || 'N/A'}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'paymentStatus',
+    header: 'Payment Status',
     cell: ({ row }) => {
-      const costEstimateStatus = row.getValue("payment");
-  
-      if (costEstimateStatus === "inProgress") {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
-      } else if (costEstimateStatus === true) {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
-      } else {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-black px-[2px] py-[4px] bg-[#E2E8F0] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
-      }
+      const status = row.getValue('paymentStatus');
+      const bgColor = status === 'isPending' ? '#FF914D' : '#5CE1E6';
+      return (
+        <div
+          className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
+          style={{ backgroundColor: bgColor }}
+        >
+          {status === 'isPending' ? 'Pending' : 'Completed'}
+        </div>
+      );
     },
   },
-  // {
-  //   accessorKey: "amount",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount"))
+  // Add additional columns for requestSheet, costEstimate, etc., if needed
+  // Refer to the previous implementation for those columns
+];
 
-  //     // Format the amount as a dollar amount
-  //     const formatted = new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD",
-  //     }).format(amount)
+interface OrdersDataTableProps {
+  data: PaymentList[];
+  totalPages: number;
+  currentPage: number;
+  searchQuery: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  buttons: (number | string)[];
+}
 
-  //     return <div className="text-right font-medium">{formatted}</div>
-  //   },
-  // },
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   cell: ({ row }) => {
-  //     const payment = row.original
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(payment.id)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     )
-  //   },
-  // },
-]
-
-export function PaymentsDataTable({ data }: { data: Payments[] }) {
+export const PaymentsDataTable: React.FC<OrdersDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -216,9 +158,11 @@ export function PaymentsDataTable({ data }: { data: Payments[] }) {
         <div className="flex items-center gap-[12px] mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          // value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          value={searchQuery}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            // table.getColumn("title")?.setFilterValue(event.target.value)
+            setSearchQuery(event.target.value)
           }
           className="max-w-sm md:max-w-[360px] md:w-[360px]"
         />
@@ -301,30 +245,63 @@ export function PaymentsDataTable({ data }: { data: Payments[] }) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div> */}
-        <div className="space-x-2">
-          <Button
-          className="bg-white"
+      <div className="flex items-center justify-start space-x-2 py-4">
+        <div className="space-x-[2px]">
+        {/* <Button
+          className="border-none"
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => (setCurrentPage(1))}
+            disabled={currentPage==1}
           >
-            Previous
-          </Button>
+            &lt;&lt;
+          </Button> */}
           <Button
-          className="bg-white"
+          className="border-none py-[6px] px-[12px] font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => (setCurrentPage(prev=>(prev-1)))}
+            disabled={currentPage==1}
           >
-            Next
+            &lt;
           </Button>
+          {buttons.map((pageNumber,index)=>{
+            return(
+              <Button
+                key={`${index}`}
+                className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const numericPageNumber = Number(pageNumber);
+                  if (!isNaN(numericPageNumber)) {
+                    setCurrentPage(numericPageNumber);
+                  }
+                }}
+              >
+                {pageNumber}
+              </Button>
+            )
+          })}
+
+          <Button
+          className="border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(prev=>(prev+1)))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;
+          </Button>
+          {/* <Button
+          className="border-none"
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(totalPages))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;&gt;
+          </Button> */}
         </div>
       </div>
     </div>
