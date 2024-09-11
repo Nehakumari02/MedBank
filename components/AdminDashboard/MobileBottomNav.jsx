@@ -63,7 +63,7 @@ const MobileBottomNav = () => {
           {menuItems.map((item) => (
             <button
               key={item.text}
-              onClick={() => router.push(`/${language}/${session.user.id}/${item.path}`)}
+              onClick={() => router.push(`/${language}/Admin_Restricted/${item.path}`)}
               className={`h-[40px] flex flex-col items-center justify-between`}
             >
               {path==item.path?item.selectedIcon:item.icon}
