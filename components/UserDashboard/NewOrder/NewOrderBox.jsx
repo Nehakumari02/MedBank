@@ -13,6 +13,7 @@ import CalculateCost from '../../../components/CalculateCost';
 import LangDropdown from "../../../components/LangDropdown";
 import { toast } from '@/hooks/use-toast';
 import html2pdf from 'html2pdf.js';
+import { useTranslations } from 'next-intl'
 import QuotationTable from '../../../components/QuotationTable';
 import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
 
@@ -37,6 +38,7 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [fileType, setFileType] = useState("");
   let userIdDB = usePathname().split('/')[2];
+  const t = useTranslations("UserDashboard");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -706,29 +708,29 @@ const NewOrderBox = () => {
               {activePopup === 'formalRequest' && (
                 <div className='w-[298px] h-[197px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Please confirm the Formal Request.</span>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("formalRequest.confirmation")}</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("formalRequest.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>Confirm</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("formalRequest.cancel")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>{t("formalRequest.confirm")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'sampleShippingSend' && (
                 <div className='font-DM-Sans flex flex-col w-[298px] h-[221px] md:h-[398px] md:w-[658px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Sample Send</div>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>{t("sampleShippingSend.title")}</div>
                   <div className='flex flex-col gap-[6px] md:gap-[12px]'>
                     <div className="hidden md:block md:text-[20px] leading-6 ">
-                      The sample has been sent.
+                    {t("sampleShippingSend.message.desktopMsg")}
                     </div>
                     <p className="block md:hidden text-[18px] leading-6 pt-[8px]">
-                      The sample has been sent by the Customer.
+                    {t("sampleShippingSend.message.mobileMsg")}
                     </p>
                     <p className="hidden md:block">
-                      Check how to send a sample.
+                    {t("sampleShippingSend.message1")}
                       <a href="/path/to/download" className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
-                        Visit Website
+                      {t("sampleShippingSend.website")}
                       </a>
                     </p>
 
@@ -742,7 +744,7 @@ const NewOrderBox = () => {
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         <span className='hidden md:block'>
-                          I have carefully read the shipping and sending instructions.
+                        {t("sampleShippingSend.checkbox1")}
                         </span>
                       </span>
                     </label>
@@ -756,7 +758,7 @@ const NewOrderBox = () => {
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         <span className='hidden md:block'>
-                          Samples are labelled.
+                        {t("sampleShippingSend.checkbox2")}
                         </span>
                       </span>
                     </label>
@@ -770,14 +772,14 @@ const NewOrderBox = () => {
                       />
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         <span className='hidden md:block'>
-                          Did you enclose a signed request sheet?
+                        {t("sampleShippingSend.checkbox3")}
                         </span>
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3 pt-[24px]'>
-                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShippingok}>Ok</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}>Confirm</button>
+                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShippingok}> {t("sampleShippingSend.mobileOk")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} > {t("sampleShippingSend.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}> {t("sampleShippingSend.confirm")}</button>
                     </div>
 
                   </div>
@@ -786,16 +788,16 @@ const NewOrderBox = () => {
               {activePopup === 'sampleShippingDefect' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
-                      We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
-                      Thank you <br></br>
-                      Medbank Genetic Analysis Team</span>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'> {t("sampleShippingDefect.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("sampleShippingDefect.message")}<br></br>
+                    {t("sampleShippingDefect.message1")}<br></br>
+                    {t("sampleShippingDefect.message2")} <br></br>
+                    {t("sampleShippingDefect.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleDeleteOk}
                     >
-                      OK
+                     {t("sampleShippingDefect.button")}
                     </button>
                   </div>
                 </div>
@@ -803,29 +805,29 @@ const NewOrderBox = () => {
               {activePopup === 'sampleShippingOk' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
-                      We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
-                      Thank you <br></br>
-                      Medbank Genetic Analysis Team</span>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("sampleShippingOk.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("sampleShippingOk.message")}<br></br>
+                    {t("sampleShippingOk.message1")}<br></br>
+                    {t("sampleShippingOk.message2")} <br></br>
+                    {t("sampleShippingOk.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmOk}
                     >
-                      OK
+                     {t("sampleShippingOk.button")}
                     </button>
                   </div>
                 </div>
               )}
               {activePopup === 'qualityCheck' && (
                 <div className='font-DM-Sans flex flex-col w-[306px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Quality Check report</div>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>{t("qualityCheck.title")}</div>
                   <div className='flex flex-col gap-[6px] md:gap-[8px]'>
                     <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the quality check report file.
+                    {t("qualityCheck.message")}
                     </div>
                     <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
-                      Download quality report.
+                    {t("qualityCheck.message1")}
                     </div>
                     <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
                       <div className='flex gap-[8px]'>
@@ -840,7 +842,7 @@ const NewOrderBox = () => {
                               </span>
                             </a>
                           ) : (
-                            <p>QualityCheckReport</p>
+                            <p>{t("qualityCheck.pdfName")}</p>
                           )}
                         </div>
 
@@ -862,21 +864,21 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I have reviewed the Quality Check Report.
+                        {t("qualityCheck.checkbox1Mob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the contents of the quality check report and found no problems. I agree to proceed to the next step.
+                        {t("qualityCheck.checkbox1Desk")}
                         </span>
                       </span>
                     </label>
                     <div className='hidden md:block text-base font-normal leading-[24px]'>
-                      Note :For resending or cancelling the sample contact us via   chat.
+                    {t("qualityCheck.note")}
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>Proceed to library preparation</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>{t("qualityCheck.mobButton")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >{t("qualityCheck.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>{t("qualityCheck.proceed")}</button>
                     </div>
 
                   </div>
@@ -884,13 +886,13 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'libraryPrep' && (
                 <div className='font-DM-Sans flex flex-col w-[358px] h-[300px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Library Preparation Report</div>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>{t("libraryPrep.title")}</div>
                   <div className='flex flex-col gap-[6px] md:gap-[8px]'>
                     <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the library preparation report.
+                    {t("libraryPrep.message")}
                     </div>
                     <div className='text-[8px] md:text-xs font-normal leading-[34px]'>
-                      Download library preparation report.
+                    {t("libraryPrep.message1")}
                     </div>
                     <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
                       <div className='flex gap-[8px]'>
@@ -905,7 +907,7 @@ const NewOrderBox = () => {
                               </span>
                             </a>
                           ) : (
-                            <p>LibraryPrepReport</p>
+                            <p>{t("libraryPrep.pdfName")}</p>
                           )}
                         </div>
                       </div>
@@ -926,21 +928,21 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I have reviewed the Library Preparation Report.
+                        {t("libraryPrep.checkbox1Mob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the contents of the library preparation report and found no problems. I agree to proceed to the next step.
+                        {t("libraryPrep.checkbox1Desk")}
                         </span>
                       </span>
                     </label>
                     <div className='hidden md:block text-base font-normal leading-[24px]'>
-                      Note :For resending or cancelling the sample contact us via   chat.
+                    {t("libraryPrep.note")}
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.mobButton")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }}>{t("libraryPrep.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.proceed")}</button>
                     </div>
 
                   </div>
@@ -958,11 +960,11 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'analysisRawData' && (
                 <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[386px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>Raw Data</div>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[24px]'>{t("analysisRawData.title")}</div>
                   <div className='flex flex-col gap-[6px] md:gap-[12px]'>
                     <div className="text-xs md:text-base font-normal flex items-center p-4 underline text-center bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[527px] max-h-[32px] md:max-h-[50px] justify-center">
                       <a href={rawDataLink.startsWith('http') ? rawDataLink : `https://${rawDataLink}`} target="_blank" rel="noopener noreferrer">
-                        RawDataLink
+                      {t("analysisRawData.link")}
                       </a>
                     </div>
                     <label className="inline-flex items-center pt-[8px] md:pt-4">
@@ -977,11 +979,11 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I have reviewed the Data Link.
+                        {t("analysisRawData.checkbox1Mob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the Data Link.
+                        {t("analysisRawData.checkbox1Desk")}
                         </span>
                       </span>
                     </label>
@@ -996,18 +998,18 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I agree that Raw Data will be deleted in 3 months.
+                        {t("analysisRawData.checkbox2Mob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I agree that Raw Data will be deleted in 3 months.
+                        {t("analysisRawData.checkbox2Desk")}
                         </span>
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirmMobile}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirm}>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirmMobile}>{t("analysisRawData.proceedMob")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >{t("analysisRawData.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisRawDataConfirm}>{t("analysisRawData.proceed")}</button>
                     </div>
 
                   </div>
@@ -1015,13 +1017,13 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'analysisSpecification' && (
                 <div className='font-DM-Sans flex flex-col w-[321px] h-[322px] md:h-[507px] md:w-[564px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>Analysis Specification Report</div>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-8 leading-[40px]'>{t("analysisSpecification.title")}</div>
                   <div className='flex flex-col gap-[6px] md:gap-[8px]'>
                     <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Please review and acknowledge the analysis specification report.
+                    {t("analysisSpecification.message")}
                     </div>
                     <div className='text-[8px] md:text-xs font-normal leading-[24px] md:leading-[34px]'>
-                      Download report.
+                    {t("analysisSpecification.message1")}
                     </div>
                     <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
                       <div className='flex gap-[8px]'>
@@ -1036,7 +1038,7 @@ const NewOrderBox = () => {
                               </span>
                             </a>
                           ) : (
-                            <p>Analysis Specification</p>
+                            <p>{t("analysisSpecification.pdfName")}</p>
                           )}
                         </div>
                       </div>
@@ -1057,18 +1059,18 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I have reviewed the Analysis Specification Report
+                        {t("analysisSpecification.checkbox1Mob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the contents of the analysis specification report and found no problems.
+                        {t("analysisSpecification.checkbox1Desk")}
                         </span>
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisSpecification}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisSpecification}>Proceed</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisSpecification}>{t("analysisSpecification.mobButton")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >{t("analysisSpecification.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleAnalysisSpecification}>{t("analysisSpecification.proceed")}</button>
                     </div>
 
                   </div>
@@ -1077,16 +1079,16 @@ const NewOrderBox = () => {
               {activePopup === 'invoice' && (
                 <div className='font-DM-Sans flex flex-col w-[317px] h-[247px] md:h-[351px] md:w-[564px] p-[28px] md:p-12  items-start justify-center bg-white border-[1px] border-[#D9D9D9] rounded-lg md:rounded-[22px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
 
-                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-6 leading-[40px]'>Invoice</div>
+                  <div className='text-[22px] md:text-[32px] font-bold font-DM-Sans pb-[6px] md:pb-6 leading-[40px]'>{t("invoice.title")}</div>
                   <div className='w-full flex flex-col gap-[6px] md:gap-[8px]'>
                     <div className='text-[14px] md:text-xl font-normal leading-[24px] md:leading-[34px]'>
-                      Download invoice.
+                    {t("invoice.message")}
                     </div>
                     <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg md:mt-2 max-w-[331px] md:max-w-[300px] max-h-[38px] md:max-h-[52px] justify-between ">
                       <div className='flex gap-[8px]'>
                         <div className="flex items-center justify-center">
                           <Image src={file1} className='w-[18px] h-[24px]'></Image>
-                          <p className='pl-2 text-xs md:text-base'>Receipt.pdf</p>
+                          <p className='pl-2 text-xs md:text-base'>{t("invoice.pdfTitle")}</p>
                         </div>
                         {/* <div>
                           {
@@ -1117,18 +1119,18 @@ const NewOrderBox = () => {
                       <span className="ml-2 font-DM-Sans font-normal text-[10px] md:text-[16px] leading-[24px]">
                         {/* Show this text only on mobile */}
                         <span className='block md:hidden'>
-                          I have reviewed the Invoice.
+                        {t("invoice.checkboxMob")}
                         </span>
                         {/* Show the original text only on desktop */}
                         <span className='hidden md:block'>
-                          I have reviewed the Invoice.
+                        {t("invoice.checkboxDesk")}
                         </span>
                       </span>
                     </label>
                     <div className='w-full flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleInvoice}>Proceed</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >Cancel</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleInvoice}>Confirm</button>
+                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleInvoice}>{t("invoice.mobButton")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >{t("invoice.cancel")}</button>
+                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleInvoice}>{t("invoice.proceed")}</button>
                     </div>
 
                   </div>
@@ -1142,21 +1144,21 @@ const NewOrderBox = () => {
               {activePopup === 'payment' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
-                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>Download Receipt</span>
+                    <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>{t("payment.title")}</span>
                   </div>
                   <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
                     <div className='flex flex-col items-center justify-center gap-[14px]'>
                       <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
                       <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
-                        <span>Receipt.pdf</span><br />
-                        <span>1.2MB</span>
+                        <span>{t("payment.pdfTitle")}</span><br />
+                        <span>{t("payment.pdfSize")}</span>
                       </div>
                     </div>
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("payment.back")}</button>
                     <button onClick={() => handleDownload(paymentRecieptLink.split("?")[0], `PaymentReceipt.{$fileType}`)} disabled={disabled} className={` ${disabled?"opacity-75":""}`}>
-                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>Download</button>
+                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment}>{t("payment.download")}</button>
                     </button>
                   </div>
                 </div>

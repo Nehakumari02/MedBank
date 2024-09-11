@@ -565,5 +565,151 @@
         "cancelConfirm": "ログアウトしますか？",
         "cancel": "キャンセル",
         "confirm": "ログアウト"
+    },
+    "UserDashboard": {
+        "requestSheet":{
+            "title":"新規発注作成",
+            "step1":{
+                "title":"発注詳細",
+                "title1":"Step 1: 発注タイトル",
+                "label":" 発注 Title   ::",
+                "button":"次へ"
+            },
+            "step2":{
+                "title":"依頼シートの アップロード",
+                "title1":"Step 2: 依頼シートのアップロード",
+                "note":"MEDBANK専用の依頼シートをご使用ください",
+                "link":"ダウンロードはこちら",
+                "drag":"ドラッグ＆ドロップ または",
+                "drag1":"ファイルを選択",
+                "drag2":"してアップロード",
+                "file":"File Uploaded",
+                "back":"戻る",
+                "next":"次へ"
+            },
+            "step3":{
+                "title":"確認画面&提出",
+                "title1":"Step 3: 確認画面&提出",
+                "summary":"発注サマリー",
+                "orderTitle":" 発注タイトル  :",
+                "requestSheet":"依頼シート",
+                "noFile":"No file uploaded",
+                "edit":"編集",
+                "submit":"提出"
+            }
+        },
+
+
+        "costEstimation": {
+            "title":"見積書をダウンロード",
+            "pdfTitle": "見積書.pdf",
+            "pdfSize": "1.2MB",
+            "back": "戻る",
+            "download": "ダウンロード"
+        },
+        "formalRequest": {
+            "confirmation": "確認メッセージ",
+            "message": "正式な発注を依頼しますか？",
+            "cancel": "キャンセル",
+            "confirm": "依頼する"
+        },
+        "sampleShippingSend": {
+            "title": "サンプル送付",
+            "message": {
+                "desktopMsg": "サンプルを送付します。",
+                "mobileMsg": "The sample has been sent by the Customer."
+            },
+            "message1": "サンプルの送付方法を確認",
+            "website": "WEBページ参照",
+            "checkbox1": "発送と送付に関する説明をよく読みました。",
+            "checkbox2": "サンプルにはラベルが貼られています。",
+            "checkbox3": "署名入りの依頼シートを同封しました。",
+            "mobileOk": "Ok",
+            "cancel": "キャンセル",
+            "confirm": "送付連絡"
+        },
+        "sampleShippingDefect": {
+            "title": "サンプル受領のご連絡",
+            "message": "Dear User,",
+            "message1": "サンプルは問題なく受領しております。直ちに分析作業を開始いたします。",
+            "message2": "ありがとうございました。",
+            "message3": "MEDBANK 遺伝子解析チーム",
+            "button": "Ok"
+        },
+        "sampleShippingOk": {
+            "title": "サンプルに関するご連絡",
+            "message": "Dear User,",
+            "message1": "サンプルを受け取りましたが、確認事項があります。お手数ですが、弊社までご連絡ください。",
+            "message2": "ご送付ありがとうございます。",
+            "message3": "MEDBANK遺伝子解析チーム",
+            "button": "Ok"
+        },
+        "qualityCheck": {
+            "title": "クオリティチェック報告書",
+            "message": "クオリティチェック報告書をダウンロードし、確認して承認してください。",
+            "message1": "クオリティチェック報告書をダウンロードしてください",
+            "pdfName": "QualityCheckReport",
+            "checkbox1Mob": "I have reviewed the Quality Check Report.",
+            "checkbox1Desk": "クオリティチェック報告書を確認しました。",
+            "note": "※もし不明点などございましたら、チャットにてご連絡ください。",
+            "mobButton": "Proceed to library preparation",
+            "cancel": "キャンセル",
+            "proceed": "次へ進む"
+        },
+        "libraryPrep": {
+            "title": "ライブラリ調製報告書",
+            "message": "ライブラリ調製報告書をダウンロードし、確認して承認してください。",
+            "message1": "ライブラリ調製報告書をダウンロードしてください。",
+            "pdfName": "LibraryPrepReport",
+            "checkbox1Mob": " I have reviewed the Library Preparation Report.",
+            "checkbox1Desk": "ライブラリ調製報告書を確認しました。",
+            "note": "※もし不明点などございましたら、チャットにてご連絡ください。",
+            "mobButton": "次へ進む",
+            "cancel": "キャンセル",
+            "proceed": "次へ進む"
+        },
+        "analysisRawData": {
+            "title": "元データ",
+            "link": "RawDataLink",
+            "checkbox1Mob": "データリンクを確認しました",
+            "checkbox1Desk": "データリンクを確認しました",
+            "checkbox2Mob": "元データが3ヶ月で消去されることに同意します。",
+            "checkbox2Desk": "元データが3ヶ月で消去されることに同意します。",
+            "proceedMob": "確認した",
+            "proceed": "確認した",
+            "cancel": "キャンセル"
+        },
+        "analysisSpecification": {
+            "title": "解析仕様書",
+            "message": "分析仕様書をダウンロード後、内容を確認してください。",
+            "message1": "ダウンロードする",
+            "pdfName": "Analysis Specification",
+            "checkbox1Mob": " I have reviewed the Analysis Specification Report",
+            "checkbox1Desk": "解析仕様書の内容を確認しましたが、問題はありませんでした。",
+            "mobButton": "確認した",
+            "cancel": "キャンセル",
+            "proceed": "確認した"
+        },
+        "invoice": {
+            "title": "請求書",
+            "message": "請求書をダウンロード",
+            "pdfTitle": "Receipt.pdf",
+            "checkboxMob": "請求書を確認しました。",
+            "checkboxDesk": "請求書を確認しました。",
+            "mobButton": "Proceed",
+            "cancel": "キャンセル",
+            "proceed": "確認した"
+        },
+        "payment": {
+            "title":"領収書をダウンロード",
+            "pdfTitle": "Receipt.pdf",
+            "pdfSize": "1.2MB",
+            "back": "戻る",
+            "download": "ダウンロード"
+        },
+        "chat":{
+            "title":"MedBank Team",
+            "online":"Online"
+        }
     }
 }

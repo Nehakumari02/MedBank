@@ -11,6 +11,7 @@ import file1 from "../../../../../../public/dashboard/file.png"
 import { useOrder } from '@/contexts/OrderContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
+import { useTranslations } from 'next-intl'
 
 const OrderCreationPage = () => {
   const {
@@ -23,6 +24,7 @@ const OrderCreationPage = () => {
   const [disabled,setDisabled] = useState(false);
   const router = useRouter();
   const orderIdDB = usePathname().split("/")[3];
+  const t = useTranslations("UserDashboard");
 
   const handleDelete = () => {
     setUploadedFile(null); // Remove the file from state
@@ -158,14 +160,14 @@ const OrderCreationPage = () => {
 
   return (
     <div className='font-DM-Sans'>
-      <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">Order Creation</div>
+      <div className="text-xl font-bold font-DM-Sans pl-[36px] pt-[30px]">{t("requestSheet.title")}</div>
       <div className="flex flex-col items-center justify-center pt-[22px]">
         <div className="flex justify-center items-center w-[305px] h-[24px] md:w-[478px] md:h-[60px] mb-[40px] md:mb-[57px]">
           <div className="relative text-center text-[#333333]">
             <div className={`flex items-center justify-center  w-[24px] h-[24px] md:w-[60px] md:h-[60px] rounded-full border-[1px] ${currentStep >= 1 ? 'border-[#3E8DA7] bg-[#60B7CF]' : 'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation1} alt="Order Details" className="w-[16px] h-[16px] md:w-[22px] md:h-[28px] rounded-full" />
             </div>
-            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Order Details</div>
+            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>{t("requestSheet.step1.title")}</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
             <div className="w-[76px] md:w-[140px] h-[1px] bg-gray-300"></div>
@@ -175,7 +177,7 @@ const OrderCreationPage = () => {
             <div className={`flex items-center justify-center w-[24px] h-[24px] md:w-[60px] md:h-[60px] rounded-full border-[1px] ${currentStep >= 2 ? 'border-[#FDB25B] bg-[#FFC107]' : 'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation2} alt="Upload Request Sheet" className="w-[16px] h-[16px] md:w-[18px] md:h-[26px] rounded-full" />
             </div>
-            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Upload Request Sheet</div>
+            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>{t("requestSheet.step2.title")}</div>
           </div>
           <div className='flex flex-col gap-[3px]'>
             <div className="w-[76px] md:w-[140px] h-[1px] bg-gray-300"></div>
@@ -185,16 +187,16 @@ const OrderCreationPage = () => {
             <div className={`flex items-center justify-center w-[24px] h-[24px]  md:w-[60px] md:h-[60px] rounded-full border-[1px] ${currentStep >= 3 ? ' border-[#03CF18] bg-[#51DE5F]' : 'border-[#717171] bg-[#717171]'}`}>
               <Image src={creation3} alt="Review & Submit" className="w-[13px] h-[8px] md:w-[26px] md:h-[16px] rounded-full" />
             </div>
-            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>Review & Submit</div>
+            <div className='absolute top-[40px] md:top-[83px] left-[50%] translate-x-[-50%] font-DM-Sans font-normal text-[10px] md:text-base text-nowrap'>{t("requestSheet.step3.title")}</div>
           </div>
         </div>
         <div className="bg-[#FFFFFF] w-[90%] md:w-auto mx-[10px] md:mx-0  p-4 md:p-8 rounded-lg shadow pt-[24px] border-[#E2E8F0] border-[1px] mb-12 mt-[12px] md:mt-5">
           {currentStep === 1 && (
             <div className='w-auto md:w-[660px]'>
-              <div className="text-2xl font-semibold mb-4 flex items-center justify-center">Step 1: Order Details</div>
+              <div className="text-2xl font-semibold mb-4 flex items-center justify-center">{t("requestSheet.step1.title1")}</div>
               <div className="flex flex-col items-start gap-[10px] md:flex-row md:items-center justify-center md:gap-[24px]  pt-[12px] md:pt-[41px]">
                 <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
-                  Order Title :
+                {t("requestSheet.step1.label")}
                 </label>
                 <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
                   <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
@@ -211,18 +213,18 @@ const OrderCreationPage = () => {
               </div>
               <div className="flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-[41px]">
                 {/* <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack} disabled={currentStep === 1}>Back</button> */}
-                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext}>Next</button>
+                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext}>{t("requestSheet.step1.button")}</button>
               </div>
             </div>
           )}
           {currentStep === 2 && (
             <div className='rounded-lg w-auto md:w-[660px]'>
-              <div className="text-[16px] md:text-[22px] font-medium text-center">Step 2: Upload Request Sheet</div>
+              <div className="text-[16px] md:text-[22px] font-medium text-center">{t("requestSheet.step2.title1")}</div>
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] md:pt-[41px]">
                 <p className="">
-                  Note: Please use the request sheet designated by Medbank.{" "}
+                {t("requestSheet.step2.note")}
                   <a href="/path/to/download"  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
-                    Download here
+                  {t("requestSheet.step2.link")}
                   </a>
                 </p>
               </div>
@@ -233,11 +235,11 @@ const OrderCreationPage = () => {
                     <input {...getInputProps()} />
                     <Image src={folder1} alt="Upload Icon" className="mx-auto mb-4 w-[51px] h-[51px]" />
                     <p className="text-[10px] md:text-sm font-normal">
-                      Drag and drop or <span  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                    {t("requestSheet.step2.drag")}<span  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline"> {t("requestSheet.step2.drag1")}</span> {t("requestSheet.step2.drag2")}
                     </p>
                     {uploadedFile && (
                       <div className="mt-2">
-                        <p className="text-sm md:text-base text- [#606060] font-normal">File Uploaded</p>
+                        <p className="text-sm md:text-base text- [#606060] font-normal"> {t("requestSheet.step2.file")}</p>
                         {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                       </div>
                     )}
@@ -246,22 +248,22 @@ const OrderCreationPage = () => {
               </div>
 
               <div className="flex items-center justify-end gap-[10px] md:gap-[12px] pt-[24px]">
-                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack}>Back</button>
-                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}>Next</button>
+                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleBack}> {t("requestSheet.step2.back")}</button>
+                <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleNext} disabled={!uploadedFile}> {t("requestSheet.step2.next")}</button>
               </div>
             </div>
           )}
           {currentStep === 3 && (
             <div className="rounded-lg w-[100%] md:w-[660px]">
               <h2 className="w-full text-[16px] md:text-[22px] font-medium md:[16px] md:mb-6 text-center">
-                Step 3: Review & Submit
+              {t("requestSheet.step3.title1")}
               </h2>
 
               <div className="mb-[16px] md:mb-6 w-full">
-                <p className="font-medium text-xs md:text-lg">Order Summary</p>
+                <p className="font-medium text-xs md:text-lg">{t("requestSheet.step3.summary")}</p>
                 <div className="flex items-center justify-center gap-[24px] pt-[12px]">
                   <label htmlFor="name" className="font-DM-Sans font-normal text-[10px] md:text-lg whitespace-nowrap">
-                    Order Title :
+                  {t("requestSheet.step3.orderTitle")}
                   </label>
                   <div className='group w-full h-[36px] md:h-[50px] flex items-center justify-center flex-col'>
                     <div className={`w-full rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`}>
@@ -277,7 +279,7 @@ const OrderCreationPage = () => {
                   </div>
                 </div>
 
-                <p className="font-medium text-[10px] md:text-lg pb-3 pt-6">Request Sheet</p>
+                <p className="font-medium text-[10px] md:text-lg pb-3 pt-6">{t("requestSheet.step3.requestSheet")}</p>
                 {uploadedFile ? (
                   <div className="flex items-center p-4 bg-white border-[0.5px] solid border-[#33333326] rounded-lg mt-2 max-w-[331px] md:max-w-[300px] max-h-[52px] justify-between ">
                     <div className='flex gap-[8px]'>
@@ -298,13 +300,13 @@ const OrderCreationPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-[#717171] mt-2">No file uploaded</p>
+                  <p className="text-[#717171] mt-2">{t("requestSheet.step3.noFile")}</p>
                 )}
               </div>
 
               <div className='flex items-center justify-end gap-[10px] md:gap-[12px]'>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={handleBack}>Edit</button>
-                <button disabled={disabled} className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`} onClick={handleSubmit}>Submit</button>
+                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={handleBack}>{t("requestSheet.step3.edit")}</button>
+                <button disabled={disabled} className={`h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ${disabled?"opacity-75":""}`} onClick={handleSubmit}>{t("requestSheet.step3.submit")}</button>
               </div>
             </div>
           )}
