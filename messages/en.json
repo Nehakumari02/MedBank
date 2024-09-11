@@ -705,6 +705,182 @@
             "back": "Back",
             "download": "Download"
         },
+        "buttons":{
+            "requestSheet":"Request sheet sent",
+            "costEstimation":"Cost estimation",
+            "formalRequest":"Formal request",
+            "sampleShipment":"Sample Shipment",
+            "qualityCheck":"Quality check",
+            "libraryPrep":"Library report",
+            "analysisStart":"Analysis start",
+            "analysisDone":"Analysis completed",
+            "rawData":"Raw data",
+            "analysisSpecification":"Aanalysis Specification",
+            "invoice":"Invoice",
+            "receipt":"Receipt"
+        },
+        "chat":{
+            "title":"MedBank Team",
+            "online":"Online"
+        }
+    },
+
+    "AdminDashboard": {
+        "requestSheet":{
+            "title":"Request Sheet",
+            "message":"Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.",
+            "download":"Download",
+            "confirm":"Confirm"
+        },
+        "costEstimation": {
+            "title":"Calculate Cost",
+            "sampleId":"Sample ID",
+            "sampleName":"Sample Name",
+            "qfees":"Quality check fees",
+            "lfees":"Library adjustment fees",
+            "afees":"Next gen. sequencer analysis fees",
+            "tax":"Tax",
+            "others":"Others",
+            "total":"Total Amount",
+            "grandTotal":"Total",
+            "checkbox1":"Click to enter tax percent.",
+            "checkbox2":"Click to enter other amount.",
+            "note":" Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.",
+            "back": "Back",
+            "generate": "Generate"
+        },
+        "costEstimationConfirm":{
+            "title":"Success!",
+            "message":"You have successfully sent the Cost Estimate Sheet.",
+            "button":"OK"
+
+        },
+        "formalRequest": {
+            "confirmation": "Confirmation Message",
+            "message": "Your formal request has been received and an automated confirmation message has been sent to your email.",
+            "ok": "OK"
+        },
+        "sampleShipping": {
+            "title": "Confirmation Message",
+            "message": "Please confirm the condition of the received sample",
+            "defectDesk":"Sample Defect Notification",
+            "confirmDesk":"Sample Receipt Confirmation",
+            "defectMob":"Sample Defect",
+            "confirmMob":"Sample Receipt"
+        },    
+        "deletePopup": {
+            "title": "Sample Delete Notification",
+            "message": "Dear User,",
+            "message1": "We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.",
+            "message2": "Thank you",
+            "message3": "  Medbank Genetic Analysis Team",
+            "button": "Ok"
+        },
+        "confirmPopup": {
+            "title": "Sample Receipt Confirmation",
+            "message": "Dear User,",
+            "message1": "  We have received your sample in good condition. Our team will begin the analysis process immediately.",
+            "message2": "Thank you",
+            "message3": "  Medbank Genetic Analysis Team",
+            "button": "Ok"
+        },
+        "qualityCheck": {
+            "title":"Upload Quality Check Report",
+            "drag":"Drag and drop or",
+            "drag1":"Choose file",
+            "drag2":"to upload",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"Back",
+            "upload":"Upload"
+        },
+        "libraryPrep": {
+            "title":"Upload Library Preparation Report",
+            "drag":"Drag and drop or",
+            "drag1":"Choose file",
+            "drag2":"to upload",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"Back",
+            "upload":"Upload"
+        },
+        "analysisProgress":{
+            "title":"Confirmation Message",
+            "message":"Start the Analysis.",
+            "cancel":"Cancel",
+            "start":"Start"
+
+        },
+        "analysisDone":{
+            "title":"Confirmation Message",
+            "message":"Analysis has completed.",
+            "cancel":"Cancel",
+            "submit":"Submit"
+
+        },
+        "analysisRawData": {
+            "title": "Raw Data",
+            "link": " Paste data link",
+            "back": "Back",
+            "send": "Send"
+        },
+        "analysisSpecification": {
+            "title":"Analysis Specification",
+            "drag":"Drag and drop or",
+            "drag1":"Choose file",
+            "drag2":"to upload",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"Back",
+            "upload":"Upload"
+        },
+        "invoice": {
+            "title":"Calculate Cost",
+            "sampleId":"Sample ID",
+            "sampleName":"Sample Name",
+            "qfees":"Quality check fees",
+            "lfees":"Library adjustment fees",
+            "afees":"Next gen. sequencer analysis fees",
+            "tax":"Tax",
+            "others":"Others",
+            "total":"Total Amount",
+            "grandTotal":"Total",
+            "checkbox1":"Click to enter tax percent.",
+            "checkbox2":"Click to enter other amount.",
+            "note":" Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.",
+            "back": "Back",
+            "generate": "Generate"
+        },
+        "invoice1":{
+            "title":"Success!",
+            "message":"You have successfully sent the Invoice.",
+            "ok":"OK"
+
+        },
+        "payment": {
+            "title":"Upload Receipt",
+            "drag":"Drag and drop or",
+            "drag1":"Choose file",
+            "drag2":"to upload",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"Back",
+            "upload":"Upload"
+        },
+        "buttons":{
+            "requestSheet":"Request sheet sent",
+            "costEstimation":"Cost estimation",
+            "formalRequest":"Formal request",
+            "sampleRecieved":"Sample recieved",
+            "qualityCheck":"Quality check",
+            "libraryPrep":"Library report",
+            "analysisStart":"Analysis start",
+            "analysisDone":"Analysis completed",
+            "rawData":"Raw data",
+            "analysisSpecification":"Aanalysis Specification",
+            "invoice":"Invoice",
+            "receipt":"Receipt"
+        },
         "chat":{
             "title":"MedBank Team",
             "online":"Online"

@@ -617,7 +617,7 @@
             "title": "サンプル送付",
             "message": {
                 "desktopMsg": "サンプルを送付します。",
-                "mobileMsg": "The sample has been sent by the Customer."
+                "mobileMsg": "サンプルを送付します。"
             },
             "message1": "サンプルの送付方法を確認",
             "website": "WEBページ参照",
@@ -649,10 +649,10 @@
             "message": "クオリティチェック報告書をダウンロードし、確認して承認してください。",
             "message1": "クオリティチェック報告書をダウンロードしてください",
             "pdfName": "QualityCheckReport",
-            "checkbox1Mob": "I have reviewed the Quality Check Report.",
+            "checkbox1Mob": "クオリティチェック報告書を確認しました。",
             "checkbox1Desk": "クオリティチェック報告書を確認しました。",
             "note": "※もし不明点などございましたら、チャットにてご連絡ください。",
-            "mobButton": "Proceed to library preparation",
+            "mobButton": "次へ進む",
             "cancel": "キャンセル",
             "proceed": "次へ進む"
         },
@@ -661,7 +661,7 @@
             "message": "ライブラリ調製報告書をダウンロードし、確認して承認してください。",
             "message1": "ライブラリ調製報告書をダウンロードしてください。",
             "pdfName": "LibraryPrepReport",
-            "checkbox1Mob": " I have reviewed the Library Preparation Report.",
+            "checkbox1Mob": " ライブラリ調製報告書を確認しました。",
             "checkbox1Desk": "ライブラリ調製報告書を確認しました。",
             "note": "※もし不明点などございましたら、チャットにてご連絡ください。",
             "mobButton": "次へ進む",
@@ -684,7 +684,7 @@
             "message": "分析仕様書をダウンロード後、内容を確認してください。",
             "message1": "ダウンロードする",
             "pdfName": "Analysis Specification",
-            "checkbox1Mob": " I have reviewed the Analysis Specification Report",
+            "checkbox1Mob": " 解析仕様書の内容を確認しましたが、問題はありませんでした。",
             "checkbox1Desk": "解析仕様書の内容を確認しましたが、問題はありませんでした。",
             "mobButton": "確認した",
             "cancel": "キャンセル",
@@ -707,9 +707,186 @@
             "back": "戻る",
             "download": "ダウンロード"
         },
+        "buttons":{
+            "requestSheet":"依頼シート",
+            "costEstimation":"見積書",
+            "formalRequest":"正式な発注依頼",
+            "sampleShipment":"サンプル送付",
+            "qualityCheck":"クオリティチェック報告書",
+            "libraryPrep":"ライブラリ調製報告書",
+            "analysisStart":"解析開始",
+            "analysisDone":"解析終了",
+            "rawData":"元データ",
+            "analysisSpecification":"解析仕様書",
+            "invoice":"請求書",
+            "receipt":"領収書"
+        },
         "chat":{
             "title":"MedBank Team",
             "online":"Online"
         }
+        ,
+        
+    "AdminDashboard": {
+        "requestSheet":{
+            "title":"依頼シート",
+            "message":"依頼シートをダウンロードしてください。 ダウンロード後、依頼シートを確認して 次に進んでください。",
+            "download":"ダウンロード",
+            "confirm":"確認"
+        },
+        "costEstimation": {
+            "title":"費用の計算",
+            "sampleId":"サンプルID",
+            "sampleName":"サンプル名",
+            "qfees":"クオリティチェック費用",
+            "lfees":"ライブラリ調製費用",
+            "afees":"NGS解析費用",
+            "tax":"税",
+            "others":"その他",
+            "total":"小計",
+            "grandTotal":"合計",
+            "checkbox1":"税率を入力する場合はクリックしてください。",
+            "checkbox2":"その他の金額を入力する場合はクリックしてください。",
+            "note":"注：税額は国や地域によって異なります。その他、送料や手数料がかかる場合があります。",
+             "back": "戻る",
+            "generate": "発行する"
+        },
+        "costEstimationConfirm":{
+            "title":"送信完了!",
+            "message":"見積書の送信が完了しました。",
+            "button":"OK"
+
+        },
+        "formalRequest": {
+            "confirmation": "正式発注を確認しました",
+            "message": "あなたの正式なリクエストは受理され、自動確認メッセージがあなたのEメールに送信されました。",
+            "ok": "OK"
+        },
+        "sampleShipping": {
+            "title": "確認メッセージ",
+            "message": "受け取ったサンプルの状態を確認してください。",
+            "defectDesk":"サンプル不備通知 ",
+            "confirmDesk":"正常なサンプルの受領連絡",
+            "defectMob":"Sample Defect",
+            "confirmMob":"Sample Receipt"
+        },    
+        "deletePopup": {
+            "title": "サンプル受領のご連絡",
+            "message": "Dear User,",
+            "message1": "サンプルは問題なく受領しております。直ちに分析作業を開始いたします。",
+            "message2": "ありがとうございました。",
+            "message3": "MEDBANK 遺伝子解析チーム",
+            "button": "Ok"
+        },
+        "confirmPopup": {
+            "title": "サンプルに関するご連絡",
+            "message": "Dear User,",
+            "message1": "サンプルを受け取りましたが、確認事項があります。お手数ですが、弊社までご連絡ください。",
+            "message2": "ご送付ありがとうございます。",
+            "message3": "MEDBANK遺伝子解析チーム",
+            "button": "Ok"
+        },
+        "qualityCheck": {
+            "title":"クオリティチェック報告書のアップロード",
+            "drag":"ドラッグ＆ドロップ または",
+            "drag1":"ファイルを選択",
+            "drag2":"してアップロード",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"キャンセル",
+            "upload":"アップロード"
+        },
+        "libraryPrep": {
+            "title":"ライブラリ調製報告書",
+            "drag":"ドラッグ＆ドロップ または",
+            "drag1":"ファイルを選択",
+            "drag2":"してアップロード",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"キャンセル",
+            "upload":"アップロード"
+        },
+        "analysisProgress":{
+            "title":"確認メッセージ",
+            "message":"解析の開始を通知します",
+            "cancel":"キャンセル",
+            "start":"通知する"
+
+        },
+        "analysisDone":{
+            "title":"確認メッセージ",
+            "message":"解析の終了を通知します",
+            "cancel":"キャンセル",
+            "submit":"通知する"
+
+        },
+        "analysisRawData": {
+            "title": "元データ",
+            "link": " リンクの貼付 :",
+            "back": "戻る",
+            "send": "送る"
+        },
+        "analysisSpecification": {
+            "title":"解析仕様書",
+           "drag":"ドラッグ＆ドロップ または",
+            "drag1":"ファイルを選択",
+            "drag2":"してアップロード",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"キャンセル",
+            "upload":"アップロード"
+        },
+        "invoice": {
+            "title":"請求書",
+               "sampleId":"サンプルID",
+            "sampleName":"サンプル名",
+            "qfees":"クオリティチェック費用",
+            "lfees":"ライブラリ調製費用",
+            "afees":"NGS解析費用",
+            "tax":"税",
+            "others":"その他",
+            "total":"小計",
+            "grandTotal":"合計",
+            "checkbox1":"税率を入力する場合はクリックしてください。",
+            "checkbox2":"その他の金額を入力する場合はクリックしてください。",
+            "note":"注：税額は国や地域によって異なります。その他、送料や手数料がかかる場合があります。",
+            "back": "戻る",
+            "generate": "発行する"
+        },
+        "invoice1":{
+            "title":"送信完了!",
+            "message":"請求書の送信が完了しました。",
+            "ok":"OK"
+
+        },
+        "payment": {
+            "title":"解析仕様書",
+            "drag":"ドラッグ＆ドロップ または",
+            "drag1":"ファイルを選択",
+            "drag2":"してアップロード",
+            "file":"File Selected",
+            "uploading":"Uploading",
+            "back":"キャンセル",
+            "upload":"アップロード"
+        },
+        "buttons":{
+            "requestSheet":"依頼シート",
+            "costEstimation":"見積書",
+            "formalRequest":"正式な発注依頼",
+            "sampleRecieved":"サンプル受領",
+            "qualityCheck":"クオリティチェック報告書",
+            "libraryPrep":"ライブラリ調製報告書",
+            "analysisStart":"解析開始",
+            "analysisDone":"解析終了",
+            "rawData":"元データ",
+            "analysisSpecification":"解析仕様書",
+            "invoice":"請求書",
+            "receipt":"領収書"
+        },
+        "chat":{
+            "title":"MedBank Team",
+            "online":"Online"
+        }
+    }
     }
 }
