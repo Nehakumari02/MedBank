@@ -63,30 +63,30 @@ const AdminDashboard = () => {
     fetchOrdersByUserId();
   },[searchQueryOrders])
 
-  // useEffect(()=>{
-  //   const fetchOrdersByUserId = async()=>{
-  //     try{
-  //       const response = await fetch('/api/admin_fetchOrders', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ page:1, limit:2, searchQueryOrders }),
-  //       });
-  //       const data = await response.json();
-  //       if(data.error){
-  //         setData([]);
-  //       }
-  //       console.log("data",data)
-  //       setData(data.data)
+  useEffect(()=>{
+    const fetchOrdersByUserId = async()=>{
+      try{
+        const response = await fetch('/api/admin_fetchPaymentList', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ page:1, limit:2, searchQueryPayment }),
+        });
+        const data = await response.json();
+        if(data.error){
+          setPaymentData([]);
+        }
+        console.log("data",data)
+        setPaymentData(data.data)
         
-  //     }catch(error){
-  //       console.log("fetch orders error ",error)
-  //     }
-  //   }
+      }catch(error){
+        console.log("fetch orders error ",error)
+      }
+    }
 
-  //   fetchOrdersByUserId();
-  // },[searchQueryPayment])
+    fetchOrdersByUserId();
+  },[searchQueryPayment])
 
   // useEffect(()=>{
   //   const fetchOrdersByUserId = async()=>{
@@ -117,7 +117,7 @@ const AdminDashboard = () => {
     <div className='w-full p-[10px] md:p-[19px] space-y-6'>
       <DashboardOrderDataTable data={ordersData} searchQuery={searchQueryOrders} setSearchQuery={setSearchQueryOrders} />
       <DashboardCustomerListDataTable data={customersData} searchQuery={searchQueryCustomers} setSearchQuery={setSearchQueryCustomers} />
-
+      <DashboardCustomerListDataTable data={paymentData} searchQuery={searchQueryPayment} setSearchQuery={setSearchQueryPayment} />
     </div>
   )
 }
