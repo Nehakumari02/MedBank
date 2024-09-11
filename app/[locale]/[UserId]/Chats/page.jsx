@@ -56,37 +56,37 @@ const Chats = () => {
 
     
 
-    function onConnect(chatIdd) {
-      setIsConnected(true);
-      console.log(chatIdd)
-      setTransport(socket.io.engine.transport.name);
+    // function onConnect(chatIdd) {
+    //   setIsConnected(true);
+    //   console.log(chatIdd)
+    //   setTransport(socket.io.engine.transport.name);
 
-      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
+    //   socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
 
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
-    }
+    //   socket.io.engine.on("upgrade", (transport) => {
+    //     setTransport(transport.name);
+    //   });
+    // }
 
-    function onDisconnect() {
-      setIsConnected(false);
-      setTransport("N/A");
-    }
+    // function onDisconnect() {
+    //   setIsConnected(false);
+    //   setTransport("N/A");
+    // }
 
-    // Listen for incoming messages
-    socket.on("chat message", (message) => {
-      console.log(message)
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+    // // Listen for incoming messages
+    // socket.on("chat message", (message) => {
+    //   console.log(message)
+    //   setMessages((prevMessages) => [...prevMessages, message]);
+    // });
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    // socket.on("connect", onConnect);
+    // socket.on("disconnect", onDisconnect);
 
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      socket.off("chat message"); // Clean up listener on component unmount
-    };
+    // return () => {
+    //   socket.off("connect", onConnect);
+    //   socket.off("disconnect", onDisconnect);
+    //   socket.off("chat message"); // Clean up listener on component unmount
+    // };
   }, []);
 
   const handleChange = (event) => {
@@ -106,12 +106,12 @@ const Chats = () => {
 
     if (message.trim()) {
       try {
-        socket.emit("chat message", {conversationId:chatId,message:{
-          id: generateRandomId(),
-          senderId: userIdDB,
-          text: message,
-          createdAt: new Date().toISOString()
-        }});
+        // socket.emit("chat message", {conversationId:chatId,message:{
+        //   id: generateRandomId(),
+        //   senderId: userIdDB,
+        //   text: message,
+        //   createdAt: new Date().toISOString()
+        // }});
 
         setMessage(""); // Clear the input field after sending
         const response = await fetch('/api/sendMessage', {
