@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { CustomersDataTable } from '@/components/AdminDashboard/Customers/CustomersDataTable'
 import { PaymentsDataTable } from '@/components/AdminDashboard/Payments/PaymentsDataTable';
 
 const Orders = () => {
