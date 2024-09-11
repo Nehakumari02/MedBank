@@ -37,7 +37,6 @@ import {
 } from "@/components/ui/table"
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import Link from "next/link"
 
 export type UserList = {
   _id: string;
@@ -59,7 +58,6 @@ export type UserList = {
   updatedAt: string; // Date string or Date type if using actual Date objects
   __v: number;
 };
-
 
 interface OrderTitleCellProps {
   userId: string;
@@ -122,12 +120,17 @@ export const columns: ColumnDef<UserList>[] = [
     ),
   },
 ];
-interface DashboardDataTableProps {
+interface OrdersDataTableProps {
   data: UserList[];
+  totalPages: number;
+  currentPage: number;
   searchQuery: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  buttons: (number | string)[];
 }
-export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> = ({ data=[], searchQuery, setSearchQuery }) => {
+
+export const CustomersDataTable: React.FC<OrdersDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) =>{
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -135,7 +138,6 @@ export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> =
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const language = usePathname().split("/")[1];
 
   const table = useReactTable({
     data,
@@ -160,15 +162,16 @@ export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> =
     <div className="w-full h-full">
       <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
-        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Customer List</span>
+        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Order List</span>
         <div className="flex items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
           // value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
           value={searchQuery}
-          onChange={(event) =>
-            // table.getColumn("orderTitle")?.setFilterValue(event.target.value)
-            setSearchQuery(event.target.value)
+          onChange={(event) =>{
+            setSearchQuery(event.target.value);
+            setCurrentPage(1);
+          }
           }
           className="max-w-sm hidden md:block md:max-w-[360px] md:w-[360px]"
         />
@@ -221,37 +224,110 @@ export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> =
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="border-none"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+          {data.length!==0?
+            (<TableBody className="">
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className="border-none"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>):
+            (
+              <TableBody className="">
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+            </TableBody>
+            )
+          }
+            
         </Table>
-        <div className="w-full border-t-[1px] flex items-center justify-center pt-[4px]"><Link href={`/${language}/Admin_Restricted/Customers`} className="font-DM-Sans font-normal text-[12px] text-[#3E8DA7] leading-[24px] text-center">View full table</Link></div>
+      </div>
+      <div className="flex items-center justify-start space-x-2 py-4">
+        <div className="space-x-[2px]">
+        {/* <Button
+          className="border-none"
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(1))}
+            disabled={currentPage==1}
+          >
+            &lt;&lt;
+          </Button> */}
+          <Button
+          className="border-none py-[6px] px-[12px] font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(prev=>(prev-1)))}
+            disabled={currentPage==1}
+          >
+            &lt;
+          </Button>
+          {buttons.map((pageNumber,index)=>{
+            return(
+              <Button
+                key={`${index}`}
+                className={`border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] ${pageNumber==currentPage?"bg-[#3E8DA7] rounded-[3px] text-white":"text-[#333333]"}`}
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const numericPageNumber = Number(pageNumber);
+                  if (!isNaN(numericPageNumber)) {
+                    setCurrentPage(numericPageNumber);
+                  }
+                }}
+              >
+                {pageNumber}
+              </Button>
+            )
+          })}
+
+          <Button
+          className="border-none py-[6px] px-[12px]  font-DM-Sans font-medium text-[16px] leading-[24px] text-[#333333] "
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(prev=>(prev+1)))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;
+          </Button>
+          {/* <Button
+          className="border-none"
+            variant="outline"
+            size="sm"
+            onClick={() => (setCurrentPage(totalPages))}
+            disabled={currentPage==totalPages}
+          >
+            &gt;&gt;
+          </Button> */}
+        </div>
       </div>
     </div>
   )
