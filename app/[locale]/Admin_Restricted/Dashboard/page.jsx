@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { DashboardOrderDataTable } from '@/components/AdminDashboard/Dashboard/DashboardOrderDataTable';
 import { DashboardCustomerListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardCustomerListDataTable';
+import { DashboardPaymentListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardPaymentStatusDataTable';
 
 const AdminDashboard = () => {
   const [ordersData,setOrdersData] = useState([]);
@@ -117,7 +118,7 @@ const AdminDashboard = () => {
     <div className='w-full p-[10px] md:p-[19px] space-y-6'>
       <DashboardOrderDataTable data={ordersData} searchQuery={searchQueryOrders} setSearchQuery={setSearchQueryOrders} />
       <DashboardCustomerListDataTable data={customersData} searchQuery={searchQueryCustomers} setSearchQuery={setSearchQueryCustomers} />
-      <DashboardCustomerListDataTable data={paymentData} searchQuery={searchQueryPayment} setSearchQuery={setSearchQueryPayment} />
+      <DashboardPaymentListDataTable data={paymentData} searchQuery={searchQueryPayment} setSearchQuery={setSearchQueryPayment} />
     </div>
   )
 }
