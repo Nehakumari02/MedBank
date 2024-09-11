@@ -22,13 +22,15 @@ export async function POST(req) {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .select('memberId Username school postalCode city'); // Modify as needed
+      .select('memberId Username school country city'); // Modify as needed
 
     console.log("users for customers query", users)
 
     // Fetch total count of users for pagination info
     const totalUsers = await User.countDocuments({
-      username: { $regex: searchRegex }
+      $or:[
+        {Username: { $regex: searchRegex }}
+      ]
     });
 
     if (!users || users.length === 0) {
