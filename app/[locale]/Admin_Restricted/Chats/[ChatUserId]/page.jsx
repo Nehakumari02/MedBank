@@ -1,58 +1,148 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { format } from 'date-fns'
-import { socket } from "../../../../socket";
+import { socket } from "@/socket";
 import { usePathname, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import Logo from "../../../../public/Images/Home/logo.png"
-import Messages from "../../../../components/AdminDashboard/Chats/Messages";
+import Logo from "@/public/Images/Home/logo.png"
+import Messages from "@/components/UserDashboard/Chats/Messages";
 
 const Chats = () => {
-  const [conversations,setConversations] = useState([]);
-  const [searchQuery,setSearchQuery] = useState("");
-  const path = usePathname();
+  const [isConnected, setIsConnected] = useState(false);
+  const [transport, setTransport] = useState("N/A");
+  const [message, setMessage] = useState(""); // State for the input message
+  const [messages, setMessages] = useState([]); // State for storing chat messages
+  const emails=["test@gmail.com","test2@gmail.com"]
+  const clientUserId = usePathname().split("/")[5]
+  const [chatId,setChatId] = useState("");
+  const userIdDB = "66e055de6ddc7825fbd8a103";
+
+  const generateRandomId = () => {
+    const timestamp = Date.now().toString(36); // Convert current timestamp to base-36
+    const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
+    return `${timestamp}-${randomString}`;
+  };
+
   const router = useRouter();
 
-  const formatTimestamp = (timestamp) => {
-    return format(timestamp, 'HH:mm')
-  }
-
   useEffect(() => {
-    const fetchAllConversations = async () => {
-      try {
-        const response = await fetch('/api/admin_fetchConversations', {
+    // const chatArray = createChatArray("user1", "user2", 10);
+    // setMessages(chatArray);
+    // {createChatArray("user1", "user2", 50)}
+    // console.log("genertaed chat array",chatArray)
+
+    const fetchMessages = async ()=>{
+      try{
+        const response = await fetch('/api/fetchMessages', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(),
+          body: JSON.stringify({userId:clientUserId}),
         });
         const data = await response.json();
-        if(data.error){
-          setConversations([]);
+        setChatId(data.conversationId)
+        setMessages(data.messages)
+        if (socket.connected) {
+          onConnect(data.conversationId);
         }
-        console.log("data",data.data)
-        setConversations(data.data||[])
-      } catch (error) {
-        console.log("Error fetching all conversations: ", error)
+        console.log(data)
+      }catch(error){
+        console.log(error)
       }
     }
 
-    fetchAllConversations();
-  }, [])
-  
-  const handleSendMessage = () => {
-    router.push(`${path}/${userIdDB}`)
-  }
+    fetchMessages();
 
-  const handleChat = (userIdDB) =>{
-    router.push(`${path}/${userIdDB}`)
-  }
+    
+
+    function onConnect(chatIdd) {
+      setIsConnected(true);
+      console.log(chatIdd)
+      setTransport(socket.io.engine.transport.name);
+
+      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
+
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+      setTransport("N/A");
+    }
+
+    // Listen for incoming messages
+    socket.on("chat message", (message) => {
+      console.log(message)
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("chat message"); // Clean up listener on component unmount
+    };
+  }, []);
+
+  const handleChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSendMessage = async() => {
+    // if (message.trim()) {
+    //   socket.emit("chat message", {
+    //     id: generateRandomId(),
+    //     senderId: "user1",
+    //     text: message,
+    //     timestamp: Date.now(),
+    //   }); // Emit message to server
+    //   setMessage(""); // Clear the input field after sending
+    // }
+
+    if (message.trim()) {
+      try {
+        socket.emit("chat message", {conversationId:chatId,message:{
+          id: generateRandomId(),
+          senderId: userIdDB,
+          text: message,
+          createdAt: new Date().toISOString()
+        }});
+
+        setMessage(""); // Clear the input field after sending
+        const response = await fetch('/api/sendMessage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            senderId: userIdDB,
+            conversationId: chatId,
+            message,
+          }),
+        });
+
+        const messageSendRes = await response.json();
+        if (response.status==200) {
+          // Send message to the server via socket after successful POST request
+        
+        } else {
+          console.log("Error sending message:", data.error);
+        }
+      } catch (error) {
+        console.log("Error sending message:", error);
+      }
+    }
+  };
+
+  const handleBackClick = () => {
+    router.back();
+  };
 
   return (
     <div className="w-full h-full p-[13px] text-[#333333]">
-      {/* <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
+      <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
         <div className="h-[66px] flex px-[40px] border-b-[1px] border-[#E2E8F0]">
           <div className="w-full flex justify-between">
           <div className='flex items-center h-[46px] gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> 
@@ -78,16 +168,24 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <Messages initialMessages={createChatArray("user1", "user2", 50)}/>
+            <Messages messages={messages} userIdDB={userIdDB}/>
           </div>
 
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
             <input
               type="text"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault()
+                  handleSendMessage()
+                }
+              }}
+              value={message}
+              onChange={handleChange}
               placeholder="Type your message"
               className="w-full h-[54px] bg-[#EFF4FB] outline-none px-3 rounded-md border-[1px] border-[#E2E8F0]"
             />
-            <button className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
+            <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
           </div>
         </div>
         <div className="h-[46px] pt-[10px] px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
@@ -101,27 +199,6 @@ const Chats = () => {
           </div>
           <button>{editIcon}</button>
         </div>
-      </div> */}
-      <div>
-        <div className=''>
-            <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>Chats</span>
-            <div className="flex flex-col gap-[4px]">
-              {conversations.map((conversation, index) => (
-                <div key={index} onClick={()=>handleChat(conversation.participants[0]._id)} className="flex items-center justify-start cursor-pointer py-[16px] px-[12px] h-[80px] gap-[18px]">
-                  <div className="h-[56px] w-[56px] rounded-full bg-gray-400"></div>
-                  <div className="flex flex-col justify-between">
-                    <span className="font-DM-Sans font-medium text-[14px] leading-[24px]">{conversation.participants[0].name}</span>
-                    <div className="font-DM-Sans font-medium text-[12px] leading-[22px] flex items-center gap-[8px]">
-                      <span>{conversation.lastMessage.text}</span>
-                      <span>·</span>
-                      <span className="font-DM-Sans font-medium text-[#79747E] text-[12px] leading-[18px]">{formatTimestamp(conversation.updatedAt)}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-            </div>
-          </div>
       </div>
     </div>
   );

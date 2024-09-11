@@ -1,54 +1,37 @@
-import { NextResponse } from "next/server";
-import dbConnect from "../../../lib/dbConnect";
-import Order from "../../../models/order";
+import { NextResponse } from 'next/server';
+import dbConnect from '../../../lib/dbConnect'; // Adjust path as needed
+import Conversation from '../../../models/conversation'; // Adjust path as needed
 
 export async function POST(req) {
   try {
-    const {page,limit,searchQuery} = await req.json();
-    console.log(page,limit)
     await dbConnect();
 
-    const skip = (page- 1) * limit;
-    const searchRegex = searchQuery ? new RegExp(searchQuery, 'i') : /.*/;
+    // Fetch all conversations
+    const conversations = await Conversation.find()
+      .populate({
+        path: 'participants',
+        select: 'name email' // Specify the fields you want to include
+      })
+      .sort({ createdAt: -1 });
 
-    // Fetch orders with pagination
-    const orders = await Order.find({ 
-      $or: [
-        { orderTitle: { $regex: searchRegex } },
-        // Add more fields if you need to search in additional fields
-      ]
-    })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
-
-    // Fetch total count of orders for pagination info
-    const totalOrders = await Order.countDocuments({ 
-      $or: [
-        { orderTitle: { $regex: searchRegex } },
-      ]
-    });
-
-    if (!orders || orders.length === 0) {
+    if (!conversations || conversations.length === 0) {
       return new NextResponse(
-        JSON.stringify({ error: "No orders found" }),
+        JSON.stringify({ error: "No conversations found" }),
         { status: 404 }
       );
     }
 
     return new NextResponse(
       JSON.stringify({
-        message: "Orders fetched successfully",
-        data: orders,
-        totalPages: Math.ceil(totalOrders / limit),
-        currentPage: page
+        message: "Conversations fetched successfully",
+        data: conversations
       }),
       { status: 200 }
     );
   } catch (error) {
-    console.log("Error fetching orders:", error);
+    console.error("Error fetching conversations:", error);
     return new NextResponse(
-      JSON.stringify({ error: "Error fetching orders" }),
+      JSON.stringify({ error: "Error fetching conversations" }),
       { status: 500 }
     );
   }
