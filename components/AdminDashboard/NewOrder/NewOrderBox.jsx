@@ -15,6 +15,7 @@ import { useDropzone } from 'react-dropzone';
 import folder1 from "../../../public/dashboard/folder.png"
 import { toast } from '@/hooks/use-toast';
 import { Progress } from "@/components/ui/progress"
+import { useTranslations } from 'next-intl'
 
 const NewOrderBox = () => {
   // const { getRootProps, getInputProps } = useDropzone();
@@ -37,6 +38,7 @@ const NewOrderBox = () => {
   const [userIdDB, setUserIdDB] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadStatus, setUploadStatus] = useState(false);
+  const t = useTranslations("AdminDashboard");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -1203,20 +1205,20 @@ const NewOrderBox = () => {
               {activePopup === 'requestSheet' && (
                 <div className='p-[10px] w-[298px] h-[197px] md:h-[334px] md:w-[760px] md:p-[120px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[12px] md:gap-[24px]'>
-                    <span className='text-[16px] font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Request Sheet</span>
-                    <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.</span>
+                    <span className='text-[16px] font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("requestSheet.title")}</span>
+                    <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("requestSheet.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <a href={requestSheetLink.split("?")[0]} download="RequestSheet">
-                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Download</button>
+                      <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
                     </a>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>Confirm</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>{t("requestSheet.confirm")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'costEstimate' && (
                 <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
-                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
+                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">{t("costEstimation.title")}</h2>
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
 
@@ -1224,14 +1226,14 @@ const NewOrderBox = () => {
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
-                          <th className="py-2">Sample ID</th>
-                          <th className="py-2">Sample Name</th>
-                          <th className="py-2">Quality check fees</th>
-                          <th className="py-2">Library adjustment fees</th>
-                          <th className="py-2">Next gen. sequencer analysis fees</th>
-                          <th className="py-2">Tax</th>
-                          <th className="py-2">Others</th>
-                          <th className="py-2">Total Amount</th>
+                          <th className="py-2">{t("costEstimation.sampleId")}</th>
+                          <th className="py-2">{t("costEstimation.sampleName")}</th>
+                          <th className="py-2">{t("costEstimation.qfees")}</th>
+                          <th className="py-2">{t("costEstimation.lfees")}</th>
+                          <th className="py-2">{t("costEstimation.afees")}</th>
+                          <th className="py-2">{t("costEstimation.tax")}</th>
+                          <th className="py-2">{t("costEstimation.others")}</th>
+                          <th className="py-2">{t("costEstimation.total")}</th>
                         </tr>
                       </thead>
                       <tbody className='border-t'>
@@ -1350,7 +1352,7 @@ const NewOrderBox = () => {
                       </tbody>
                       <tfoot>
                         <tr className="border-t font-medium text-[14px]">
-                          <td colSpan="7" className="text-right py-2 pr-6">Total</td>
+                          <td colSpan="7" className="text-right py-2 pr-6">{t("costEstimation.grandTotal")}</td>
                           <td className="md:w-[108px]">
                             <input
                               type="text"
@@ -1371,7 +1373,7 @@ const NewOrderBox = () => {
                       checked={isTaxChecked}
                       onChange={handleTaxCheckboxChange}
                     />
-                    <label htmlFor="tax">Click to enter tax percent.</label>
+                    <label htmlFor="tax">{t("costEstimation.checkbox1")}</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
                     <input
@@ -1381,65 +1383,65 @@ const NewOrderBox = () => {
                       checked={isAmountChecked}
                       onChange={handleAmountCheckboxChange}
                     />
-                    <label htmlFor="amount">Click to enter other amount.</label>
+                    <label htmlFor="amount">{t("costEstimation.checkbox2")}</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
-                    Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
+                  {t("costEstimation.note")}
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
-                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
-                    <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("costEstimation.back")}</button>
+                    <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("costEstimation.generate")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'costEstimateConfirmation' && (
                 <div id="cost-estimate-table" className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Success!</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>You have successfully sent the Cost Estimate Sheet.</span>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("costEstimationConfirm.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("costEstimationConfirm.message")}</span>
                     <button
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmCostEstimate}
                     >
-                      OK
+                     {t("costEstimationConfirm.button")}
                     </button>
                   </div>
                 </div>
               )}
               {activePopup === 'formalRequest' && (
                 <div className='p-[24px] md:p-0 w-[298px] h-[259px] md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center md:justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] gap-[16px] md:gap-0'>
-                  <span className=' w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Your formal request has been received and an automated confirmation message has been sent to your email.</span>
-                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>OK</button>
+                  <span className=' w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("formalRequest.confirmation")}</span>
+                  <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("formalRequest.message")}</span>
+                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>{t("formalRequest.ok")}</button>
                 </div>
               )}
               {activePopup === 'sampleShipping' && (
                 <div className='p-[24px] w-[361px] h-[215px] md:h-[287px] md:w-[658px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-start items-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'> Please confirm the condition of the received sample</span>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("sampleShipping.title")}</span>
+                    <span className='font-DM-Sans text-start items-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'> {t("sampleShipping.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[6px] md:gap-[12px]'>
-                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect Notification </button>
-                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt Confirmation</button>
-                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>Sample Defect </button>
-                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>Sample Receipt</button>
+                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>{t("sampleShipping.defectDesk")}</button>
+                    <button className="hidden h-[40px] md:h-[48px] w-[136px] md:w-[268px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>{t("sampleShipping.confirmDesk")}</button>
+                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleDelelte}>{t("sampleShipping.defectMob")}</button>
+                    <button className="md:hidden h-[40px] md:h-[48px] w-[162px] md:w-[268px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center md:leading-[24px]" onClick={sampleConfirm}>{t("sampleShipping.confirmMob")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'deletePopUp' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Delete Notification</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
-                      We have received your sample, but there is an issue with its condition. Please contact us for further instructions on how to proceed.<br></br>
-                      Thank you <br></br>
-                      Medbank Genetic Analysis Team</span>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("deletePopup.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("deletePopup.message")}<br></br>
+                    {t("deletePopup.message1")}<br></br>
+                    {t("deletePopup.message2")} <br></br>
+                    {t("deletePopup.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleDeleteOk}
                     >
-                      OK
+                     {t("deletePopup.button")}
                     </button>
                   </div>
                 </div>
@@ -1447,23 +1449,23 @@ const NewOrderBox = () => {
               {activePopup === 'confirmPopUp' && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Sample Receipt Confirmation</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>Dear User,<br></br>
-                      We have received your sample in good condition. Our team will begin the analysis process immediately.<br></br>
-                      Thank you <br></br>
-                      Medbank Genetic Analysis Team</span>
+                    <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("confirmPopup.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("confirmPopup.message")}<br></br>
+                    {t("confirmPopup.message1")}<br></br>
+                    {t("confirmPopup.message2")} <br></br>
+                    {t("confirmPopup.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmOk}
                     >
-                      OK
+                     {t("confirmPopup.button")}
                     </button>
                   </div>
                 </div>
               )}
               {activePopup === 'qualityCheck' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Quality Check Report</div>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">{t("qualityCheck.title")}</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
                   <div className="mx-auto">
                     <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
@@ -1471,17 +1473,17 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        {t("qualityCheck.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("qualityCheck.drag1")}</span> {t("qualityCheck.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">{t("qualityCheck.file")}</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <span className='text-[10px] w-full flex justify-between'><span>{t("qualityCheck.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <Progress value={uploadPercentage} />
                           </div>
                         )}
@@ -1489,14 +1491,14 @@ const NewOrderBox = () => {
                     </div>
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("qualityCheck.back")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirQualityCheck} disabled={!uploadedFile || uploadStatus}>{t("qualityCheck.upload")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'libraryPrep' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Library Preparation Report</div>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">{t("libraryPrep.title")}</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
                   <div className="mx-auto">
                     <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
@@ -1504,17 +1506,17 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        {t("libraryPrep.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("libraryPrep.drag1")}</span> {t("libraryPrep.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">{t("libraryPrep.file")}</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <span className='text-[10px] w-full flex justify-between'><span>{t("libraryPrep.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <Progress value={uploadPercentage} />
                           </div>
                         )}
@@ -1522,42 +1524,42 @@ const NewOrderBox = () => {
                     </div>
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("libraryPrep.back")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleLibraryPrepConfirmation} disabled={!uploadedFile || uploadStatus}>{t("libraryPrep.upload")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'analysisProgress' && (
                 <div className='w-[298px] h-[221px] md:h-[278px] md:w-[445px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Start the Analysis.</span>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("analysisProgress.title")}</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("analysisProgress.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDoneConfirmation}>Start</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("analysisProgress.cancel")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDoneConfirmation}>{t("analysisProgress.start")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'analysisDone' && (
                 <div className='w-[298px] h-[221px] md:h-[278px] md:w-[445px] p-[24px] md:p-[10px] flex flex-col gap-[24px] items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                   <div className='flex flex-col gap-[24px]'>
-                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Confirmation Message</span>
-                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>Analysis has completed.</span>
+                    <span className='font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("analysisDone.title")}</span>
+                    <span className='font-DM-Sans text-center font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("analysisDone.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Cancel</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDone}>Submit</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("analysisDone.cancel")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDone}>{t("analysisDone.submit")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'analysisRawData' && (
                 <div className='font-DM-Sans flex flex-col w-[352px] h-[197px] md:h-[282px] md:w-[760px] p-[28px] md:p-12  items-center justify-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-4 leading-[24px]'>Raw Data</div>
+                  <div className='text-[22px] md:text-[22px] font-bold font-DM-Sans pb-[6px] md:pb-4 leading-[24px]'>{t("analysisRawData.title")}</div>
                   <div className='w-full border-t-2 border-dashed border-gray-100 md:pb-4'></div>
                   <div className="md:flex md:flex-row flex flex-col  gap-[6px] md:gap-4">
                     <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm flex items-center md:pt-6">
-                      Paste data link
+                    {t("analysisRawData.link")}
                     </label>
                     <div className='group w-[332px] md:w-[527px] h-[35px] md:h-[46px] flex items-center justify-center md:pt-8'>
                       <div className={`w-[332px] md:w-[527px] rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -1573,14 +1575,14 @@ const NewOrderBox = () => {
                     </div>
                   </div>
                   <div className='w-full flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-12'>
-                    <button onClick={() => { setOrderPopVisible(false) }} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Back</button>
-                    <button onClick={handleAnalysisRawDataConfirm} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Send</button>
+                    <button onClick={() => { setOrderPopVisible(false) }} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("analysisRawData.back")}</button>
+                    <button onClick={handleAnalysisRawDataConfirm} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("analysisRawData.send")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'analysisSpecification' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Analysis Specification</div>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">{t("analysisSpecification.title")}</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
                   <div className="mx-auto">
                     <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
@@ -1588,17 +1590,17 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        {t("analysisSpecification.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("analysisSpecification.drag1")}</span> {t("analysisSpecification.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">{t("analysisSpecification.file")}</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <span className='text-[10px] w-full flex justify-between'><span>{t("analysisSpecification.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <Progress value={uploadPercentage} />
                           </div>
                         )}
@@ -1606,28 +1608,28 @@ const NewOrderBox = () => {
                     </div>
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification} disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("analysisSpecification.back")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisSpecification} disabled={!uploadedFile || uploadStatus}>{t("analysisSpecification.upload")}</button>
                   </div>
                 </div>
               )}
               {activePopup === 'invoice' && (
                 <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] w-[90vw] lg:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
-                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">Calculate Cost</h2>
+                  <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">{t("invoice.title")}</h2>
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
                   <div className="w-full overflow-x-scroll">
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
-                          <th className="py-2">Sample ID</th>
-                          <th className="py-2">Sample Name</th>
-                          <th className="py-2">Quality check fees</th>
-                          <th className="py-2">Library adjustment fees</th>
-                          <th className="py-2">Next gen. sequencer analysis fees</th>
-                          <th className="py-2 text-nowrap">Tax <span className='w-[40px] text-white'>.......</span></th>
-                          <th className="py-2">Others</th>
-                          <th className="py-2">Total Amount</th>
+                          <th className="py-2">{t("invoice.sampleId")}</th>
+                          <th className="py-2">{t("invoice.sampleName")}</th>
+                          <th className="py-2">{t("invoice.qfees")}</th>
+                          <th className="py-2">{t("invoice.lfees")}</th>
+                          <th className="py-2">{t("invoice.afees")}</th>
+                          <th className="py-2 text-nowrap">{t("invoice.tax")} <span className='w-[40px] text-white'>.......</span></th>
+                          <th className="py-2">{t("invoice.others")}</th>
+                          <th className="py-2">{t("invoice.total")}</th>
                         </tr>
                       </thead>
                       <tbody className='border-t'>
@@ -1746,7 +1748,7 @@ const NewOrderBox = () => {
                       </tbody>
                       <tfoot>
                         <tr className="border-t font-medium text-[14px]">
-                          <td colSpan="7" className="text-right py-2 pr-6">Total</td>
+                          <td colSpan="7" className="text-right py-2 pr-6">{t("invoice.grandTotal")}</td>
                           <td className="md:w-[108px]">
                             <input
                               type="text"
@@ -1765,7 +1767,7 @@ const NewOrderBox = () => {
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked1}
                       onChange={handleInvoiceChecked1} />
-                    <label htmlFor="tax">Click to enter tax percent.</label>
+                    <label htmlFor="tax">{t("invoice.checkbox1")}</label>
                   </div>
                   <div className="flex items-center mb-[6px] text-[14px] font-normal">
                     <input type="checkbox"
@@ -1773,27 +1775,27 @@ const NewOrderBox = () => {
                       className="form-checkbox accent-[#3e8ca7] mr-2"
                       checked={isInvoiceChecked2}
                       onChange={handleInvoiceChecked2} />
-                    <label htmlFor="amount">Click to enter other amount.</label>
+                    <label htmlFor="amount">{t("invoice.checkbox2")}</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
-                    Note: The tax amount is subjected to the country and region. Other charges may include shipping or handling fees.
+                  {t("invoice.note")}
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
-                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Back</button>
-                    <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">Generate</button>
+                    <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("invoice.back")}</button>
+                    <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("invoice.generate")}</button>
                   </div>
                 </div>
               )}
               {activePopup === "invoice1" && (
                 <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
                   <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>Success!</span>
-                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>You have successfully sent the Invoice.</span>
+                    <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("invoice1.title")}</span>
+                    <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("invoice1.messaage")}</span>
                     <button
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleInvoice}
                     >
-                      OK
+                      {t("invoice1.ok")}
                     </button>
                   </div>
                 </div>
@@ -1814,7 +1816,7 @@ const NewOrderBox = () => {
               )} */}
               {activePopup === 'payment' && (
                 <div className='p-[16px] w-[356px] h-[290px] md:h-[435px] md:w-[760px] md:py-[26px] flex flex-col md:gap-[24px] items-center bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
-                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">Upload Receipt</div>
+                  <div className="text-[16px] md:text-[22px] font-medium text-center md:pb-0 pb-[16px]">{t("payment.title")}</div>
                   <div className='border border-dashed bg-gray-100 w-full'></div>
                   <div className="mx-auto">
                     <div className="w-[313px] h-[154px]  md:px-4 md:w-[490px] md:h-[203px] md:pt-0 pt-[12px] border-dashed border-[0.4px]  border-[#60b7cf] rounded-lg text-center flex flex-col items-center justify-center">
@@ -1822,17 +1824,17 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                          Drag and drop or <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">Choose file</span> to upload
+                        {t("payment.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("payment.drag1")}</span> {t("payment.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
-                            <p className="text-[10px] md:text-sm font-medium">File Selected</p>
+                            <p className="text-[10px] md:text-sm font-medium">{t("payment.file")}</p>
                             {/* <p className="text-lg text-blue-600">{uploadedFile.name}</p> */}
                           </div>
                         )}
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
-                            <span className='text-[10px] w-full flex justify-between'><span>Uploading</span> <span>{uploadPercentage} %</span> </span>
+                            <span className='text-[10px] w-full flex justify-between'><span>{t("payment.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <Progress value={uploadPercentage} />
                           </div>
                         )}
@@ -1840,8 +1842,8 @@ const NewOrderBox = () => {
                     </div>
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>Back</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>Upload</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("payment.back")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>{t("payment.upload")}</button>
                   </div>
                 </div>
               )}
@@ -1853,18 +1855,18 @@ const NewOrderBox = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{orderId}</span>
           </div>
           <div className='flex items-center justify-center md:justify-start gap-x-[6px] gap-y-[6px]  md:gap-x-[32px] md:gap-y-[8px] flex-wrap'>
-            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "bg-[#E2E8F0]" : requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Request sheet sent</button>
-            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "bg-[#E2E8F0]" : costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Cost estimation</button>
-            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "bg-[#E2E8F0]" : formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Formal request</button>
-            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inTransit" || sampleShippingStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inAdminProgress" || sampleShippingStatus == "isUserCompleted" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Sample recieved</button>
-            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Quality check</button>
-            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Library report</button>
-            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis start</button>
-            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis completed</button>
-            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Raw data</button>
-            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Aanalysis Specification</button>
-            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "bg-[#E2E8F0]" : invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Invoice</button>
-            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "bg-[#E2E8F0]" : paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>Recipt</button>
+            <button onClick={handleOrderCreation} disabled={!(requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${requestSheetStatus == "isPending" || requestSheetStatus == "inUserProgress" ? "bg-[#E2E8F0]" : requestSheetStatus == "inAdminProgress" || requestSheetStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.requestSheet")}</button>
+            <button onClick={handleCostEstimateClick} disabled={!(costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${costEstimateStatus == "isPending" || costEstimateStatus == "inUserProgress" ? "bg-[#E2E8F0]" : costEstimateStatus == "inAdminProgress" || costEstimateStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.costEstimation")}</button>
+            <button onClick={handleFormalRequestClick} disabled={!(formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${formalRequestStatus == "isPending" || formalRequestStatus == "inUserProgress" ? "bg-[#E2E8F0]" : formalRequestStatus == "inAdminProgress" || formalRequestStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.formalRequest")}</button>
+            <button onClick={handleSampleShippingClick} disabled={!(sampleShippingStatus == "inTransit" || sampleShippingStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${sampleShippingStatus == "isPending" || sampleShippingStatus == "inUserProgress" ? "bg-[#E2E8F0]" : sampleShippingStatus == "inAdminProgress" || sampleShippingStatus == "isUserCompleted" ? "bg-[#FF914D]" : sampleShippingStatus == "inTransit" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.sampleReceived")}</button>
+            <button onClick={handleQualityCheckClick} disabled={!(qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${qualityCheckStatus == "isPending" || qualityCheckStatus == "inUserProgress" ? "bg-[#E2E8F0]" : qualityCheckStatus == "inAdminProgress" || qualityCheckStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.qualityCheck")}</button>
+            <button onClick={handleLibraryPrepClick} disabled={!(libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${libraryPrepStatus == "isPending" || libraryPrepStatus == "inUserProgress" ? "bg-[#E2E8F0]" : libraryPrepStatus == "inAdminProgress" || libraryPrepStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.libraryPrep")}</button>
+            <button onClick={handleAnalysisProgressClick} disabled={!(analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisProgressStatus == "isPending" || analysisProgressStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisProgressStatus == "inAdminProgress" || analysisProgressStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.analysisStart")}</button>
+            <button onClick={handleAnalysisDoneClick} disabled={!(analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisDoneStatus == "isPending" || analysisDoneStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisDoneStatus == "inAdminProgress" || analysisDoneStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.analysisDone")}</button>
+            <button onClick={handleAnalysisRawDataClick} disabled={!(analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisRawDataStatus == "isPending" || analysisRawDataStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisRawDataStatus == "inAdminProgress" || analysisRawDataStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.rawData")}</button>
+            <button onClick={handleAnalysisSpecificationClick} disabled={!(analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${analysisSpecificationStatus == "isPending" || analysisSpecificationStatus == "inUserProgress" ? "bg-[#E2E8F0]" : analysisSpecificationStatus == "inAdminProgress" || analysisSpecificationStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.analysisSpecification")}</button>
+            <button onClick={handleInvoiceClick} disabled={!(invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${invoiceStatus == "isPending" || invoiceStatus == "inUserProgress" ? "bg-[#E2E8F0]" : invoiceStatus == "inAdminProgress" || invoiceStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.invoice")}</button>
+            <button onClick={handlePaymentClick} disabled={!(paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted")} className={`h-[44px] w-[113px] md:h-[64px] md:w-[184px] p-[4px] md:p-[8px] rounded-[4px] md:rounded-[6px] ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "text-[#333333]" : "text-white"} ${paymentStatus == "isPending" || paymentStatus == "inUserProgress" ? "bg-[#E2E8F0]" : paymentStatus == "inAdminProgress" || paymentStatus == "isUserCompleted" ? "bg-[#FF914D]" : "bg-[#5CE1E6]"} font-DM-Sans font-medium text-[8px] md:text-[14px] leading-[24px] text-center`}>{t("buttons.receipt")}</button>
           </div>
         </div>
         <div className="w-full h-[92px] md:px-[40px] flex flex-col justify-center border-[1px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
