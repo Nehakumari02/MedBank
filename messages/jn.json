@@ -981,53 +981,53 @@
             "invoice":"請求書",
             "payment":"お支払い 領収証",
            
-            "requestSheetIsPending":"Request Sheet",
-            "requestSheetInProgress":"Request Sheet",
+            "requestSheetIsPending":"依頼シート",
+            "requestSheetInProgress":"依頼シート",
             "requestSheetIsCompleted":"Request Sheet Confirmed",
 
-            "costEstimationIsPending":"Cost Estimate",
-            "costEstimationInProgress":"Cost Estimate Sent",
+            "costEstimationIsPending":"見積り",
+            "costEstimationInProgress":"見積り",
             "costEstimationIsCompleted":"Cost Estimate Sent",
     
-            "formalRequestIsPending":"Formal Request",
-            "formalRequestInProgress":"Formal Request",
-            "formalRequestIsCompleted":"Formal Request",
+            "formalRequestIsPending":"正式な依頼",
+            "formalRequestInProgress":"正式な依頼",
+            "formalRequestIsCompleted":"正式な依頼",
            
-            "sampleShippingIsPending":"Sample Shipping",
-            "sampleShippingInProgress":"Sample Shipping",
+            "sampleShippingIsPending":"サンプル 送付",
+            "sampleShippingInProgress":"サンプル 送付",
             "sampleShippingIsCompleted":"Sample Receipt Notification Sent",
          
-            "qualityCheckIsPending":"Quality Check",
+            "qualityCheckIsPending":"クオリティ チェック",
             "qualityCheckInProgress":"Quality Check Report Sent",
             "qualityCheckIsCompleted":"Confirmation Received ",
         
-            "libraryPrepIsPending":"Library Prep",
+            "libraryPrepIsPending":"ライブラリ 調製",
             "libraryPrepInProgress":"Library Prep Sent",
             "libraryPrepIsCompleted":"Confirmation Received ",
            
-            "analysisProgressIsPending":"Analysis Start",
+            "analysisProgressIsPending":"解析中",
             "analysisProgressInProgress":"Analysis In Progress",
             "analysisProgressIsCompleted":"Analysis In Progress",
           
-            "analysisDoneIsPending":"Analysis Done",
-            "analysisDoneInProgress":"Analysis Done",
+            "analysisDoneIsPending":"解析終了",
+            "analysisDoneInProgress":"解析終了",
             "analysisDoneIsCompleted":"Analysis Completed",
           
-            "rawDataIsPending":"Raw Data",
-            "rasDataInProgress":"Raw Data",
-            "rawDataIsCompleted":"Raw Data",
+            "rawDataIsPending":"元データ",
+            "rasDataInProgress":"元データ",
+            "rawDataIsCompleted":"元データ",
            
-            "analysisSpecificationIsPending":"Aanalysis Specification",
-            "analysisSpecificationInProgress":"Aanalysis Specification",
-            "analysisSpecificationIsCompleted":"Aanalysis Specification",
+            "analysisSpecificationIsPending":"解析仕様書",
+            "analysisSpecificationInProgress":"解析仕様書",
+            "analysisSpecificationIsCompleted":"解析仕様書",
            
-            "invoiceIsPending":"Invoice",
-            "invoiceInProgress":"Invoice",
-            "invoiceIsCompleted":"Invoice",
+            "invoiceIsPending":"請求書",
+            "invoiceInProgress":"請求書",
+            "invoiceIsCompleted":"請求書",
           
-            "paymentIsPending":"Payment",
-            "paymentInProgress":"Payment",
-            "paymentIsCompleted":"Payment"
+            "paymentIsPending":"お支払い 領収証",
+            "paymentInProgress":"お支払い 領収証",
+            "paymentIsCompleted":"お支払い 領収証"
         }
     }
 }
