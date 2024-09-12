@@ -19,6 +19,7 @@ import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
 
 
 const NewOrderBox = () => {
+  const t = useTranslations("UserDashboard");
   const router = useRouter();
   const path = usePathname();
   const orderIdDB = usePathname().split("/")[3];
@@ -38,7 +39,6 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [fileType, setFileType] = useState("");
   let userIdDB = usePathname().split('/')[2];
-  const t = useTranslations("UserDashboard");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {

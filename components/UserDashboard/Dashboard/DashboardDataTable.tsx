@@ -193,20 +193,13 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) =>
       {
-        const t = useTranslations("UserDashboard")
         const requestSheetStatus = row.getValue("requestSheetStatus");
         if (requestSheetStatus === "inAdminProgress") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">
-            {/* Request <br /><span className="text-nowrap">Sheet Sent</span> */}
-            {t("orderList.requestSheetInProgress")}
-            </div>;
+          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
         } else if (requestSheetStatus === "isCompleted") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">
-            {/* Request <br /><span className="text-nowrap">Sheet Sent</span> */}
-            {t("orderList.requestSheetIsCompleted")}
-            </div>;
+          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
         } else {
-          return <>{t("orderList.requestSheetIsPending")}</>;
+          return <></>;
         }
       },
   },
