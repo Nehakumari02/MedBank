@@ -13,7 +13,7 @@ const Chats = () => {
   const [message, setMessage] = useState(""); // State for the input message
   const [messages, setMessages] = useState([]); // State for storing chat messages
   const emails=["test@gmail.com","test2@gmail.com"]
-  const clientUserId = usePathname().split("/")[5]
+  const clientUserId = usePathname().split("/")[4]
   const [chatId,setChatId] = useState("");
   const userIdDB = "66e055de6ddc7825fbd8a103";
 

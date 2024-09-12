@@ -48,7 +48,14 @@ const Chats = () => {
 
   const handleChat = (userIdDB) =>{
     router.push(`${path}/${userIdDB}`)
+    console.log("chat user id",userIdDB)
   }
+
+  const getInitials = (name) => {
+    const names = name.split(' ');
+    const initials = names.map(n => n[0]).join('');
+    return initials.toUpperCase();
+  };
 
   return (
     <div className="w-full h-full p-[13px] text-[#333333]">
@@ -107,14 +114,28 @@ const Chats = () => {
             <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>Chats</span>
             <div className="flex flex-col gap-[4px]">
               {conversations.map((conversation, index) => (
-                <div key={index} onClick={()=>handleChat(conversation.participants[0]._id)} className="flex items-center justify-start cursor-pointer py-[16px] px-[12px] h-[80px] gap-[18px]">
-                  <div className="h-[56px] w-[56px] rounded-full bg-gray-400"></div>
+                <div key={index} onClick={()=>handleChat(conversation.participants[0]._id)} className="flex items-center justify-start cursor-pointer py-[4px] md:py-[16px] px-[12px] h-[80px] gap-[18px] bg-gray-100 rounded-xl">
+                  <div className="h-[56px] w-[56px] rounded-full bg-gray-400 flex items-center justify-center text-white">
+                  {getInitials(conversation.participants[0].name)}
+                  </div>
                   <div className="flex flex-col justify-between">
                     <span className="font-DM-Sans font-medium text-[14px] leading-[24px]">{conversation.participants[0].name}</span>
                     <div className="font-DM-Sans font-medium text-[12px] leading-[22px] flex items-center gap-[8px]">
-                      <span>{conversation.lastMessage.text}</span>
-                      <span>·</span>
-                      <span className="font-DM-Sans font-medium text-[#79747E] text-[12px] leading-[18px]">{formatTimestamp(conversation.updatedAt)}</span>
+                      <span>
+                        {conversation.lastMessage?.text
+                          ? (conversation.lastMessage.text.length > 20
+                              ? `${conversation.lastMessage.text.substring(0, 20)}...`
+                              : conversation.lastMessage.text)
+                          : 'Start Chat'}
+                      </span>
+                      <span>
+                        {conversation.lastMessage?"·":""}
+                      </span>
+                      <span className="font-DM-Sans font-medium text-[#79747E] text-[12px] leading-[18px]">
+                      {conversation.lastMessage?.text
+                        ? formatTimestamp(conversation.updatedAt)
+                        : ''}
+                      </span>
                     </div>
                   </div>
                 </div>
