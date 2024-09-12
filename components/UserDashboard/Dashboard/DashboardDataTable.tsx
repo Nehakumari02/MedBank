@@ -162,6 +162,9 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "orderTitle",
@@ -183,7 +186,10 @@ export const columns: ColumnDef<OrderList>[] = [
         orderId={row.original._id}
         orderTitle={row.getValue("orderTitle")}
       />
-    )
+    ),
+    width: "150px",
+    minWidth: "150px",
+    maxWidth: "150px",
   },
   {
     accessorKey: "requestSheetStatus",
@@ -195,14 +201,17 @@ export const columns: ColumnDef<OrderList>[] = [
       {
         const requestSheetStatus = row.getValue("requestSheetStatus");
         const t = useTranslations("UserDashboard");
-        if (requestSheetStatus === "inAdminProgress") {
+        if (requestSheetStatus === "inUserProgress"|| requestSheetStatus === "isAdminCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetInProgress")}</div>;
-        } else if (requestSheetStatus === "isCompleted") {
+        } else if (requestSheetStatus === "isCompleted"|| requestSheetStatus === "isUserCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetIsCompleted")}</div>;
         } else {
           return <></>;
         }
       },
+      width: "140px",
+      minWidth: "140px",
+      maxWidth: "140px",
   },
   {
     accessorKey: "costEstimateStatus",
@@ -214,14 +223,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
-      if (costEstimateStatus === "inAdminProgress") {
+      if (costEstimateStatus === "inUserProgress" || costEstimateStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationInProgress")}</div>;
-      } else if (costEstimateStatus === "isCompleted") {
+      } else if (costEstimateStatus === "isCompleted" || costEstimateStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "formalRequestStatus",
@@ -233,14 +245,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const formalRequestStatus = row.getValue("formalRequestStatus");
   
-      if (formalRequestStatus === "inAdminProgress") {
+      if (formalRequestStatus === "inUserProgress" || formalRequestStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.formalRequestInProgress")}</div>;
-      } else if (formalRequestStatus === "isCompleted") {
+      } else if (formalRequestStatus === "isCompleted" || formalRequestStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.formalRequestIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "sampleShippingStatus",
@@ -252,14 +267,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
   
-      if (sampleShippingStatus === "inAdminProgress") {
+      if (sampleShippingStatus === "inUserProgress" || sampleShippingStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingInProgress")}</div>;
-      } else if (sampleShippingStatus === "isCompleted") {
+      } else if (sampleShippingStatus === "isCompleted" || sampleShippingStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "qualityCheckStatus",
@@ -271,14 +289,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
   
-      if (qualityCheckStatus === "inAdminProgress") {
+      if (qualityCheckStatus === "inUserProgress" || qualityCheckStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckInProgress")}</div>;
-      } else if (qualityCheckStatus === "isCompleted") {
+      } else if (qualityCheckStatus === "isCompleted" || qualityCheckStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "libraryPrepStatus",
@@ -290,14 +311,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
-      if (libraryPrepStatus === "inAdminProgress") {
+      if (libraryPrepStatus === "inUserProgress" || libraryPrepStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepInProgress")}</div>;
-      } else if (libraryPrepStatus === "isCompleted") {
+      } else if (libraryPrepStatus === "isCompleted" || libraryPrepStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "analysisProgressStatus",
@@ -309,14 +333,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
-      if (analysisProgressStatus === "inAdminProgress") {
+      if (analysisProgressStatus === "inUserProgress" || analysisProgressStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisProgressInProgress")}</div>;
-      } else if (analysisProgressStatus === "isCompleted") {
+      } else if (analysisProgressStatus === "isCompleted" || analysisProgressStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisProgressIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "analysisDoneStatus",
@@ -328,14 +355,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
-      if (analysisDoneStatus === "inAdminProgress") {
+      if (analysisDoneStatus === "inUserProgress" || analysisDoneStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisDoneInProgress")}</div>;
-      } else if (analysisDoneStatus === "isCompleted") {
+      } else if (analysisDoneStatus === "isCompleted" || analysisDoneStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisDoneIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "analysisRawDataStatus",
@@ -347,14 +377,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
-      if (rawDataStatus === "inAdminProgress") {
+      if (rawDataStatus === "inUserProgress" || rawDataStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.rawDataInProgress")}</div>;
-      } else if (rawDataStatus === "isCompleted") {
+      } else if (rawDataStatus === "isCompleted" || rawDataStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.rawDataIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "analysisSpecificationStatus",
@@ -366,14 +399,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
-      if (analysisSpecificationStatus === "inAdminProgress") {
+      if (analysisSpecificationStatus === "inUserProgress" || analysisSpecificationStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisSpecificationInProgress")}</div>;
-      } else if (analysisSpecificationStatus === "isCompleted") {
+      } else if (analysisSpecificationStatus === "isCompleted" || analysisSpecificationStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisSpecificationIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "invoiceStatus",
@@ -385,14 +421,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const invoiceStatus = row.getValue("invoiceStatus");
   
-      if (invoiceStatus === "inAdminProgress") {
+      if (invoiceStatus === "inUserProgress" || invoiceStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceInProgress")}</div>;
-      } else if (invoiceStatus === "isCompleted") {
+      } else if (invoiceStatus === "isCompleted" || invoiceStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "paymentStatus",
@@ -404,14 +443,17 @@ export const columns: ColumnDef<OrderList>[] = [
       const t = useTranslations("UserDashboard");
       const paymentStatus = row.getValue("paymentStatus");
   
-      if (paymentStatus === "inAdminProgress") {
+      if (paymentStatus === "inUserProgress" || paymentStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.paymentInProgress")}</div>;
-      } else if (paymentStatus === "isCompleted") {
+      } else if (paymentStatus === "isCompleted" || paymentStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.paymentIsCompleted")}</div>;
       } else {
         return <></>;
       }
     },
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   // {
   //   accessorKey: "amountStatus",
@@ -491,6 +533,7 @@ export const  DashboardDataTable: React.FC<DashboardDataTableProps>=({data=[]}) 
       rowSelection,
     },
   })
+  console.log(data)
 
   return (
     <div className="w-full h-full">
@@ -541,8 +584,19 @@ export const  DashboardDataTable: React.FC<DashboardDataTableProps>=({data=[]}) 
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
+                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
+                    width?: string | number;
+                    minWidth?: string | number;
+                    maxWidth?: string | number;
+                  };
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id}
+                    className="text-center"
+                      style={{ width: columnDef.width,
+                        flexGrow: 0,
+                        minWidth: columnDef.minWidth,
+                        maxWidth: columnDef.maxWidth }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -565,7 +619,27 @@ export const  DashboardDataTable: React.FC<DashboardDataTableProps>=({data=[]}) 
                     className="border-none"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
+                      <TableCell key={cell.id}
+                        className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
+                        style={{
+                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).width,
+                          flexGrow: 0,
+                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).minWidth,
+                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).maxWidth,
+                        }}
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
