@@ -959,7 +959,7 @@
             "heading":"支払い状況",
             "orderId":"発注ID",
             "title":"発注タイトル",
-            "affiliation":"大学/研究 機関名",
+            "affiliation":"大学/研究機関名",
             "userName":"ユーザーネーム",
             "invoice":"請求金額",
             "receipt":"領収書"
@@ -1032,6 +1032,14 @@
         "paymentList":{
             "receiptPending":"Send Receipt",
             "receiptCompleted":"Receipt Sent Completed"
+        },
+        "customerList":{
+            "memberId":"メンバー ID",
+            "affiliation":"大学/研究機関名",
+            "userName":"ユーザーネーム",
+            "country":"国",
+            "address":"住所"
+            
         }
     },
     "tutorial":{
