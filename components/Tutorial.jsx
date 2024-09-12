@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import cross from '../public/dashboard/cross.png'
+import { useTranslations } from 'next-intl'
 const ProgressCircles = ({ step, totalSteps }) => {
   return (
     <div className="flex gap-2 mb-4 mt-6">
@@ -20,6 +21,7 @@ const MultiStepTutorial = ({ onClose }) => {
   const [popupStyle, setPopupStyle] = useState({});
   const popupRef = useRef(null);
   const totalSteps = 5;
+  const t = useTranslations("tutorial");
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
@@ -96,28 +98,28 @@ const MultiStepTutorial = ({ onClose }) => {
         <div className="mb-4 text-center mt-10">
           {step === 1 && (
             <div className=''>
-              <h2 className="text-xl font-DM-Sans font-normal mb-4">Welcome to Medbank </h2>
+              <h2 className="text-xl font-DM-Sans font-normal mb-4"> {t("message1")}</h2>
             </div>
           )}
           {step === 2 && (
             <div>
-              <h2 className="text-xl font-DM-Sans font-normal mb-4">Click on the button to create a new order.</h2>
+              <h2 className="text-xl font-DM-Sans font-normal mb-4">{t("message2")}</h2>
             </div>
           )}
           {step === 3 && (
             <div>
-              <h2 className="text-xl font-normal font-DM-Sans mb-4">Number of Order Pending.</h2>
+              <h2 className="text-xl font-normal font-DM-Sans mb-4">{t("message3")}</h2>
             </div>
           )}
           {step === 4 && (
             <div className=''>
-              <h2 className="text-xl font-normal font-DM-Sans mb-4">Number of Orders that are In progress.</h2>
+              <h2 className="text-xl font-normal font-DM-Sans mb-4">{t("message4")}</h2>
 
             </div>
           )}
           {step === 5 && (
             <div className=''>
-              <h2 className="text-xl font-DM-Sans  font-normal mb-4">Number of Orders that are successfully completed.</h2>
+              <h2 className="text-xl font-DM-Sans  font-normal mb-4">{t("message5")}</h2>
 
             </div>
           )}
@@ -134,20 +136,20 @@ const MultiStepTutorial = ({ onClose }) => {
             <button disabled={step == 1} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '
               onClick={prevStep}
             >
-              Back
+             {t("back")}
             </button>
           )}
           {step < 5 ? (
             <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '
               onClick={nextStep}
             >
-              Next
+             {t("next")}
             </button>
           ) : (
             <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '
               onClick={onClose}
             >
-              Finish
+              {t("finish")}
             </button>
           )}
         </div>

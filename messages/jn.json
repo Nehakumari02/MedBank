@@ -1028,6 +1028,21 @@
             "paymentIsPending":"お支払い 領収証",
             "paymentInProgress":"お支払い 領収証",
             "paymentIsCompleted":"お支払い 領収証"
+        },
+        "paymentList":{
+            "receiptPending":"Send Receipt",
+            "receiptCompleted":"Receipt Sent Completed"
         }
+    },
+    "tutorial":{
+        "message1":"Medbankへようこそ",
+        "message2":"新しい発注はこのボタンを押してください",
+        "message3":"発注予定のオーダー数です",
+        "message4":"進行中のオーダーの数です",
+        "message5":"完了したオーダーの数です",
+        "back":"戻る",
+        "next":"次へ",
+        "finish":"仕上がり"
+
     }
 }
