@@ -17,6 +17,7 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useTranslations } from 'next-intl'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -84,35 +85,50 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
 export const columns: ColumnDef<UserList>[] = [
   {
     accessorKey: "memberId",
-    header: "Member ID",
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("customerList.memberId")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "school",
-    header: "Affiliation",
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("customerList.affiliation")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "Username",
-    header: "Username",
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("customerList.userName")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "country",
-    header: "Country",
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("customerList.country")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("country")||"N/A"}</div>
     ),
   },
   {
     accessorKey: "city",
-    header: "Address",
+    header: ()=>{
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("customerList.address")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("city")||"N/A"}

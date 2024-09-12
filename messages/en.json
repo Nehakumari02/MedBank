@@ -1029,10 +1029,18 @@
             "paymentIsCompleted":"Payment"
         },
         "paymentList":{
+            
             "receiptPending":"Send Receipt",
             "receiptCompleted":"Receipt Sent Completed"
-        }
-        
+        },
+        "customerList":{
+            "memberId":"Member ID",
+            "affiliation":"Affiliation",
+            "userName":"Username",
+            "country":"Country",
+            "address":"Address"
+
+        }  
     },
     "tutorial":{
         "message1":"Welcome to Medbank",
