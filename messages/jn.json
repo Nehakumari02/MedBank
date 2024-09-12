@@ -725,9 +725,6 @@
             "orderTitle":"発注タイトル",
             "requestSheet":"依頼シート",
             "costEstimate":"見積り",
-            "requestSheetIsPending":"Is 依頼シート",
-            "requestSheetInProgress":"In 依頼シート",
-            "requestSheetIsCompleted":"Is 依頼シート",
             "formalRequest":"正式な依頼",
             "sampleShipping":"サンプル 送付",
             "qualityCheck":"クオリティ チェック",
@@ -737,7 +734,58 @@
             "rawData":"元データ",
             "analysisSpecification":"解析仕様書",
             "invoice":"請求書",
-            "payment":"お支払い 領収証"
+            "payment":"お支払い 領収証",
+
+            "requestSheetIsPending":"依頼シート",
+            "requestSheetInProgress":"依頼シート",
+            "requestSheetIsCompleted":"依頼シート 送付済み",
+            
+            "costEstimationIsPending":"見積書 送付済み",
+            "costEstimationInProgress":"見積書 送付済み",
+            "costEstimationIsCompleted":"見積書 送付済み",
+    
+            "formalRequestIsPending":"正式な依頼",
+            "formalRequestInProgress":"正式な依頼",
+            "formalRequestIsCompleted":"正式な依頼",
+           
+            "sampleShippingIsPending":"サンプル 送付",
+            "sampleShippingInProgress":"サンプル 送付",
+            "sampleShippingIsCompleted":"サンプル 到着済",
+         
+            "qualityCheckIsPending":"クオリティチェック報告書",
+            "qualityCheckInProgress":"クオリティチェック報告書",
+            "qualityCheckIsCompleted":"クオリティチェック報告書",
+        
+            "libraryPrepIsPending":"ライブラリ調製報告書",
+            "libraryPrepInProgress":"ライブラリ調製報告書",
+            "libraryPrepIsCompleted":"ライブラリ調製報告書 ",
+           
+            "analysisProgressIsPending":"解析中",
+            "analysisProgressInProgress":"解析中",
+            "analysisProgressIsCompleted":"解析中",
+          
+            "analysisDoneIsPending":"解析終了",
+            "analysisDoneInProgress":"解析終了",
+            "analysisDoneIsCompleted":"解析終了",
+          
+            "rawDataIsPending":"元データ",
+            "rasDataInProgress":"元データ",
+            "rawDataIsCompleted":"元データ",
+           
+            "analysisSpecificationIsPending":"解析仕様書",
+            "analysisSpecificationInProgress":"解析仕様書",
+            "analysisSpecificationIsCompleted":"解析仕様書",
+           
+            "invoiceIsPending":"請求書",
+            "invoiceInProgress":"請求書",
+            "invoiceIsCompleted":"請求書",
+          
+            "paymentIsPending":"領収書",
+            "paymentInProgress":"領収書",
+            "paymentIsCompleted":"領収書"
+        },
+        "paymentList":{
+            "receipt":"領収書"
         },
         "chat":{
             "title":"MedBank Team",
@@ -888,6 +936,8 @@
             "upload":"アップロード"
         },
         "buttons":{
+            "request":"request",
+            "sheetSent":"Sheet Sent",
             "requestSheet":"依頼シート",
             "costEstimation":"見積書",
             "formalRequest":"正式な発注依頼",
@@ -913,6 +963,71 @@
             "userName":"ユーザーネーム",
             "invoice":"請求金額",
             "receipt":"領収書"
+        },
+        "orderList":{
+            "title":"発注一覧",
+            "orderId":"発注 ID",
+            "orderTitle":"発注タイトル",
+            "requestSheet":"依頼シート",
+            "costEstimate":"見積り",
+            "formalRequest":"正式な依頼",
+            "sampleShipping":"サンプル 送付",
+            "qualityCheck":"クオリティ チェック",
+            "libraryPrep":"ライブラリ 調製",
+            "analysisProgress":"解析中",
+            "analysisDone":"解析終了",
+            "rawData":"元データ",
+            "analysisSpecification":"解析仕様書",
+            "invoice":"請求書",
+            "payment":"お支払い 領収証",
+           
+            "requestSheetIsPending":"Request Sheet",
+            "requestSheetInProgress":"Request Sheet",
+            "requestSheetIsCompleted":"Request Sheet Confirmed",
+
+            "costEstimationIsPending":"Cost Estimate",
+            "costEstimationInProgress":"Cost Estimate Sent",
+            "costEstimationIsCompleted":"Cost Estimate Sent",
+    
+            "formalRequestIsPending":"Formal Request",
+            "formalRequestInProgress":"Formal Request",
+            "formalRequestIsCompleted":"Formal Request",
+           
+            "sampleShippingIsPending":"Sample Shipping",
+            "sampleShippingInProgress":"Sample Shipping",
+            "sampleShippingIsCompleted":"Sample Receipt Notification Sent",
+         
+            "qualityCheckIsPending":"Quality Check",
+            "qualityCheckInProgress":"Quality Check Report Sent",
+            "qualityCheckIsCompleted":"Confirmation Received ",
+        
+            "libraryPrepIsPending":"Library Prep",
+            "libraryPrepInProgress":"Library Prep Sent",
+            "libraryPrepIsCompleted":"Confirmation Received ",
+           
+            "analysisProgressIsPending":"Analysis Start",
+            "analysisProgressInProgress":"Analysis In Progress",
+            "analysisProgressIsCompleted":"Analysis In Progress",
+          
+            "analysisDoneIsPending":"Analysis Done",
+            "analysisDoneInProgress":"Analysis Done",
+            "analysisDoneIsCompleted":"Analysis Completed",
+          
+            "rawDataIsPending":"Raw Data",
+            "rasDataInProgress":"Raw Data",
+            "rawDataIsCompleted":"Raw Data",
+           
+            "analysisSpecificationIsPending":"Aanalysis Specification",
+            "analysisSpecificationInProgress":"Aanalysis Specification",
+            "analysisSpecificationIsCompleted":"Aanalysis Specification",
+           
+            "invoiceIsPending":"Invoice",
+            "invoiceInProgress":"Invoice",
+            "invoiceIsCompleted":"Invoice",
+          
+            "paymentIsPending":"Payment",
+            "paymentInProgress":"Payment",
+            "paymentIsCompleted":"Payment"
         }
     }
 }

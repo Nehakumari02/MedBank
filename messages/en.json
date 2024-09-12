@@ -728,9 +728,6 @@
             "orderId":"OrderId",
             "orderTitle":"Order Title",
             "requestSheet":"Request Sheet",
-            "requestSheetIsPending":"Is Pending",
-            "requestSheetInProgress":"In Progress",
-            "requestSheetIsCompleted":"Is Completed",
             "costEstimate":"Cost Estimate",
             "formalRequest":"Formal request",
             "sampleShipping":"Sample Shipping",
@@ -741,7 +738,58 @@
             "rawData":"Raw data",
             "analysisSpecification":"Aanalysis Specification",
             "invoice":"Invoice",
-            "payment":"Payment"
+            "payment":"Payment",
+            
+            "requestSheetIsPending":"Request Sheet",
+            "requestSheetInProgress":"Request Sheet",
+            "requestSheetIsCompleted":"Request Sheet Sent",
+            
+            "costEstimationIsPending":"Cost Estimate",
+            "costEstimationInProgress":"Cost Estimate",
+            "costEstimationIsCompleted":"Cost Estimate",
+    
+            "formalRequestIsPending":"Formal Request",
+            "formalRequestInProgress":"Formal Request",
+            "formalRequestIsCompleted":"Formal Request Completed",
+           
+            "sampleShippingIsPending":"Sample Shipping",
+            "sampleShippingInProgress":"Sample Shipping",
+            "sampleShippingIsCompleted":"Sample Arrival Confirmed",
+         
+            "qualityCheckIsPending":"Quality Check Report",
+            "qualityCheckInProgress":"Quality Check Report",
+            "qualityCheckIsCompleted":"Quality Check Report",
+        
+            "libraryPrepIsPending":"Library Preparation",
+            "libraryPrepInProgress":"Library Preparation",
+            "libraryPrepIsCompleted":"Library Preparation ",
+           
+            "analysisProgressIsPending":"Analysis in Progress",
+            "analysisProgressInProgress":"Analysis in Progress",
+            "analysisProgressIsCompleted":"Analysis In Progress",
+          
+            "analysisDoneIsPending":"Analysis Done",
+            "analysisDoneInProgress":"Analysis Done",
+            "analysisDoneIsCompleted":"Analysis Completed",
+          
+            "rawDataIsPending":"Raw Data",
+            "rasDataInProgress":"Raw Data",
+            "rawDataIsCompleted":"Raw Data",
+           
+            "analysisSpecificationIsPending":"Aanalysis Specification",
+            "analysisSpecificationInProgress":"Aanalysis Specification",
+            "analysisSpecificationIsCompleted":"Aanalysis Specification",
+           
+            "invoiceIsPending":"Invoice",
+            "invoiceInProgress":"Invoice",
+            "invoiceIsCompleted":"Invoice",
+          
+            "paymentIsPending":"Payment",
+            "paymentInProgress":"Payment",
+            "paymentIsCompleted":"Payment"
+        },
+        "paymentList":{
+            "receipt":"Receipt"
         }
     },
 
@@ -888,6 +936,8 @@
             "upload":"Upload"
         },
         "buttons":{
+            "request":"request",
+            "sheetSent":"Sheet Sent",
             "requestSheet":"Request sheet sent",
             "costEstimation":"Cost estimation",
             "formalRequest":"Formal request",
@@ -905,7 +955,7 @@
             "title":"MedBank Team",
             "online":"Online"
         },
-        "PaymentBox":{
+        "paymentBox":{
             "heading":"Payment Status",
             "orderId":"Order ID",
             "title":"Title",
@@ -913,6 +963,71 @@
             "userName":"Username",
             "invoice":"Invoice Amount",
             "receipt":"Receipt"
+        },
+        "orderList":{
+            "title":"Order List",
+            "orderId":"OrderId",
+            "orderTitle":"Order Title",
+            "requestSheet":"Request Sheet",
+            "costEstimate":"Cost Estimate",
+            "formalRequest":"Formal request",
+            "sampleShipping":"Sample Shipping",
+            "requestSheetIsPending":"Request Sheet",
+            "requestSheetInProgress":"Request Sheet",
+            "requestSheetIsCompleted":"Request Sheet Confirmed",
+            "qualityCheck":"Quality Check",
+            "libraryPrep":"Library Prep",
+            "analysisProgress":"Analysis Progress",
+            "analysisDone":"Analysis Done",
+            "rawData":"Raw data",
+            "analysisSpecification":"Aanalysis Specification",
+            "invoice":"Invoice",
+            "payment":"Payment",
+           
+            "costEstimationIsPending":"Cost Estimate",
+            "costEstimationInProgress":"Cost Estimate Sent",
+            "costEstimationIsCompleted":"Cost Estimate Sent",
+            
+            "formalRequestIsPending":"Formal Request",
+            "formalRequestInProgress":"Formal Request",
+            "formalRequestIsCompleted":"Formal Request",
+          
+            "sampleShippingIsPending":"Sample Shipping",
+            "sampleShippingInProgress":"Sample Shipping",
+            "sampleShippingIsCompleted":"Sample Receipt Notification Sent",
+            
+            "qualityCheckIsPending":"Quality Check",
+            "qualityCheckInProgress":"Quality Check Report Sent",
+            "qualityCheckIsCompleted":"Confirmation Received ",
+           
+            "libraryPrepIsPending":"Library Prep",
+            "libraryPrepInProgress":"Library Prep Sent",
+            "libraryPrepIsCompleted":"Confirmation Received ",
+            
+            "analysisProgressIsPending":"Analysis Start",
+            "analysisProgressInProgress":"Analysis In Progress",
+            "analysisProgressIsCompleted":"Analysis In Progress",
+           
+            "analysisDoneIsPending":"Is Pending",
+            "analysisDoneInProgress":"In Progress",
+            "analysisDoneIsCompleted":"Analysis Completed",
+           
+            "rawDataIsPending":"Raw Data",
+            "rasDataInProgress":"Raw Data",
+            "rawDataIsCompleted":"Raw Data",
+           
+            "analysisSpecificationIsPending":"Aanalysis Specification",
+            "analysisSpecificationInProgress":"Aanalysis Specification",
+            "analysisSpecificationIsCompleted":"Aanalysis Specification",
+           
+            "invoiceIsPending":"Invoice",
+            "invoiceInProgress":"Invoice",
+            "invoiceIsCompleted":"Invoice",
+         
+            "paymentIsPending":"Payment",
+            "paymentInProgress":"Payment",
+            "paymentIsCompleted":"Payment"
         }
+        
     }
 }

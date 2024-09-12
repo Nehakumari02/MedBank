@@ -17,6 +17,7 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useTranslations } from 'next-intl'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -153,7 +154,10 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
   {
     accessorKey: "orderId",
-    header: "OrderId",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.orderId")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
@@ -161,12 +165,13 @@ export const columns: ColumnDef<OrderList>[] = [
   {
     accessorKey: "orderTitle",
     header: ({ column }) => {
+      const t = useTranslations("UserDashboard");
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Order Title
+          {t("orderList.orderTitle")}
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
         </Button>
       )
@@ -181,9 +186,13 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "requestSheetStatus",
-    header: "Request Sheet",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.requestSheet")}</span>)
+    },
     cell: ({ row }) =>
       {
+        const t = useTranslations("UserDashboard");
         const requestSheetStatus = row.getValue("requestSheetStatus");
         if (requestSheetStatus === "inAdminProgress") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
@@ -196,8 +205,12 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "costEstimateStatus",
-    header: "Cost Estimate",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.costEstimate")}</span>)
+    },
     cell: ({ row }) => {
+      const t = useTranslations("UserDashboard");
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
       if (costEstimateStatus === "inAdminProgress") {
@@ -211,7 +224,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "formalRequestStatus",
-    header: "Formal Request",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.formalRequest")}</span>)
+    },
     cell: ({ row }) => {
       const formalRequestStatus = row.getValue("formalRequestStatus");
   
@@ -226,7 +242,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "sampleShippingStatus",
-    header: "Sample Shipping",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.sampleShipping")}</span>)
+    },
     cell: ({ row }) => {
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
   
@@ -241,7 +260,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "qualityCheckStatus",
-    header: "Quality Check",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.qualityCheck")}</span>)
+    },
     cell: ({ row }) => {
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
   
@@ -256,7 +278,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "libraryPrepStatus",
-    header: "Library Prep",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.libraryPrep")}</span>)
+    },
     cell: ({ row }) => {
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
@@ -271,7 +296,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisProgressStatus",
-    header: "Analysis Progress",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisProgress")}</span>)
+    },
     cell: ({ row }) => {
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
@@ -286,7 +314,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisDoneStatus",
-    header: "Analysis Done",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisDone")}</span>)
+    },
     cell: ({ row }) => {
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
@@ -301,7 +332,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisRawDataStatus",
-    header: "Raw Data",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.rawData")}</span>)
+    },
     cell: ({ row }) => {
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
@@ -316,7 +350,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisSpecificationStatus",
-    header: "Analysis Specification",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.analysisSpecification")}</span>)
+    },
     cell: ({ row }) => {
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
@@ -331,7 +368,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "invoiceStatus",
-    header: "Invoice",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.invoice")}</span>)
+    },
     cell: ({ row }) => {
       const invoiceStatus = row.getValue("invoiceStatus");
   
@@ -346,7 +386,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "paymentStatus",
-    header: "Payment",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("orderList.payment")}</span>)
+    },
     cell: ({ row }) => {
       const paymentStatus = row.getValue("paymentStatus");
   
