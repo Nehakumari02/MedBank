@@ -791,6 +791,10 @@
             "paymentIsCompleted":"Payment"
         },
         "paymentList":{
+            "orderId":"Order ID",
+            "title":"Title",
+            "invoice":"Invoice Amount",
+            "payment":"Payment",
             "receipt":"Receipt"
         }
     },
@@ -1031,6 +1035,12 @@
             "paymentIsCompleted":"Payment"
         },
         "paymentList":{
+            "orderId":"Order ID",
+            "title":"Title",
+            "affiliation":"Affiliation of Customer",
+            "userName":"Username",
+            "invoice":"Invoice Amount",
+            "payment":"Payment",
             
             "receiptPending":"Send Receipt",
             "receiptCompleted":"Receipt Sent Completed"

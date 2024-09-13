@@ -787,7 +787,11 @@
             "paymentIsCompleted":"領収書"
         },
         "paymentList":{
-            "receipt":"領収書"
+            "receipt":"領収書",
+            "orderId":"発注 ID",
+            "title":"発注タイトル",
+            "invoice":"請求金額",
+            "payment":"お支払い"
         },
         "chat":{
             "title":"MedBank Team",
@@ -1032,8 +1036,14 @@
             "paymentIsCompleted":"お支払い 領収証"
         },
         "paymentList":{
-            "receiptPending":"Send Receipt",
-            "receiptCompleted":"Receipt Sent Completed"
+            "orderId":"発注ID",
+            "title":"発注タイトル",
+            "affiliation":"大学/研究機関名",
+            "userName":"ユーザーネーム",
+            "invoice":"請求金額",
+            "payment":"領収書",
+            "receiptPending":"領収書の送信",
+            "receiptCompleted":"受領書の送信完了"
         },
         "customerList":{
             "memberId":"メンバー ID",

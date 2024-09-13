@@ -14,6 +14,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -68,7 +69,10 @@ export const columns: ColumnDef<Payments>[] = [
   // },
   {
     accessorKey: "id",
-    header: "OrderId",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("paymentList.orderId")}</span>)
+    },
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("id")}</div>
     ),
@@ -76,12 +80,13 @@ export const columns: ColumnDef<Payments>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => {
+      const t = useTranslations("UserDashboard");
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          {t("paymentList.title")}
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
         </Button>
       )
@@ -91,12 +96,13 @@ export const columns: ColumnDef<Payments>[] = [
   {
     accessorKey: "invoice",
     header: ({ column }) => {
+      const t = useTranslations("UserDashboard");
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Invoice
+         {t("paymentList.invoice")}
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
         </Button>
       )
@@ -121,16 +127,20 @@ export const columns: ColumnDef<Payments>[] = [
   // },
   {
     accessorKey: "payment",
-    header: "Payment",
+    header: ()=>{
+      const t = useTranslations("UserDashboard");
+      return(<span>{t("paymentList.payment")}</span>)
+    },
     cell: ({ row }) => {
       const costEstimateStatus = row.getValue("payment");
+      const t = useTranslations("UserDashboard");
   
       if (costEstimateStatus === "inProgress") {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
+        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
       } else if (costEstimateStatus === true) {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
+        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
       } else {
-        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-black px-[2px] py-[4px] bg-[#E2E8F0] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Receipt</div></div>;
+        return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-black px-[2px] py-[4px] bg-[#E2E8F0] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
       }
     },
   },

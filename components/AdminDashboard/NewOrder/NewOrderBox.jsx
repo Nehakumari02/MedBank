@@ -39,6 +39,7 @@ const NewOrderBox = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadStatus, setUploadStatus] = useState(false);
   const t = useTranslations("AdminDashboard");
+  const [fileType, setFileType] = useState("");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {

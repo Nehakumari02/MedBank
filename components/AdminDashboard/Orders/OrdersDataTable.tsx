@@ -223,12 +223,12 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) =>
       {
-        const t = useTranslations("UserDashboard");
+        const t = useTranslations("AdminDashboard");
         const requestSheetStatus = row.getValue("requestSheetStatus");
         if (requestSheetStatus === "inAdminProgress" ||requestSheetStatus === "isUserCompleted") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
+          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetInProgress")}</div>;
         } else if (requestSheetStatus === "isCompleted" || requestSheetStatus === "isAdminCompleted") {
-          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Request <br /><span className="text-nowrap">Sheet Sent</span></div>;
+          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetIsCompleted")}</div>;
         } else {
           return <></>;
         }
@@ -244,13 +244,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.costEstimate")}</span>)
     },
     cell: ({ row }) => {
-      const t = useTranslations("UserDashboard");
+      const t = useTranslations("AdminDashboard");
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
       if (costEstimateStatus === "inAdminProgress" ||costEstimateStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationInProgress")}</div>;
       } else if (costEstimateStatus === "isCompleted" || costEstimateStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Cost Estimate</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -267,11 +267,12 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) => {
       const formalRequestStatus = row.getValue("formalRequestStatus");
+      const t = useTranslations("AdminDashboard");
   
       if (formalRequestStatus === "inAdminProgress" ||formalRequestStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.formalRequestInProgress")}</div>;
       } else if (formalRequestStatus === "isCompleted" || formalRequestStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Formal Request</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.formalRequestIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -288,11 +289,12 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) => {
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
+      const t = useTranslations("AdminDashboard");
   
       if (sampleShippingStatus === "inAdminProgress" ||sampleShippingStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingInProgress")}</div>;
       } else if (sampleShippingStatus === "isCompleted" || sampleShippingStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Sample Shipping</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -309,11 +311,12 @@ export const columns: ColumnDef<OrderList>[] = [
     },
     cell: ({ row }) => {
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
+      const t = useTranslations("AdminDashboard");
   
       if (qualityCheckStatus === "inAdminProgress" ||qualityCheckStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckInProgress")}</div>;
       } else if (qualityCheckStatus === "isCompleted" || qualityCheckStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Quality Check</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -329,12 +332,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.libraryPrep")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
       if (libraryPrepStatus === "inAdminProgress" ||libraryPrepStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepInProgress")}</div>;
       } else if (libraryPrepStatus === "isCompleted" || libraryPrepStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Library Prep</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -350,12 +354,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.analysisProgress")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
       if (analysisProgressStatus === "inAdminProgress" ||analysisProgressStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisProgressInProgress")}</div>;
       } else if (analysisProgressStatus === "isCompleted" || analysisProgressStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Progress</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisProgressIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -371,12 +376,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.analysisDone")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
       if (analysisDoneStatus === "inAdminProgress" ||analysisDoneStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisDoneInProgress")}</div>;
       } else if (analysisDoneStatus === "isCompleted" || analysisDoneStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Done</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisDoneIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -392,12 +398,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.rawData")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
       if (rawDataStatus === "inAdminProgress" ||rawDataStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.rawDataInProgress")}</div>;
       } else if (rawDataStatus === "isCompleted" || rawDataStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Raw Data</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.rawDataIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -413,12 +420,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.analysisSpecification")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
       if (analysisSpecificationStatus === "inAdminProgress" ||analysisSpecificationStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisSpecificationInProgress")}</div>;
       } else if (analysisSpecificationStatus === "isCompleted" || analysisSpecificationStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Analysis Specification</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.analysisSpecificationIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -434,12 +442,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.invoice")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const invoiceStatus = row.getValue("invoiceStatus");
   
       if (invoiceStatus === "inAdminProgress" ||invoiceStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceInProgress")}</div>;
       } else if (invoiceStatus === "isCompleted" || invoiceStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Invoice</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceIsCompleted")}</div>;
       } else {
         return <></>;
       }
@@ -455,12 +464,13 @@ export const columns: ColumnDef<OrderList>[] = [
       return(<span>{t("orderList.payment")}</span>)
     },
     cell: ({ row }) => {
+      const t = useTranslations("AdminDashboard");
       const paymentStatus = row.getValue("paymentStatus");
   
       if (paymentStatus === "inAdminProgress" ||paymentStatus === "isUserCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.paymentInProgress")}</div>;
       } else if (paymentStatus === "isCompleted" || paymentStatus === "isAdminCompleted") {
-        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">Payment</div>;
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.paymentIsCompleted")}</div>;
       } else {
         return <></>;
       }
