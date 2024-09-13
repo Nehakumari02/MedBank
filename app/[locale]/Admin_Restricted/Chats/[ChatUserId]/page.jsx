@@ -68,7 +68,7 @@ const Chats = () => {
       console.log(chatIdd)
       setTransport(socket.io.engine.transport.name);
 
-      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
+      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: true });
 
     }
 
@@ -80,7 +80,7 @@ const Chats = () => {
     // Listen for incoming messages
     socket.on("chat message", (message) => {
       console.log(message)
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prevMessages) => [...prevMessages, message.message]);
     });
 
     socket.on("connect", onConnect);
