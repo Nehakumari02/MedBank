@@ -135,6 +135,48 @@ const NewOrderBox = () => {
     return updatedSamples.reduce((acc, sample) => acc + parseFloat(sample.total || 0), 0).toFixed(2);
   };
 
+  const handleDownload = async (url, filename) => {
+    try {
+      // Notify that download is in progress
+      toast({
+        variant: "success",
+        title: "In Progress",
+        description: "Download started"
+      });
+
+      setDisabled(true);
+
+      // Fetch the file from the URL as a blob
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const blob = await response.blob();
+
+      // Determine the file type for proper handling
+      const fileType = blob.type;
+      setFileType(fileType);
+      console.log(`File type: ${fileType}`); // For debugging
+
+      // Create a link element, set its href to the blob URL and trigger the download
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', filename); // Use the passed filename
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      // Optionally, revoke the blob URL after download
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+    } finally {
+      setDisabled(false);
+    }
+  };
+
 
   const handleInputChange = (index, field, value) => {
     const updatedSamples = [...samples];
@@ -148,7 +190,7 @@ const NewOrderBox = () => {
     updatedSamples[index][field] = value;
     setSamples(updatedSamples);
     const grandTotal = calculateGrandTotal(updatedSamples);
-    setGrandTotal(grandTotal); 
+    setGrandTotal(grandTotal);
   };
 
   const handleInputChangeInvoice = (index, field, value) => {
@@ -163,7 +205,7 @@ const NewOrderBox = () => {
     updatedSamples[index][field] = value;
     setSamples1(updatedSamples);
     const grandTotal1 = calculateGrandTotal(updatedSamples);
-    setGrandTotal1(grandTotal1); 
+    setGrandTotal1(grandTotal1);
   };
 
   console.log("order title", orderTitle)
@@ -175,7 +217,6 @@ const NewOrderBox = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleGenerateClick = async () => {
-    setDisabled(true);
     if (!isAmountChecked) {
       toast({
         variant: "error",
@@ -195,6 +236,7 @@ const NewOrderBox = () => {
         samples, orderIdDB, grandTotal
       };
       try {
+        setDisabled(true);
         const response = await fetch('/api/get-quotation', {
           method: 'POST',
           headers: {
@@ -213,7 +255,7 @@ const NewOrderBox = () => {
       } catch (error) {
         console.error('Request failed', error);
       }
-      finally{
+      finally {
         setDisabled(false);
       }
     }
@@ -272,6 +314,7 @@ const NewOrderBox = () => {
       };
 
       try {
+        setDisabled(true);
         const response = await fetch('/api/get-quotation-invoice', {
           method: 'POST',
           headers: {
@@ -289,6 +332,9 @@ const NewOrderBox = () => {
         }
       } catch (error) {
         console.error('Request failed', error);
+      }
+      finally{
+        setDisabled(false);
       }
       // setActivePopup('costEstimateConfirmation');
 
@@ -992,7 +1038,7 @@ const NewOrderBox = () => {
     })
   }
 
-  const handleConfirmPayment = async() => {
+  const handleConfirmPayment = async () => {
     setIsPopupVisible(false);
     // setOrderPopVisible(false);
     setDisabled(true);
@@ -1209,9 +1255,9 @@ const NewOrderBox = () => {
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("requestSheet.message")}</span>
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
-                    <a href={requestSheetLink.split("?")[0]} download="RequestSheet">
+                    <button onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)} disabled={disabled} className={`${disabled ? "opacity-75" : ""}`}>
                       <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
-                    </a>
+                    </button>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>{t("requestSheet.confirm")}</button>
                   </div>
                 </div>
@@ -1386,11 +1432,11 @@ const NewOrderBox = () => {
                     <label htmlFor="amount">{t("costEstimation.checkbox2")}</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
-                  {t("costEstimation.note")}
+                    {t("costEstimation.note")}
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("costEstimation.back")}</button>
-                    <button disabled={disabled} onClick={handleGenerateClick}  className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("costEstimation.generate")}</button>
+                    <button disabled={disabled} onClick={handleGenerateClick} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("costEstimation.generate")}</button>
                   </div>
                 </div>
               )}
@@ -1403,7 +1449,7 @@ const NewOrderBox = () => {
                       className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmCostEstimate}
                     >
-                     {t("costEstimationConfirm.button")}
+                      {t("costEstimationConfirm.button")}
                     </button>
                   </div>
                 </div>
@@ -1434,14 +1480,14 @@ const NewOrderBox = () => {
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("deletePopup.title")}</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("deletePopup.message")}<br></br>
-                    {t("deletePopup.message1")}<br></br>
-                    {t("deletePopup.message2")} <br></br>
-                    {t("deletePopup.message3")}</span>
+                      {t("deletePopup.message1")}<br></br>
+                      {t("deletePopup.message2")} <br></br>
+                      {t("deletePopup.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleDeleteOk}
                     >
-                     {t("deletePopup.button")}
+                      {t("deletePopup.button")}
                     </button>
                   </div>
                 </div>
@@ -1451,14 +1497,14 @@ const NewOrderBox = () => {
                   <div className='p-[24px] w-[298px] h-[330px] md:h-[436px] md:w-[564px] md:p-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='text-[22px] w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("confirmPopup.title")}</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333] text-[14px]'>{t("confirmPopup.message")}<br></br>
-                    {t("confirmPopup.message1")}<br></br>
-                    {t("confirmPopup.message2")} <br></br>
-                    {t("confirmPopup.message3")}</span>
+                      {t("confirmPopup.message1")}<br></br>
+                      {t("confirmPopup.message2")} <br></br>
+                      {t("confirmPopup.message3")}</span>
                     <button
                       className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
                       onClick={handleConfirmOk}
                     >
-                     {t("confirmPopup.button")}
+                      {t("confirmPopup.button")}
                     </button>
                   </div>
                 </div>
@@ -1473,7 +1519,7 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                        {t("qualityCheck.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("qualityCheck.drag1")}</span> {t("qualityCheck.drag2")}
+                          {t("qualityCheck.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("qualityCheck.drag1")}</span> {t("qualityCheck.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
@@ -1506,7 +1552,7 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                        {t("libraryPrep.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("libraryPrep.drag1")}</span> {t("libraryPrep.drag2")}
+                          {t("libraryPrep.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("libraryPrep.drag1")}</span> {t("libraryPrep.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
@@ -1559,7 +1605,7 @@ const NewOrderBox = () => {
                   <div className='w-full border-t-2 border-dashed border-gray-100 md:pb-4'></div>
                   <div className="md:flex md:flex-row flex flex-col  gap-[6px] md:gap-4">
                     <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm flex items-center md:pt-6">
-                    {t("analysisRawData.link")}
+                      {t("analysisRawData.link")}
                     </label>
                     <div className='group w-[332px] md:w-[527px] h-[35px] md:h-[46px] flex items-center justify-center md:pt-8'>
                       <div className={`w-[332px] md:w-[527px] rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
@@ -1590,7 +1636,7 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                        {t("analysisSpecification.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("analysisSpecification.drag1")}</span> {t("analysisSpecification.drag2")}
+                          {t("analysisSpecification.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("analysisSpecification.drag1")}</span> {t("analysisSpecification.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
@@ -1778,7 +1824,7 @@ const NewOrderBox = () => {
                     <label htmlFor="amount">{t("invoice.checkbox2")}</label>
                   </div>
                   <p className="text-[14px] font-normal mb-6">
-                  {t("invoice.note")}
+                    {t("invoice.note")}
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("invoice.back")}</button>
@@ -1824,7 +1870,7 @@ const NewOrderBox = () => {
                         <input {...getInputProps()} />
                         <Image src={folder1} alt="Upload Icon" className="mx-auto mb-2 md:mb-4 w-[51px] h-[51px]" />
                         <p className="text-[10px] md:text-sm font-normal">
-                        {t("payment.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("payment.drag1")}</span> {t("payment.drag2")}
+                          {t("payment.drag")} <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">{t("payment.drag1")}</span> {t("payment.drag2")}
                         </p>
                         {uploadedFile && (
                           <div className="mt-2">
@@ -1843,7 +1889,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full md:w-[490px] flex items-center justify-end gap-[12px] pt-[12px] md:pt-4'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("payment.back")}</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment } disabled={!uploadedFile || uploadStatus}>{t("payment.upload")}</button>
+                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmPayment} disabled={!uploadedFile || uploadStatus}>{t("payment.upload")}</button>
                   </div>
                 </div>
               )}
