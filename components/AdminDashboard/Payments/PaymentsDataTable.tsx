@@ -132,12 +132,13 @@ export const columns: ColumnDef<PaymentList>[] = [
     cell: ({ row }) => {
       const status = row.getValue('paymentStatus');
       const bgColor = status === 'isCompleted' ? '#5CE1E6' : '#FF914D';
+      const t = useTranslations("AdminDashboard");
       return (
         <div
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
           style={{ backgroundColor: bgColor }}
         >
-          {status === 'isCompleted' ? 'Completed' : 'Pending'}
+          {status === 'isCompleted' ? t("paymentList.receiptCompleted") : t("paymentList.receiptPending")}
         </div>
       );
     },
