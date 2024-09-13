@@ -6,14 +6,16 @@ import Image from 'next/image'
 import { FC, useEffect, useRef, useState } from 'react'
 
 const Messages= ({
-  initialMessages,
+  messages,
   userIdDB
-  // sessionId,
+  // userIdDB,
   // chatId,
   // chatPartner,
   // sessionImg,
 }) => {
   // const [messages, setMessages] = useState(initialMessages)
+  // console.log(messages)
+  // const messages= initialMessages;
 
   const scrollDownRef = useRef(null)
 
@@ -21,13 +23,24 @@ const Messages= ({
     return format(timestamp, 'HH:mm')
   }
 
+  // messages = messages.sort((a, b) => a.createdAt - b.createdAt)
+  if(messages)
+    messages = messages.sort((a, b) =>  new Date(b.createdAt) - new Date(a.createdAt));
+
+
+  useEffect(() => {
+    // messages = messages.sort((a, b) => b.createdAt - a.createdAt);
+    scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+  
+
   return (
     <div
       id='messages'
       className='flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'>
       <div ref={scrollDownRef} />
 
-      {initialMessages&&initialMessages.map((message, index) => {
+      {messages && messages.map((message, index) => {
         const isCurrentUser = message.senderId === userIdDB
 
         const hasNextMessageFromSameUser =
@@ -36,7 +49,7 @@ const Messages= ({
         return (
           <div
             className='chat-message'
-            key={`${message.id}-${message.timestamp}`}>
+            key={`${message._id}-${message.createdAt}`}>
             <div
               className={cn('flex items-end', {
                 'justify-end': isCurrentUser,
@@ -60,8 +73,7 @@ const Messages= ({
                   })}>
                   {message.text}{' '}
                   <span className='ml-2 text-xs text-gray-400'>
-                    {/* {formatTimestamp(message.timestamp)} */}
-                    {message.timestamp}
+                    {formatTimestamp(message.createdAt)}
                   </span>
                 </span>
               </div>

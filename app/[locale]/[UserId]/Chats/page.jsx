@@ -86,7 +86,7 @@ const Chats = () => {
     // Listen for incoming messages
     socket.on("chat message", (message) => {
       console.log(message)
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prevMessages) => [...prevMessages, message.message]);
     });
 
     socket.on("connect", onConnect);
@@ -108,7 +108,7 @@ const Chats = () => {
       console.log(getCurrentTimestamp())
       socket.emit("chat message", {
         id: generateRandomId(),
-        senderId: "user1",
+        senderId: userIdDB,
         text: message,
         createdAt: getCurrentTimestamp(),
       }); // Emit message to server
@@ -182,7 +182,7 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <Messages initialMessages={messages} userIdDB={userIdDB}/>
+            <Messages messages={messages} userIdDB={userIdDB}/>
           </div>
 
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
