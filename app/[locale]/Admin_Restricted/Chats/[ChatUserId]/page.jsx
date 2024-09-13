@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Logo from "@/public/Images/Home/logo.png"
-import Messages from "@/components/UserDashboard/Chats/Messages";
+import Messages from "@/components/AdminDashboard/Chats/Messages";
 
 const Chats = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -24,6 +24,13 @@ const Chats = () => {
   };
 
   const router = useRouter();
+
+  const getCurrentTimestamp = () => {
+    const isoString = new Date().toISOString();
+      
+      // Replace the 'Z' at the end of the ISO string with '+00:00'
+      return isoString.replace('Z', '+00:00');
+    };
 
   useEffect(() => {
     // const chatArray = createChatArray("user1", "user2", 10);
@@ -96,7 +103,7 @@ const Chats = () => {
     //     id: generateRandomId(),
     //     senderId: "user1",
     //     text: message,
-    //     timestamp: Date.now(),
+    //     timestamp: getCurrentTimestamp(),
     //   }); // Emit message to server
     //   setMessage(""); // Clear the input field after sending
     // }
@@ -107,7 +114,7 @@ const Chats = () => {
           id: generateRandomId(),
           senderId: userIdDB,
           text: message,
-          createdAt: new Date().toISOString()
+          createdAt: getCurrentTimestamp()
         }});
 
         setMessage(""); // Clear the input field after sending

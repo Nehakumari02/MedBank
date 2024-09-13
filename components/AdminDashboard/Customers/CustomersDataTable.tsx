@@ -92,6 +92,9 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")||"N/A"}</div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "school",
@@ -102,6 +105,9 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")||"N/A"}</div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "Username",
@@ -112,6 +118,9 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")||"N/A"}</div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "country",
@@ -122,6 +131,9 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("country")||"N/A"}</div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
   {
     accessorKey: "city",
@@ -134,6 +146,9 @@ export const columns: ColumnDef<UserList>[] = [
         {row.getValue("city")||"N/A"}
       </div>
     ),
+    width: "140px",
+    minWidth: "140px",
+    maxWidth: "140px",
   },
 ];
 interface OrdersDataTableProps {
@@ -221,13 +236,24 @@ export const CustomersDataTable: React.FC<OrdersDataTableProps> = ({ data=[], to
           </DropdownMenuContent>
         </DropdownMenu> */}
       </div>
-        <Table className="">
+      <Table className="">
           <TableHeader className="sticky">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
+                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
+                    width?: string | number;
+                    minWidth?: string | number;
+                    maxWidth?: string | number;
+                  };
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id}
+                    className="text-center"
+                      style={{ width: columnDef.width,
+                        flexGrow: 0,
+                        minWidth: columnDef.minWidth,
+                        maxWidth: columnDef.maxWidth }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -240,50 +266,55 @@ export const CustomersDataTable: React.FC<OrdersDataTableProps> = ({ data=[], to
               </TableRow>
             ))}
           </TableHeader>
-          {data.length!==0?
-            (<TableBody className="">
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    className="border-none"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No results.
-                  </TableCell>
+          <TableBody className="">
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="border-none"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} 
+                    className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
+                    style={{
+                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).width,
+                          flexGrow: 0,
+                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).minWidth,
+                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
+                            width?: string | number;
+                            minWidth?: string | number;
+                            maxWidth?: string | number;
+                          }).maxWidth,
+                        }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
                 </TableRow>
-              )}
-            </TableBody>):
-            (
-              <TableBody className="">
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No results.
-                  </TableCell>
-                </TableRow>
-            </TableBody>
-            )
-          }
-            
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
         </Table>
       </div>
       <div className="flex items-center justify-start space-x-2 py-4">

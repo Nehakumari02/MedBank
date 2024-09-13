@@ -24,6 +24,15 @@ const Chats = () => {
 
   const router = useRouter();
 
+  const getCurrentTimestamp = () => {
+      // Create a new Date object and get the ISO string
+      const isoString = new Date().toISOString();
+      
+      // // Replace the 'Z' at the end of the ISO string with '+00:00'
+      // return isoString.replace('Z', '+00:00');
+      return isoString;
+    };
+
   useEffect(() => {
     // const chatArray = createChatArray("user1", "user2", 10);
     // setMessages(chatArray);
@@ -32,6 +41,7 @@ const Chats = () => {
 
     const fetchMessages = async ()=>{
       try{
+        console.log(getCurrentTimestamp())
         const response = await fetch('/api/fetchMessages', {
           method: 'POST',
           headers: {
@@ -56,37 +66,37 @@ const Chats = () => {
 
     
 
-    // function onConnect(chatIdd) {
-    //   setIsConnected(true);
-    //   console.log(chatIdd)
-    //   setTransport(socket.io.engine.transport.name);
+    function onConnect(chatIdd) {
+      setIsConnected(true);
+      console.log(chatIdd)
+      setTransport(socket.io.engine.transport.name);
 
-    //   socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
+      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
 
-    //   socket.io.engine.on("upgrade", (transport) => {
-    //     setTransport(transport.name);
-    //   });
-    // }
+      socket.io.engine.on("upgrade", (transport) => {
+        setTransport(transport.name);
+      });
+    }
 
-    // function onDisconnect() {
-    //   setIsConnected(false);
-    //   setTransport("N/A");
-    // }
+    function onDisconnect() {
+      setIsConnected(false);
+      setTransport("N/A");
+    }
 
-    // // Listen for incoming messages
-    // socket.on("chat message", (message) => {
-    //   console.log(message)
-    //   setMessages((prevMessages) => [...prevMessages, message]);
-    // });
+    // Listen for incoming messages
+    socket.on("chat message", (message) => {
+      console.log(message)
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
 
-    // socket.on("connect", onConnect);
-    // socket.on("disconnect", onDisconnect);
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
 
-    // return () => {
-    //   socket.off("connect", onConnect);
-    //   socket.off("disconnect", onDisconnect);
-    //   socket.off("chat message"); // Clean up listener on component unmount
-    // };
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("chat message"); // Clean up listener on component unmount
+    };
   }, []);
 
   const handleChange = (event) => {
@@ -94,24 +104,25 @@ const Chats = () => {
   };
 
   const handleSendMessage = async() => {
-    // if (message.trim()) {
-    //   socket.emit("chat message", {
-    //     id: generateRandomId(),
-    //     senderId: "user1",
-    //     text: message,
-    //     timestamp: Date.now(),
-    //   }); // Emit message to server
-    //   setMessage(""); // Clear the input field after sending
-    // }
+    if (message.trim()) {
+      console.log(getCurrentTimestamp())
+      socket.emit("chat message", {
+        id: generateRandomId(),
+        senderId: "user1",
+        text: message,
+        createdAt: getCurrentTimestamp(),
+      }); // Emit message to server
+      setMessage(""); // Clear the input field after sending
+    }
 
     if (message.trim()) {
       try {
-        // socket.emit("chat message", {conversationId:chatId,message:{
-        //   id: generateRandomId(),
-        //   senderId: userIdDB,
-        //   text: message,
-        //   createdAt: new Date().toISOString()
-        // }});
+        socket.emit("chat message", {conversationId:chatId,message:{
+          id: generateRandomId(),
+          senderId: userIdDB,
+          text: message,
+          createdAt: new Date().toISOString()
+        }});
 
         setMessage(""); // Clear the input field after sending
         const response = await fetch('/api/sendMessage', {
@@ -171,7 +182,7 @@ const Chats = () => {
         </div>
         <div className="flex-grow flex flex-col px-[70px]">
           <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
-            <Messages messages={messages} userIdDB={userIdDB}/>
+            <Messages initialMessages={messages} userIdDB={userIdDB}/>
           </div>
 
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
