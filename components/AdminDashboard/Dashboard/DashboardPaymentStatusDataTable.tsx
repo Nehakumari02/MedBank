@@ -39,6 +39,7 @@ import {
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { stat } from "fs"
 
 export type PaymentList = {
   _id: string
@@ -156,13 +157,13 @@ export const columns: ColumnDef<PaymentList>[] = [
     },
     cell: ({ row }) => {
       const status = row.getValue('paymentStatus');
-      const bgColor = status === 'isPending' ? '#FF914D' : '#5CE1E6';
+      const bgColor = status === 'isCompleted' ? '#5CE1E6' : '#FF914D';
       return (
         <div
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
           style={{ backgroundColor: bgColor }}
         >
-          {status === 'isPending' ? 'Pending' : 'Completed'}
+          {status === 'isCompleted' ? 'Completed' : 'Pending'}
         </div>
       );
     },
