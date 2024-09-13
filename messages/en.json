@@ -726,6 +726,8 @@
         "orderList":{
             "title":"Order List",
             "orderId":"OrderId",
+            "school":"Affiliation Institute",
+            "username":"Username",
             "orderTitle":"Order Title",
             "requestSheet":"Request Sheet",
             "costEstimate":"Cost Estimate",
