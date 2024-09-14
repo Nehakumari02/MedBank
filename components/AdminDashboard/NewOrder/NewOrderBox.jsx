@@ -1397,7 +1397,7 @@ const NewOrderBox = () => {
                 </div>
               )}
               {activePopup === 'costEstimate' && (
-                <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] md:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
+                <div className="bg-white rounded-md shadow-lg md:py-[26px] md:px-[12px] w-[90vw] lg:w-[1199px] mx-5 px-4 md:mx-auto my-10 font-DM-Sans md:min-h-[576px]">
                   <h2 className="text-[18px] md:text-[22px] font-medium text-center mb-4 md:mb-6">{t("costEstimation.title")}</h2>
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
@@ -1411,7 +1411,7 @@ const NewOrderBox = () => {
                           <th className="py-2">{t("costEstimation.qfees")}</th>
                           <th className="py-2">{t("costEstimation.lfees")}</th>
                           <th className="py-2">{t("costEstimation.afees")}</th>
-                          <th className="py-2">{t("costEstimation.tax")}</th>
+                          <th className="py-2">{t("costEstimation.tax")}<span className='w-[40px] text-white'>.......</span></th>
                           <th className="py-2">{t("costEstimation.others")}</th>
                           <th className="py-2">{t("costEstimation.total")}</th>
                         </tr>
@@ -1481,7 +1481,7 @@ const NewOrderBox = () => {
                             </td>
                             <td className="md:w-[156px] py-[12px]">
                               <div className='flex gap-[2px]'>
-                                <div className="md:w-[108px] flex-shrink-0 group">
+                                <div className="w-[108px] flex-shrink-0 group">
                                   <input
                                     type="text"
                                     className="border rounded-md w-full p-2"
@@ -1501,7 +1501,7 @@ const NewOrderBox = () => {
                                 </div>
                               </div>
                             </td>
-                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                            <td className="md:w-[108px] py-[12px] md:pr-[20px]">
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
@@ -1510,7 +1510,7 @@ const NewOrderBox = () => {
                                 placeholder=""
                               />
                             </td>
-                            <td className="md:w-[108px] py-[12px] pr-[20px]">
+                            <td className="md:w-[108px] py-[12px] md:pr-[20px]">
                               <input
                                 type="text"
                                 className="border rounded-md w-full p-2 bg-[#33333314]"
