@@ -109,7 +109,7 @@ const Settings = () => {
           {t("personalInfo.personalInfo")}
           </div>
           <div className='px-[24px] py-[12px] md:py-[29px] w-full flex flex-col gap-[6px] md:gap-[16px]'>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.userName")}
               </label>
@@ -126,7 +126,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.name")}
               </label>
@@ -144,7 +144,7 @@ const Settings = () => {
               </div>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.school")}
               </label>
@@ -161,7 +161,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.faculty")}
               </label>
@@ -178,7 +178,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.field")}
               </label>
@@ -195,7 +195,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.others")}
               </label>
@@ -212,7 +212,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("personalInfo.invoice")}
               </label>
@@ -232,12 +232,12 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className='flex flex-col md:w-1/2'>
+        <div className='flex flex-col md:w-1/2 mb-2 md:mb-0'>
           <div className='px-[24px] md:py-[15px] w-full md:border-b-[1px] font-DM-Sans text-[14px] md:text-base font-normal leading-[28px] md:leading-6'>
           {t("contactInfo.contactInfo")}
           </div>
           <div className='px-[24px] py-[12px] md:py-[29px] w-full flex flex-col gap-[6px] md:gap-[16px]'>
-            <div className='flex gap-[21px]'>
+            <div className='flex gap-[21px] '>
               <div className="flex flex-col w-[82px] h-[46px]">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                 {t("contactInfo.country")}
@@ -248,7 +248,7 @@ const Settings = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-full">
+              <div className="flex flex-col w-full mb-2 md:mb-0">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                 {t("contactInfo.phone")}
                 </label>
@@ -266,7 +266,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-3 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("contactInfo.email")}
               </label>
@@ -283,8 +283,8 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-
-            <div className="flex flex-col">
+ 
+            <div className="flex flex-col mb-3 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("contactInfo.confirmEmail")}
               </label>
@@ -301,7 +301,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className='flex gap-[21px]'>
+            <div className='flex gap-[21px] mb-2 md:mb-0'>
               <div className="flex flex-col w-[82px] h-[46px]">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                 {t("contactInfo.country")}
@@ -313,7 +313,7 @@ const Settings = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-full">
+              <div className="flex flex-col w-full mb-2 md:mb-0">
                 <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                 {t("contactInfo.postalCode")}
                 </label>
@@ -331,7 +331,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("contactInfo.perfecture")}
               </label>
@@ -349,7 +349,7 @@ const Settings = () => {
               </div>
             </div>
            
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-2 md:mb-0">
               <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
               {t("contactInfo.city")}
               </label>

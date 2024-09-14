@@ -25,6 +25,7 @@ const OrderCreationPage = () => {
   const router = useRouter();
   const orderIdDB = usePathname().split("/")[3];
   const t = useTranslations("UserDashboard");
+  let userIdDB = usePathname().split('/')[2];
 
   const handleDelete = () => {
     setUploadedFile(null); // Remove the file from state
@@ -50,25 +51,33 @@ const OrderCreationPage = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = async() =>{toast
-    setDisabled(true);
-    if(orderTitle==""){
+  const handleSubmit = async () => {
+   
+  
+    // Check if title is empty
+    if (orderTitle === "") {
       toast({
-        variant:"error",
-        title:"Error",
-        description:"Title cannot be empty..."
-      })
+        variant: "error",
+        title: "Error",
+        description: "Title cannot be empty...",
+      });
+      setDisabled(false); // Re-enable button
       return;
     }
-    if(!uploadedFile){
+  
+    // Check if file is uploaded
+    if (!uploadedFile) {
       toast({
-        variant:"error",
-        title:"Error",
-        description:"Please upload a file..."
-      })
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file...",
+      });
+      setDisabled(false); // Re-enable button
       return;
     }
+  
     try {
+      setDisabled(true);
       const { name: fileName, type: fileType } = uploadedFile;
   
       // Call the API to get the signed URL
@@ -81,68 +90,83 @@ const OrderCreationPage = () => {
       });
   
       const { url } = await response.json();
-      console.log(url)
-      console.log("upload url",url.url)
-      setRequestSheetLink(url.split("?")[0]);
+      console.log("Upload URL:", url);
   
       // Upload the file directly to S3 using the signed URL
-      const res=await fetch(url, {
+      const res = await fetch(url, {
         method: 'PUT',
         body: uploadedFile,
         headers: {
           'Content-Type': fileType,
         },
       });
-      console.log("file upload status",res.status)
-      console.log("file upload url ",res.url)
-      console.log(res)
-
-      if(res.status!==200){
+  
+      if (res.status !== 200) {
         toast({
           variant: "error",
           title: "Upload Error",
           description: "Try uploading file again...",
         });
+        setDisabled(false);
         return;
       }
-
-      setRequestSheetLink(res.url.split("?")[0]);
   
+      const fileUrl = url.split("?")[0]; // Extract file URL
+      setRequestSheetLink(fileUrl);
       setRequestSheetStatus("isUserCompleted");
-      const fileUrl = res.url.split("?")[0];
-      console.log(fileUrl)
-
+  
+      // Prepare order data
       const orderData = {
         orderTitle,
-        requestSheetStatus:"isUserCompleted",
+        requestSheetStatus: "isUserCompleted",
         requestSheetLink: fileUrl,
       };
-
-      console.log(orderIdDB)
+  
+      // Save order update to the server
       const saveApiResponse = await fetch('/api/updateOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ order:orderData,orderIdDB:orderIdDB }),
+        body: JSON.stringify({ order: orderData, orderIdDB }),
       });
-
-      console.log(saveApiResponse)
-
-      if(saveApiResponse.status!==200){
+  
+      if (saveApiResponse.status !== 200) {
         toast({
           variant: "error",
           title: "Updation Error",
           description: "Failed to submit order, please try again...",
         });
+        setDisabled(false);
         return;
       }
   
+      // Call the API to send a message after successful order update
+      const sendMessageResponse = await fetch('/api/sendMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          senderId: userIdDB, // Replace with actual sender ID
+          conversationId: "66e055de6ddc7825fbd8a103", // Replace with actual conversation ID
+          message:  t("chatMessage.requestSheet"), // Adjust your message as needed
+        }),
+      });
+  
+      if (sendMessageResponse.ok) {
+        console.log('Message sent successfully');
+      } else {
+        console.error('Error sending message');
+      }
+  
+      // Display success toast
       toast({
         variant: "success",
         title: "Upload Successful",
         description: "Your file has been uploaded to S3.",
       });
+  
     } catch (err) {
       toast({
         variant: "error",
@@ -150,12 +174,12 @@ const OrderCreationPage = () => {
         description: "There was an error uploading your file.",
       });
       console.error("Error uploading file:", err);
-    } finally{
+    } finally {
       setDisabled(false);
     }
-
+  
     router.back();
-  }
+  };
   
 
   return (

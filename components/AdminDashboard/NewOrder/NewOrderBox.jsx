@@ -273,25 +273,51 @@ const NewOrderBox = () => {
     setActivePopup('confirmPopUp');
   }
 
-  const handleDeleteOk = () => {
-    setOrderPopVisible(false);
-    setSampleShippingStatus("isAdminCompleted")
-    updateDataInDB({
-      sampleShippingStatus: "isAdminCompleted",
-      sampleShipping: "notOk"
-    })
+  const handleDeleteOk = async () => {
+    try {
+      const res = await fetch('/api/sendUpdateInChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.sampleDefect")
+        }),
+      });
+      setOrderPopVisible(false);
+      setSampleShippingStatus("isAdminCompleted")
+      updateDataInDB({
+        sampleShippingStatus: "isAdminCompleted",
+        sampleShipping: "notOk"
+      })
+    }
+    catch {
+
+    }
 
   };
-  const handleConfirmOk = () => {
-    setOrderPopVisible(false);
-    setOrderPopVisible(false);
-    setSampleShippingStatus("isAdminCompleted")
-    updateDataInDB({
-      sampleShippingStatus: "isAdminCompleted",
-      sampleShipping: "ok"
-    })
-
+  const handleConfirmOk = async () => {
+    try {
+      const res = await fetch('/api/sendUpdateInChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.sampleGood")
+        }),
+      });
+      setOrderPopVisible(false);
+      setOrderPopVisible(false);
+      setSampleShippingStatus("isAdminCompleted")
+      updateDataInDB({
+        sampleShippingStatus: "isAdminCompleted",
+        sampleShipping: "ok"
+      })
+    }
+    catch { }
   };
+
   const handleClick1 = async () => {
     if (!isInvoiceChecked1) {
       // Show toast if checkbox is not checked
@@ -334,7 +360,7 @@ const NewOrderBox = () => {
       } catch (error) {
         console.error('Request failed', error);
       }
-      finally{
+      finally {
         setDisabled(false);
       }
       // setActivePopup('costEstimateConfirmation');
@@ -422,34 +448,76 @@ const NewOrderBox = () => {
     setActivePopup('payment');
   };
 
-  const handleConfirmRequestSheet = () => {
-    setOrderPopVisible(false);
-    setRequestSheetStatus("isCompleted");
-    setCostEstimateStatus("inAdminProgress");
-    updateDataInDB({
-      requestSheetStatus: "isCompleted",
-      costEstimateStatus: "inAdminProgress"
-    })
+  const handleConfirmRequestSheet = async () => {
+    try {
+      const res = await fetch('/api/sendUpdateInChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.requestSheet")
+        }),
+      });
+      setOrderPopVisible(false);
+      setRequestSheetStatus("isCompleted");
+      setCostEstimateStatus("inAdminProgress");
+      updateDataInDB({
+        requestSheetStatus: "isCompleted",
+        costEstimateStatus: "inAdminProgress"
+      })
+    }
+    catch {
+
+    }
   }
 
-  const handleConfirmCostEstimate = () => {
-    setOrderPopVisible(false);
-    setIsPopupVisible(false);
-    setCostEstimateStatus("isAdminCompleted");
-    updateDataInDB({
-      costEstimateStatus: "isAdminCompleted"
-    })
+  const handleConfirmCostEstimate = async () => {
+    try {
+      const res = await fetch('/api/sendUpdateInChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.costEstimate")
+        }),
+      });
+      setOrderPopVisible(false);
+      setIsPopupVisible(false);
+      setCostEstimateStatus("isAdminCompleted");
+      updateDataInDB({
+        costEstimateStatus: "isAdminCompleted"
+      })
+    }
+    catch {
+
+    }
   }
 
-  const handleConfirmFormalRequest = () => {
-    setFormalRequestStatus("isCompleted")
-    setSampleShippingStatus("inUserProgress")
-    setOrderPopVisible(false);
-    setActivePopup('sampleShipping');
-    updateDataInDB({
-      formalRequestStatus: "isCompleted",
-      sampleShippingStatus: "inUserProgress"
-    })
+  const handleConfirmFormalRequest = async () => {
+    try {
+      const res = await fetch('/api/sendUpdateInChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.formalRequest")
+        }),
+      });
+      setFormalRequestStatus("isCompleted")
+      setSampleShippingStatus("inUserProgress")
+      setOrderPopVisible(false);
+      setActivePopup('sampleShipping');
+      updateDataInDB({
+        formalRequestStatus: "isCompleted",
+        sampleShippingStatus: "inUserProgress"
+      })
+    }
+    catch {
+
+    }
   }
 
   const handleConfirmSampleShipping = () => {
@@ -575,13 +643,13 @@ const NewOrderBox = () => {
     setIsPopupVisible(false);
     // setOrderPopVisible(false);
     setDisabled(true);
-    setUploadStatus(true)
+    setUploadStatus(true);
 
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
-        description: "Please upload a file..."
+        description: "Please upload a file...",
       });
       return;
     }
@@ -599,8 +667,8 @@ const NewOrderBox = () => {
       });
 
       const { url } = await response.json();
-      console.log(url);
-      console.log("upload url", url.url);
+      console.log("upload url", url);
+
       setQualityCheckReportLink(url.split("?")[0]);
 
       // Upload the file directly to S3 using XMLHttpRequest
@@ -617,13 +685,12 @@ const NewOrderBox = () => {
       };
 
       // Handle upload complete
-      uploadRequest.onload = () => {
+      uploadRequest.onload = async () => {
         if (uploadRequest.status === 200) {
           setQualityCheckReportLink(url.split("?")[0]);
 
           setQualityCheckStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
-          console.log(fileUrl);
 
           const orderData = {
             orderTitle,
@@ -631,20 +698,39 @@ const NewOrderBox = () => {
             qualityCheckReportLink: fileUrl,
           };
 
-          // Save order data
-          fetch('/api/updateOrder', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ order: orderData, orderIdDB }),
-          }).then(saveApiResponse => {
+          try {
+            // Save order data
+            const saveApiResponse = await fetch('/api/updateOrder', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ order: orderData, orderIdDB }),
+            });
+
             if (saveApiResponse.status === 200) {
               toast({
                 variant: "success",
                 title: "Upload Successful",
                 description: "Your file has been uploaded to S3.",
               });
+
+              // Send update in chat
+              const res = await fetch('/api/sendUpdateInChat', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  userId: userIdDB, message: t("chatMessage.qualityCheck")
+                }),
+              });
+
+              if (res.ok) {
+                console.log("Chat message sent successfully");
+              } else {
+                console.error("Failed to send chat message");
+              }
             } else {
               toast({
                 variant: "error",
@@ -652,18 +738,17 @@ const NewOrderBox = () => {
                 description: "Failed to submit order, please try again...",
               });
             }
-          }).catch(err => {
+          } catch (err) {
             toast({
               variant: "error",
               title: "Updation Error",
               description: "Failed to submit order, please try again...",
             });
             console.error("Error updating order:", err);
-          }).finally(
-            setOrderPopVisible(false),
-            setUploadStatus(false)
-          )
-
+          } finally {
+            setOrderPopVisible(false);
+            setUploadStatus(false);
+          }
         } else {
           toast({
             variant: "error",
@@ -698,17 +783,17 @@ const NewOrderBox = () => {
     }
   };
 
+
   const handleLibraryPrepConfirmation = async () => {
     setIsPopupVisible(false);
-    // setOrderPopVisible(false);
     setDisabled(true);
-    setUploadStatus(true)
+    setUploadStatus(true);
 
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
-        description: "Please upload a file..."
+        description: "Please upload a file...",
       });
       return;
     }
@@ -717,23 +802,26 @@ const NewOrderBox = () => {
       const { name: fileName, type: fileType } = uploadedFile;
 
       // Call the API to get the signed URL
-      const response = await fetch('/api/fileUpload', {
-        method: 'POST',
+      const response = await fetch("/api/fileUpload", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ fileName, fileType }),
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to get upload URL");
+      }
+
       const { url } = await response.json();
-      console.log(url);
-      console.log("upload url", url.url);
-      setLibraryCheckReportLink(url.split("?")[0]);
+      const fileUrl = url.split("?")[0];
+      setLibraryCheckReportLink(fileUrl);
 
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
-      uploadRequest.open('PUT', url, true);
-      uploadRequest.setRequestHeader('Content-Type', fileType);
+      uploadRequest.open("PUT", url, true);
+      uploadRequest.setRequestHeader("Content-Type", fileType);
 
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
@@ -743,14 +831,10 @@ const NewOrderBox = () => {
         }
       };
 
-      // Handle upload complete
-      uploadRequest.onload = () => {
+      // Handle upload completion
+      uploadRequest.onload = async () => {
         if (uploadRequest.status === 200) {
-          setLibraryCheckReportLink(url.split("?")[0]);
-
           setLibraryPrepStatus("isAdminCompleted");
-          const fileUrl = url.split("?")[0];
-          console.log(fileUrl);
 
           const orderData = {
             orderTitle,
@@ -759,43 +843,48 @@ const NewOrderBox = () => {
           };
 
           // Save order data
-          fetch('/api/updateOrder', {
-            method: 'POST',
+          const saveApiResponse = await fetch("/api/updateOrder", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
-          }).then(saveApiResponse => {
-            if (saveApiResponse.status === 200) {
-              toast({
-                variant: "success",
-                title: "Upload Successful",
-                description: "Your file has been uploaded to S3.",
-              });
-            } else {
-              toast({
-                variant: "error",
-                title: "Updation Error",
-                description: "Failed to submit order, please try again...",
-              });
+          });
+
+          if (saveApiResponse.ok) {
+            toast({
+              variant: "success",
+              title: "Upload Successful",
+              description: "Your file has been uploaded to S3.",
+            });
+
+            // Send update in chat
+            const chatResponse = await fetch("/api/sendUpdateInChat", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: userIdDB,
+                message: t("chatMessage.libraryPrep"),
+              }),
+            });
+
+            if (!chatResponse.ok) {
+              throw new Error("Failed to send update in chat");
             }
-          }).catch(err => {
+          } else {
             toast({
               variant: "error",
               title: "Updation Error",
               description: "Failed to submit order, please try again...",
             });
-            console.error("Error updating order:", err);
-          }).finally(
-            setOrderPopVisible(false),
-            setUploadStatus(false)
-          )
-
+          }
         } else {
           toast({
             variant: "error",
             title: "Upload Error",
-            description: "Try uploading file again...",
+            description: "Try uploading the file again...",
           });
         }
       };
@@ -811,7 +900,6 @@ const NewOrderBox = () => {
       };
 
       uploadRequest.send(uploadedFile);
-
     } catch (err) {
       toast({
         variant: "error",
@@ -821,9 +909,12 @@ const NewOrderBox = () => {
       console.error("Error uploading file:", err);
     } finally {
       setDisabled(false);
+      setUploadStatus(false);
       setUploadPercentage(0); // Optionally reset upload percentage
+      setOrderPopVisible(false);
     }
   };
+
 
   const handleAnalysisDoneConfirmation = async () => {
     console.log(sampleShippingStatus)
@@ -881,7 +972,7 @@ const NewOrderBox = () => {
 
   }
 
-  const handleAnalysisRawDataConfirm = () => {
+  const handleAnalysisRawDataConfirm = async () => {
     if (!rawDataLink) {
       toast({
         variant: "error",
@@ -891,30 +982,44 @@ const NewOrderBox = () => {
       return;
     }
     else {
-      setOrderPopVisible(false);
-      setActivePopup('');
-      setAnalysisRawDataStatus("isAdminCompleted")
-      setRawDataLink(rawDataLink)
-      updateDataInDB({
-        analysisRawDataStatus: "isAdminCompleted",
-        rawDataLink: rawDataLink
-      })
-    }
+      try {
+        const res = await fetch('/api/sendUpdateInChat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userIdDB, message: t("chatMessage.rawData")
+          }),
+        });
+        setOrderPopVisible(false);
+        setActivePopup('');
+        setAnalysisRawDataStatus("isAdminCompleted")
+        setRawDataLink(rawDataLink)
+        updateDataInDB({
+          analysisRawDataStatus: "isAdminCompleted",
+          rawDataLink: rawDataLink
+        })
+      }
+      catch {
 
+      }
+    }
   }
 
   const handleAnalysisSpecification = async () => {
     setIsPopupVisible(false);
-    // setOrderPopVisible(false);
     setDisabled(true);
-    setUploadStatus(true)
+    setUploadStatus(true);
 
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
-        description: "Please upload a file..."
+        description: "Please upload a file...",
       });
+      setDisabled(false);  // Reset button state on error
+      setUploadStatus(false); // Reset upload status
       return;
     }
 
@@ -922,25 +1027,28 @@ const NewOrderBox = () => {
       const { name: fileName, type: fileType } = uploadedFile;
 
       // Call the API to get the signed URL
-      const response = await fetch('/api/fileUpload', {
-        method: 'POST',
+      const response = await fetch("/api/fileUpload", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ fileName, fileType }),
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to get signed URL");
+      }
+
       const { url } = await response.json();
-      console.log(url);
-      console.log("upload url", url.url);
-      setAnalysisSpecificationReportLink(url.split("?")[0]);
+      const fileUrl = url.split("?")[0];
+      setAnalysisSpecificationReportLink(fileUrl);
 
-      // Upload the file directly to S3 using XMLHttpRequest
+      // Upload the file to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
-      uploadRequest.open('PUT', url, true);
-      uploadRequest.setRequestHeader('Content-Type', fileType);
+      uploadRequest.open("PUT", url, true);
+      uploadRequest.setRequestHeader("Content-Type", fileType);
 
-      // Update progress
+      // Update upload progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
           const percentComplete = Math.round((event.loaded / event.total) * 100);
@@ -948,14 +1056,10 @@ const NewOrderBox = () => {
         }
       };
 
-      // Handle upload complete
-      uploadRequest.onload = () => {
+      // Handle upload completion
+      uploadRequest.onload = async () => {
         if (uploadRequest.status === 200) {
-          setAnalysisSpecificationReportLink(url.split("?")[0]);
-
           setAnalysisSpecificationStatus("isAdminCompleted");
-          const fileUrl = url.split("?")[0];
-          console.log(fileUrl);
 
           const orderData = {
             orderTitle,
@@ -964,44 +1068,43 @@ const NewOrderBox = () => {
           };
 
           // Save order data
-          fetch('/api/updateOrder', {
-            method: 'POST',
+          const saveApiResponse = await fetch("/api/updateOrder", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
-          }).then(saveApiResponse => {
-            if (saveApiResponse.status === 200) {
-              toast({
-                variant: "success",
-                title: "Upload Successful",
-                description: "Your file has been uploaded to S3.",
-              });
-            } else {
-              toast({
-                variant: "error",
-                title: "Updation Error",
-                description: "Failed to submit order, please try again...",
-              });
-            }
-          }).catch(err => {
-            toast({
-              variant: "error",
-              title: "Updation Error",
-              description: "Failed to submit order, please try again...",
-            });
-            console.error("Error updating order:", err);
-          }).finally(
-            setOrderPopVisible(false),
-            setUploadStatus(false)
-          )
-
-        } else {
-          toast({
-            variant: "error",
-            title: "Upload Error",
-            description: "Try uploading file again...",
           });
+
+          if (saveApiResponse.ok) {
+            toast({
+              variant: "success",
+              title: "Upload Successful",
+              description: "Your file has been uploaded to S3.",
+            });
+
+            // Send a chat message update
+            const res = await fetch("/api/sendUpdateInChat", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: userIdDB,
+                message: t("chatMessage.analysisSpecification"),
+              }),
+            });
+
+            if (res.ok) {
+              console.log("Chat message sent successfully");
+            } else {
+              console.error("Failed to send chat message");
+            }
+          } else {
+            throw new Error("Failed to update order");
+          }
+        } else {
+          throw new Error("Failed to upload file");
         }
       };
 
@@ -1015,67 +1118,91 @@ const NewOrderBox = () => {
         console.error("Error uploading file:", uploadRequest.statusText);
       };
 
+      // Send the file to S3
       uploadRequest.send(uploadedFile);
 
     } catch (err) {
       toast({
         variant: "error",
         title: "Upload Failed",
-        description: "There was an error uploading your file.",
+        description: err.message || "There was an error uploading your file.",
       });
-      console.error("Error uploading file:", err);
+      console.error("Error:", err);
+
     } finally {
-      setDisabled(false);
+      setDisabled(false); // Re-enable the button after completion
+      setUploadStatus(false); // Reset upload status
       setUploadPercentage(0); // Optionally reset upload percentage
+      setOrderPopVisible(false); // Ensure popup is closed
     }
   };
 
-  const handleInvoice = () => {
-    setOrderPopVisible(false);
-    //setActivePopup('');
-    setInvoiceStatus("isAdminCompleted")
-    updateDataInDB({
-      invoiceStatus: "isAdminCompleted"
-    })
-  }
-
-  const handleConfirmPayment = async () => {
-    setIsPopupVisible(false);
-    // setOrderPopVisible(false);
-    setDisabled(true);
-    setUploadStatus(true)
-
-    if (!uploadedFile) {
-      toast({
-        variant: "error",
-        title: "Error",
-        description: "Please upload a file..."
-      });
-      return;
-    }
-
+  const handleInvoice = async () => {
     try {
-      const { name: fileName, type: fileType } = uploadedFile;
-
-      // Call the API to get the signed URL
-      const response = await fetch('/api/fileUpload', {
+      const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          userId: userIdDB, message: t("chatMessage.invoice")
+        }),
+      });
+      setOrderPopVisible(false);
+      //setActivePopup('');
+      setInvoiceStatus("isAdminCompleted")
+      updateDataInDB({
+        invoiceStatus: "isAdminCompleted"
+      })
+    }
+    catch {
+
+    }
+  }
+
+  const handleConfirmPayment = async () => {
+    setIsPopupVisible(false);
+    // setOrderPopVisible(false); // Uncomment if needed
+    setDisabled(true);
+    setUploadStatus(true);
+  
+    if (!uploadedFile) {
+      toast({
+        variant: "error",
+        title: "Error",
+        description: "Please upload a file...",
+      });
+      setDisabled(false);
+      setUploadStatus(false); // Reset the upload status if file is missing
+      return;
+    }
+  
+    try {
+      const { name: fileName, type: fileType } = uploadedFile;
+  
+      // Call the API to get the signed URL
+      const response = await fetch("/api/fileUpload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ fileName, fileType }),
       });
-
+  
       const { url } = await response.json();
-      console.log(url);
-      console.log("upload url", url.url);
+  
+      if (!url) {
+        throw new Error("Failed to retrieve signed URL");
+      }
+  
+      console.log("upload url", url);
       setPaymentRecieptLink(url.split("?")[0]);
-
+  
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
-      uploadRequest.open('PUT', url, true);
-      uploadRequest.setRequestHeader('Content-Type', fileType);
-
+      uploadRequest.open("PUT", url, true);
+      uploadRequest.setRequestHeader("Content-Type", fileType);
+  
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
@@ -1083,64 +1210,67 @@ const NewOrderBox = () => {
           setUploadPercentage(percentComplete);
         }
       };
-
+  
       // Handle upload complete
-      uploadRequest.onload = () => {
+      uploadRequest.onload = async () => {
         if (uploadRequest.status === 200) {
-          setPaymentRecieptLink(url.split("?")[0]);
-
-          setPaymentStatus("isAdminCompleted");
           const fileUrl = url.split("?")[0];
-          console.log(fileUrl);
-
+          setPaymentRecieptLink(fileUrl);
+          setPaymentStatus("isAdminCompleted");
+  
           const orderData = {
             orderTitle,
             paymentStatus: "isAdminCompleted",
             paymentRecieptLink: fileUrl,
           };
-
+  
           // Save order data
-          fetch('/api/updateOrder', {
-            method: 'POST',
+          const saveApiResponse = await fetch("/api/updateOrder", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
-          }).then(saveApiResponse => {
-            if (saveApiResponse.status === 200) {
-              toast({
-                variant: "success",
-                title: "Upload Successful",
-                description: "Your file has been uploaded to S3.",
+          });
+  
+          if (saveApiResponse.status === 200) {
+            toast({
+              variant: "success",
+              title: "Upload Successful",
+              description: "Your file has been uploaded to S3.",
+            });
+  
+            try {
+              const res = await fetch("/api/sendUpdateInChat", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userId: userIdDB,
+                  message: t("chatMessage.payment"),
+                }),
               });
-            } else {
+  
+              if (!res.ok) {
+                throw new Error("Failed to send chat update");
+              }
+            } catch (chatError) {
+              console.error("Error sending chat update:", chatError);
               toast({
                 variant: "error",
-                title: "Updation Error",
-                description: "Failed to submit order, please try again...",
+                title: "Chat Update Error",
+                description: "Failed to send chat update, please try again...",
               });
             }
-          }).catch(err => {
-            toast({
-              variant: "error",
-              title: "Updation Error",
-              description: "Failed to submit order, please try again...",
-            });
-            console.error("Error updating order:", err);
-          }).finally(
-            setOrderPopVisible(false),
-            setUploadStatus(false)
-          )
-
+          } else {
+            throw new Error("Failed to submit order");
+          }
         } else {
-          toast({
-            variant: "error",
-            title: "Upload Error",
-            description: "Try uploading file again...",
-          });
+          throw new Error("Upload Error: Failed to upload file");
         }
       };
-
+  
       // Handle upload error
       uploadRequest.onerror = () => {
         toast({
@@ -1150,21 +1280,24 @@ const NewOrderBox = () => {
         });
         console.error("Error uploading file:", uploadRequest.statusText);
       };
-
+  
+      // Send the file to S3
       uploadRequest.send(uploadedFile);
-
     } catch (err) {
       toast({
         variant: "error",
         title: "Upload Failed",
-        description: "There was an error uploading your file.",
+        description: err.message || "There was an error uploading your file.",
       });
-      console.error("Error uploading file:", err);
+      console.error("Error:", err);
     } finally {
       setDisabled(false);
+      setUploadStatus(false); // Reset status regardless of success or failure
       setUploadPercentage(0); // Optionally reset upload percentage
+      setOrderPopVisible(false);
     }
-  }
+  };
+  
 
   const handleClickOutside = (event) => {
     if (orderPopUpBoxRef.current && !orderPopUpBoxRef.current.contains(event.target)) {
@@ -1269,7 +1402,7 @@ const NewOrderBox = () => {
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
 
-                  <div className="overflow-x-scroll">
+                  <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
