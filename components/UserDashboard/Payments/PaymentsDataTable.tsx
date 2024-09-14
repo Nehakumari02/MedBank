@@ -68,17 +68,17 @@ export const columns: ColumnDef<Payments>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "id",
+    accessorKey: "orderId",
     header: ()=>{
       const t = useTranslations("UserDashboard");
       return(<span>{t("paymentList.orderId")}</span>)
     },
     cell: ({ row }) => (
-      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("id")}</div>
+      <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
   },
   {
-    accessorKey: "title",
+    accessorKey: "orderTitle",
     header: ({ column }) => {
       const t = useTranslations("UserDashboard");
       return (
@@ -91,10 +91,10 @@ export const columns: ColumnDef<Payments>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("title")}</div>,
+    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")}</div>,
   },
   {
-    accessorKey: "invoice",
+    accessorKey: "grandTotal1",
     header: ({ column }) => {
       const t = useTranslations("UserDashboard");
       return (
@@ -107,7 +107,7 @@ export const columns: ColumnDef<Payments>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("invoice")}</div>,
+    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("grandTotal1")}</div>,
   },
   // {
   //   accessorKey: "requestSheet",
@@ -126,18 +126,18 @@ export const columns: ColumnDef<Payments>[] = [
   //     },
   // },
   {
-    accessorKey: "payment",
+    accessorKey: "paymentStatus",
     header: ()=>{
       const t = useTranslations("UserDashboard");
       return(<span>{t("paymentList.payment")}</span>)
     },
     cell: ({ row }) => {
-      const costEstimateStatus = row.getValue("payment");
+      const costEstimateStatus = row.getValue("paymentStatus");
       const t = useTranslations("UserDashboard");
   
-      if (costEstimateStatus === "inProgress") {
+      if (costEstimateStatus === "inUserProgress"||costEstimateStatus==="isAdminCompleted") {
         return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
-      } else if (costEstimateStatus === true) {
+      } else if (costEstimateStatus === 'isCompleted') {
         return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
       } else {
         return <div className="w-full flex justify-center"><div className="h-[36px] w-[76px] flex items-center justify-center text-black px-[2px] py-[4px] bg-[#E2E8F0] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("paymentList.receipt")}</div></div>;
@@ -190,7 +190,7 @@ export const columns: ColumnDef<Payments>[] = [
   // },
 ]
 
-export function PaymentsDataTable({ data }: { data: Payments[] }) {
+export function PaymentsDataTable({ data=[] }: { data: Payments[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

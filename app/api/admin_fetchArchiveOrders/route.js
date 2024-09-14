@@ -20,6 +20,10 @@ export async function POST(req) {
         // Add more fields if you need to search in additional fields
       ]
     })
+      .populate({
+        path: 'userId',
+        select: 'school Username' // Select only the fields you want from the User model
+      })
       .skip(skip)
       .limit(limit)
 
@@ -31,9 +35,20 @@ export async function POST(req) {
       ]
     }).exec();
 
-    if (!orders || orders.length === 0) {
+    console.log(orders)
+
+    const flattenedOrders = orders.map(order => {
+      const { userId, ...orderData } = order.toObject(); // Convert mongoose document to plain object
+      return {
+        ...orderData,
+        Username: userId?.Username || '', // Directly include user data
+        school: userId?.school|| '', // Assuming 'affiliation' was meant to be 'school'
+      };
+    });
+
+    if (!flattenedOrders || flattenedOrders.length === 0) {
       return new NextResponse(
-        JSON.stringify({ error: "No orders found" }),
+        JSON.stringify({ error: "No Orders found" }),
         { status: 404 }
       );
     }
@@ -41,7 +56,7 @@ export async function POST(req) {
     return new NextResponse(
       JSON.stringify({
         message: "Orders fetched successfully",
-        data: orders,
+        data: flattenedOrders,
         totalPages: Math.ceil(totalOrders / limit),
         currentPage: page
       }),
