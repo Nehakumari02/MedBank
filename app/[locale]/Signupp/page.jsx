@@ -72,6 +72,22 @@ const SignUp = () => {
   const handleSignUp = async (e)=>{
     e.preventDefault();
     try{
+      if(emailError){
+        toast({
+          variant:"error",
+          title:"Error: Invalid email",
+          description:"The email error used is not valid"
+        })
+        return;
+      }
+      if(passwordValidation){
+        toast({
+          variant:"error",
+          title:"Error: Password is too weak",
+          description:"Your password is too weak"
+        })
+        return;
+      }
     const response = await fetch('/api/signup', {
       method: 'POST',
       headers: {
