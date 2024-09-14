@@ -308,6 +308,16 @@ const NewOrderBox = () => {
         costEstimateStatus: "isCompleted",
         formalRequestStatus: "inUserProgress"
       });
+      const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userIdDB,
+          message: t("chatMessage.costEstimate"),
+        }),
+      });
     } catch (error) {
       console.error("Error generating PDF:", error);
     }
@@ -341,12 +351,22 @@ const NewOrderBox = () => {
     }
   };
 
-  const handleConfirmFormalRequest = () => {
+  const handleConfirmFormalRequest = async() => {
     setFormalRequestStatus("isUserCompleted");
     setOrderPopVisible(false);
     updateDataInDB({
       formalRequestStatus: "isUserCompleted"
     })
+    const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userIdDB,
+        message: t("chatMessage.formalRequest"),
+      }),
+    });
   };
 
   const handleConfirmSampleShippingok = () => {
@@ -357,7 +377,7 @@ const NewOrderBox = () => {
     })
   };
 
-  const handleConfirmSampleShipping = () => {
+  const handleConfirmSampleShipping = async() => {
     if (!isSampleSendChecked1) {
       toast({
         variant: "error",
@@ -385,6 +405,16 @@ const NewOrderBox = () => {
       updateDataInDB({
         sampleShippingStatus: "inTransit"
       })
+      const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userIdDB,
+          message: t("chatMessage.sampleShipping"),
+        }),
+      });
     }
   };
   const handleDownloadQualityCheck = async () => {
