@@ -1402,11 +1402,7 @@ const NewOrderBox = () => {
                   <div className='border border-dashed'></div>
                   <div className='border border-dashed pt-[20px]'></div>
 
-<<<<<<< HEAD
                   <div className="overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-=======
-                  <div className="w-full overflow-x-scroll">
->>>>>>> 3a06373 (cost estimation responsiveness)
                     <table className="w-full mb-6 min-w-[768px]">
                       <thead>
                         <tr className="text-left font-medium text-sm">
