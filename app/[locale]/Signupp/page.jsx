@@ -88,6 +88,14 @@ const SignUp = () => {
       })
       return;
     }
+    const response1 = await fetch('/api/sendEmailSignup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({name,email}),
+    });
+
     toast({
       variant:'success',
       title:'Signup Success',

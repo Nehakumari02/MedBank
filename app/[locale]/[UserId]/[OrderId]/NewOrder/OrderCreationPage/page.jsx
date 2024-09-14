@@ -13,6 +13,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl'
 
+
 const OrderCreationPage = () => {
   const {
     orderTitle, setOrderTitle,
@@ -26,6 +27,7 @@ const OrderCreationPage = () => {
   const orderIdDB = usePathname().split("/")[3];
   const t = useTranslations("UserDashboard");
   let userIdDB = usePathname().split('/')[2];
+  
 
   const handleDelete = () => {
     setUploadedFile(null); // Remove the file from state
@@ -52,35 +54,35 @@ const OrderCreationPage = () => {
   };
 
   const handleSubmit = async () => {
-   
+    toast;
+    setDisabled(true);
   
-    // Check if title is empty
+    // Validate title
     if (orderTitle === "") {
       toast({
         variant: "error",
         title: "Error",
         description: "Title cannot be empty...",
       });
-      setDisabled(false); // Re-enable button
+      setDisabled(false);
       return;
     }
   
-    // Check if file is uploaded
+    // Validate file upload
     if (!uploadedFile) {
       toast({
         variant: "error",
         title: "Error",
         description: "Please upload a file...",
       });
-      setDisabled(false); // Re-enable button
+      setDisabled(false);
       return;
     }
   
     try {
-      setDisabled(true);
       const { name: fileName, type: fileType } = uploadedFile;
   
-      // Call the API to get the signed URL
+      // Get signed URL for file upload
       const response = await fetch('/api/fileUpload', {
         method: 'POST',
         headers: {
@@ -89,11 +91,21 @@ const OrderCreationPage = () => {
         body: JSON.stringify({ fileName, fileType }),
       });
   
+      if (!response.ok) {
+        toast({
+          variant: "error",
+          title: "Upload Error",
+          description: "Failed to generate upload URL, please try again...",
+        });
+        setDisabled(false);
+        return;
+      }
+  
       const { url } = await response.json();
       console.log("Upload URL:", url);
   
-      // Upload the file directly to S3 using the signed URL
-      const res = await fetch(url, {
+      // Upload file to S3 using the signed URL
+      const uploadResponse = await fetch(url, {
         method: 'PUT',
         body: uploadedFile,
         headers: {
@@ -101,28 +113,28 @@ const OrderCreationPage = () => {
         },
       });
   
-      if (res.status !== 200) {
+      if (uploadResponse.status !== 200) {
         toast({
           variant: "error",
           title: "Upload Error",
-          description: "Try uploading file again...",
+          description: "Failed to upload the file, please try again...",
         });
         setDisabled(false);
         return;
       }
   
-      const fileUrl = url.split("?")[0]; // Extract file URL
-      setRequestSheetLink(fileUrl);
+      const uploadedFileUrl = url.split("?")[0];
+      setRequestSheetLink(uploadedFileUrl);
       setRequestSheetStatus("isUserCompleted");
   
-      // Prepare order data
+      // Prepare order data for updating
       const orderData = {
         orderTitle,
         requestSheetStatus: "isUserCompleted",
-        requestSheetLink: fileUrl,
+        requestSheetLink: uploadedFileUrl,
       };
   
-      // Save order update to the server
+      // Update order in the database
       const saveApiResponse = await fetch('/api/updateOrder', {
         method: 'POST',
         headers: {
@@ -134,39 +146,39 @@ const OrderCreationPage = () => {
       if (saveApiResponse.status !== 200) {
         toast({
           variant: "error",
-          title: "Updation Error",
-          description: "Failed to submit order, please try again...",
+          title: "Update Error",
+          description: "Failed to submit the order, please try again...",
         });
         setDisabled(false);
         return;
       }
   
-      // Call the API to send a message after successful order update
-      const sendMessageResponse = await fetch('/api/sendMessage', {
-        method: 'POST',
+      // Send chat update
+      const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          senderId: userIdDB, // Replace with actual sender ID
-          conversationId: "66e055de6ddc7825fbd8a103", // Replace with actual conversation ID
-          message:  t("chatMessage.requestSheet"), // Adjust your message as needed
+          userId: userIdDB,
+          message: t("chatMessage.requestSheet"),
         }),
       });
   
-      if (sendMessageResponse.ok) {
-        console.log('Message sent successfully');
-      } else {
-        console.error('Error sending message');
+      if (chatResponse.status !== 200) {
+        toast({
+          variant: "error",
+          title: "Chat Notification Error",
+          description: "Failed to send notification, please try again...",
+        });
       }
   
-      // Display success toast
+      // Success toast
       toast({
         variant: "success",
         title: "Upload Successful",
-        description: "Your file has been uploaded to S3.",
+        description: "Your file has been uploaded successfully.",
       });
-  
     } catch (err) {
       toast({
         variant: "error",
@@ -180,6 +192,7 @@ const OrderCreationPage = () => {
   
     router.back();
   };
+  
   
 
   return (
