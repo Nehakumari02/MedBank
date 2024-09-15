@@ -18,6 +18,7 @@ import QuotationTable from '../../../components/QuotationTable';
 import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
 
 
+
 const NewOrderBox = () => {
   const t = useTranslations("UserDashboard");
   const router = useRouter();
@@ -39,6 +40,8 @@ const NewOrderBox = () => {
   const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [fileType, setFileType] = useState("");
   let userIdDB = usePathname().split('/')[2];
+  const [isTableLoaded, setIsTableLoaded] = useState(false);
+  const [isTableLoaded1, setIsTableLoaded1] = useState(false);
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -285,7 +288,7 @@ const NewOrderBox = () => {
 
   const handleConfirmCostEstimate = async () => {
     const element = printRef.current;
-    if (!element) {
+    if (!element || !isTableLoaded) {
       console.error("QuotationTable is not loaded yet.");
       return;
     }
@@ -326,9 +329,12 @@ const NewOrderBox = () => {
     }
 
   };
+  const onTableLoad = () => {
+    setIsTableLoaded(true);
+  };
   const handleGenerateInvoice = async () => {
     const element = printRef1.current;
-    if (!element) {
+    if (!element || !isTableLoaded1) {
       console.error("Invoice is not loaded yet.");
       return;
     }
@@ -349,6 +355,9 @@ const NewOrderBox = () => {
     finally{
       setDisabled(false);
     }
+  };
+  const onTableLoad1 = () => {
+    setIsTableLoaded1(true);
   };
 
   const handleConfirmFormalRequest = async() => {
@@ -735,7 +744,7 @@ const NewOrderBox = () => {
                   <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
                     <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>{t("costEstimation.title")}</span>
                   </div>
-                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#60b7cf] border-dashed rounded-[6px]'>
                     <div className='flex flex-col items-center justify-center gap-[14px]'>
                       <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
                       <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>
@@ -750,7 +759,7 @@ const NewOrderBox = () => {
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef}>
-                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
+                      <QuotationTable orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB}  onTableLoad={onTableLoad}/>
                     </div>
                   </div>
                 </div>
@@ -1186,7 +1195,7 @@ const NewOrderBox = () => {
                   </div>
                   <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
                     <div ref={printRef1}>
-                      <QuotationTableInvoice orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} />
+                      <QuotationTableInvoice orderIdDB={orderIdDB} orderId={orderId} userId={userIdDB} onTableLoad1={onTableLoad1} />
                     </div>
                   </div>
                 </div>
@@ -1196,7 +1205,7 @@ const NewOrderBox = () => {
                   <div className='h-[40px] md:h-[50px] flex items-start justify-center w-full text-center border-b-[1px] border-dotted border-[#33333340]'>
                     <span className='font-DM-Sans text-center font-medium text-[16px] md:text-[22px] md:leading-[24px] text-[#333333]'>{t("payment.title")}</span>
                   </div>
-                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#0033DD] border-dashed rounded-[6px]'>
+                  <div className='w-[313px] h-[154px] md:w-[490px] md:h-[203px] flex items-center justify-center border-[0.4px] border-[#60b7cf] border-dashed rounded-[6px]'>
                     <div className='flex flex-col items-center justify-center gap-[14px]'>
                       <Image className='w-[32px] h-[24px] md:w-[51px] md:h-[51px]' src={FolderIcon} alt="File"></Image>
                       <div className='font-DM-Sans font-normal text-[10px] md:text-[14px] md:leading-[18px] text-[#606060] text-center'>

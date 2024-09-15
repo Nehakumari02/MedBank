@@ -1093,6 +1093,29 @@
         "next":"次へ",
         "finish":"仕上がり"
 
+    },
+    "quotation":{
+        "title":"領収書",
+        "sampleNumber":"サンプルID",
+        "sampleName":"サンプル名",
+        "sampleCheckPrice":"クオリティチェック費用",
+        "libraryPrepPrice":"ライブラリ調製費用",
+        "analysisFees":"NGS解析費用",
+        "tax":"税",
+        "others":"その他",
+        "total":"小計",
+        "overAllTotal":"合計",
+        "city": "以降住所",
+        "postalCode": "郵便番号",
+        "date":"日付",
+        "invoiceNumber":"登録番号",
+        "name": "氏名",
+        "companyName1":"MEDBANK株式会社",
+        "companyAddress1":"大阪市大阪区大阪1-1-1",
+        "payee1":"三菱UFJ銀行 大阪支店 普通 1234567",
+        "companyName2":"MEDBANK株式会社",
+        "companyAddress2":"8 BURN ROAD #04-04 TRIVEX SINGAPORE (369977)",
+        "payee2":"OCBC Bank code7339 Account number 601892219001"
     }
    
 }
