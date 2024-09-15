@@ -147,7 +147,7 @@ input:-webkit-autofill:active {
 .highlight {
   position: relative;
   z-index: 100;
-  box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.5); /* creates a dark overlay */
+  /* box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.5); creates a dark overlay */
   transition: box-shadow 0.3s ease-in-out;
 }
 .tutorial-popup {

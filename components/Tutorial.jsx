@@ -76,9 +76,9 @@ const MultiStepTutorial = ({ onClose }) => {
   }, [step]);
 
   return (
-    <div className=" flex justify-center items-center">
+    <div className="flex justify-center items-center">
       {/* Highlight Overlay */}
-      <div className={` bg-black bg-opacity-50 ${step === 1 ? 'highlight' : ''}`} />
+      <div className={`${step === 1 ? 'highlight' : ''}`} />
 
       {/* Tutorial Pop-Up */}
       <div
@@ -86,15 +86,12 @@ const MultiStepTutorial = ({ onClose }) => {
         className="tutorial-popup"
         style={popupStyle}
       >
-
         <button
           className="absolute top-13 right-6 text-gray-500 hover:text-gray-400"
           onClick={onClose}
         >
           <Image src={cross} alt="Close" />
         </button>
-
-
         <div className="mb-4 text-center mt-10">
           {step === 1 && (
             <div className=''>
@@ -124,13 +121,9 @@ const MultiStepTutorial = ({ onClose }) => {
             </div>
           )}
         </div>
-
         <div className="flex items-center justify-center mb-4">
           <ProgressCircles step={step} totalSteps={totalSteps} />
         </div>
-
-
-
         <div className='flex items-center justify-center gap-[10px] md:gap-[12px] pb-[24px]'>
           {step > 0 && (
             <button disabled={step == 1} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '
