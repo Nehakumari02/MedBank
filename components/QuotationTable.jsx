@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from "next/navigation";
 import { useOrder } from '@/contexts/OrderContext';
+import { useTranslations } from 'next-intl'
 
-const QuotationTable = ({ orderIdDB, orderId, userId }) => {
+const QuotationTable = ({ orderIdDB, orderId, userId, onTableLoad }) => {
   const path = usePathname();
   const [samples, setSamples] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -15,6 +16,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
   const day = String(currentDate.getDate()).padStart(2, '0');
   const formattedDate = `${day}-${month}-${year}`;
   const { grandTotal, setGrandTotal } = useOrder();
+  const t = useTranslations("quotation");
 
   useEffect(() => {
     const fetchSamples = async () => {
@@ -72,39 +74,49 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
     fetchSamples();
     fetchUserDetails1();
   }, [orderId, userId]);
+  useEffect(() => {
+    if (!loading) {
+      onTableLoad();
+    }
+  }, [loading, onTableLoad]);
 
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+       <div className="mb-8">
+        <h2 className="text-2xl font-bold">{t("companyName1")}</h2>
+        <p>{t("companyAddress1")}</p>
+        <p>{t("payee1")}</p>
+      </div>
       {userDetails ? (
-        <div className="mb-8">
-          <p className="text-xl font-bold">Quotation Receipt</p>
-          <div className="text-sm">
-            <p><strong>Name:</strong> {userDetails.name}</p>
-            <p><strong>City:</strong> {userDetails.city}</p>
-            <p><strong>Postal Code:</strong> {userDetails.postalCode}</p>
-            <p><strong>Quotation Number:</strong> {orderId}</p>
-            <p><strong>Date:</strong> {formattedDate}</p>
+        <div className="mb-8 text-base font-medium">
+          <div className="text-xl font-bold">User Details</div>
+          <div className="">
+            <p> <strong>{t("name")}:</strong> {userDetails.name}</p>
+            <div> <strong>{t("city")}:</strong> {userDetails.city}</div>
+            <span><strong>{t("postalCode")}:</strong>  {userDetails.postalCode}</span>
+            <div className=''><strong>{t("invoiceNumber")}:</strong> {orderId}</div>
+            <div><strong>{t("date")}:</strong> {formattedDate}</div>
           </div>
         </div>
       ) : (
         <p>No user details available.</p>
       )}
       
-      <h2 className="pb-5 font-medium text-2xl text-center">Quotation</h2>
+      <h2 className="pb-5 font-medium text-2xl text-center">{t("title")}</h2>
       
       <table className="w-full table-auto border-collapse">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">Sample ID</th>
-            <th className="border px-4 py-2 text-left">Sample Name</th>
-            <th className="border px-4 py-2 text-left">Quality Check Fees</th>
-            <th className="border px-4 py-2 text-left">Library Adjustment Fees</th>
-            <th className="border px-4 py-2 text-left">Analysis Fees</th>
-            <th className="border px-4 py-2 text-left">Tax</th>
-            <th className="border px-4 py-2 text-left">Others</th>
-            <th className="border px-4 py-2 text-left">Total</th>
+            <th className="border px-4 py-2 text-left">{t("sampleNumber")}</th>
+            <th className="border px-4 py-2 text-left">{t("sampleName")}</th>
+            <th className="border px-4 py-2 text-left">{t("sampleCheckPrice")}</th>
+            <th className="border px-4 py-2 text-left">{t("libraryPrepPrice")}</th>
+            <th className="border px-4 py-2 text-left">{t("analysisFees")}</th>
+            <th className="border px-4 py-2 text-left">{t("tax")}</th>
+            <th className="border px-4 py-2 text-left">{t("others")}</th>
+            <th className="border px-4 py-2 text-left">{t("total")}</th>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +133,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId }) => {
             </tr>
           ))}
           <tr className="bg-gray-100 font-bold">
-            <td colSpan="7" className="border px-4 py-2 text-left">Overall Total</td>
+            <td colSpan="7" className="border px-4 py-2 text-left">{t("overAllTotal")}</td>
             <td className="border px-4 py-2">{grandTotal}</td>
           </tr>
         </tbody>
