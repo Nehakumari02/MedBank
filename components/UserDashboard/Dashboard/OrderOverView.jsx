@@ -1,3 +1,4 @@
+'use client'
 import { useTranslations } from 'next-intl'
 import {DashboardDataTable} from './DashboardDataTable'
 
@@ -11,7 +12,7 @@ const OrderOverView = ({orderOverview,data}) => {
   
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
-    //localStorage.setItem('hasVisited', 'false');
+    // localStorage.setItem('hasVisited', 'false');
 
     // Check if the screen width is larger than 768px
     console.log(window.innerWidth)
@@ -23,17 +24,6 @@ const OrderOverView = ({orderOverview,data}) => {
       setShowTutorial(true);
       localStorage.setItem('hasVisited', 'true');
     }
-    
-    if (showTutorial) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-
-    // Clean up: Remove the class when the component unmounts or the tutorial closes
-    return () => {
-      document.body.classList.remove('no-scroll');
-    };
   }, [showTutorial]);
 
   const handleCloseTutorial = () => {
@@ -43,7 +33,6 @@ const OrderOverView = ({orderOverview,data}) => {
   const t = useTranslations("DashBoard.orderOverView")
   return (
     <div className={`${showTutorial?"h-[calc(100vh-146px)] overflow-y-hidden":""}`}>
-    {showTutorial && <Tutorial onClose={handleCloseTutorial} />}
     <div className='text-[#333333] mb-[14px]'>
         <div className='h-[40px] '>
           <span className='font-DM-Sans font-bold text-[14px] md:text-[20px] leading-[28px]'>{t("orderOverView")}</span>
@@ -79,6 +68,10 @@ const OrderOverView = ({orderOverview,data}) => {
         </div>
     </div>
     <DashboardDataTable data={data}/>
+    {showTutorial &&
+    <div className='absolute top-0 left-0 bg-black bg-opacity-50  h-[100vh] w-[100vw] '>
+       <Tutorial onClose={handleCloseTutorial} />
+    </div>}
     </div>
   )
 }

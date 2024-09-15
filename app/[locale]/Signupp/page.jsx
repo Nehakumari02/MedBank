@@ -80,7 +80,7 @@ const SignUp = () => {
         })
         return;
       }
-      if(passwordValidation){
+      if(!passwordValidation){
         toast({
           variant:"error",
           title:"Error: Password is too weak",
