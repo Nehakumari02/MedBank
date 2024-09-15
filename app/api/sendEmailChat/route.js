@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 export async function POST(req) {
-  const { name, phoneNumber, email, inquiryDetails } = await req.json();
+  const { name, email,message } = await req.json();
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -12,10 +12,34 @@ export async function POST(req) {
   });
 
   const mailOptions = {
-    from: email,
-    to: process.env.EMAIL_RECEIVER, // Your email address
-    subject: `New Inquiry from ${name}`,
-    text: `Name: ${name}\nPhone Number: ${phoneNumber}\nEmail: ${email}\nInquiry Details: ${inquiryDetails}`,
+    from: process.env.EMAIL_USER,
+    to: email, // Your email address
+    subject: "MEDBANK 【遺伝子解析について】Genetic Analysis",
+    text: `Dear ${name}
+
+こんにちは。MEDBANK株式会社の佐藤みずきです。
+Hello. I am Mizuki Sato from MEDBANK.
+
+メッセージをお送りしていますので、マイページより内容のご確認をお願いします。
+Please check the message from My Page.
+
+マイページログインはこちら
+Click here to log in to My Page
+< Login URL>
+
+—----------------------------------------------
+${message}
+
+—----------------------------------------------
+
+※こちらのメールは送信専用となります。お問合せやお困りの際はマイページ内よりお願い致します。
+Please note that this e-mail is for sending only. If you have any questions or problems, please contact us from My Page.
+
+MEDBANK株式会社　担当　佐藤みずき
+MEDBANK PTE. LTD. Mizuki Satou
+
+`,
+
   };
 
   try {
