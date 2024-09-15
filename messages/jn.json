@@ -1002,11 +1002,11 @@
            
             "requestSheetIsPending":"依頼シート",
             "requestSheetInProgress":"依頼シート",
-            "requestSheetIsCompleted":"Request Sheet Confirmed",
+            "requestSheetIsCompleted":"依頼シート 確認済み",
 
             "costEstimationIsPending":"見積り",
             "costEstimationInProgress":"見積り",
-            "costEstimationIsCompleted":"Cost Estimate Sent",
+            "costEstimationIsCompleted":"見積書 送付済み",
     
             "formalRequestIsPending":"正式な依頼",
             "formalRequestInProgress":"正式な依頼",
@@ -1014,23 +1014,23 @@
            
             "sampleShippingIsPending":"サンプル 送付",
             "sampleShippingInProgress":"サンプル 送付",
-            "sampleShippingIsCompleted":"Sample Receipt Notification Sent",
+            "sampleShippingIsCompleted":"サンプル受領連絡済",
          
             "qualityCheckIsPending":"クオリティ チェック",
-            "qualityCheckInProgress":"Quality Check Report Sent",
-            "qualityCheckIsCompleted":"Confirmation Received ",
+            "qualityCheckInProgress":"クオリティチェック報告書送付済み",
+            "qualityCheckIsCompleted":"クオリティチェック報告書確認回答受領済 ",
         
             "libraryPrepIsPending":"ライブラリ 調製",
-            "libraryPrepInProgress":"Library Prep Sent",
-            "libraryPrepIsCompleted":"Confirmation Received ",
+            "libraryPrepInProgress":"ライブラリ調製報告書送付済",
+            "libraryPrepIsCompleted":"ライブラリ調製報告書確認回答受領済",
            
             "analysisProgressIsPending":"解析中",
-            "analysisProgressInProgress":"Analysis In Progress",
-            "analysisProgressIsCompleted":"Analysis In Progress",
+            "analysisProgressInProgress":"解析開始",
+            "analysisProgressIsCompleted":"解析中",
           
             "analysisDoneIsPending":"解析終了",
             "analysisDoneInProgress":"解析終了",
-            "analysisDoneIsCompleted":"Analysis Completed",
+            "analysisDoneIsCompleted":"解析終了",
           
             "rawDataIsPending":"元データ",
             "rasDataInProgress":"元データ",
@@ -1083,6 +1083,7 @@
     },
     "tutorial":{
         "message1":"Medbankへようこそ",
+        "message1-2":"こんにちは！",
         "message2":"新しい発注はこのボタンを押してください",
         "message3":"発注予定のオーダー数です",
         "message4":"進行中のオーダーの数です",

@@ -92,15 +92,16 @@ const MultiStepTutorial = ({ onClose }) => {
         >
           <Image src={cross} alt="Close" />
         </button>
-        <div className="mb-4 text-center mt-10">
+        <div className=" text-center mt-10">
           {step === 1 && (
             <div className=''>
-              <h2 className="text-xl font-DM-Sans font-normal mb-4"> {t("message1")}</h2>
+              <div className='text-[32px] font-bold pb-[24px] leading-[34px]' >{t("message1-2")}</div>
+              <div className="text-xl font-DM-Sans font-normal">{t("message1")}</div>
             </div>
           )}
           {step === 2 && (
             <div>
-              <h2 className="text-xl font-DM-Sans font-normal mb-4">{t("message2")}</h2>
+              <h2 className="text-xl font-DM-Sans font-normal ">{t("message2")}</h2>
             </div>
           )}
           {step === 3 && (

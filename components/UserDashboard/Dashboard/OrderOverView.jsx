@@ -9,7 +9,6 @@ import Tutorial from  '@/components/Tutorial'
 const OrderOverView = ({orderOverview,data}) => {
   const [showTutorial, setShowTutorial] = useState(false);
   
-  
   useEffect(() => {
     const hasVisited = localStorage.getItem('hasVisited');
     // localStorage.setItem('hasVisited', 'false');

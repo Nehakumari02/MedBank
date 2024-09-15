@@ -76,7 +76,7 @@ const SignUp = () => {
         toast({
           variant:"error",
           title:"Error: Invalid email",
-          description:"The email error used is not valid"
+          description:"The email used is not valid"
         })
         return;
       }
