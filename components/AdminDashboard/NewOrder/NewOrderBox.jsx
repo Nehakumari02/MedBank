@@ -10,6 +10,7 @@ import file1 from '../../../public/dashboard/pdf.png'
 import vector3 from '../../../public/dashboard/creation1.png'
 import downloadIcon from '../../../public/dashboard/downloadIcon.png'
 import CalculateCost from '../../../components/CalculateCost'
+import deleteIcon from "@/public/dashboard/deleteIcon.png"
 import LangDropdown from "../../../components/LangDropdown"
 import { useDropzone } from 'react-dropzone';
 import folder1 from "../../../public/dashboard/folder.png"
@@ -40,6 +41,11 @@ const NewOrderBox = () => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const t = useTranslations("AdminDashboard");
   const [fileType, setFileType] = useState("");
+  const [downloadPercentage, setDownloadPercentage] = useState(0);
+  const [disabledDownload, setDisabledDownload] = useState(false);
+  const [activeDownload, setActiveDownload] = useState(false);
+  const [xhr, setXhr] = useState(null);
+  const [downloadStatus, setDownloadStatus] = useState(false);
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -136,48 +142,111 @@ const NewOrderBox = () => {
     return updatedSamples.reduce((acc, sample) => acc + parseFloat(sample.total || 0), 0).toFixed(2);
   };
 
-  const handleDownload = async (url, filename) => {
-    try {
-      // Notify that download is in progress
-      toast({
-        variant: "success",
-        title: "In Progress",
-        description: "Download started"
-      });
+  const handleDownload = (url, filename) => {
+    setDownloadStatus(true);
+    toast({
+      variant: "success",
+      title: "In Progress",
+      description: "Download started"
+    });
 
-      setDisabled(true);
+    setDisabledDownload(true);
+    setActiveDownload(true);
 
-      // Fetch the file from the URL as a blob
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'arraybuffer'; // Use arraybuffer for binary data
+
+    // Handle progress
+    xhr.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const percentage = Math.round((event.loaded / event.total) * 100);
+        setDownloadPercentage(percentage);
+        console.log("PERCENTAGE",percentage);
       }
+    };
 
-      const blob = await response.blob();
+    // Handle completion
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const blob = new Blob([xhr.response], { type: xhr.getResponseHeader('Content-Type') });
+        const fileType = blob.type;
+        console.log(`File type: ${fileType}`); // For debugging
 
-      // Determine the file type for proper handling
-      const fileType = blob.type;
-      setFileType(fileType);
-      console.log(`File type: ${fileType}`); // For debugging
+        // Create a link element to trigger the download
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
 
-      // Create a link element, set its href to the blob URL and trigger the download
-      const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.setAttribute('download', filename); // Use the passed filename
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+        // Clean up
+        window.URL.revokeObjectURL(blobUrl);
 
-      // Optionally, revoke the blob URL after download
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error('Error downloading the file:', error);
-    } finally {
-      setDisabled(false);
+        setActiveDownload(false);
+        setDisabledDownload(false);
+        setTimeout(()=>{
+          setDownloadStatus(false);
+        },1000)
+        setDownloadStatus(false);
+      } else {
+        console.error('Failed to download file');
+        setActiveDownload(false);
+        setDisabledDownload(false);
+        setTimeout(() => {
+          setDownloadStatus(false);
+        }, 1000);
+      }
+    };
+
+    // Handle errors
+    xhr.onerror = () => {
+      console.error('Download error');
+      setActiveDownload(false);
+      setDisabledDownload(false);
+      setDownloadStatus(false);
+    };
+
+    // Handle abort
+    xhr.onabort = () => {
+      console.log('Download aborted');
+      setActiveDownload(false);
+      setDisabledDownload(false);
+      setDownloadStatus(false);
+    };
+
+    // Send the request
+    xhr.send();
+
+    // Save the xhr object for later use (pause, resume, cancel)
+    setXhr(xhr);
+  };
+
+  const handlePauseDownload = () => {
+    if (xhr) {
+      xhr.abort(); // Abort the current request
+      setActiveDownload(false);
+      setDisabledDownload(false);
     }
   };
 
+  const handleResumeDownload = (url, filename) => {
+    if (!activeDownload && !downloadStatus) {
+      handleDownload(url, filename);
+    }
+  };
+
+  const handleDeleteDownload = () => {
+    if (xhr) {
+      xhr.abort(); // Abort the current request
+      setActiveDownload(false);
+      setDisabledDownload(false);
+      setDownloadPercentage(0); // Reset the progress percentage
+      setDownloadStatus(false);
+    }
+  };
 
   const handleInputChange = (index, field, value) => {
     const updatedSamples = [...samples];
@@ -1388,6 +1457,28 @@ const NewOrderBox = () => {
                     <span className='text-[16px] font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("requestSheet.title")}</span>
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("requestSheet.message")}</span>
                   </div>
+                  {/* {downloadStatus && (
+                          <div className='w-full flex flex-col items-start'>
+                            <span className='text-[10px] w-full flex justify-between'><span>{t("requestSheet.downloading")}</span> <span>{downloadPercentage} %</span> <button onClick={handleDeleteDownload}>{deleteIcon}</button></span>
+                            <Progress value={downloadPercentage} />
+                          </div>
+                        )} */}
+                        {downloadStatus && (
+                          <div className='w-full flex flex-col items-start'>
+                            <div className='w-full flex justify-between items-center text-sm'>
+                              <span>{t("requestSheet.downloading")}</span>
+                              <span>{downloadPercentage} %</span>
+                            </div>
+                            <div className='flex w-full'>
+                              <Progress value={downloadPercentage} className='w-full mt-2' />
+                              {/* {activeDownload&& <button onClick={handlePauseDownload}>{pauseIcon}</button>}
+                              {!activeDownload&& <button onClick={handleResumeDownload}>{resumeIcon}</button>} */}
+                              <div className="text-red-500 cursor-pointer" onClick={handleDeleteDownload}>
+                                <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)} disabled={disabled} className={`${disabled ? "opacity-75" : ""}`}>
                       <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
@@ -1576,7 +1667,7 @@ const NewOrderBox = () => {
               )}
               {activePopup === 'costEstimateConfirmation' && (
                 <div id="cost-estimate-table" className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
-                  <div className='md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
+                  <div className='px-[20px] py-[20px] mx-[10px] md:mx-0 gap-[24px] md:gap-0 md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("costEstimationConfirm.title")}</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("costEstimationConfirm.message")}</span>
                     <button
@@ -1664,7 +1755,12 @@ const NewOrderBox = () => {
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("qualityCheck.uploading")}</span> <span>{uploadPercentage} %</span> </span>
+                            <div className='w-full flex'>
                             <Progress value={uploadPercentage} />
+                            <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                                <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
+                              </div>
+                          </div>
                           </div>
                         )}
                       </div>
@@ -1697,7 +1793,12 @@ const NewOrderBox = () => {
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("libraryPrep.uploading")}</span> <span>{uploadPercentage} %</span> </span>
+                            <div className='flex w-full'>
                             <Progress value={uploadPercentage} />
+                            <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                                <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
+                              </div>
+                          </div>
                           </div>
                         )}
                       </div>
@@ -1781,7 +1882,12 @@ const NewOrderBox = () => {
                         {uploadStatus && (
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("analysisSpecification.uploading")}</span> <span>{uploadPercentage} %</span> </span>
+                            <div className='w-full flex'>
                             <Progress value={uploadPercentage} />
+                            <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                                <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
+                              </div>
+                          </div>
                           </div>
                         )}
                       </div>
@@ -2071,4 +2177,24 @@ export default NewOrderBox
 const sendIcon = <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M22.9023 2.29297L11.9023 13.293" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   <path d="M22.9023 2.29297L15.9023 22.293L11.9023 13.293L2.90234 9.29297L22.9023 2.29297Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+</svg>
+
+
+const pauseIcon = <svg
+viewBox="0 0 25 25"
+fill="black"
+height="1em"
+width="1em"
+>
+<path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-88-532h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z" />
+</svg>
+
+const resumeIcon = <svg
+viewBox="0 0 25 25"
+fill="black"
+height="1em"
+width="1em"
+>
+<path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
+<path stroke='black' d="M719.4 499.1l-296.1-215A15.9 15.9 0 00398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 000-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z" />
 </svg>

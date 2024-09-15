@@ -817,7 +817,8 @@
             "title":"Request Sheet",
             "message":"Click to download the Request Sheet. Once done, review the sheet and click confirm to proceed further.",
             "download":"Download",
-            "confirm":"Confirm"
+            "confirm":"Confirm",
+            "downloading":"Downloading"
         },
         "costEstimation": {
             "title":"Calculate Cost",

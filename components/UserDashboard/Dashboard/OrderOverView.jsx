@@ -23,7 +23,7 @@ const OrderOverView = ({orderOverview,data}) => {
       setShowTutorial(true);
       localStorage.setItem('hasVisited', 'true');
     }
-  }, [showTutorial]);
+  }, []);
 
   const handleCloseTutorial = () => {
     setShowTutorial(false);

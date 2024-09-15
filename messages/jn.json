@@ -817,7 +817,8 @@
             "title":"依頼シート",
             "message":"依頼シートをダウンロードしてください。 ダウンロード後、依頼シートを確認して 次に進んでください。",
             "download":"ダウンロード",
-            "confirm":"確認"
+            "confirm":"確認",
+            "downloading":"Downloading"
         },
         "costEstimation": {
             "title":"費用の計算",
