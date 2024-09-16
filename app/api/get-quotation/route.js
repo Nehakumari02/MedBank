@@ -4,7 +4,7 @@ import Order from "../../../models/order";
 import Sample from '@/models/samples'
 
 export async function POST(req) {
-  const { samples, orderIdDB, grandTotal,currency } = await req.json();
+  const { samples, orderIdDB, grandTotal } = await req.json();
 
   try {
     await dbConnect();
@@ -66,7 +66,7 @@ export async function POST(req) {
       { 
         $set: { 
           samples: sampleIds, // Update the samples field with the new sample IDs
-          grandTotal: grandTotal // Update the grandTotal field
+          grandTotal: grandTotal, // Update the grandTotal field
         } 
       },
       { new: true } // Return the updated document
