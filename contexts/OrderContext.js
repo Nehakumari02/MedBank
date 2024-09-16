@@ -46,6 +46,8 @@ export const OrderProvider = ({ children }) => {
   const [paymentRecieptLink, setPaymentRecieptLink] = useState("");
   const [grandTotal, setGrandTotal] = useState("");
   const [grandTotal1, setGrandTotal1] = useState("");
+  const [currency, setCurrency] = useState("");
+  const [currency1, setCurrency1] = useState("");
 
   return (
     <OrderContext.Provider
@@ -75,7 +77,9 @@ export const OrderProvider = ({ children }) => {
         paymentStatus, setPaymentStatus,
         paymentRecieptLink, setPaymentRecieptLink,
         grandTotal,setGrandTotal,
-        grandTotal1,setGrandTotal1
+        grandTotal1,setGrandTotal1,
+        currency,setCurrency,
+        currency1,setCurrency1
       }}
     >
       {children}
