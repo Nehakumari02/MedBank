@@ -115,27 +115,14 @@ const orderSchema = new Schema(
     },
     samples1: [
       {
-        id: { type: String},
-        name: { type: String},
-        qualityFees: { type: String },
-        libraryFees: { type: String },
-        AnalysisFees: { type: String },
-        tax: { type: String },
-        others: { type: String },
-        total: { type: String }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sample'
       }
     ],
-
     samples: [
       {
-        id: { type: String},
-        name: { type: String},
-        qualityFees: { type: String },
-        libraryFees: { type: String },
-        AnalysisFees: { type: String },
-        tax: { type: String },
-        others: { type: String },
-        total: { type: String }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sample'
       }
     ]
   },
