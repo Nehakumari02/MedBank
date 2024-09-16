@@ -8,7 +8,7 @@ const sampleSchema = new Schema(
       ref: 'Order', // Reference to the Order model
       required: true // If every sample should be associated with an order
     },
-    name: { type: String, required: true },
+    name: { type: String },
     qualityFees: { type: String },
     libraryFees: { type: String },
     analysisFees: { type: String },

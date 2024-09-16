@@ -1,12 +1,29 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useDebugValue, useEffect, useState } from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { getToken } from 'firebase/messaging'
+import {messaging} from '@/firebase.js'
 
 const Dashboard = () => {
   const userId = usePathname().split("/")[2]
   console.log(userId)
+
+  function requestPermission() {
+    console.log('Requesting permission...');
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        getToken(messaging,{vapidKey:"BMeV9lF3EmvjR5oXdqF7tRL1rlwlT-vCOdyg3HXIIHg9AsCtAYaRp-1fhsmTgiuHO1_4K5BtXlsOO3o7v7XLQoc"})
+      }}
+    )
+  }
+
+  useEffect(()=>{
+    requestPermission();
+  },[])
+
 
   const [orderOverview,setOrderOverview] = useState({
     pending:0,
