@@ -3,7 +3,7 @@ import dbConnect from "../../../lib/dbConnect";
 import Order from "../../../models/order";
 
 export async function POST(req) {
-  const { samples, orderIdDB, grandTotal } = await req.json();
+  const { samples, orderIdDB, grandTotal,currency } = await req.json();
 
   try {
     // console.log("Received Order Data:", order);
@@ -11,11 +11,12 @@ export async function POST(req) {
     console.log(orderIdDB)
     // Find the order by _id (orderIdDB) and update it with the new data
     const updatedOrder = await Order.findByIdAndUpdate(
-      orderIdDB, // Find the order by orderId
+      orderIdDB, 
       {  $set: { 
         samples: samples, 
-        grandTotal: grandTotal // Update the grandTotal field
-      }  }, // Update the samples field
+        grandTotal: grandTotal, 
+        currency: currency
+      }  }, 
       { new: true } // Return the updated document// Return the updated document
     );
     console.log(updatedOrder)

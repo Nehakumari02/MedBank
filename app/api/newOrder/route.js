@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Order from "../../../models/order";
 import User from "../../../models/user";
+import { Currency } from "lucide-react";
 
 export async function POST(req) {
   const { userId } = await req.json();
@@ -44,6 +45,8 @@ export async function POST(req) {
       paymentRecieptLink: "",
       grandTotal: "",
       grandTotal1: "",
+      currency: "",
+      currency1: "",
       samples1: [
         {
           id: "",
