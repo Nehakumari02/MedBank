@@ -49,6 +49,7 @@ const Orders = () => {
           setButtons([1]);
         }
         console.log("data",data)
+        console.log(data)
         setData(data.data)
         setTotalPages(data.totalPages)
         
