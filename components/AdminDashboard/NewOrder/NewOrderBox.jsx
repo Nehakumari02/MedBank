@@ -46,11 +46,7 @@ const NewOrderBox = () => {
   const [activeDownload, setActiveDownload] = useState(false);
   const [xhr, setXhr] = useState(null);
   const [downloadStatus, setDownloadStatus] = useState(false);
-<<<<<<< HEAD
-  const[lang,setLang]=useState("")
-=======
   const [abortController, setAbortController] = useState(null);
->>>>>>> 66cb934872f1c3c15a2f1a8080d81da6858d758d
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -310,7 +306,7 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples, orderIdDB, grandTotal, currency
+        samples, orderIdDB, grandTotal
       };
       try {
         setDisabled(true);
