@@ -16,6 +16,7 @@ const QuotationTable = ({ orderIdDB, orderId, userId, onTableLoad }) => {
   const day = String(currentDate.getDate()).padStart(2, '0');
   const formattedDate = `${day}-${month}-${year}`;
   const { grandTotal, setGrandTotal } = useOrder();
+  const { currency, setCurrency } = useOrder();
   const t = useTranslations("quotation");
 
   useEffect(() => {
@@ -82,12 +83,37 @@ const QuotationTable = ({ orderIdDB, orderId, userId, onTableLoad }) => {
 
   if (error) return <p>Error: {error}</p>;
 
+  const getPayeeByCurrency = () => {
+    if (currency === 'JPY') {
+      return t("payee1"); // Use translation for JPY payee
+    } else {
+      return t("payee2"); // Use translation for USD payee
+    }
+
+  };
+  const getCompanyNameByCurrency = () => {
+    if (currency === 'JPY') {
+      return t("companyName1"); // Use translation for JPY payee
+    } else {
+      return t("companyName2"); // Use translation for USD payee
+    }
+
+  };
+  const getCompanyAddressByCurrency = () => {
+    if (currency === 'JPY') {
+      return t("companyAddress1"); // Use translation for JPY payee
+    } else {
+      return t("companyAddress2"); // Use translation for USD payee
+    }
+
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
        <div className="mb-8">
-        <h2 className="text-2xl font-bold">{t("companyName1")}</h2>
-        <p>{t("companyAddress1")}</p>
-        <p>{t("payee1")}</p>
+       <h2 className="text-2xl font-bold"><p>{getCompanyNameByCurrency()}</p></h2>
+        <p>{getCompanyAddressByCurrency()}</p>
+        <p>{getPayeeByCurrency()}</p>
       </div>
       {userDetails ? (
         <div className="mb-8 text-base font-medium">
@@ -133,7 +159,8 @@ const QuotationTable = ({ orderIdDB, orderId, userId, onTableLoad }) => {
             </tr>
           ))}
           <tr className="bg-gray-100 font-bold">
-            <td colSpan="7" className="border px-4 py-2 text-left">{t("overAllTotal")}</td>
+            <td colSpan="6" className="border px-4 py-2 text-left">{t("overAllTotal")}</td>
+            <td className="border px-4 py-2">{currency}</td>
             <td className="border px-4 py-2">{grandTotal}</td>
           </tr>
         </tbody>

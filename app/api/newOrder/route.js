@@ -45,6 +45,8 @@ export async function POST(req) {
       paymentRecieptLink: "",
       grandTotal: "",
       grandTotal1: "",
+      currency: "",
+      currency1: "",
       samples1: [],
       samples: []
     });

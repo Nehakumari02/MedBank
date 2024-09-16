@@ -33,7 +33,6 @@ const NewOrderBox = () => {
   const [check, setCheck] = useState(false);
   const { uploadedFile, setUploadedFile } = useOrder();
   const [file, setFile] = useState(uploadedFile);
-  const [currency, setCurrency] = useState("JPY");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isPopUp1, setIsPopUp1] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -80,6 +79,8 @@ const NewOrderBox = () => {
     paymentRecieptLink, setPaymentRecieptLink,
     grandTotal, setGrandTotal,
     grandTotal1, setGrandTotal1,
+    currency,setCurrency,
+    currency1, setCurrency1
   } = useOrder();
   const [isSampleSendChecked1, setIsSampleSendChecked1] = useState(false);
   const [isSampleSendChecked2, setIsSampleSendChecked2] = useState(false);
@@ -719,6 +720,8 @@ const NewOrderBox = () => {
         setPaymentRecieptLink(orderData.paymentRecieptLink);
         setGrandTotal(orderData.grandTotal);
         setGrandTotal1(orderData.grandTotal1);
+        setCurrency(orderData.currency);
+        setCurrency1(orderData.currency1);
       } catch (error) {
         console.error('Error fetching order by ID:', error);
       }
