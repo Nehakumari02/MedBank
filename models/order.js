@@ -107,6 +107,12 @@ const orderSchema = new Schema(
     grandTotal1:{
       type: String,
     },
+    currency:{
+      type: String,
+    },
+    currency1:{
+      type: String,
+    },
     samples1: [
       {
         id: { type: String},

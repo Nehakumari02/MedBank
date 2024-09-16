@@ -46,6 +46,7 @@ const NewOrderBox = () => {
   const [activeDownload, setActiveDownload] = useState(false);
   const [xhr, setXhr] = useState(null);
   const [downloadStatus, setDownloadStatus] = useState(false);
+  const[lang,setLang]=useState("")
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -115,6 +116,8 @@ const NewOrderBox = () => {
 
   const [grandTotal, setGrandTotal] = useState(0);
   const [grandTotal1, setGrandTotal1] = useState(0);
+  const [currency1, setCurrency1] = useState("JPY");
+
 
   const calculateTotal = (sample) => {
     const qualityFees = parseFloat(sample.qualityFees || 0);
@@ -303,7 +306,7 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples, orderIdDB, grandTotal
+        samples, orderIdDB, grandTotal, currency
       };
       try {
         setDisabled(true);
@@ -406,7 +409,7 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples1, orderIdDB, grandTotal1
+        samples1, orderIdDB, grandTotal1, currency1
       };
 
       try {
@@ -1951,8 +1954,8 @@ const NewOrderBox = () => {
                                   <div className='group'>
                                     <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
                                       <LangDropdown
-                                        value={currency}
-                                        onChange={(e) => setCurrency(e.target.value)}
+                                        value={currency1}
+                                        onChange={(e) => setCurrency1(e.target.value)}
                                       />
                                     </div>
                                   </div>
@@ -1973,8 +1976,8 @@ const NewOrderBox = () => {
                                   <div className='group'>
                                     <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
                                       <LangDropdown
-                                        value={currency}
-                                        onChange={(e) => setCurrency(e.target.value)}
+                                        value={currency1}
+                                        onChange={(e) => setCurrency1(e.target.value)}
                                       />
                                     </div>
                                   </div>
@@ -1995,8 +1998,8 @@ const NewOrderBox = () => {
                                   <div className='group'>
                                     <div className={`rounded-md bg-gray-200 group-focus-within:gradient-primary`} >
                                       <LangDropdown
-                                        value={currency}
-                                        onChange={(e) => setCurrency(e.target.value)}
+                                        value={currency1}
+                                        onChange={(e) => setCurrency1(e.target.value)}
                                       />
                                     </div>
                                   </div>
