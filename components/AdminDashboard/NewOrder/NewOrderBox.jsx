@@ -46,6 +46,7 @@ const NewOrderBox = () => {
   const [activeDownload, setActiveDownload] = useState(false);
   const [xhr, setXhr] = useState(null);
   const [downloadStatus, setDownloadStatus] = useState(false);
+  const [abortController, setAbortController] = useState(null);
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -1114,6 +1115,9 @@ const NewOrderBox = () => {
 
       // Upload the file to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
+      const controller = new AbortController();
+      const { signal } = controller;
+      setAbortController(controller);
       uploadRequest.open("PUT", url, true);
       uploadRequest.setRequestHeader("Content-Type", fileType);
 
@@ -1187,6 +1191,17 @@ const NewOrderBox = () => {
         console.error("Error uploading file:", uploadRequest.statusText);
       };
 
+      // Handle abort
+      uploadRequest.onabort = () => {
+        console.log('Upload aborted');
+        toast({
+          variant: "info",
+          title: "Upload Aborted",
+          description: "The file upload has been stopped.",
+        });
+        // Optionally handle other cleanup
+      };
+
       // Send the file to S3
       uploadRequest.send(uploadedFile);
 
@@ -1203,6 +1218,16 @@ const NewOrderBox = () => {
       setUploadStatus(false); // Reset upload status
       setUploadPercentage(0); // Optionally reset upload percentage
       setOrderPopVisible(false); // Ensure popup is closed
+    }
+  };
+
+  const handleAbortUpload = () => {
+    if (abortController) {
+      abortController.abort(); // Abort the current upload request
+      setAbortController(null); // Clear the abort controller
+      setUploadStatus(false); // Reset upload status
+      setUploadPercentage(0); // Reset upload percentage
+      setDisabled(false); // Re-enable the button
     }
   };
 
@@ -1884,7 +1909,7 @@ const NewOrderBox = () => {
                             <span className='text-[10px] w-full flex justify-between'><span>{t("analysisSpecification.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <div className='w-full flex'>
                             <Progress value={uploadPercentage} />
-                            <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                            <div className="text-red-500 cursor-pointer" onClick={handleAbortUpload}>
                                 <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
                               </div>
                           </div>
