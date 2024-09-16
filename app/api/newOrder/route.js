@@ -45,73 +45,8 @@ export async function POST(req) {
       paymentRecieptLink: "",
       grandTotal: "",
       grandTotal1: "",
-      currency: "",
-      currency1: "",
-      samples1: [
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        },
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        },
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        }
-      ],
-
-      samples: [
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        },
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        },
-        {
-          id: "",
-          name: "",
-          qualityFees: "",
-          libraryFees: "",
-          analysisFees: "",
-          tax: "",
-          others: "",
-          total: ""
-        }
-      ]
+      samples1: [],
+      samples: []
     });
 
   
