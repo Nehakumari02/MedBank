@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
-import Sample from "../../../models/samples"; // Assume this is the correct path
+import Sample from "../../../models/samples";
 import Order from "../../../models/order";
+import User from "../../../models/user"; // Import User model if needed
 
 export async function POST(req) {
   try {
@@ -12,17 +13,17 @@ export async function POST(req) {
     const skip = (page - 1) * limit;
     const searchRegex = searchQuery ? new RegExp(searchQuery, 'i') : /.*/;
 
-    // Fetch latest samples with pagination
+    // Fetch latest samples with pagination and populate user fields
     const samples = await Sample.find({ 
-      name: { $regex: searchRegex }, // Adjust query based on your schema
+      name: { $regex: searchRegex } // Adjust query based on your schema
     })
       .populate({
         path: 'orderId', // Populate the orderId field
-        select: 'userId' // Only select the userId field
-      })
-      .populate({
-        path: 'orderId.userId', // Populate the userId field within the orderId
-        select: 'Username school' // Select only the Username and school fields
+        select: 'userId', // Only select the userId field
+        populate: {
+          path: 'userId', // Populate the userId field within the orderId
+          select: 'Username school' // Select only the Username and school fields
+        }
       })
       .sort({ createdAt: -1 }) // Sort by latest first
       .skip(skip)
@@ -36,6 +37,7 @@ export async function POST(req) {
       );
     }
 
+    console.log(samples);
     // Format the samples
     const detailedSamples = samples.map(sample => {
       const user = sample.orderId?.userId;
@@ -48,7 +50,7 @@ export async function POST(req) {
 
     // Calculate total pages
     const totalSamples = await Sample.countDocuments({
-      sampleTitle: { $regex: searchRegex } // Count the total number of matching samples
+      name: { $regex: searchRegex } // Count the total number of matching samples
     });
     const totalPages = Math.ceil(totalSamples / limit);
 
