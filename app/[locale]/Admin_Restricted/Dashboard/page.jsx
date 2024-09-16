@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { DashboardOrderDataTable } from '@/components/AdminDashboard/Dashboard/DashboardOrderDataTable';
 import { DashboardCustomerListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardCustomerListDataTable';
 import { DashboardPaymentListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardPaymentStatusDataTable';
+import { DashboardSampleListDataTable } from '@/components/AdminDashboard/Dashboard/DashboardSampleListDataTable';
 
 const AdminDashboard = () => {
   const [ordersData,setOrdersData] = useState([]);
@@ -89,36 +90,37 @@ const AdminDashboard = () => {
     fetchOrdersByUserId();
   },[searchQueryPayment])
 
-  // useEffect(()=>{
-  //   const fetchOrdersByUserId = async()=>{
-  //     try{
-  //       const response = await fetch('/api/admin_fetchOrders', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ page:1, limit:2, searchQueryOrders }),
-  //       });
-  //       const data = await response.json();
-  //       if(data.error){
-  //         setData([]);
-  //       }
-  //       console.log("data",data)
-  //       setData(data.data)
+  useEffect(()=>{
+    const fetchOrdersByUserId = async()=>{
+      try{
+        const response = await fetch('/api/admin_fetchSamples', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ page:1, limit:2, searchQuerySample }),
+        });
+        const data = await response.json();
+        if(data.error){
+          setSampleData([]);
+        }
+        console.log("data",data)
+        setSampleData(data.data)
         
-  //     }catch(error){
-  //       console.log("fetch orders error ",error)
-  //     }
-  //   }
+      }catch(error){
+        console.log("fetch orders error ",error)
+      }
+    }
 
-  //   fetchOrdersByUserId();
-  // },[searchQuerySample])
+    fetchOrdersByUserId();
+  },[searchQuerySample])
 
   return (
     <div className='w-full p-[10px] md:p-[19px] space-y-6'>
       <DashboardOrderDataTable data={ordersData} searchQuery={searchQueryOrders} setSearchQuery={setSearchQueryOrders} />
       <DashboardCustomerListDataTable data={customersData} searchQuery={searchQueryCustomers} setSearchQuery={setSearchQueryCustomers} />
       <DashboardPaymentListDataTable data={paymentData} searchQuery={searchQueryPayment} setSearchQuery={setSearchQueryPayment} />
+      <DashboardSampleListDataTable data={sampleData} searchQuery={searchQuerySample} setSearchQuery={setSearchQuerySample} />
     </div>
   )
 }
