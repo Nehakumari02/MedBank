@@ -154,7 +154,7 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
   {
     accessorKey: "orderId",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.orderId")}</span>)
     },
@@ -168,7 +168,7 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "orderTitle",
-    header: ({ column }) => {
+    header: function Header({ column }) {
       const t = useTranslations("UserDashboard");
       return (
         <Button
@@ -180,13 +180,14 @@ export const columns: ColumnDef<OrderList>[] = [
         </Button>
       )
     },
-    cell: ({ row }) =>(
+    cell: function Cell({ row }) {
+      return(
       <OrderTitleCell
         userId={row.original.userId}
         orderId={row.original._id}
         orderTitle={row.getValue("orderTitle")}
       />
-    ),
+    )},
     size: 150,
     minSize: 150,
     maxSize: 150,
@@ -194,11 +195,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "requestSheetStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.requestSheet")}</span>)
     },
-    cell: ({ row }) =>
+    cell: function Cell({ row })
       {
         const requestSheetStatus = row.getValue("requestSheetStatus");
         const t = useTranslations("UserDashboard");
@@ -219,11 +220,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "costEstimateStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.costEstimate")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
@@ -242,11 +243,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "formalRequestStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.formalRequest")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const formalRequestStatus = row.getValue("formalRequestStatus");
   
@@ -265,11 +266,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "sampleShippingStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.sampleShipping")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
   
@@ -290,11 +291,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "qualityCheckStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.qualityCheck")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
   
@@ -313,11 +314,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "libraryPrepStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.libraryPrep")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
@@ -336,11 +337,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisProgressStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisProgress")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
@@ -359,11 +360,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisDoneStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisDone")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell ({ row }) {
       const t = useTranslations("UserDashboard");
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
@@ -382,11 +383,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisRawDataStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.rawData")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
@@ -405,11 +406,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisSpecificationStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisSpecification")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
@@ -428,11 +429,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "invoiceStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.invoice")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const invoiceStatus = row.getValue("invoiceStatus");
   
@@ -451,11 +452,11 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "paymentStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.payment")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("UserDashboard");
       const paymentStatus = row.getValue("paymentStatus");
   
