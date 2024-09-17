@@ -86,7 +86,7 @@ const Chats = () => {
     // Listen for incoming messages
     socket.on("chat message", (message) => {
       console.log(message)
-      setMessages((prevMessages) => [...prevMessages, message.message]);
+      setMessages((prevMessages) => [prevMessages, message.message]);
     });
 
     socket.on("connect", onConnect);

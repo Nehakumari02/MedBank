@@ -3,26 +3,34 @@ import React, { useDebugValue, useEffect, useState } from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import { getToken } from 'firebase/messaging'
-import {messaging} from '@/firebase.js'
+import FcmTokenComp from '@/components/firebaseForeground'
 
 const Dashboard = () => {
   const userId = usePathname().split("/")[2]
   console.log(userId)
 
-  function requestPermission() {
-    console.log('Requesting permission...');
-    Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        console.log('Notification permission granted.');
-        getToken(messaging,{vapidKey:"BMeV9lF3EmvjR5oXdqF7tRL1rlwlT-vCOdyg3HXIIHg9AsCtAYaRp-1fhsmTgiuHO1_4K5BtXlsOO3o7v7XLQoc"})
-      }}
-    )
-  }
+  // async function requestPermission() {
+  //   console.log('Requesting permission...');
+  //   try {
+  //     const permission = await Notification.requestPermission();
+      
+  //     if (permission === 'granted') {
+  //       console.log('Notification permission granted.');
+        
+  //       // Get the FCM token
+  //       const token = await getToken(messaging,{ vapidKey: "BMeV9lF3EmvjR5oXdqF7tRL1rlwlT-vCOdyg3HXIIHg9AsCtAYaRp-1fhsmTgiuHO1_4K5BtXlsOO3o7v7XLQoc" });
+  //       console.log('FCM Token:', token);
+  //     } else {
+  //       console.error('Notification permission denied.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error getting permission or token:', error);
+  //   }
+  // }
 
-  useEffect(()=>{
-    requestPermission();
-  },[])
+  // useEffect(()=>{
+  //   requestPermission();
+  // },[])
 
 
   const [orderOverview,setOrderOverview] = useState({
@@ -72,6 +80,7 @@ const Dashboard = () => {
 
   return (
     <div className='w-full p-[10px] md:p-[19px]'>
+      <FcmTokenComp />
       <OrderOverView orderOverview={orderOverview} data={data}/>
     </div>
   )
