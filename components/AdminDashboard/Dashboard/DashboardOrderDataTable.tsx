@@ -142,7 +142,7 @@ export const columns: ColumnDef<OrderList>[] = [
   //       aria-label="Select all"
   //     />
   //   ),
-  //   cell: ({ row }) => (
+  //   cell: function Cell({ row }) (
   //     <Checkbox
   //       checked={row.getIsSelected()}
   //       onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -154,20 +154,21 @@ export const columns: ColumnDef<OrderList>[] = [
   // },
   {
     accessorKey: "orderId",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.orderId")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "orderTitle",
-    header: ({ column }) => {
+    header: function Header({ column }) {
       const t = useTranslations("UserDashboard");
       return (
         <Button
@@ -179,50 +180,53 @@ export const columns: ColumnDef<OrderList>[] = [
         </Button>
       )
     },
-    cell: ({ row }) =>(
+    cell: function Cell({ row }) {return(
       <OrderTitleCell
         userId={row.original.userId}
         orderId={row.original._id}
         orderTitle={row.getValue("orderTitle")}
       />
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "school",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.school")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")}</div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "Username",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.username")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")}</div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "requestSheetStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.requestSheet")}</span>)
     },
-    cell: ({ row }) =>
+    cell: function Cell({ row }) 
       {
         const t = useTranslations("AdminDashboard");
         const requestSheetStatus = row.getValue("requestSheetStatus");
@@ -234,17 +238,18 @@ export const columns: ColumnDef<OrderList>[] = [
           return <></>;
         }
       },
-      width: "140px",
-      minWidth: "140px",
-      maxWidth: "140px",
+      size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "costEstimateStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.costEstimate")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const costEstimateStatus = row.getValue("costEstimateStatus");
   
@@ -258,17 +263,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "formalRequestStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.formalRequest")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const formalRequestStatus = row.getValue("formalRequestStatus");
       const t = useTranslations("AdminDashboard");
   
@@ -280,17 +286,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "sampleShippingStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.sampleShipping")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const sampleShippingStatus = row.getValue("sampleShippingStatus");
       const t = useTranslations("AdminDashboard");
   
@@ -302,17 +309,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "qualityCheckStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.qualityCheck")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const qualityCheckStatus = row.getValue("qualityCheckStatus");
       const t = useTranslations("AdminDashboard");
   
@@ -326,17 +334,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "libraryPrepStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.libraryPrep")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const libraryPrepStatus = row.getValue("libraryPrepStatus");
   
@@ -350,17 +359,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisProgressStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisProgress")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const analysisProgressStatus = row.getValue("analysisProgressStatus");
   
@@ -372,17 +382,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisDoneStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisDone")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const analysisDoneStatus = row.getValue("analysisDoneStatus");
   
@@ -394,17 +405,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisRawDataStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.rawData")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const rawDataStatus = row.getValue("analysisRawDataStatus");
   
@@ -416,17 +428,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisSpecificationStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.analysisSpecification")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const analysisSpecificationStatus = row.getValue("analysisSpecificationStatus");
   
@@ -438,17 +451,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "invoiceStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.invoice")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const invoiceStatus = row.getValue("invoiceStatus");
   
@@ -462,17 +476,18 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "paymentStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("orderList.payment")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const t = useTranslations("AdminDashboard");
       const paymentStatus = row.getValue("paymentStatus");
   
@@ -484,14 +499,15 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   // {
   //   accessorKey: "amountStatus",
   //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
+  //   cell: function Cell({ row }) {
   //     const amount = parseFloat(row.getValue("amount"))
 
   //     // Format the amount as a dollar amount
@@ -506,7 +522,7 @@ export const columns: ColumnDef<OrderList>[] = [
   // {
   //   id: "actions",
   //   enableHiding: false,
-  //   cell: ({ row }) => {
+  //   cell: function Cell({ row }) {
   //     const payment = row.original
 
   //     return (
@@ -619,18 +635,13 @@ export const DashboardOrderDataTable: React.FC<DashboardDataTableProps> = ({ dat
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
-                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
-                    width?: string | number;
-                    minWidth?: string | number;
-                    maxWidth?: string | number;
-                  };
                   return (
                     <TableHead key={header.id}
                     className="text-center"
-                      style={{ width: columnDef.width,
-                        flexGrow: 0,
-                        minWidth: columnDef.minWidth,
-                        maxWidth: columnDef.maxWidth }}
+                    style={{ width: `${header.getSize()}px`,
+                    minWidth: `${header.getSize()}px`,
+                    maxWidth: `${header.getSize()}px`,
+                    flexGrow: 0}}
                     >
                       {header.isPlaceholder
                         ? null
@@ -656,23 +667,11 @@ export const DashboardOrderDataTable: React.FC<DashboardDataTableProps> = ({ dat
                     <TableCell key={cell.id} 
                     className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
                     style={{
-                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).width,
-                          flexGrow: 0,
-                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).minWidth,
-                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).maxWidth,
-                        }}
+                      width: `${cell.column.getSize()}px`,
+                      minWidth: `${cell.column.getSize()}px`,
+                      maxWidth: `${cell.column.getSize()}px`,
+                      flexGrow: 0
+                    }}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

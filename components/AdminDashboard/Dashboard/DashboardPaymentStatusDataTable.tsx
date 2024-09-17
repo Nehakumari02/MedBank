@@ -76,86 +76,91 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
 export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: 'orderId',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.orderId")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderId')}
       </div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: 'orderTitle',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.title")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderTitle')}
       </div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: 'school',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.affiliation")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('school') || 'N/A'}
       </div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: 'Username',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.userName")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('Username') || 'N/A'}
       </div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: 'grandTotal1',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.invoice")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('grandTotal1') || 'N/A'}
       </div>
-    ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    )},
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: 'paymentStatus',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.receipt")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const status = row.getValue('paymentStatus');
       const bgColor = status === 'isCompleted' ? '#5CE1E6' : '#FF914D';
       const t = useTranslations("AdminDashboard");
@@ -168,9 +173,10 @@ export const columns: ColumnDef<PaymentList>[] = [
         </div>
       );
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   // Add additional columns for requestSheet, costEstimate, etc., if needed
   // Refer to the previous implementation for those columns
@@ -265,18 +271,13 @@ export const DashboardPaymentListDataTable: React.FC<DashboardDataTableProps> = 
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
-                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
-                    width?: string | number;
-                    minWidth?: string | number;
-                    maxWidth?: string | number;
-                  };
                   return (
                     <TableHead key={header.id}
                     className="text-center"
-                      style={{ width: columnDef.width,
-                        flexGrow: 0,
-                        minWidth: columnDef.minWidth,
-                        maxWidth: columnDef.maxWidth }}
+                    style={{ width: `${header.getSize()}px`,
+                    minWidth: `${header.getSize()}px`,
+                    maxWidth: `${header.getSize()}px`,
+                    flexGrow: 0}}
                     >
                       {header.isPlaceholder
                         ? null
@@ -302,23 +303,11 @@ export const DashboardPaymentListDataTable: React.FC<DashboardDataTableProps> = 
                     <TableCell key={cell.id} 
                     className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
                     style={{
-                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).width,
-                          flexGrow: 0,
-                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).minWidth,
-                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).maxWidth,
-                        }}
+                      width: `${cell.column.getSize()}px`,
+                      minWidth: `${cell.column.getSize()}px`,
+                      maxWidth: `${cell.column.getSize()}px`,
+                      flexGrow: 0
+                    }}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
