@@ -202,7 +202,9 @@ export const columns: ColumnDef<OrderList>[] = [
         const t = useTranslations("UserDashboard");
         if (requestSheetStatus === "inUserProgress"|| requestSheetStatus === "isAdminCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetInProgress")}</div>;
-        } else if (requestSheetStatus === "isCompleted"|| requestSheetStatus === "isUserCompleted") {
+        } else if(requestSheetStatus === "isUserCompleted"){
+          return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetInProgress")}</div>;
+        } else if (requestSheetStatus === "isCompleted") {
           return <div className="h-[36px] flex flex-col items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.requestSheetIsCompleted")}</div>;
         } else {
           return <></>;
@@ -268,7 +270,9 @@ export const columns: ColumnDef<OrderList>[] = [
   
       if (sampleShippingStatus === "inUserProgress" || sampleShippingStatus === "isAdminCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingInProgress")}</div>;
-      } else if (sampleShippingStatus === "isCompleted" || sampleShippingStatus === "isUserCompleted") {
+      } else if(sampleShippingStatus === "inTransit"){
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingInProgress")}</div>;
+      } else if (sampleShippingStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.sampleShippingIsCompleted")}</div>;
       } else {
         return <></>;

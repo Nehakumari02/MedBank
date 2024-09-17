@@ -250,7 +250,9 @@ export const columns: ColumnDef<OrderList>[] = [
   
       if (costEstimateStatus === "inAdminProgress" ||costEstimateStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationInProgress")}</div>;
-      } else if (costEstimateStatus === "isCompleted" || costEstimateStatus === "isAdminCompleted") {
+      } else if(costEstimateStatus === 'isAdminCompleted'){
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationInProgress")}</div>;
+      } else if (costEstimateStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.costEstimationIsCompleted")}</div>;
       } else {
         return <></>;
@@ -316,7 +318,9 @@ export const columns: ColumnDef<OrderList>[] = [
   
       if (qualityCheckStatus === "inAdminProgress" ||qualityCheckStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckInProgress")}</div>;
-      } else if (qualityCheckStatus === "isCompleted" || qualityCheckStatus === "isAdminCompleted") {
+      } else if(qualityCheckStatus === "isAdminCompleted"){
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckInProgress")}</div>;
+      } else if (qualityCheckStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.qualityCheckIsCompleted")}</div>;
       } else {
         return <></>;
@@ -338,7 +342,9 @@ export const columns: ColumnDef<OrderList>[] = [
   
       if (libraryPrepStatus === "inAdminProgress" ||libraryPrepStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepInProgress")}</div>;
-      } else if (libraryPrepStatus === "isCompleted" || libraryPrepStatus === "isAdminCompleted") {
+      } else if(libraryPrepStatus === "isAdminCompleted"){ 
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepInProgress")}</div>;
+      } else if (libraryPrepStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.libraryPrepIsCompleted")}</div>;
       } else {
         return <></>;
@@ -448,7 +454,9 @@ export const columns: ColumnDef<OrderList>[] = [
   
       if (invoiceStatus === "inAdminProgress" ||invoiceStatus === "isUserCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#FF914D] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceInProgress")}</div>;
-      } else if (invoiceStatus === "isCompleted" || invoiceStatus === "isAdminCompleted") {
+      } else if(invoiceStatus === "isAdminCompleted"){
+        return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#79747E] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceInProgress")}</div>;
+      } else if (invoiceStatus === "isCompleted") {
         return <div className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] bg-[#5CE1E6] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center">{t("orderList.invoiceIsCompleted")}</div>;
       } else {
         return <></>;
