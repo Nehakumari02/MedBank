@@ -59,7 +59,7 @@ export async function POST(req) {
     const mailOptions = {
       from: process.env.EMAIL_SIGNUP,
       to: email,
-      subject: "MEDBANK 【登録完了】Registration completed",
+      subject: "MEDBANK 【遺伝子解析について】Genetic Analysis",
       text: `Dear ${name}
 
       こんにちは。MEDBANK株式会社の佐藤みずきです。

@@ -68,7 +68,7 @@ const SignInPage = () => {
         toast({
           variant:"success",
           title:"Success",
-          description:"login Sucessfull..."
+          description:"login Successfull..."
         })
         router.push(`/${language}/${session.user.id}/Dashboard`)
       }
