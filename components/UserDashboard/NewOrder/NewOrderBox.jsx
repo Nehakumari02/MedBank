@@ -730,6 +730,10 @@ const NewOrderBox = () => {
     fetchOrderByID(orderIdDB);
   }, [orderIdDB]);
 
+  const handleSendMessage = () => {
+    router.push(`/${language}/${userIdDB}/Chats`)
+  }
+
 
   return (
     <>
@@ -1256,7 +1260,7 @@ const NewOrderBox = () => {
                 <span className="font-DM-Sans font-medium text-[14px] leading-[22px] text-[#333333CC]">Online</span>
               </div>
             </div>
-            <button className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
+            <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
           </div>
         </div>
       </div >

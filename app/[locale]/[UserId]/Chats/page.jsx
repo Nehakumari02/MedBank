@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { socket } from "../../../../socket";
+import React, { useEffect, useRef, useState } from "react";
+import { socket } from "@/socket";
 import { usePathname, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Logo from "../../../../public/Images/Home/logo.png"
-import Messages from "../../../../components/UserDashboard/Chats/Messages";
+import Messages from "../../../../components/AdminDashboard/Chats/Messages";
 
 const Chats = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -15,6 +15,7 @@ const Chats = () => {
   const emails=["test@gmail.com","test2@gmail.com"]
   const [chatId,setChatId] = useState();
   const userIdDB = usePathname().split("/")[2];
+  const conversationIdRef = useRef(""); // Use ref to persist conversationId
 
   const generateRandomId = () => {
     const timestamp = Date.now().toString(36); // Convert current timestamp to base-36
@@ -24,15 +25,6 @@ const Chats = () => {
 
   const router = useRouter();
 
-  const getCurrentTimestamp = () => {
-      // Create a new Date object and get the ISO string
-      const isoString = new Date().toISOString();
-      
-      // // Replace the 'Z' at the end of the ISO string with '+00:00'
-      // return isoString.replace('Z', '+00:00');
-      return isoString;
-    };
-
   useEffect(() => {
     // const chatArray = createChatArray("user1", "user2", 10);
     // setMessages(chatArray);
@@ -41,7 +33,6 @@ const Chats = () => {
 
     const fetchMessages = async ()=>{
       try{
-        console.log(getCurrentTimestamp())
         const response = await fetch('/api/fetchMessages', {
           method: 'POST',
           headers: {
@@ -51,12 +42,9 @@ const Chats = () => {
         });
         const data = await response.json();
         setChatId(data.conversationId)
+        conversationIdRef.current = data.conversationId; // Persist conversationId
         setMessages(data.messages)
         console.log(data)
-        if (socket.connected) {
-          console.log(data.conversationId)
-          onConnect(data.conversationId);
-        }
       }catch(error){
         console.log(error)
       }
@@ -64,14 +52,13 @@ const Chats = () => {
 
     fetchMessages();
 
-    
+    if (socket.connected) {
+      onConnect();
+    }
 
-    function onConnect(chatIdd) {
+    function onConnect() {
       setIsConnected(true);
-      console.log(chatIdd)
       setTransport(socket.io.engine.transport.name);
-
-      socket.emit('join', { userId: userIdDB, conversationId: chatIdd, isAdmin: false });
 
       socket.io.engine.on("upgrade", (transport) => {
         setTransport(transport.name);
@@ -86,7 +73,9 @@ const Chats = () => {
     // Listen for incoming messages
     socket.on("chat message", (message) => {
       console.log(message)
-      setMessages((prevMessages) => [prevMessages, message.message]);
+      if(message.conversationId==conversationIdRef.current){
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
     });
 
     socket.on("connect", onConnect);
@@ -104,25 +93,25 @@ const Chats = () => {
   };
 
   const handleSendMessage = async() => {
-    if (message.trim()) {
-      console.log(getCurrentTimestamp())
-      socket.emit("chat message", {
-        id: generateRandomId(),
-        senderId: userIdDB,
-        text: message,
-        createdAt: getCurrentTimestamp(),
-      }); // Emit message to server
-      setMessage(""); // Clear the input field after sending
-    }
+    // if (message.trim()) {
+    //   socket.emit("chat message", {
+    //     id: generateRandomId(),
+    //     senderId: "user1",
+    //     text: message,
+    //     timestamp: Date.now(),
+    //   }); // Emit message to server
+    //   setMessage(""); // Clear the input field after sending
+    // }
 
     if (message.trim()) {
       try {
-        socket.emit("chat message", {conversationId:chatId,message:{
+        socket.emit("chat message", {
           id: generateRandomId(),
           senderId: userIdDB,
           text: message,
+          conversationId: conversationIdRef.current,
           createdAt: new Date().toISOString()
-        }});
+        });
 
         setMessage(""); // Clear the input field after sending
         const response = await fetch('/api/sendMessage', {
@@ -156,22 +145,22 @@ const Chats = () => {
 
   return (
     <div className="w-full h-full p-[13px] text-[#333333]">
-      <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
-        <div className="h-[66px] flex px-[40px] border-b-[1px] border-[#E2E8F0]">
+      <div className="bg-white w-full h-full flex flex-col md:border-[1px] py-[20px] md:border-[#E2E8F0] md:rounded-md md:shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
+        <div className="h-[52px] md:h-[66px] flex px-[5px] md:px-[40px] border-b-[1px] border-[#E2E8F0]">
           <div className="w-full flex justify-between">
-          <div className='flex items-center h-[46px] gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> 
+          <div className='flex items-center h-[46px] gap-[4px] md:gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> 
             <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'>
              {backIcon} 
             </button> 
-            <div className="flex items-start gap-[10px]">
-              <Image src={Logo} alt="logo" className="h-[46px] w-[46px]"></Image>
+            <div className="flex items-center md:items-start gap-[10px]">
+              <Image src={Logo} alt="logo" className="h-[35px] md:h-[46px] w-[35px] md:w-[46px]"></Image>
               <div className="flex flex-col items-start justify-between">
-                <span className="font-DM-Sans font-medium text-[16px] leading-[24px]">MedBank Team</span>
-                <span className="font-DM-Sans font-medium text-[14px] leading-[22px] text-[#333333CC]">Online</span>
+                <span className="font-DM-Sans font-medium text-[14px] md:text-[16px] leading-[24px]">MedBank Team</span>
+                <span className="font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[22px] text-[#333333CC]">Online</span>
               </div>
             </div>
           </div>
-          <div className="relative h-[40px]">
+          <div className="relative h-[40px] hidden md:block">
           <Input
             placeholder="Search"
             className="max-w-sm md:max-w-[360px] md:w-[360px] pr-[30px]"
@@ -180,8 +169,8 @@ const Chats = () => {
           </div>
           </div>
         </div>
-        <div className="flex-grow flex flex-col px-[70px]">
-          <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
+        <div className="flex-grow flex flex-col px-[5px] md:px-[70px]">
+          <div className="flex-grow overflow-auto h-[10px] md:px-4 py-2">
             <Messages messages={messages} userIdDB={userIdDB}/>
           </div>
 
@@ -202,12 +191,12 @@ const Chats = () => {
             <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
           </div>
         </div>
-        <div className="h-[46px] pt-[10px] px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
-          <div className="flex items-center gap-[25px]">
+        <div className="h-[46px] pt-[10px] px-[5px] md:px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
+          <div className="flex overflow-x-scroll items-center gap-[25px]">
             <span>Email CC -</span>
             {emails.map((email,index)=>{
               return(
-                <span key={index} className="h-[36px] px-[10px] flex items-center gap-[10px] bg-[#EFF4FB] rounded-md">{email}<button>{closeIcon}</button></span>
+                <span key={index} className="h-[36px] px-[10px] flex items-center gap-[4px] md:gap-[10px] bg-[#EFF4FB] rounded-md">{email}<button>{closeIcon}</button></span>
               )
             })}
           </div>

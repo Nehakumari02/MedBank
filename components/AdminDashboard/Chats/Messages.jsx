@@ -8,14 +8,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 const Messages= ({
   messages,
   userIdDB
-  // userIdDB,
-  // chatId,
-  // chatPartner,
-  // sessionImg,
 }) => {
-  // const [messages, setMessages] = useState(initialMessages)
-  // console.log(messages)
-  // const messages= initialMessages;
 
   const scrollDownRef = useRef(null)
 
@@ -64,8 +57,8 @@ const Messages= ({
                 )}>
                 <span
                   className={cn('px-4 py-2 rounded-lg inline-block', {
-                    'bg-indigo-600 text-white': isCurrentUser,
-                    'bg-gray-200 text-gray-900': !isCurrentUser,
+                    'bg-[#3E8DA7] text-white': isCurrentUser,
+                    'bg-[#EFF4FB] text-gray-900': !isCurrentUser,
                     'rounded-br-none':
                       !hasNextMessageFromSameUser && isCurrentUser,
                     'rounded-bl-none':
@@ -78,13 +71,13 @@ const Messages= ({
                 </span>
               </div>
 
-              <div
+              {/* <div
                 className={cn('relative w-6 h-6', {
                   'order-2': isCurrentUser,
                   'order-1': !isCurrentUser,
                   invisible: hasNextMessageFromSameUser,
                 })}>
-                {/* <Image
+                <Image
                   fill
                   src={
                     isCurrentUser ? (sessionImg) : chatPartner.image
@@ -92,8 +85,8 @@ const Messages= ({
                   alt='Profile picture'
                   referrerPolicy='no-referrer'
                   className='rounded-full'
-                /> */}
-              </div>
+                />
+              </div> */}
             </div>
           </div>
         )

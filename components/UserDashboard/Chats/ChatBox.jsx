@@ -1,177 +1,54 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { socket } from "@/socket";
-import { usePathname, useRouter } from "next/navigation";
+import React from 'react'
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Logo from "@/public/Images/Home/logo.png"
-import Messages from "@/components/AdminDashboard/Chats/Messages";
+import Messages from "@/components/UserDashboard/Chats/Messages";
+// import React from 'react';
+// import { Input } from "@/components/ui/input";
+// import Image from "next/image";
+// import Logo from "@/public/Images/Home/logo.png";
 
-const Chats = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
-  const [message, setMessage] = useState(""); // State for the input message
-  const [messages, setMessages] = useState([]); // State for storing chat messages
-  const emails=["test@gmail.com","test2@gmail.com"]
-  const clientUserId = usePathname().split("/")[5]
-  const [chatId,setChatId] = useState("");
-  const conversationIdRef = useRef(""); // Use ref to persist conversationId
-  const userIdDB = "66e055de6ddc7825fbd8a103";
-
-  const generateRandomId = () => {
-    const timestamp = Date.now().toString(36); // Convert current timestamp to base-36
-    const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
-    return `${timestamp}-${randomString}`;
-  };
-
-  const router = useRouter();
-
-  useEffect(() => {
-    // const chatArray = createChatArray("user1", "user2", 10);
-    // setMessages(chatArray);
-    // {createChatArray("user1", "user2", 50)}
-    // console.log("genertaed chat array",chatArray)
-
-    const fetchMessages = async ()=>{
-      try{
-        const response = await fetch('/api/fetchMessages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({userId:clientUserId}),
-        });
-        const data = await response.json();
-        setChatId(data.conversationId)
-        conversationIdRef.current = data.conversationId; // Persist conversationId
-        setMessages(data.messages)
-        console.log(data)
-      }catch(error){
-        console.log(error)
-      }
-    }
-
-    fetchMessages();
-
-    if (socket.connected) {
-      onConnect();
-    }
-
-    function onConnect() {
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
-
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
-    }
-
-    function onDisconnect() {
-      setIsConnected(false);
-      setTransport("N/A");
-    }
-
-    // Listen for incoming messages
-    socket.on("chat message", (message) => {
-      console.log(message)
-      if(message.conversationId==conversationIdRef.current){
-        setMessages((prevMessages) => [...prevMessages, message]);
-      }
-    });
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      socket.off("chat message"); // Clean up listener on component unmount
-    };
-  }, []);
-
-  const handleChange = (event) => {
-    setMessage(event.target.value);
-  };
-
-  const handleSendMessage = async() => {
-    if (message.trim()) {
-      try {
-        socket.emit("chat message", {
-          id: generateRandomId(),
-          senderId: userIdDB,
-          text: message,
-          conversationId: conversationIdRef.current,
-          createdAt: new Date().toISOString()
-        });
-
-        setMessage(""); // Clear the input field after sending
-        const response = await fetch('/api/sendMessage', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            senderId: userIdDB,
-            conversationId: chatId,
-            message,
-          }),
-        });
-
-        const messageSendRes = await response.json();
-        if (response.status==200) {
-          // Send message to the server via socket after successful POST request
-        
-        } else {
-          console.log("Error sending message:", data.error);
-        }
-      } catch (error) {
-        console.log("Error sending message:", error);
-      }
-    }
-  };
-
-  const handleBackClick = () => {
-    router.back();
-  };
-
+const ChatBox = ({ handleBackClick, handleChange, handleSendMessage, message, messages, emails = [], userIdDB }) => {
   return (
     <div className="w-full h-full p-[13px] text-[#333333]">
-      <div className="bg-white w-full h-full flex flex-col md:border-[1px] py-[20px] md:border-[#E2E8F0] md:rounded-md md:shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
-        <div className="h-[52px] md:h-[66px] flex px-[5px] md:px-[40px] border-b-[1px] border-[#E2E8F0]">
+      <div className="bg-white w-full h-full flex flex-col border-[1px] py-[20px] border-[#E2E8F0] rounded-md shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]">
+        <div className="h-[66px] flex px-[40px] border-b-[1px] border-[#E2E8F0]">
           <div className="w-full flex justify-between">
-          <div className='flex items-center h-[46px] gap-[4px] md:gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'> 
-            <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'>
-             {backIcon} 
-            </button> 
-            <div className="flex items-center md:items-start gap-[10px]">
-              <Image src={Logo} alt="logo" className="h-[35px] md:h-[46px] w-[35px] md:w-[46px]"></Image>
-              <div className="flex flex-col items-start justify-between">
-                <span className="font-DM-Sans font-medium text-[14px] md:text-[16px] leading-[24px]">MedBank Team</span>
-                <span className="font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[22px] text-[#333333CC]">Online</span>
+            <div className='flex items-center h-[46px] gap-[12px] font-DM-Sans font-normal text-[18px] leading-[24px] tracking-tracking-0.5'>
+              <button onClick={handleBackClick} className='flex items-center justify-center gap-[8px]'>
+                {/* Define or import backIcon */}
+              </button>
+              <div className="flex items-start gap-[10px]">
+                <Image src={Logo} alt="logo" className="h-[46px] w-[46px]" />
+                <div className="flex flex-col items-start justify-between">
+                  <span className="font-DM-Sans font-medium text-[16px] leading-[24px]">MedBank Team</span>
+                  <span className="font-DM-Sans font-medium text-[14px] leading-[22px] text-[#333333CC]">Online</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="relative h-[40px] hidden md:block">
-          <Input
-            placeholder="Search"
-            className="max-w-sm md:max-w-[360px] md:w-[360px] pr-[30px]"
-          />
-          <span className="absolute right-[0px] top-[50%] translate-y-[-50%]">{searchIcon}</span>
-          </div>
+            <div className="relative h-[40px]">
+              <Input
+                placeholder="Search"
+                className="max-w-sm md:max-w-[360px] md:w-[360px] pr-[30px]"
+              />
+              <span className="absolute right-[0px] top-[50%] translate-y-[-50%]">
+                {/* Define or import searchIcon */}
+              </span>
+            </div>
           </div>
         </div>
-        <div className="flex-grow flex flex-col px-[5px] md:px-[70px]">
-          <div className="flex-grow overflow-auto h-[10px] md:px-4 py-2">
-            <Messages messages={messages} userIdDB={userIdDB}/>
+        <div className="flex-grow flex flex-col px-[70px]">
+          <div className="flex-grow overflow-auto h-[10px] px-4 py-2">
+            {/* Ensure Messages component is properly imported and used */}
+            <Messages messages={messages} userIdDB={userIdDB} />
           </div>
-
           <div className="h-[54px] pb-[10px] flex items-center gap-[10px]">
             <input
               type="text"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault()
-                  handleSendMessage()
+                  e.preventDefault();
+                  handleSendMessage();
                 }
               }}
               value={message}
@@ -179,26 +56,34 @@ const Chats = () => {
               placeholder="Type your message"
               className="w-full h-[54px] bg-[#EFF4FB] outline-none px-3 rounded-md border-[1px] border-[#E2E8F0]"
             />
-            <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">{sendIcon}</button>
+            <button onClick={handleSendMessage} className="h-[48px] w-[48px] p-[12.5px] rounded-md bg-[#3E8DA7]">
+              {/* Define or import sendIcon */}
+            </button>
           </div>
         </div>
-        <div className="h-[46px] pt-[10px] px-[5px] md:px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
-          <div className="flex overflow-x-scroll items-center gap-[25px]">
+        <div className="h-[46px] pt-[10px] px-[70px] border-t-[1px] border-[#E2E8F0] mt-[10px] flex items-center justify-between">
+          <div className="flex items-center gap-[25px]">
             <span>Email CC -</span>
-            {emails.map((email,index)=>{
-              return(
-                <span key={index} className="h-[36px] px-[10px] flex items-center gap-[4px] md:gap-[10px] bg-[#EFF4FB] rounded-md">{email}<button>{closeIcon}</button></span>
-              )
-            })}
+            {emails.map((email, index) => (
+              <span key={index} className="h-[36px] px-[10px] flex items-center gap-[10px] bg-[#EFF4FB] rounded-md">
+                {email}
+                <button>
+                  {/* Define or import closeIcon */}
+                </button>
+              </span>
+            ))}
           </div>
-          <button>{editIcon}</button>
+          <button>
+            {/* Define or import editIcon */}
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Chats;
+export default ChatBox;
+
 
 const backIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M5.25 11.25H20.25C20.4489 11.25 20.6397 11.329 20.7803 11.4697C20.921 11.6103 21 11.8011 21 12C21 12.1989 20.921 12.3897 20.7803 12.5303C20.6397 12.671 20.4489 12.75 20.25 12.75H5.25C5.05109 12.75 4.86032 12.671 4.71967 12.5303C4.57902 12.3897 4.5 12.1989 4.5 12C4.5 11.8011 4.57902 11.6103 4.71967 11.4697C4.86032 11.329 5.05109 11.25 5.25 11.25Z" fill="#333333" />

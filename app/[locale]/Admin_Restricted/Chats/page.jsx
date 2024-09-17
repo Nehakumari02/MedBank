@@ -119,7 +119,7 @@ const Chats = () => {
                   {getInitials(conversation.participants[0].name)}
                   </div>
                   <div className="flex flex-col justify-between">
-                    <span className="font-DM-Sans font-medium text-[14px] leading-[24px]">{conversation.participants[0].name}</span>
+                    <span className="font-DM-Sans font-medium text-[14px] leading-[24px]">{conversation.participants[0].name||"User Unknown"}</span>
                     <div className="font-DM-Sans font-medium text-[12px] leading-[22px] flex items-center gap-[8px]">
                       <span>
                         {conversation.lastMessage?.text

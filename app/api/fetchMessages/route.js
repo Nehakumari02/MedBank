@@ -25,7 +25,7 @@ export async function POST(req) {
 
     // Find messages with the conversationId
     // const messages = await Message.find({ conversationId: conversation._id });
-    const messages = await Message.find({ conversationId: conversation._id }).sort({ createdAt: -1 });
+    const messages = await Message.find({ conversationId: conversation._id }).sort({ createdAt: -1 }).limit(20);
 
 
     // console.log("Messages found:", messages);
