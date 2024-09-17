@@ -94,9 +94,10 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")||"N/A"}</div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "school",
@@ -107,9 +108,10 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")||"N/A"}</div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "Username",
@@ -120,9 +122,10 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")||"N/A"}</div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "country",
@@ -133,9 +136,10 @@ export const columns: ColumnDef<UserList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("country")||"N/A"}</div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "city",
@@ -148,9 +152,10 @@ export const columns: ColumnDef<UserList>[] = [
         {row.getValue("city")||"N/A"}
       </div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
 ];
 interface DashboardDataTableProps {
@@ -238,18 +243,13 @@ export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> =
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
-                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
-                    width?: string | number;
-                    minWidth?: string | number;
-                    maxWidth?: string | number;
-                  };
                   return (
                     <TableHead key={header.id}
                     className="text-center"
-                      style={{ width: columnDef.width,
-                        flexGrow: 0,
-                        minWidth: columnDef.minWidth,
-                        maxWidth: columnDef.maxWidth }}
+                    style={{ width: `${header.getSize()}px`,
+                    minWidth: `${header.getSize()}px`,
+                    maxWidth: `${header.getSize()}px`,
+                    flexGrow: 0}}
                     >
                       {header.isPlaceholder
                         ? null
@@ -275,23 +275,11 @@ export const DashboardCustomerListDataTable: React.FC<DashboardDataTableProps> =
                     <TableCell key={cell.id} 
                     className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
                     style={{
-                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).width,
-                          flexGrow: 0,
-                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).minWidth,
-                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).maxWidth,
-                        }}
+                      width: `${cell.column.getSize()}px`,
+                      minWidth: `${cell.column.getSize()}px`,
+                      maxWidth: `${cell.column.getSize()}px`,
+                      flexGrow: 0
+                    }}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
