@@ -6,7 +6,7 @@ import firebaseApp from '../firebase';
 const useFcmToken = () => {
   const [token, setToken] = useState('');
   const [notificationPermissionStatus, setNotificationPermissionStatus] = useState('');
-
+    let fcmToken;
   useEffect(() => {
     const retrieveToken = async () => {
       try {
@@ -24,6 +24,7 @@ const useFcmToken = () => {
             if (currentToken) {
                 console.log("current token" , currentToken)
               setToken(currentToken);
+              fcmToken=currentToken;
             } else {
               console.log('No registration token available. Request permission to generate one.');
             }
@@ -37,7 +38,7 @@ const useFcmToken = () => {
     retrieveToken();
   }, []);
 
-  return { token, notificationPermissionStatus };
+  return { fcmToken, notificationPermissionStatus };
 };
 
 export default useFcmToken;

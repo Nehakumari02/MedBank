@@ -5,7 +5,7 @@ import firebaseApp from '../firebase';
 import { useEffect } from 'react';
 
 export default function FcmTokenComp() {
-  const { token, notificationPermissionStatus } = useFcmToken();
+  const { fcmToken, notificationPermissionStatus } = useFcmToken();
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
@@ -16,7 +16,7 @@ export default function FcmTokenComp() {
           unsubscribe(); // Unsubscribe from the onMessage event on cleanup
         };
       }
-      console.log("token",token)
+      console.log("token",fcmToken)
     }
   }, [notificationPermissionStatus]);
 
