@@ -161,9 +161,10 @@ export const columns: ColumnDef<OrderList>[] = [
     cell: ({ row }) => (
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
     ),
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "orderTitle",
@@ -186,9 +187,10 @@ export const columns: ColumnDef<OrderList>[] = [
         orderTitle={row.getValue("orderTitle")}
       />
     ),
-    width: "150px",
-    minWidth: "150px",
-    maxWidth: "150px",
+    size: 150,
+    minSize: 150,
+    maxSize: 150,
+    enableResizing: false,
   },
   {
     accessorKey: "requestSheetStatus",
@@ -210,9 +212,10 @@ export const columns: ColumnDef<OrderList>[] = [
           return <></>;
         }
       },
-      width: "140px",
-      minWidth: "140px",
-      maxWidth: "140px",
+      size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "costEstimateStatus",
@@ -232,9 +235,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "formalRequestStatus",
@@ -254,9 +258,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "sampleShippingStatus",
@@ -278,9 +283,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "qualityCheckStatus",
@@ -300,9 +306,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "libraryPrepStatus",
@@ -322,9 +329,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisProgressStatus",
@@ -344,9 +352,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisDoneStatus",
@@ -366,9 +375,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisRawDataStatus",
@@ -388,9 +398,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "analysisSpecificationStatus",
@@ -410,9 +421,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "invoiceStatus",
@@ -432,9 +444,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   {
     accessorKey: "paymentStatus",
@@ -454,9 +467,10 @@ export const columns: ColumnDef<OrderList>[] = [
         return <></>;
       }
     },
-    width: "140px",
-    minWidth: "140px",
-    maxWidth: "140px",
+    size: 140,
+    minSize: 140,
+    maxSize: 140,
+    enableResizing: false,
   },
   // {
   //   accessorKey: "amountStatus",
@@ -586,18 +600,13 @@ export const  OrdersDataTable: React.FC<OrdersDataTableProps>=({data=[]}) =>{
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="md:h-[54px] border-t-[1px] border-b-[1px] border-dashed text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[14px] leading-[24px] text-center">
                 {headerGroup.headers.map((header) => {
-                  const columnDef = header.column.columnDef as ColumnDef<TData, TValue> & {
-                    width?: string | number;
-                    minWidth?: string | number;
-                    maxWidth?: string | number;
-                  };
                   return (
                     <TableHead key={header.id}
                     className="text-center"
-                      style={{ width: columnDef.width,
-                        flexGrow: 0,
-                        minWidth: columnDef.minWidth,
-                        maxWidth: columnDef.maxWidth }}
+                    style={{ width: `${header.getSize()}px`,
+                    minWidth: `${header.getSize()}px`,
+                    maxWidth: `${header.getSize()}px`,
+                    flexGrow: 0}}
                     >
                       {header.isPlaceholder
                         ? null
@@ -624,22 +633,10 @@ export const  OrdersDataTable: React.FC<OrdersDataTableProps>=({data=[]}) =>{
                       <TableCell key={cell.id}
                         className="border-r-[1px] font-DM-Sans font-normal text-[14px] leading-[24px] text-center"
                         style={{
-                          width: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).width,
-                          flexGrow: 0,
-                          minWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).minWidth,
-                          maxWidth: (cell.column.columnDef as ColumnDef<TData, TValue> & {
-                            width?: string | number;
-                            minWidth?: string | number;
-                            maxWidth?: string | number;
-                          }).maxWidth,
+                          width: `${cell.column.getSize()}px`,
+                          minWidth: `${cell.column.getSize()}px`,
+                          maxWidth: `${cell.column.getSize()}px`,
+                          flexGrow: 0
                         }}
                       >
                         {flexRender(
