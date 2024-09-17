@@ -70,6 +70,7 @@ messaging.onBackgroundMessage((payload) => {
         icon: image || '/icons/firebase-logo.png', // path to your "fallback" firebase notification logo
         data: restPayload,
     };
+    console.log(payload.data)
     return self.registration.showNotification(title, notificationOptions);
 });
 
