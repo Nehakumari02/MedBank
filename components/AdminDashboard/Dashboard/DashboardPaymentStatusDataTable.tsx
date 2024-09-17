@@ -76,15 +76,15 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
 export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: 'orderId',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.orderId")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderId')}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -92,15 +92,15 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'orderTitle',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.title")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('orderTitle')}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -108,15 +108,15 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'school',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.affiliation")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('school') || 'N/A'}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -124,15 +124,15 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'Username',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.userName")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('Username') || 'N/A'}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -140,15 +140,15 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'grandTotal1',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.invoice")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="text-center font-DM-Sans font-medium text-[14px] leading-[24px]">
         {row.getValue('grandTotal1') || 'N/A'}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -156,11 +156,11 @@ export const columns: ColumnDef<PaymentList>[] = [
   },
   {
     accessorKey: 'paymentStatus',
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("paymentBox.receipt")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const status = row.getValue('paymentStatus');
       const bgColor = status === 'isCompleted' ? '#5CE1E6' : '#FF914D';
       const t = useTranslations("AdminDashboard");

@@ -134,7 +134,7 @@ export const columns: ColumnDef<OrderList>[] = [
     header: "ID",
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
-        {row.getValue("id")}
+        {row.getValue("id")||"N/A"}
       </div>
     ),
     size: 140,
@@ -147,7 +147,7 @@ export const columns: ColumnDef<OrderList>[] = [
     header: "Name",
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
-        {row.getValue("name")}
+        {row.getValue("name")||"N/A"}
       </div>
     ),
     size: 140,
@@ -160,7 +160,7 @@ export const columns: ColumnDef<OrderList>[] = [
     header: "Affiliation of Customer",
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
-        {row.getValue("school")}
+        {row.getValue("school")||"N/A"}
       </div>
     ),
     size: 140,
@@ -173,7 +173,7 @@ export const columns: ColumnDef<OrderList>[] = [
     header: "Username",
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
-        {row.getValue("Username")}
+        {row.getValue("Username")||"N/A"}
       </div>
     ),
     size: 140,

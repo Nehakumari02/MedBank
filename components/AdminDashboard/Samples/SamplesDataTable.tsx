@@ -103,7 +103,7 @@ export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: "qualityCheckStatus",
     header: "Quality Check Status",
-    cell: ({ row }) => {
+    cell: function ({row}) {
       const status = row.getValue("qualityCheckStatus");
       let statusColor = "";
 
@@ -135,7 +135,7 @@ export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: "libraryPrepStatus",
     header: "Library Prep Status",
-    cell: ({ row }) => {
+    cell: function ({row}) {
       const status = row.getValue("libraryPrepStatus");
       let statusColor = "";
 
@@ -167,7 +167,7 @@ export const columns: ColumnDef<PaymentList>[] = [
   {
     accessorKey: "analysisSpecificationStatus",
     header: "Analysis Specification Status",
-    cell: ({ row }) => {
+    cell: function ({row}) {
       const status = row.getValue("analysisSpecificationStatus");
       let statusColor = "";
 

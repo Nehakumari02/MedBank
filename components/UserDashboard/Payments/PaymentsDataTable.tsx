@@ -69,17 +69,17 @@ export const columns: ColumnDef<Payments>[] = [
   // },
   {
     accessorKey: "orderId",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("paymentList.orderId")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }){ return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderId")}</div>
-    ),
+    )},
   },
   {
     accessorKey: "orderTitle",
-    header: ({ column }) => {
+    header: function Header({ column }) {
       const t = useTranslations("UserDashboard");
       return (
         <Button
@@ -91,11 +91,11 @@ export const columns: ColumnDef<Payments>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")}</div>,
+    cell: function Cell({ row }) {return( <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("orderTitle")}</div>)},
   },
   {
     accessorKey: "grandTotal1",
-    header: ({ column }) => {
+    header: function Header({ column }) {
       const t = useTranslations("UserDashboard");
       return (
         <Button
@@ -107,7 +107,7 @@ export const columns: ColumnDef<Payments>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("grandTotal1")}</div>,
+    cell: function Cell({ row }) {return(<div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("grandTotal1")}</div>)},
   },
   // {
   //   accessorKey: "requestSheet",
@@ -127,11 +127,11 @@ export const columns: ColumnDef<Payments>[] = [
   // },
   {
     accessorKey: "paymentStatus",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("UserDashboard");
       return(<span>{t("paymentList.payment")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const costEstimateStatus = row.getValue("paymentStatus");
       const t = useTranslations("UserDashboard");
   
@@ -226,9 +226,9 @@ export function PaymentsDataTable({ data=[] }: { data: Payments[] }) {
         <div className="flex items-center gap-[12px] mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("orderTitle")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("orderTitle")?.setFilterValue(event.target.value)
           }
           className="max-w-sm md:max-w-[360px] md:w-[360px]"
         />

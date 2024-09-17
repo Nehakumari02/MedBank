@@ -87,13 +87,13 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
 export const columns: ColumnDef<UserList>[] = [
   {
     accessorKey: "memberId",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("customerList.memberId")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("memberId")||"N/A"}</div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -101,13 +101,13 @@ export const columns: ColumnDef<UserList>[] = [
   },
   {
     accessorKey: "school",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("customerList.affiliation")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("school")||"N/A"}</div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -115,13 +115,13 @@ export const columns: ColumnDef<UserList>[] = [
   },
   {
     accessorKey: "Username",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("customerList.userName")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("Username")||"N/A"}</div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -129,13 +129,13 @@ export const columns: ColumnDef<UserList>[] = [
   },
   {
     accessorKey: "country",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("customerList.country")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">{row.getValue("country")||"N/A"}</div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
@@ -143,15 +143,15 @@ export const columns: ColumnDef<UserList>[] = [
   },
   {
     accessorKey: "city",
-    header: ()=>{
+    header: function Header(){
       const t = useTranslations("AdminDashboard");
       return(<span>{t("customerList.address")}</span>)
     },
-    cell: ({ row }) => (
+    cell: function Cell({ row }) {return(
       <div className="capitalize font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("city")||"N/A"}
       </div>
-    ),
+    )},
     size: 140,
     minSize: 140,
     maxSize: 140,
