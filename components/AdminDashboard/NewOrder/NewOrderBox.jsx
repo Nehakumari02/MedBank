@@ -568,7 +568,7 @@ const NewOrderBox = () => {
         body: JSON.stringify({
           userIdDB: userIdDB,
           title: "MedBank",
-          message: "Cost Estimation Uploaded",
+          message: t("notification.costEstimation"),
           link: "/Dashboard",
         }),
       });
@@ -594,6 +594,18 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({
           userId: userIdDB, message: t("chatMessage.formalRequest")
+        }),
+      });
+      const response = await fetch('/api/send-notification', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB: userIdDB,
+          title: "MedBank",
+          message: t("notification.formalRequest"),
+          link: "/Dashboard",
         }),
       });
       setFormalRequestStatus("isCompleted")
@@ -806,6 +818,18 @@ const NewOrderBox = () => {
               });
 
               // Send update in chat
+              const response2 = await fetch('/api/send-notification', {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userIdDB: userIdDB,
+                  title: "MedBank",
+                  message: t("notification.qualityCheck"),
+                  link: "/Dashboard",
+                }),
+              });
               const res = await fetch('/api/sendUpdateInChat', {
                 method: 'POST',
                 headers: {
@@ -948,6 +972,19 @@ const NewOrderBox = () => {
               description: "Your file has been uploaded to S3.",
             });
 
+            const response2 = await fetch('/api/send-notification', {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userIdDB: userIdDB,
+                title: "MedBank",
+                message: t("notification.libraryPrep"),
+                link: "/Dashboard",
+              }),
+            });
+
             // Send update in chat
             const chatResponse = await fetch("/api/sendUpdateInChat", {
               method: "POST",
@@ -1018,6 +1055,18 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ userId: userIdDB, message: `Dear user\n Analysis has been started for your order ${orderId}` }),
       });
+      const response2 = await fetch('/api/send-notification', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB: userIdDB,
+          title: "MedBank",
+          message: t("notification.analysisStart"),
+          link: "/Dashboard",
+        }),
+      });
       console.log(res)
       setAnalysisProgressStatus('isCompleted');
       setAnalysisDoneStatus('inAdminProgress');
@@ -1045,6 +1094,18 @@ const NewOrderBox = () => {
         body: JSON.stringify({ userId: userIdDB, message: `Dear user\n Analysis has been completed for your order ${orderId}` }),
       });
       console.log(res)
+      const response2 = await fetch('/api/send-notification', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB: userIdDB,
+          title: "MedBank",
+          message: t("notification.analysisDone"),
+          link: "/Dashboard",
+        }),
+      });
       setAnalysisDoneStatus('isCompleted');
       setAnalysisRawDataStatus('inAdminProgress')
       setAnalysisSpecificationStatus('inAdminProgress')
@@ -1080,6 +1141,18 @@ const NewOrderBox = () => {
           },
           body: JSON.stringify({
             userId: userIdDB, message: t("chatMessage.rawData")
+          }),
+        });
+        const response2 = await fetch('/api/send-notification', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userIdDB: userIdDB,
+            title: "MedBank",
+            message: t("notification.rawData"),
+            link: "/Dashboard",
           }),
         });
         setOrderPopVisible(false);
@@ -1175,6 +1248,18 @@ const NewOrderBox = () => {
               title: "Upload Successful",
               description: "Your file has been uploaded to S3.",
             });
+            const response2 = await fetch('/api/send-notification', {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userIdDB: userIdDB,
+                title: "MedBank",
+                message: t("notification.analysisSpecification"),
+                link: "/Dashboard",
+              }),
+            });
 
             // Send a chat message update
             const res = await fetch("/api/sendUpdateInChat", {
@@ -1260,6 +1345,18 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({
           userId: userIdDB, message: t("chatMessage.invoice")
+        }),
+      });
+      const response2 = await fetch('/api/send-notification', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB: userIdDB,
+          title: "MedBank",
+          message: t("notification.invoice"),
+          link: "/Dashboard",
         }),
       });
       setOrderPopVisible(false);
@@ -1352,6 +1449,18 @@ const NewOrderBox = () => {
               variant: "success",
               title: "Upload Successful",
               description: "Your file has been uploaded to S3.",
+            });
+            const response2 = await fetch('/api/send-notification', {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userIdDB: userIdDB,
+                title: "MedBank",
+                message: t("notification.payment"),
+                link: "/Dashboard",
+              }),
             });
 
             try {

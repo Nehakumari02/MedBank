@@ -16,6 +16,7 @@ import html2pdf from 'html2pdf.js';
 import { useTranslations } from 'next-intl'
 import QuotationTable from '../../../components/QuotationTable';
 import QuotationTableInvoice from '../../../components/QuotationTableInvoice';
+import useFcmToken from '@/hooks/useFCMToken'
 
 
 
@@ -94,6 +95,7 @@ const NewOrderBox = () => {
   const [disabled, setDisabled] = useState(false);
   const printRef = useRef();
   const printRef1 = useRef();
+  const { token, notificationPermissionStatus } = useFcmToken('66e055de6ddc7825fbd8a103')
 
   const handleSampleSendChecked1 = (e) => {
     setIsSampleSendChecked1(e.target.checked);
@@ -367,6 +369,18 @@ const NewOrderBox = () => {
     updateDataInDB({
       formalRequestStatus: "isUserCompleted"
     })
+    const response2 = await fetch('/api/send-notification-user', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token:token,
+        title: "MedBank",
+        message: t("notification.formalRequest"),
+        link: "/Dashboard",
+      }),
+    });
     const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
       method: "POST",
       headers: {
@@ -415,6 +429,18 @@ const NewOrderBox = () => {
       updateDataInDB({
         sampleShippingStatus: "inTransit"
       })
+      const response2 = await fetch('/api/send-notification-user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:token,
+          title: "MedBank",
+          message: t("notification.sampleShipping"),
+          link: "/Dashboard",
+        }),
+      });
       const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
         method: "POST",
         headers: {
@@ -512,7 +538,7 @@ const NewOrderBox = () => {
     }
   };
 
-  const handleConfirmQualityCheck = () => {
+  const handleConfirmQualityCheck = async() => {
     if (!isQualityChecked) {
       toast({
         variant: "error",
@@ -521,6 +547,18 @@ const NewOrderBox = () => {
       })
     }
     else {
+      const response2 = await fetch('/api/send-notification-user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:token,
+          title: "MedBank",
+          message: t("notification.qualityCheck"),
+          link: "/Dashboard",
+        }),
+      });
       setOrderPopVisible(false);
       setActivePopup('');
       setQualityCheckStatus("isCompleted");
@@ -533,7 +571,7 @@ const NewOrderBox = () => {
   };
   
 
-  const handleLibraryPrepConfirmation = () => {
+  const handleLibraryPrepConfirmation = async() => {
     if (!isLibraryPrepChecked) {
       toast({
         variant: "error",
@@ -542,6 +580,18 @@ const NewOrderBox = () => {
       })
     }
     else {
+      const response2 = await fetch('/api/send-notification-user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:token,
+          title: "MedBank",
+          message: t("notification.libraryPrep"),
+          link: "/Dashboard",
+        }),
+      });
       setOrderPopVisible(false);
       setActivePopup('');
       setLibraryPrepStatus("isCompleted");

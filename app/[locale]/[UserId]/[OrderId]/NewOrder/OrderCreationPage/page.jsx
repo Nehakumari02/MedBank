@@ -12,6 +12,7 @@ import { useOrder } from '@/contexts/OrderContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl'
+import useFcmToken from '@/hooks/useFCMToken'
 
 
 const OrderCreationPage = () => {
@@ -27,6 +28,7 @@ const OrderCreationPage = () => {
   const orderIdDB = usePathname().split("/")[3];
   const t = useTranslations("UserDashboard");
   let userIdDB = usePathname().split('/')[2];
+  const { token, notificationPermissionStatus } = useFcmToken('66e055de6ddc7825fbd8a103')
   
 
   const handleDelete = () => {
@@ -152,6 +154,19 @@ const OrderCreationPage = () => {
         setDisabled(false);
         return;
       }
+      const response2 = await fetch('/api/send-notification-user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token:token,
+          title: "MedBank",
+          message: t("notification.requestSheet"),
+          link: "/Dashboard",
+        }),
+      });
+
   
       // Send chat update
       const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {

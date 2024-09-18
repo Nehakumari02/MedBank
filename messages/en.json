@@ -799,7 +799,6 @@
         },
         "chatMessage":{
             "requestSheet":"The request sheet has been uploaded. Please check it out. Thank you.",
-
             "costEstimate":"Hello. I checked the quotation.",
             "formalRequest":"Hello. Based on the quotation, we would like to request a genetic analysis officially. Thank you.",
             "sampleShipping":"Hello. I have sent samples. Thank you.",
