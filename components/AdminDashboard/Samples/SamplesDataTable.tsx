@@ -122,22 +122,40 @@ export const columns: ColumnDef<PaymentList>[] = [
       const status = row.getValue("qualityCheckStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
+      let textColor = "";
 
       switch (status) {
         case "inAdminProgress":
           statusColor = "#FF914D"; // Orange
           break;
+        case "isAdminCompleted":
+          statusColor = "#79747E"; // Dark Gray
+          break;
         case "isCompleted":
           statusColor = "#5CE1E6"; // Light Blue
           break;
         default:
-          statusColor = "black";
+          statusColor = "#E2E8F0"; // Light Gray
+      }
+
+      switch (status) {
+        case "inAdminProgress":
+          textColor= "white";
+          break;
+        case "isAdminCompleted":
+          textColor = "white";
+          break;
+        case "isCompleted":
+          textColor = "white";
+          break;
+        default:
+          textColor = "black";
       }
 
       return (
         <div
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
-          style={{ backgroundColor: statusColor }}
+          style={{ backgroundColor: statusColor, color: textColor}}
         >
           {status === 'isCompleted' ? t("sampleList.qualityCompleted") : t("sampleList.qualityPending")}
         </div>
@@ -158,22 +176,40 @@ export const columns: ColumnDef<PaymentList>[] = [
       const status = row.getValue("libraryPrepStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
+      let textColor = "";
 
       switch (status) {
         case "inAdminProgress":
           statusColor = "#FF914D"; // Orange
           break;
+        case "isAdminCompleted":
+          statusColor = "#79747E"; // Dark Gray
+          break;
         case "isCompleted":
           statusColor = "#5CE1E6"; // Light Blue
           break;
         default:
-          statusColor = "black";
+          statusColor = "#E2E8F0"; // Light Gray
+      }
+
+      switch (status) {
+        case "inAdminProgress":
+          textColor= "white";
+          break;
+        case "isAdminCompleted":
+          textColor = "white";
+          break;
+        case "isCompleted":
+          textColor = "white";
+          break;
+        default:
+          textColor = "black";
       }
 
       return (
         <div
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
-          style={{ backgroundColor: statusColor }}
+          style={{ backgroundColor: statusColor, color: textColor }}
         >
           {status === 'isCompleted' ? t("sampleList.libraryCompleted") : t("sampleList.libraryPending")}
         </div>
@@ -194,22 +230,40 @@ export const columns: ColumnDef<PaymentList>[] = [
       const status = row.getValue("analysisSpecificationStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
+      let textColor = "";
 
       switch (status) {
         case "inAdminProgress":
           statusColor = "#FF914D"; // Orange
           break;
+        case "isAdminCompleted":
+          statusColor = "#79747E"; // Dark Gray
+          break;
         case "isCompleted":
           statusColor = "#5CE1E6"; // Light Blue
           break;
         default:
-          statusColor = "black";
+          statusColor = "#E2E8F0"; // Light Gray
+      }
+
+      switch (status) {
+        case "inAdminProgress":
+          textColor= "white";
+          break;
+        case "isAdminCompleted":
+          textColor = "white";
+          break;
+        case "isCompleted":
+          textColor = "white";
+          break;
+        default:
+          textColor = "black";
       }
 
       return (
         <div
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
-          style={{ backgroundColor: statusColor }}
+          style={{ backgroundColor: statusColor, color: textColor }}
         >
          {status === 'isCompleted' ? t("sampleList.analysisCompleted") : t("sampleList.analysisPending")}
         </div>

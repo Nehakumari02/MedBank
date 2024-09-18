@@ -63,6 +63,18 @@ const NewOrderBox = () => {
     console.log(saveApiResponse)
   }
 
+  const updateSampleInDB = async (sampleData) => {
+    const saveApiResponse = await fetch('/api/updateSample', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sample: sampleData, orderId: orderIdDB }),
+    });
+
+    console.log(saveApiResponse)
+  }
+
   const updateDataInDB1 = async (samples) => {
     const saveApiResponse = await fetch('/api/get-quotation', {
       method: 'POST',
@@ -810,6 +822,11 @@ const NewOrderBox = () => {
               body: JSON.stringify({ order: orderData, orderIdDB }),
             });
 
+            updateSampleInDB({
+              qualityCheckStatus:"isAdminCompleted",
+              libraryPrepStatus:"inAdminProgress"
+            })
+
             if (saveApiResponse.status === 200) {
               toast({
                 variant: "success",
@@ -964,6 +981,10 @@ const NewOrderBox = () => {
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
           });
+
+          updateSampleInDB({
+            libraryPrepStatus:"isAdminCompleted",
+          })
 
           if (saveApiResponse.ok) {
             toast({
@@ -1163,6 +1184,9 @@ const NewOrderBox = () => {
           analysisRawDataStatus: "isAdminCompleted",
           rawDataLink: rawDataLink
         })
+        updateSampleInDB({
+          analysisSpecificationStatus:"inAdminProgress"
+        })
       }
       catch {
 
@@ -1241,6 +1265,9 @@ const NewOrderBox = () => {
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
           });
+          updateSampleInDB({
+            analysisSpecificationStatus:"isAdminCompleted"
+          })
 
           if (saveApiResponse.ok) {
             toast({
