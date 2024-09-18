@@ -17,6 +17,7 @@ import folder1 from "../../../public/dashboard/folder.png"
 import { toast } from '@/hooks/use-toast';
 import { Progress } from "@/components/ui/progress"
 import { useTranslations } from 'next-intl'
+import useFcmToken from "@/hooks/useFCMToken";
 
 const NewOrderBox = () => {
   // const { getRootProps, getInputProps } = useDropzone();
@@ -47,6 +48,8 @@ const NewOrderBox = () => {
   const [xhr, setXhr] = useState(null);
   const [downloadStatus, setDownloadStatus] = useState(false);
   const [abortController, setAbortController] = useState(null);
+
+  const { token, notificationPermissionStatus } = useFcmToken();
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {
@@ -165,7 +168,7 @@ const NewOrderBox = () => {
       if (event.lengthComputable) {
         const percentage = Math.round((event.loaded / event.total) * 100);
         setDownloadPercentage(percentage);
-        console.log("PERCENTAGE",percentage);
+        console.log("PERCENTAGE", percentage);
       }
     };
 
@@ -190,9 +193,9 @@ const NewOrderBox = () => {
 
         setActiveDownload(false);
         setDisabledDownload(false);
-        setTimeout(()=>{
+        setTimeout(() => {
           setDownloadStatus(false);
-        },1000)
+        }, 1000)
         setDownloadStatus(false);
       } else {
         console.error('Failed to download file');
@@ -306,7 +309,7 @@ const NewOrderBox = () => {
     }
     else {
       const requestData = {
-        samples, orderIdDB, grandTotal,currency
+        samples, orderIdDB, grandTotal, currency
       };
       try {
         setDisabled(true);
@@ -555,6 +558,21 @@ const NewOrderBox = () => {
           userId: userIdDB, message: t("chatMessage.costEstimate")
         }),
       });
+      // Second API call (send-notification)
+
+      const response = await fetch('/api/send-notification', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB: userIdDB,
+          title: "MedBank",
+          message: "Cost Estimation Uploaded",
+          link: "/Dashboard",
+        }),
+      });
+
       setOrderPopVisible(false);
       setIsPopupVisible(false);
       setCostEstimateStatus("isAdminCompleted");
@@ -1261,7 +1279,7 @@ const NewOrderBox = () => {
     // setOrderPopVisible(false); // Uncomment if needed
     setDisabled(true);
     setUploadStatus(true);
-  
+
     if (!uploadedFile) {
       toast({
         variant: "error",
@@ -1272,10 +1290,10 @@ const NewOrderBox = () => {
       setUploadStatus(false); // Reset the upload status if file is missing
       return;
     }
-  
+
     try {
       const { name: fileName, type: fileType } = uploadedFile;
-  
+
       // Call the API to get the signed URL
       const response = await fetch("/api/fileUpload", {
         method: "POST",
@@ -1284,21 +1302,21 @@ const NewOrderBox = () => {
         },
         body: JSON.stringify({ fileName, fileType }),
       });
-  
+
       const { url } = await response.json();
-  
+
       if (!url) {
         throw new Error("Failed to retrieve signed URL");
       }
-  
+
       console.log("upload url", url);
       setPaymentRecieptLink(url.split("?")[0]);
-  
+
       // Upload the file directly to S3 using XMLHttpRequest
       const uploadRequest = new XMLHttpRequest();
       uploadRequest.open("PUT", url, true);
       uploadRequest.setRequestHeader("Content-Type", fileType);
-  
+
       // Update progress
       uploadRequest.upload.onprogress = (event) => {
         if (event.lengthComputable) {
@@ -1306,20 +1324,20 @@ const NewOrderBox = () => {
           setUploadPercentage(percentComplete);
         }
       };
-  
+
       // Handle upload complete
       uploadRequest.onload = async () => {
         if (uploadRequest.status === 200) {
           const fileUrl = url.split("?")[0];
           setPaymentRecieptLink(fileUrl);
           setPaymentStatus("isAdminCompleted");
-  
+
           const orderData = {
             orderTitle,
             paymentStatus: "isAdminCompleted",
             paymentRecieptLink: fileUrl,
           };
-  
+
           // Save order data
           const saveApiResponse = await fetch("/api/updateOrder", {
             method: "POST",
@@ -1328,14 +1346,14 @@ const NewOrderBox = () => {
             },
             body: JSON.stringify({ order: orderData, orderIdDB }),
           });
-  
+
           if (saveApiResponse.status === 200) {
             toast({
               variant: "success",
               title: "Upload Successful",
               description: "Your file has been uploaded to S3.",
             });
-  
+
             try {
               const res = await fetch("/api/sendUpdateInChat", {
                 method: "POST",
@@ -1347,7 +1365,7 @@ const NewOrderBox = () => {
                   message: t("chatMessage.payment"),
                 }),
               });
-  
+
               if (!res.ok) {
                 throw new Error("Failed to send chat update");
               }
@@ -1366,7 +1384,7 @@ const NewOrderBox = () => {
           throw new Error("Upload Error: Failed to upload file");
         }
       };
-  
+
       // Handle upload error
       uploadRequest.onerror = () => {
         toast({
@@ -1376,7 +1394,7 @@ const NewOrderBox = () => {
         });
         console.error("Error uploading file:", uploadRequest.statusText);
       };
-  
+
       // Send the file to S3
       uploadRequest.send(uploadedFile);
     } catch (err) {
@@ -1393,7 +1411,7 @@ const NewOrderBox = () => {
       setOrderPopVisible(false);
     }
   };
-  
+
 
   const handleClickOutside = (event) => {
     if (orderPopUpBoxRef.current && !orderPopUpBoxRef.current.contains(event.target)) {
@@ -1490,22 +1508,22 @@ const NewOrderBox = () => {
                             <Progress value={downloadPercentage} />
                           </div>
                         )} */}
-                        {downloadStatus && (
-                          <div className='w-full flex flex-col items-start'>
-                            <div className='w-full flex justify-between items-center text-sm'>
-                              <span>{t("requestSheet.downloading")}</span>
-                              <span>{downloadPercentage} %</span>
-                            </div>
-                            <div className='flex w-full'>
-                              <Progress value={downloadPercentage} className='w-full mt-2' />
-                              {/* {activeDownload&& <button onClick={handlePauseDownload}>{pauseIcon}</button>}
+                  {downloadStatus && (
+                    <div className='w-full flex flex-col items-start'>
+                      <div className='w-full flex justify-between items-center text-sm'>
+                        <span>{t("requestSheet.downloading")}</span>
+                        <span>{downloadPercentage} %</span>
+                      </div>
+                      <div className='flex w-full'>
+                        <Progress value={downloadPercentage} className='w-full mt-2' />
+                        {/* {activeDownload&& <button onClick={handlePauseDownload}>{pauseIcon}</button>}
                               {!activeDownload&& <button onClick={handleResumeDownload}>{resumeIcon}</button>} */}
-                              <div className="text-red-500 cursor-pointer" onClick={handleDeleteDownload}>
-                                <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
-                              </div>
-                            </div>
-                          </div>
-                        )}
+                        <div className="text-red-500 cursor-pointer" onClick={handleDeleteDownload}>
+                          <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)} disabled={disabled} className={`${disabled ? "opacity-75" : ""}`}>
                       <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
@@ -1783,11 +1801,11 @@ const NewOrderBox = () => {
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("qualityCheck.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <div className='w-full flex'>
-                            <Progress value={uploadPercentage} />
-                            {/* <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                              <Progress value={uploadPercentage} />
+                              {/* <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
                                 <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
                               </div> */}
-                          </div>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -1821,11 +1839,11 @@ const NewOrderBox = () => {
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("libraryPrep.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <div className='flex w-full'>
-                            <Progress value={uploadPercentage} />
-                            {/* <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
+                              <Progress value={uploadPercentage} />
+                              {/* <div className="text-red-500 cursor-pointer" onClick={handleDeleteUpload}>
                                 <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
                               </div> */}
-                          </div>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -1910,11 +1928,11 @@ const NewOrderBox = () => {
                           <div className='w-full flex flex-col items-start'>
                             <span className='text-[10px] w-full flex justify-between'><span>{t("analysisSpecification.uploading")}</span> <span>{uploadPercentage} %</span> </span>
                             <div className='w-full flex'>
-                            <Progress value={uploadPercentage} />
-                            <div className="text-red-500 cursor-pointer" onClick={handleAbortUpload}>
+                              <Progress value={uploadPercentage} />
+                              <div className="text-red-500 cursor-pointer" onClick={handleAbortUpload}>
                                 <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
                               </div>
-                          </div>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -2208,20 +2226,20 @@ const sendIcon = <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xml
 
 
 const pauseIcon = <svg
-viewBox="0 0 25 25"
-fill="black"
-height="1em"
-width="1em"
+  viewBox="0 0 25 25"
+  fill="black"
+  height="1em"
+  width="1em"
 >
-<path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-88-532h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z" />
+  <path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-88-532h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z" />
 </svg>
 
 const resumeIcon = <svg
-viewBox="0 0 25 25"
-fill="black"
-height="1em"
-width="1em"
+  viewBox="0 0 25 25"
+  fill="black"
+  height="1em"
+  width="1em"
 >
-<path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
-<path stroke='black' d="M719.4 499.1l-296.1-215A15.9 15.9 0 00398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 000-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z" />
+  <path stroke='black' d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
+  <path stroke='black' d="M719.4 499.1l-296.1-215A15.9 15.9 0 00398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 000-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z" />
 </svg>
