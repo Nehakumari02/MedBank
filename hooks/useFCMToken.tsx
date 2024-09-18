@@ -32,7 +32,7 @@ async function getNotificationPermissionAndToken() {
   return null;
 }
 
-const useFcmToken = () => {
+const useFcmToken = (userId:String) => {
   const {toast} = useToast();
   const router = useRouter(); // Initialize the router for navigation.
   const [notificationPermissionStatus, setNotificationPermissionStatus] =
@@ -82,6 +82,15 @@ const useFcmToken = () => {
     // Step 7: Set the fetched token and mark as fetched.
     setNotificationPermissionStatus(Notification.permission);
     setToken(token);
+    console.log(userId,token)
+    const response = await fetch('/api/updateToken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({userId:userId,token:token}),
+    });
+    console.log("response from api ",response)
     isLoading.current = false;
   };
 

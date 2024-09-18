@@ -7,6 +7,7 @@ import useFcmToken from '../../../../hooks/useFCMToken'
 
 const Dashboard = () => {
   const userId = usePathname().split("/")[2]
+  const { token, notificationPermissionStatus } = useFcmToken(userId)
   console.log(userId)
 
   // async function requestPermission() {
@@ -80,7 +81,7 @@ const Dashboard = () => {
 
   return (
     <div className='w-full p-[10px] md:p-[19px]'>
-      <useFcmToken />
+      {/* <useFcmToken userId={userId} /> */}
       <OrderOverView orderOverview={orderOverview} data={data}/>
     </div>
   )
