@@ -3,7 +3,7 @@ import React, { useDebugValue, useEffect, useState } from 'react'
 import OrderOverView from '../../../../components/UserDashboard/Dashboard/OrderOverView'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import FcmTokenComp from '@/components/firebaseForeground'
+import useFcmToken from '../../../../hooks/useFCMToken'
 
 const Dashboard = () => {
   const userId = usePathname().split("/")[2]
@@ -80,7 +80,7 @@ const Dashboard = () => {
 
   return (
     <div className='w-full p-[10px] md:p-[19px]'>
-      <FcmTokenComp />
+      <useFcmToken />
       <OrderOverView orderOverview={orderOverview} data={data}/>
     </div>
   )

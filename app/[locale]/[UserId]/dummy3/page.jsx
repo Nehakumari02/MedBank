@@ -14,9 +14,9 @@ export default function Home() {
       },
       body: JSON.stringify({
         token: token,
-        title: "Test Notification",
-        message: "This is a test notification",
-        link: "/contact",
+        title: "MedBank",
+        message: "This a test notification",
+        link: "/Dashboard",
       }),
     });
 

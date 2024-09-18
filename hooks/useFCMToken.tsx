@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getToken, onMessage, Unsubscribe } from "firebase/messaging";
-import { fetchToken, messaging } from "@/firebase";
+import { fetchToken, messaging } from "../firebase";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+// import { toast } from "sonner";
+import { ToastAction } from "../components/ui/toast"
+import {useToast} from '@/hooks/use-toast'
 
 async function getNotificationPermissionAndToken() {
   // Step 1: Check if Notifications are supported in the browser.
@@ -31,6 +33,7 @@ async function getNotificationPermissionAndToken() {
 }
 
 const useFcmToken = () => {
+  const {toast} = useToast();
   const router = useRouter(); // Initialize the router for navigation.
   const [notificationPermissionStatus, setNotificationPermissionStatus] =
     useState<NotificationPermission | null>(null); // State to store the notification permission status.
@@ -105,24 +108,37 @@ const useFcmToken = () => {
         const link = payload.fcmOptions?.link || payload.data?.link;
 
         if (link) {
-          toast.info(
-            `${payload.notification?.title}: ${payload.notification?.body}`,
-            {
-              action: {
-                label: "Visit",
-                onClick: () => {
-                  const link = payload.fcmOptions?.link || payload.data?.link;
-                  if (link) {
-                    router.push(link);
-                  }
-                },
-              },
-            }
-          );
+          // toast.info(
+          //   `${payload.notification?.title}: ${payload.notification?.body}`,
+          //   {
+          //     action: {
+          //       label: "Visit",
+          //       onClick: () => {
+          //         const link = payload.fcmOptions?.link || payload.data?.link;
+          //         if (link) {
+          //           router.push(link);
+          //         }
+          //       },
+          //     },
+          //   }
+          // );
+          console.log("toast from custom toaster")
+          toast({
+            title: `${payload.notification?.title}`,
+            description: `${payload.notification?.body}`,
+            // action: (
+            //   // <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+            // ),
+          })
         } else {
-          toast.info(
-            `${payload.notification?.title}: ${payload.notification?.body}`
-          );
+          // toast.info(
+          //   `${payload.notification?.title}: ${payload.notification?.body}`
+          // );
+          console.log("toast from custom toaster else condition")
+          toast({
+            title: `${payload.notification?.title}`,
+            description: `${payload.notification?.body}`,
+          })
         }
 
         // --------------------------------------------
