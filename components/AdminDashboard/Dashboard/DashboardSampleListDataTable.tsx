@@ -17,6 +17,7 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useTranslations } from 'next-intl'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -131,7 +132,10 @@ const OrderTitleCell: React.FC<OrderTitleCellProps> = ({ userId, orderId, orderT
 export const columns: ColumnDef<OrderList>[] = [
   {
     accessorKey: "id",
-    header: "ID",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.sampleNumber")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("id")||"N/A"}
@@ -144,7 +148,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.sampleName")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("name")||"N/A"}
@@ -157,7 +164,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "school",
-    header: "Affiliation of Customer",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.affiliation")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("school")||"N/A"}
@@ -170,7 +180,10 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "Username",
-    header: "Username",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.userName")}</span>)
+    },
     cell: ({ row }) => (
       <div className="font-DM-Sans font-medium text-[14px] leading-[24px] text-center">
         {row.getValue("Username")||"N/A"}
@@ -183,9 +196,13 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "qualityCheckStatus",
-    header: "Quality Check Status",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.qualityCheck")}</span>)
+    },
     cell: ({ row }) => {
       const status = row.getValue("qualityCheckStatus");
+      const t = useTranslations("AdminDashboard");
       let statusColor = "";
 
       switch (status) {
@@ -204,7 +221,7 @@ export const columns: ColumnDef<OrderList>[] = [
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
           style={{ backgroundColor: statusColor }}
         >
-          Quality Check
+          {status === 'isCompleted' ? t("sampleList.qualityCompleted") : t("sampleList.qualityPending")}
         </div>
       );
     },
@@ -215,9 +232,13 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "libraryPrepStatus",
-    header: "Library Prep Status",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.libraryPrep")}</span>)
+    },
     cell: ({ row }) => {
       const status = row.getValue("libraryPrepStatus");
+      const t = useTranslations("AdminDashboard");
       let statusColor = "";
 
       switch (status) {
@@ -236,7 +257,7 @@ export const columns: ColumnDef<OrderList>[] = [
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
           style={{ backgroundColor: statusColor }}
         >
-          Library Prep
+          {status === 'isCompleted' ? t("sampleList.libraryCompleted") : t("sampleList.libraryPending")}
         </div>
       );
     },
@@ -247,9 +268,13 @@ export const columns: ColumnDef<OrderList>[] = [
   },
   {
     accessorKey: "analysisSpecificationStatus",
-    header: "Analysis Specification Status",
+    header: function Header(){
+      const t = useTranslations("AdminDashboard");
+      return(<span>{t("sampleList.analysisReport")}</span>)
+    },
     cell: ({ row }) => {
       const status = row.getValue("analysisSpecificationStatus");
+      const t = useTranslations("AdminDashboard");
       let statusColor = "";
 
       switch (status) {
@@ -268,7 +293,7 @@ export const columns: ColumnDef<OrderList>[] = [
           className="h-[36px] flex items-center justify-center text-white px-[2px] py-[4px] rounded-[2px] font-DM-Sans font-medium text-[10px] leading-[15px] text-center"
           style={{ backgroundColor: statusColor }}
         >
-          Analysis Specification
+         {status === 'isCompleted' ? t("sampleList.analysisCompleted") : t("sampleList.analysisPending")}
         </div>
       );
     },
@@ -291,6 +316,7 @@ interface DashboardDataTableProps {
 }
 export const DashboardSampleListDataTable: React.FC<DashboardDataTableProps> = ({ data=[], totalPages, currentPage, setCurrentPage, buttons, searchQuery, setSearchQuery }) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const t = useTranslations("AdminDashboard");
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
@@ -322,7 +348,7 @@ export const DashboardSampleListDataTable: React.FC<DashboardDataTableProps> = (
     <div className="w-full h-full">
       <div className="rounded-md border shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] bg-white">
       <div className="flex items-center justify-between py-4">
-        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">Sample List</span>
+        <span className="font-DM-Sans font-bold text-[#333333] text-[14px] md:text-[22px] leading-[28px] pl-[18px] md:pl-[40px]">{t("sampleList.title")}</span>
         <div className="hidden items-center gap-[2px] md:gap-[12px] md:mr-[20px] pr-[5px]">
         <Input
           placeholder="Search"

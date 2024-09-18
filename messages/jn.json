@@ -809,7 +809,15 @@
             "invoice":"お世話になります。請求書をお送りさせていただきます。Mypageよりご確認をお願い致します。なお、お振り込みの確認後に領収書を送付しております。領収書のご送付をお急ぎの場合は、別途チャットにてお問合せください。",
             "payment":"お世話になります。この度は、MEDBANKの遺伝子解析サービスのご利用をいただきまして、誠にありがとうございました。お振り込みが確認できましたので、領収書をお送りいたします。なお、領収書は、Mypageよりご確認をお願い致します。今後もご不明な点がございましたら、お気軽にお問合せください。いつも研究ご苦労さまです。またのご利用をお待ちしております。"
 
-        }
+        },
+        "notification":{
+            "requestSheet":"依頼シートがアップロードされました。",
+            "formalRequest":"遺伝子解析の依頼を正式に受けました。",
+            "sampleShipping":"サンプルが発送されました。",
+            "qualityCheck": "サンプルチェック報告書が確認されました。次の工程に進んでください。",
+            "libraryPrep" :"ライブラリ調製報告書が確認されました。次の工程に進んでください。",
+            "error":"システムエラー。インターネットが繋がっていません。接続をご確認ください。"   
+        } 
     },
     
     "AdminDashboard": {
@@ -1050,6 +1058,7 @@
             "paymentIsCompleted":"お支払い 領収証"
         },
         "paymentList":{
+            "mainTitle":"支払い状況",
             "orderId":"発注ID",
             "title":"発注タイトル",
             "affiliation":"大学/研究機関名",
@@ -1059,7 +1068,28 @@
             "receiptPending":"領収書の送信",
             "receiptCompleted":"受領書の送信完了"
         },
+        "sampleList":{
+            "title":"サンプルリスト",
+            "sampleNumber":"サンプルナンバー",
+            "sampleName":"サンプル名",
+            "affiliation":"大学/研究 機関名",
+            "userName":"ユーザーネーム",
+            "qualityCheck":"クオリティチェック",
+            "libraryPrep":"ライブラリ調製",
+            "analysisReport":"解析仕様書",
+            "qualityPending":"クオリティチェック報告書",
+            "qualityProgress":"クオリティチェック報告書",
+            "qualityCompleted":"確認を受け取りました",
+            "libraryPending":"ライブラリ調製報告書",
+            "libraryProgress":"ライブラリ調製報告書",
+            "libraryCompleted":"確認を受け取りました",
+            "analysisPending":"解析開始",
+            "analysisProgress":"解析開始",
+            "analysisCompleted":"解析中"
+
+        },
         "customerList":{
+            "title":"顧客リスト",
             "memberId":"メンバー ID",
             "affiliation":"大学/研究機関名",
             "userName":"ユーザーネーム",
@@ -1080,7 +1110,20 @@
             "invoice":"お世話になります。請求書をお送りさせていただきます。Mypageよりご確認をお願い致します。なお、お振り込みの確認後に領収書を送付しております。領収書のご送付をお急ぎの場合は、別途チャットにてお問合せください。",
             "payment":"お世話になります。この度は、MEDBANKの遺伝子解析サービスのご利用をいただきまして、誠にありがとうございました。お振り込みが確認できましたので、領収書をお送りいたします。なお、領収書は、Mypageよりご確認をお願い致します。今後もご不明な点がございましたら、お気軽にお問合せください。いつも研究ご苦労さまです。またのご利用をお待ちしております。"
 
-        }
+        },
+        "notification":{
+            "costEstimation":"見積書がアップロードされました。",
+            "formalRequest":"遺伝子解析の依頼が受領されました。サンプル送付を行ってください。",
+            "qualityCheck":"サンプルチェック報告書がアップロードされました。",
+            "libraryPrep":"ライブラリ調製報告書がアップロードされました。",
+            "analysisStart":"解析が開始されました。",
+            "analysisDone":"解析が完了しました。",
+            "rawData":"元データが届きました。ダウンロード可能です。",
+            "analysisSpecification":"解析仕様書が届きました。ダウンロード可能です。",
+            "invoice":"請求書が届きました。ダウンロード可能です。",
+            "payment":"領収書が届きました。ご利用ありがとうございました。"
+
+        } 
     },
     "tutorial":{
         "message1":"Medbankへようこそ",

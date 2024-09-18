@@ -809,6 +809,14 @@
              "analysisSpecification":"Hello.The analysis specification has been uploaded. Please check back from Mypage.Thank you.",
              "invoice":"Hello.We will send you an invoice, please confirm it via Mypage. We will send you a receipt after confirming your payment. If you are in a hurry to receive the receipt, please contact us via chat.Thank you.",
              "payment":"Hello.Thank you very much for using MEDBANK's genetic analysis service. We have confirmed your payment and sent you a receipt. Please check the receipt from Mypage. If you have any further questions, please feel free to contact us. We look forward to seeing you again. Thank you."
+        },
+        "notification":{
+            "requestSheet":"The request sheet has been uploaded.",
+            "formalRequest":"We have received a formal request for genetic analysis.",
+            "sampleShipping":"Sample is now shipping.",
+            "qualityCheck": "Sample check report confirmed.Please proceed to the next step.",
+            "libraryPrep" :"Library adjustment report confirmed.Please proceed to the next step.",
+            "error":"System error. The Internet is not connected. Please check your connection."   
         } 
     },
 
@@ -1049,6 +1057,7 @@
             "paymentIsCompleted":"Payment"
         },
         "paymentList":{
+            "mainTitle":"Payment Status",
             "orderId":"Order ID",
             "title":"Title",
             "affiliation":"Affiliation of Customer",
@@ -1060,11 +1069,32 @@
             "receiptCompleted":"Receipt Sent Completed"
         },
         "customerList":{
+            "title":"Customer List",
             "memberId":"Member ID",
             "affiliation":"Affiliation",
             "userName":"Username",
             "country":"Country",
             "address":"Address"
+
+        },
+        "sampleList":{
+            "title":"Sample List",
+            "sampleNumber":"Sample Number",
+            "sampleName":"Sample Name",
+            "affiliation":"Affiliation of Customer",
+            "userName":"Username",
+            "qualityCheck":"Quality Check",
+            "libraryPrep":"Library Preparation",
+            "analysisReport":"Analysis Report",
+            "qualityPending":"Quality Check Report",
+            "qualityProgress":"Quality Check Report",
+            "qualityCompleted":"Confirmation Received",
+            "libraryPending":"Library Preparation",
+            "libraryProgress":"Library Preparation",
+            "libraryCompleted":"Confirmation Received",
+            "analysisPending":"Analysis Start",
+            "analysisProgress":"Analysis Start",
+            "analysisCompleted":"Analysis Progress"
 
         },
         "chatMessage":{
@@ -1079,6 +1109,19 @@
              "analysisSpecification":"Hello.The analysis specification has been uploaded. Please check back from Mypage.Thank you.",
              "invoice":"Hello.We will send you an invoice, please confirm it via Mypage. We will send you a receipt after confirming your payment. If you are in a hurry to receive the receipt, please contact us via chat.Thank you.",
              "payment":"Hello.Thank you very much for using MEDBANK's genetic analysis service. We have confirmed your payment and sent you a receipt. Please check the receipt from Mypage. If you have any further questions, please feel free to contact us. We look forward to seeing you again. Thank you."
+        },
+        "notification":{
+            "costEstimation":"The quotation has been uploaded.",
+            "formalRequest":"Your request has been received. Please send your samples.",
+            "qualityCheck":"Sample check report uploaded.",
+            "libraryPrep":"Library adjustment report uploaded.",
+            "analysisStart":"Analysis has started.",
+            "analysisDone":"Analysis has been completed.",
+            "rawData":"The raw data has been received. It is available for download.",
+            "analysisSpecification":"The analysis specification has been received. It is available for download.",
+            "invoice":"The invoice has been received. It is available for download.",
+            "payment":"Receipt received. Thank you very much for using our services."
+
         } 
     },
     "tutorial":{
