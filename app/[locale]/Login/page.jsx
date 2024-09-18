@@ -171,7 +171,7 @@ const SignInPage = () => {
 
               <p className='m-0 text-center font-DM-Sans font-normal text-[12px] md:text-[14px] leading-[20px] pt-[18px] md:pt-[28px]'>
                 {t.rich("signInText", {
-                  Link: (chunks) => <Link className='text-[#3E8DA7]' href={`/${language}/Signupp`}>{chunks}</Link>
+                  Link: (chunks) => <Link className='text-[#3E8DA7]' href={`/${language}/Signup`}>{chunks}</Link>
                 })}
               </p>
             </div>

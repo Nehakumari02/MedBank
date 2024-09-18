@@ -75,12 +75,12 @@ const Header = () => {
             <span className={`${language == "en" ? "border-b-[2px] border-[#003E5C99] text-black" : "text-[#333333]"} font-sans font-normal pb-[4px]`}>EN</span>
           </button>
         </div>
-          <Link href={`/${language}/signin`} className="hidden h-[40px] w-[108px] p-[1px] rounded-[6px] md:flex items-center justify-center gradient-primary border-[#60B7CF]">
+          <Link href={`/${language}/Login`} className="hidden h-[40px] w-[108px] p-[1px] rounded-[6px] md:flex items-center justify-center gradient-primary border-[#60B7CF]">
           <div className='bg-white w-full h-full rounded-[5px] flex items-center justify-center'>
             <span className='gradient-primary bg-clip-text text-transparent'>Sign In</span>
           </div>
         </Link> 
-        <Link href={`/${language}/Registration`} className="hidden h-[40px] w-[117px] rounded-[6px] md:flex items-center justify-center gradient-primary text-white">Sign Up</Link>
+        <Link href={`/${language}/Signup`} className="hidden h-[40px] w-[117px] rounded-[6px] md:flex items-center justify-center gradient-primary text-white">Sign Up</Link>
         <button onClick={() => handleMenu()} className='flex items-center justify-center md:hidden'>{hamBurgerIcon}</button>
         {menu && <div className='absolute right-0 z-10 top-[40px] w-[138px] bg-white p-[12px] shadow-md'>
           <ul className="flex flex-col items-start gap-[12px]">
@@ -106,10 +106,10 @@ const Header = () => {
               <Link onClick={() => setMenu(false)} href={`/${language}#contactus`} className={`${path === "contact" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>{t("contact")}</Link>
             </li>
              <li>
-              <Link onClick={() => setMenu(false)} href={`/${language}/Registration`} className={`${path === "signup" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign Up</Link>
+              <Link onClick={() => setMenu(false)} href={`/${language}/Signup`} className={`${path === "signup" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign Up</Link>
             </li>
             <li>
-              <Link onClick={() => setMenu(false)} href={`/${language}/signin`} className={`${path === "login" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign In</Link>
+              <Link onClick={() => setMenu(false)} href={`/${language}/Login`} className={`${path === "login" ? "border-b-[2px] border-[#003E5C99] font-medium" : ""} px-[2px] leading-[24px] pb-[2px] font-sans font-normal text-[14px]`}>Sign In</Link>
             </li>
           </ul>
         </div>}
