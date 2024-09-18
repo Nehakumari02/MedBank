@@ -583,7 +583,8 @@ const NewOrderBox = () => {
         libraryPrepStatus: 'inAdminProgress'
       })
       updateSampleInDB({
-        qualityCheckStatus:"isCompleted"
+        qualityCheckStatus:"isCompleted",
+        libraryPrepStatus:"inAdminProgress"
       })
     }
   };

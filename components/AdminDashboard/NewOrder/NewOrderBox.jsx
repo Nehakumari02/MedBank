@@ -823,8 +823,7 @@ const NewOrderBox = () => {
             });
 
             updateSampleInDB({
-              qualityCheckStatus:"isAdminCompleted",
-              libraryPrepStatus:"inAdminProgress"
+              qualityCheckStatus:"isAdminCompleted"
             })
 
             if (saveApiResponse.status === 200) {
