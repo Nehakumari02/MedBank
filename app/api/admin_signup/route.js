@@ -47,6 +47,7 @@ export async function POST(req) {
     const res = await User.create({
       role:"admin",
       Username,
+      token:"",
       memberId:nextMemberId,
       name,
       school,

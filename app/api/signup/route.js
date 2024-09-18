@@ -46,6 +46,7 @@ export async function POST(req) {
 
     const res = await User.create({
       Username,
+      token:"",
       memberId:nextMemberId,
       name,
       school,

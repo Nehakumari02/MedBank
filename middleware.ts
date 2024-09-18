@@ -29,6 +29,7 @@ const publicPages = [
   '/SitePolicy',
   '/strength',
   '/Admin_Login',
+  '/Admin_Signup'
 ];
 
 // Create authorization middleware

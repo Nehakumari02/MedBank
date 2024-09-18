@@ -8,6 +8,9 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
+    token: {
+      type: String
+    },
     memberId:{
       type:String
     },
