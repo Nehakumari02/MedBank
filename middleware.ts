@@ -14,18 +14,16 @@ const intlMiddleware = createMiddleware({
 // List of public paths
 const publicPages = [
   '/',
-  '/Loginn',
-  '/Signupp',
+  '/Login',
+  '/Signup',
   '/about',
   '/CancellationPolicy',
   '/Orderflow',
   '/Personal-Information',
   '/PrivacyPolicy',
   '/RecentAnnouncement',
-  '/Registration',
   '/SampleShipping',
   '/Services',
-  '/signin',
   '/SitePolicy',
   '/strength',
   '/Admin_Login',
@@ -41,7 +39,7 @@ const authMiddleware = withAuth(
       authorized: async ({ token }) => !!token,
     },
     pages: {
-      signIn: '/Loginn',
+      signIn: '/Login',
     },
   }
 );
