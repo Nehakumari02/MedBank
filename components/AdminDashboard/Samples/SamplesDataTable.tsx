@@ -118,7 +118,7 @@ export const columns: ColumnDef<PaymentList>[] = [
       const t = useTranslations("AdminDashboard");
       return(<span>{t("sampleList.qualityCheck")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const status = row.getValue("qualityCheckStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
@@ -172,7 +172,7 @@ export const columns: ColumnDef<PaymentList>[] = [
       const t = useTranslations("AdminDashboard");
       return(<span>{t("sampleList.libraryPrep")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const status = row.getValue("libraryPrepStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
@@ -226,7 +226,7 @@ export const columns: ColumnDef<PaymentList>[] = [
       const t = useTranslations("AdminDashboard");
       return(<span>{t("sampleList.analysisReport")}</span>)
     },
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const status = row.getValue("analysisSpecificationStatus");
       const t = useTranslations("AdminDashboard");
       let statusColor = "";
