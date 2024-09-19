@@ -56,13 +56,15 @@ export default function middleware(req: NextRequest) {
   // Check if the current path is public
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 
+  return intlMiddleware(req);
+
   // Apply intlMiddleware and authMiddleware accordingly
-  if (isPublicPage) {
-    return intlMiddleware(req); // Only apply intlMiddleware if the path is public
-  } else {
-    console.log("checking auth in the path")
-    return (authMiddleware as any)(req); // Apply both intlMiddleware and authMiddleware if the path is not public
-  }
+  // if (isPublicPage) {
+  //   return intlMiddleware(req); // Only apply intlMiddleware if the path is public
+  // } else {
+  //   console.log("checking auth in the path")
+  //   return (authMiddleware as any)(req); // Apply both intlMiddleware and authMiddleware if the path is not public
+  // }
 }
 
 // Middleware configuration
