@@ -75,7 +75,11 @@ const Chats = () => {
     socket.on("chat message", (message) => {
       console.log(message)
       if(message.conversationId==conversationIdRef.current){
-        setMessages((prevMessages) => [...prevMessages, message]);
+        setMessages((prevMessages) => {
+          if(prevMessages.length)
+            return [...prevMessages, message];
+          else return [message];
+        })
       }
     });
 
