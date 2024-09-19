@@ -118,7 +118,7 @@ const SignUp = () => {
       description:'User registered successfully!!!'
     })
     console.log(data.message)
-    router.push(`/${language}/Loginn`);
+    router.push(`/${language}/Login`);
   }catch(error){
     toast({
       variant:'error',
