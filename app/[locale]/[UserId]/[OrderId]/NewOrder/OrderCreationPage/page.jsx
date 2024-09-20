@@ -275,7 +275,7 @@ const OrderCreationPage = () => {
               <div className="text-center text-[12px] md:text-sm font-normal pt-[16px] md:pt-[41px]">
                 <p className="">
                 {t("requestSheet.step2.note")}
-                  <a href="/path/to/download"  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
+                  <a href='https://docs.google.com/spreadsheets/d/1NfqRFhh0pfXbc_PYe3qFPMk6rbMxu_Frhz2QosIuZys/edit?usp=sharing'  className="text-transparent bg-clip-text bg-gradient-to-b from-[#60b7cf] via-[#3e8da7] to-[rgba(0,62,92,0.6)] underline">
                   {t("requestSheet.step2.link")}
                   </a>
                 </p>
