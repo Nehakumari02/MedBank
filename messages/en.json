@@ -724,6 +724,7 @@
             "online":"Online"
         },
         "orderList":{
+            "archiveTitle":"Completed Orders",
             "title":"Order List",
             "orderId":"OrderId",
             "school":"Affiliation Institute",
@@ -992,6 +993,7 @@
             "receipt":"Receipt"
         },
         "orderList":{
+           
             "title":"Order List",
             "orderId":"OrderId",
             "orderTitle":"Order Title",

@@ -720,6 +720,7 @@
             "receipt":"領収書"
         },
         "orderList":{
+            "archiveTitle":"顧客一覧",
             "title":"発注一覧",
             "orderId":"発注 ID",
             "school":"大学/研究 機関名",
