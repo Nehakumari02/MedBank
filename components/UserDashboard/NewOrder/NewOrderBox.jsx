@@ -418,7 +418,7 @@ const NewOrderBox = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userIdDB:adminIdDB,
+          adminIdDB:adminIdDB,
           title: "MedBank",
           message: t("notification.sampleShipping"),
           link: "/Dashboard",
