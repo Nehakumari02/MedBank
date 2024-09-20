@@ -234,7 +234,6 @@ const NewOrderBox = () => {
       setDisabledDownload(false);
       setDownloadStatus(false);
     };
-
     // Send the request
     xhr.send();
 
@@ -380,7 +379,6 @@ const NewOrderBox = () => {
       })
     }
     catch {
-
     }
     finally{
       setDisabled(false);

@@ -14,11 +14,11 @@ if (!admin.apps.length) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { adminIdDB, title, message, link } = await request.json();
+    const { userIdDB, title, message, link } = await request.json();
     await dbConnect();
 
     // Fetch user email and name from the database using userId
-    const user = await User.findById(adminIdDB);
+    const user = await User.findById(userIdDB);
 
     if (!user) {
       return new NextResponse(JSON.stringify({ error: 'User not found' }), { status: 404 });

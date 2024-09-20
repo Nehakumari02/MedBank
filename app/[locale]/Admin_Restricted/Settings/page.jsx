@@ -20,7 +20,7 @@ const Settings = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
-  const userId = '66ea96cbb87b8baa2f3a1117'
+  const userId = "66ea96cbb87b8baa2f3a1117";
 
   const handleSave=async(e)=>{
     e.preventDefault();
@@ -30,7 +30,7 @@ const Settings = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({Username,name,school,faculty,field,others,service,country,phone,email,confirmEmail,Perfecture,postalCode,city}),
+      body: JSON.stringify({Username,name,school,faculty,field,others,service, phone,email,confirmEmail,Perfecture,postalCode,city}),
     });
     const data = await response.json();
     console.log(data.message)
@@ -72,7 +72,6 @@ const Settings = () => {
         setField(user.field || "");
         setOthers(user.others || "");
         setService(user.service || "");
-        setCountry(user.country ||"");
         setPhone(user.phone || "");
         setEmail(user.email || "");
         setConfirmEmail(user.email || "");
@@ -131,7 +130,7 @@ const Settings = () => {
                         onChange={(e) => setPhone(e.target.value)}
                         style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                         type="text"
-                        name="name"
+                        name="phone"
                       />
                     </div>
                   </div>
@@ -149,7 +148,7 @@ const Settings = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                       type="text"
-                      name="name"
+                      name="email"
                     />
                   </div>
                 </div>

@@ -28,8 +28,8 @@ const OrderCreationPage = () => {
   const orderIdDB = usePathname().split("/")[3];
   const t = useTranslations("UserDashboard");
   let userIdDB = usePathname().split('/')[2];
-  const { token, notificationPermissionStatus } = useFcmToken('66e055de6ddc7825fbd8a103')
-  
+  const { token, notificationPermissionStatus } = useFcmToken()
+  const adminIdDB="66ea96cbb87b8baa2f3a1117";
 
   const handleDelete = () => {
     setUploadedFile(null); // Remove the file from state
@@ -154,13 +154,13 @@ const OrderCreationPage = () => {
         setDisabled(false);
         return;
       }
-      const response2 = await fetch('/api/send-notification-user', {
+      const response2 = await fetch('/api/send-notification2', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token:token,
+          adminIdDB:adminIdDB,
           title: "MedBank",
           message: t("notification.requestSheet"),
           link: "/Dashboard",

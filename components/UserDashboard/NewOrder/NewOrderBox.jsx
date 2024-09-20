@@ -108,6 +108,7 @@ const NewOrderBox = () => {
   const printRef = useRef();
   const printRef1 = useRef();
   const { token, notificationPermissionStatus } = useFcmToken()
+  const adminIdDB="66ea96cbb87b8baa2f3a1117";
 
   const handleSampleSendChecked1 = (e) => {
     setIsSampleSendChecked1(e.target.checked);
@@ -390,7 +391,7 @@ const NewOrderBox = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        adminIdDB:'66ea96cbb87b8baa2f3a1117',
+        adminIdDB:"adminIdDB",
         title: "MedBank",
         message: t("notification.formalRequest"),
         link: "/Dashboard",
@@ -408,12 +409,43 @@ const NewOrderBox = () => {
     });
   };
 
-  const handleConfirmSampleShippingok = () => {
-    setOrderPopVisible(false);
-    setSampleShippingStatus("inTransit")
-    updateDataInDB({
-      sampleShippingStatus: "inTransit"
-    })
+  const handleConfirmSampleShippingok = async() => {
+    try{
+      setDisabled(true)
+      const response2 = await fetch('/api/send-notification2', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userIdDB:adminIdDB,
+          title: "MedBank",
+          message: t("notification.sampleShipping"),
+          link: "/Dashboard",
+        }),
+      });
+      const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userIdDB,
+          message: t("chatMessage.sampleShipping"),
+        }),
+      });
+      setSampleShippingStatus("inTransit")
+      updateDataInDB({
+        sampleShippingStatus: "inTransit"
+      })
+    }
+    catch{
+
+    }
+    finally{
+      setOrderPopVisible(false);
+      setDisabled(false);
+    } 
   };
 
   const handleConfirmSampleShipping = async() => {
@@ -439,35 +471,47 @@ const NewOrderBox = () => {
       })
     }
     else {
-      setOrderPopVisible(false);
-      setSampleShippingStatus("inTransit")
-      updateDataInDB({
-        sampleShippingStatus: "inTransit"
-      })
-      const response2 = await fetch('/api/send-notification-user', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token:token,
-          title: "MedBank",
-          message: t("notification.sampleShipping"),
-          link: "/Dashboard",
-        }),
-      });
-      const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userIdDB,
-          message: t("chatMessage.sampleShipping"),
-        }),
-      });
+      try{
+        setDisabled(true)
+        setSampleShippingStatus("inTransit")
+        updateDataInDB({
+          sampleShippingStatus: "inTransit"
+        })
+        const response2 = await fetch('/api/send-notification2', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            adminIdDB: adminIdDB,
+            title: "MedBank",
+            message: t("notification.sampleShipping"),
+            link: "/Dashboard",
+          }),
+        });
+        const chatResponse = await fetch("/api/sendUpdateInChatFromUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userIdDB,
+            message: t("chatMessage.sampleShipping"),
+          }),
+        });
+      }
+      catch{
+
+      }
+      finally{
+        setOrderPopVisible(false);
+        setDisabled(false);
+      }
+     
     }
   };
+
+
   const handleDownloadQualityCheck = async () => {
     // Ensure there is a report to download
     if (!qualityCheckReportLink) {
@@ -564,13 +608,13 @@ const NewOrderBox = () => {
     else {
       try{
         setDisabled(true);
-        const response2 = await fetch('/api/send-notification-user', {
+        const response2 = await fetch('/api/send-notification2', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token:token,
+            adminIdDB: adminIdDB,
             title: "MedBank",
             message: t("notification.qualityCheck"),
             link: "/Dashboard",
@@ -611,13 +655,13 @@ const NewOrderBox = () => {
     else {
       try{
         setDisabled(true)
-        const response2 = await fetch('/api/send-notification-user', {
+        const response2 = await fetch('/api/send-notification2', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token:token,
+            adminIdDB: adminIdDB,
             title: "MedBank",
             message: t("notification.libraryPrep"),
             link: "/Dashboard",
@@ -937,9 +981,9 @@ const NewOrderBox = () => {
                       </span>
                     </label>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px] md:pt-3 pt-[24px]'>
-                      <button className='md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShippingok}> {t("sampleShippingSend.mobileOk")}</button>
+                      <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} md:hidden h-[40px] md:h-[40px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleConfirmSampleShippingok}> {t("sampleShippingSend.mobileOk")}</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} > {t("sampleShippingSend.cancel")}</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmSampleShipping}> {t("sampleShippingSend.confirm")}</button>
+                      <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleConfirmSampleShipping}> {t("sampleShippingSend.confirm")}</button>
                     </div>
 
                   </div>
