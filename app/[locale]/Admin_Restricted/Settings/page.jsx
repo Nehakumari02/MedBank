@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CountryDropDown from "../../../../components/CountryDropdown"
 import { useTranslations } from 'next-intl'
 import { useModal } from '@/contexts/ModalContext'
+import { toast } from '@/hooks/use-toast';
 
 const Settings = () => {
   const [Username, setUserName] = useState("");
@@ -19,6 +20,73 @@ const Settings = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const t = useTranslations("Settings");
+  const userId = '66ea96cbb87b8baa2f3a1117'
+
+  const handleSave=async(e)=>{
+    e.preventDefault();
+    try{
+    const response = await fetch('/api/updateUserDetails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({Username,name,school,faculty,field,others,service,country,phone,email,confirmEmail,Perfecture,postalCode,city}),
+    });
+    const data = await response.json();
+    console.log(data.message)
+  }catch(error){
+    console.log(error)
+    toast({
+      variant: "error",
+      title: "Error",
+      description: "Your details have'nt been updated, Please try again."
+    });
+  }
+  finally{
+    toast({
+      variant: "success",
+      title: "Success",
+      description: "Your details have been updated."
+    });
+  }
+  }
+  useEffect(() => {
+    const fetchUserData = async (userId) => {
+      try {
+        const data = await fetch('/api/fetchUserDetails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({userId:userId}),
+        });
+        const UserData = await data.json();
+        console.log("user",UserData)
+        const user=UserData.user
+
+        setUserName(user.Username || "");
+        setName(user.name || "");
+        console.log(name)
+        setSchool(user.school || "");
+        setFaculty(user.faculty || "");
+        setField(user.field || "");
+        setOthers(user.others || "");
+        setService(user.service || "");
+        setCountry(user.country ||"");
+        setPhone(user.phone || "");
+        setEmail(user.email || "");
+        setConfirmEmail(user.email || "");
+        setPerfecture(user.Perfecture || "");
+        setPostalCode(user.postalCode || "");
+        setCity(user.city || "");
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData(userId);
+  }, []);
+
 
 
   return (
@@ -42,8 +110,8 @@ const Settings = () => {
                     <div className={`w-[322px] md:w-[279px] rounded-[7px] bg-gray-200 group-focus-within:gradient-primary`} >
                       <input className="w-full p-[10px] text-black md:p-[12px] outline-none rounded-[6px] border-[2px] border-transparent font-DM-Sans font-normal text-[12px] md:text-[16px] leading-[16px] md:leading-[24px]"
                         placeholder="David John"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         style={{ backgroundColor: "white", backgroundClip: "padding-box", }}
                         type="text"
                         name="name"
@@ -52,7 +120,7 @@ const Settings = () => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="name" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
+                  <label htmlFor="phone" className="font-DM-Sans font-medium text-[10px] md:text-sm mb-[6px] md:mb-4">
                     {t("contactInfo.phone")}
                   </label>
                   <div className='group w-full h-[35px] md:h-[46px] flex items-center justify-center flex-col'>
@@ -88,7 +156,7 @@ const Settings = () => {
               </div>
               <div className='flex items-center justify-end gap-[10px] md:gap-[12px] pt-[12px] md:pt-11'>
                 <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("contactInfo.cancel")}</button>
-                <button className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>Save</button>
+                <button onClick={handleSave} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]'>Save</button>
               </div>
             </div>
           </div>

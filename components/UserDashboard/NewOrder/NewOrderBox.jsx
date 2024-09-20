@@ -107,7 +107,7 @@ const NewOrderBox = () => {
   const [disabled, setDisabled] = useState(false);
   const printRef = useRef();
   const printRef1 = useRef();
-  const { token, notificationPermissionStatus } = useFcmToken('66e055de6ddc7825fbd8a103')
+  const { token, notificationPermissionStatus } = useFcmToken()
 
   const handleSampleSendChecked1 = (e) => {
     setIsSampleSendChecked1(e.target.checked);
@@ -384,13 +384,13 @@ const NewOrderBox = () => {
     updateDataInDB({
       formalRequestStatus: "isUserCompleted"
     })
-    const response2 = await fetch('/api/send-notification-user', {
+    const response2 = await fetch('/api/send-notification2', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token:token,
+        adminIdDB:'66ea96cbb87b8baa2f3a1117',
         title: "MedBank",
         message: t("notification.formalRequest"),
         link: "/Dashboard",

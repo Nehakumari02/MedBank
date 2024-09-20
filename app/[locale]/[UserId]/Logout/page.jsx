@@ -11,7 +11,7 @@ const Logout = () => {
 
   const handleLogout = async()=>{
     await signOut({redirect:false});
-    router.push(`/${language}/Loginn`);
+    router.push(`/${language}/Login`);
   }
 
   return (

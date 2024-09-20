@@ -1637,28 +1637,7 @@ const NewOrderBox = () => {
                     <span className='text-[16px] font-DM-Sans text-center font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("requestSheet.title")}</span>
                     <span className='text-[12px] font-DM-Sans text-start font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("requestSheet.message")}</span>
                   </div>
-                  {/* {downloadStatus && (
-                          <div className='w-full flex flex-col items-start'>
-                            <span className='text-[10px] w-full flex justify-between'><span>{t("requestSheet.downloading")}</span> <span>{downloadPercentage} %</span> <button onClick={handleDeleteDownload}>{deleteIcon}</button></span>
-                            <Progress value={downloadPercentage} />
-                          </div>
-                        )} */}
-                  {downloadStatus && (
-                    <div className='w-full flex flex-col items-start'>
-                      <div className='w-full flex justify-between items-center text-sm'>
-                        <span>{t("requestSheet.downloading")}</span>
-                        <span>{downloadPercentage} %</span>
-                      </div>
-                      <div className='flex w-full'>
-                        <Progress value={downloadPercentage} className='w-full mt-2' />
-                        {/* {activeDownload&& <button onClick={handlePauseDownload}>{pauseIcon}</button>}
-                              {!activeDownload&& <button onClick={handleResumeDownload}>{resumeIcon}</button>} */}
-                        <div className="text-red-500 cursor-pointer" onClick={handleDeleteDownload}>
-                          <Image src={deleteIcon} className='h-[13px] w-[13px]'></Image>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)} disabled={disabled} className={`${disabled ? "opacity-75" : ""}`}>
                       <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
