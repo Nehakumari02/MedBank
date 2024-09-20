@@ -361,6 +361,7 @@ const NewOrderBox = () => {
   }
 
   const handleDeleteOk = async () => {
+    setDisabled(true)
     try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
@@ -381,9 +382,13 @@ const NewOrderBox = () => {
     catch {
 
     }
+    finally{
+      setDisabled(false);
+    }
 
   };
   const handleConfirmOk = async () => {
+    setDisabled(true)
     try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
@@ -403,6 +408,9 @@ const NewOrderBox = () => {
       })
     }
     catch { }
+    finally{
+      setDisabled(false);
+    }
   };
 
   const handleClick1 = async () => {
@@ -560,6 +568,7 @@ const NewOrderBox = () => {
   }
 
   const handleConfirmCostEstimate = async () => {
+    setDisabled(true)
     try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
@@ -595,9 +604,13 @@ const NewOrderBox = () => {
     catch {
 
     }
+    finally{
+      setDisabled(false);
+    }
   }
 
   const handleConfirmFormalRequest = async () => {
+    setDisabled(true);
     try {
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
@@ -631,6 +644,9 @@ const NewOrderBox = () => {
     }
     catch {
 
+    }
+    finally{
+      setDisabled(false);
     }
   }
 
@@ -1066,8 +1082,9 @@ const NewOrderBox = () => {
   const handleAnalysisDoneConfirmation = async () => {
     console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
-    setOrderPopVisible(false);
+    
     try {
+      setDisabled(true);
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
@@ -1098,14 +1115,19 @@ const NewOrderBox = () => {
     } catch {
 
     }
+    finally{
+      setDisabled(false);
+      setOrderPopVisible(false);
+    }
 
   }
 
   const handleAnalysisDone = async () => {
     console.log(sampleShippingStatus)
     console.log("click on ok from sample shipping")
-    setOrderPopVisible(false);
+   
     try {
+      setDisabled(true);
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
@@ -1140,6 +1162,10 @@ const NewOrderBox = () => {
     } catch {
 
     }
+    finally{
+      setDisabled(false);
+      setOrderPopVisible(false);
+    }
 
   }
 
@@ -1154,6 +1180,7 @@ const NewOrderBox = () => {
     }
     else {
       try {
+        setDisabled(true);
         const res = await fetch('/api/sendUpdateInChat', {
           method: 'POST',
           headers: {
@@ -1189,6 +1216,9 @@ const NewOrderBox = () => {
       }
       catch {
 
+      }
+      finally{
+        setDisabled(false);
       }
     }
   }
@@ -1364,6 +1394,7 @@ const NewOrderBox = () => {
 
   const handleInvoice = async () => {
     try {
+      setDisabled(true);
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
@@ -1394,6 +1425,9 @@ const NewOrderBox = () => {
     }
     catch {
 
+    }
+    finally{
+      setDisabled(false)
     }
   }
 
@@ -1829,8 +1863,8 @@ const NewOrderBox = () => {
                   <div className='px-[20px] py-[20px] mx-[10px] md:mx-0 gap-[24px] md:gap-0 md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)]'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("costEstimationConfirm.title")}</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("costEstimationConfirm.message")}</span>
-                    <button
-                      className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                    <button disabled={disabled} className={`${disabled ? "opacity-75" : ""}
+                      w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] `}
                       onClick={handleConfirmCostEstimate}
                     >
                       {t("costEstimationConfirm.button")}
@@ -1842,7 +1876,7 @@ const NewOrderBox = () => {
                 <div className='p-[24px] md:p-0 w-[298px] h-[259px] md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center md:justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] gap-[16px] md:gap-0'>
                   <span className=' w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("formalRequest.confirmation")}</span>
                   <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("formalRequest.message")}</span>
-                  <button className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmFormalRequest}>{t("formalRequest.ok")}</button>
+                  <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleConfirmFormalRequest}>{t("formalRequest.ok")}</button>
                 </div>
               )}
               {activePopup === 'sampleShipping' && (
@@ -1867,8 +1901,8 @@ const NewOrderBox = () => {
                       {t("deletePopup.message1")}<br></br>
                       {t("deletePopup.message2")} <br></br>
                       {t("deletePopup.message3")}</span>
-                    <button
-                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                    <button disabled={disabled} className={`${disabled ? "opacity-75" : ""}
+                      w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`}
                       onClick={handleDeleteOk}
                     >
                       {t("deletePopup.button")}
@@ -1884,8 +1918,8 @@ const NewOrderBox = () => {
                       {t("confirmPopup.message1")}<br></br>
                       {t("confirmPopup.message2")} <br></br>
                       {t("confirmPopup.message3")}</span>
-                    <button
-                      className="w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                    <button disabled={disabled} className={`${disabled ? "opacity-75" : ""}
+                      w-full h-[40px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`}
                       onClick={handleConfirmOk}
                     >
                       {t("confirmPopup.button")}
@@ -1977,7 +2011,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("analysisProgress.cancel")}</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDoneConfirmation}>{t("analysisProgress.start")}</button>
+                    <button disabled={disabled} className={`${disabled?"opacity-75":""} h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleAnalysisDoneConfirmation}>{t("analysisProgress.start")}</button>
                   </div>
                 </div>
               )}
@@ -1989,7 +2023,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='flex items-center justify-center gap-[12px]'>
                     <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={() => { setOrderPopVisible(false) }}>{t("analysisDone.cancel")}</button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleAnalysisDone}>{t("analysisDone.submit")}</button>
+                    <button disabled={disabled} className={`${disabled?"opacity-75":""} h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleAnalysisDone}>{t("analysisDone.submit")}</button>
                   </div>
                 </div>
               )}
@@ -2016,7 +2050,7 @@ const NewOrderBox = () => {
                   </div>
                   <div className='w-full flex items-center justify-end gap-[10px] md:gap-[12px] pt-[20px] md:pt-12'>
                     <button onClick={() => { setOrderPopVisible(false) }} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("analysisRawData.back")}</button>
-                    <button onClick={handleAnalysisRawDataConfirm} className='h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] '>{t("analysisRawData.send")}</button>
+                    <button onClick={handleAnalysisRawDataConfirm} disabled={disabled} className={`${disabled?"opacity-75":""} h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] `}>{t("analysisRawData.send")}</button>
                   </div>
                 </div>
               )}
@@ -2227,7 +2261,7 @@ const NewOrderBox = () => {
                   </p>
                   <div className='w-full flex items-end justify-end gap-[12px] pb-4'>
                     <button onClick={() => { setOrderPopVisible(false) }} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("invoice.back")}</button>
-                    <button onClick={handleClick1} className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("invoice.generate")}</button>
+                    <button onClick={handleClick1} disabled={disabled} className={`${disabled?"opacity-75":""} h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`}>{t("invoice.generate")}</button>
                   </div>
                 </div>
               )}
@@ -2236,8 +2270,8 @@ const NewOrderBox = () => {
                   <div className='w-[298px] h-[216px] md:h-[334px] md:w-[564px] md:py-[65px] md:px-[48px] flex flex-col items-center justify-between bg-white border-[1px] border-[#D9D9D9] rounded-[10px] shadow-[0px_8px_13px_-3px_rgba(0,_0,_0,_0.07)] p-[24px] md:p-0 gap-[8px] md:gap-0'>
                     <span className='w-full font-DM-Sans font-bold md:text-[32px] md:leading-[40px] text-[#333333]'>{t("invoice1.title")}</span>
                     <span className='w-full font-DM-Sans font-normal md:text-[20px] md:leading-[34px] text-[#333333]'>{t("invoice1.message")}</span>
-                    <button
-                      className="w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]"
+                    <button disabled={disabled} className={`${disabled?"opacity-75":""}
+                      w-full h-[50px] md:h-[48px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`}
                       onClick={handleInvoice}
                     >
                       {t("invoice1.ok")}

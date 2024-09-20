@@ -562,30 +562,40 @@ const NewOrderBox = () => {
       })
     }
     else {
-      const response2 = await fetch('/api/send-notification-user', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token:token,
-          title: "MedBank",
-          message: t("notification.qualityCheck"),
-          link: "/Dashboard",
-        }),
-      });
-      setOrderPopVisible(false);
-      setActivePopup('');
-      setQualityCheckStatus("isCompleted");
-      setLibraryPrepStatus('inAdminProgress');
-      updateDataInDB({
-        qualityCheckStatus: "isCompleted",
-        libraryPrepStatus: 'inAdminProgress'
-      })
-      updateSampleInDB({
-        qualityCheckStatus:"isCompleted",
-        libraryPrepStatus:"inAdminProgress"
-      })
+      try{
+        setDisabled(true);
+        const response2 = await fetch('/api/send-notification-user', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token:token,
+            title: "MedBank",
+            message: t("notification.qualityCheck"),
+            link: "/Dashboard",
+          }),
+        });
+        setOrderPopVisible(false);
+        setActivePopup('');
+        setQualityCheckStatus("isCompleted");
+        setLibraryPrepStatus('inAdminProgress');
+        updateDataInDB({
+          qualityCheckStatus: "isCompleted",
+          libraryPrepStatus: 'inAdminProgress'
+        })
+        updateSampleInDB({
+          qualityCheckStatus:"isCompleted",
+          libraryPrepStatus:"inAdminProgress"
+        })
+      }
+      catch{
+
+      }
+      finally{
+        setDisabled(false);
+      }
+      
     }
   };
   
@@ -599,29 +609,38 @@ const NewOrderBox = () => {
       })
     }
     else {
-      const response2 = await fetch('/api/send-notification-user', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token:token,
-          title: "MedBank",
-          message: t("notification.libraryPrep"),
-          link: "/Dashboard",
-        }),
-      });
-      setOrderPopVisible(false);
-      setActivePopup('');
-      setLibraryPrepStatus("isCompleted");
-      setAnalysisProgressStatus('inAdminProgress');
-      updateDataInDB({
-        libraryPrepStatus: "isCompleted",
-        analysisProgressStatus: 'inAdminProgress'
-      })
-      updateSampleInDB({
-        libraryPrepStatus:"isCompleted"
-      })
+      try{
+        setDisabled(true)
+        const response2 = await fetch('/api/send-notification-user', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token:token,
+            title: "MedBank",
+            message: t("notification.libraryPrep"),
+            link: "/Dashboard",
+          }),
+        });
+        setOrderPopVisible(false);
+        setActivePopup('');
+        setLibraryPrepStatus("isCompleted");
+        setAnalysisProgressStatus('inAdminProgress');
+        updateDataInDB({
+          libraryPrepStatus: "isCompleted",
+          analysisProgressStatus: 'inAdminProgress'
+        })
+        updateSampleInDB({
+          libraryPrepStatus:"isCompleted"
+        })
+      }
+      catch{
+
+      }
+      finally{
+        setDisabled(false);
+      }
     }
   };
 
@@ -1017,9 +1036,9 @@ const NewOrderBox = () => {
                     {t("qualityCheck.note")}
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>{t("qualityCheck.mobButton")}</button>
+                      <button  disabled={disabled} className={`${disabled ? "opacity-75" : ""} md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleConfirmQualityCheck}>{t("qualityCheck.mobButton")}</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }} >{t("qualityCheck.cancel")}</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleConfirmQualityCheck}>{t("qualityCheck.proceed")}</button>
+                      <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] `} onClick={handleConfirmQualityCheck}>{t("qualityCheck.proceed")}</button>
                     </div>
 
                   </div>
@@ -1081,9 +1100,9 @@ const NewOrderBox = () => {
                     {t("libraryPrep.note")}
                     </div>
                     <div className='flex items-center justify-center gap-[10px] md:gap-[12px]'>
-                      <button className='md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.mobButton")}</button>
+                      <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} md:hidden h-[40px] md:h-[48px] w-[250px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.mobButton")}</button>
                       <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px] ' onClick={() => { setOrderPopVisible(false) }}>{t("libraryPrep.cancel")}</button>
-                      <button className='hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]' onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.proceed")}</button>
+                      <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} hidden h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] md:flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleLibraryPrepConfirmation}>{t("libraryPrep.proceed")}</button>
                     </div>
 
                   </div>
