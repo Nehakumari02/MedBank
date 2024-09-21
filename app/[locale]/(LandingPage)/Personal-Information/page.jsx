@@ -3,8 +3,10 @@ import HomePageSectionHeader2 from '../../../../components/HomePageSectionHeader
 import SnackBar from '@/components/SnackBar'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-const PersonalInformation= () => {
+const PersonalInformation= ({params:{locale}}) => {
+    unstable_setRequestLocale(locale);
     const t = useTranslations("PersonalInformation");
     return (
         <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center font-DM-Sans'>

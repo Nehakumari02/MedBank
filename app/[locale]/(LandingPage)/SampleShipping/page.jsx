@@ -6,8 +6,10 @@ import SampleShipping3 from '../../../../public/Images/Home/SampleShipping3.png'
 import Image from 'next/image'
 import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-const SampleShipping = () => {
+const SampleShipping = ({params:{locale}}) => {
+    unstable_setRequestLocale(locale);
     const t = useTranslations("SampleShipping");
     return (
         <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center '>

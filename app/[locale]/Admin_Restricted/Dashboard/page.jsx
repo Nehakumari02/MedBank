@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   const [searchQueryPayment,setSearchQueryPayment] = useState("");
   const [sampleData,setSampleData] = useState([]);
   const [searchQuerySample,setSearchQuerySample] = useState("");
-  const { token, notificationPermissionStatus } = useFcmToken('66e055de6ddc7825fbd8a103')
+  const { token, notificationPermissionStatus } = useFcmToken('66ea96cbb87b8baa2f3a1117')
 
   useEffect(()=>{
     const fetchOrdersByUserId = async()=>{

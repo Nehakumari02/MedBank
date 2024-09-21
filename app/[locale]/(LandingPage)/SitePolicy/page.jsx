@@ -1,9 +1,11 @@
 import React from 'react'
 import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 
-const SitePolicy = () => {
+const SitePolicy = ({params:{locale}}) => {
+    unstable_setRequestLocale(locale);
     const t = useTranslations("Site Policy");
 
     return (

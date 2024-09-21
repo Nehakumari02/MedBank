@@ -49,7 +49,7 @@ const NewOrderBox = () => {
   const [downloadStatus, setDownloadStatus] = useState(false);
   const [abortController, setAbortController] = useState(null);
 
-  const { token, notificationPermissionStatus } = useFcmToken();
+  const { token, notificationPermissionStatus } = useFcmToken("66ea96cbb87b8baa2f3a1117");
 
   const updateDataInDB = async (orderData) => {
     const saveApiResponse = await fetch('/api/updateOrder', {

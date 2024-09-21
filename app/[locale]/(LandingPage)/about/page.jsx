@@ -9,8 +9,10 @@ import HomePageSectionHeader2 from '@/components/HomePageSectionHeader2';
 
 import HomePageSectionHeader from '@/components/HomePageSectionHeader';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default function AboutPage() {
+export default function AboutPage({params:{locale}}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("AboutUs");
   return (
     <>

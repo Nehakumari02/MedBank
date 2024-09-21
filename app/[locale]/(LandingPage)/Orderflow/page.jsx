@@ -17,8 +17,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SnackBar from '../../../../components/SnackBar'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-const OrderFlow = () => {
+const OrderFlow = ({params:{locale}}) => {
+    unstable_setRequestLocale(locale);
     const t = useTranslations("OrderFlow");
     return (
         <section className='pl-[38px] pr-[24px] md:pl-[156px] md:pr-[95px] w-full flex flex-col justify-center items-center'>

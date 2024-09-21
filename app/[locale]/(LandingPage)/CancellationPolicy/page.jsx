@@ -1,8 +1,10 @@
 import React from 'react'
 import SnackBar from '@/components/SnackBar'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-const CancellationPolicy = () => {
+const CancellationPolicy = ({params:{locale}}) => {
+    unstable_setRequestLocale(locale);
     const t = useTranslations("Cancellation Policy");
     return (
         <>

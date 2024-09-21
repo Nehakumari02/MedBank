@@ -11,8 +11,10 @@ import strength9 from '../../../../public/Images/Home/strength9.png'
 import strength10 from '../../../../public/Images/Home/strength10.png'
 import SnackBar from '@/components/SnackBar';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
-export default function StrengthPage() {
+export default function StrengthPage({params:{locale}}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("OurStrength");
   return (
     <>
