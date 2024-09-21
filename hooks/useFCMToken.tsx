@@ -103,90 +103,56 @@ const useFcmToken = (userId:String) => {
 
   useEffect(() => {
     const setupListener = async () => {
-      if (!token) return; // Exit if no token is available.
+        if (!token) return;
 
-      console.log(`onMessage registered with token ${token}`);
-      const m = await messaging();
-      if (!m) return;
+        console.log(`onMessage registered with token ${token}`);
+        const m = await messaging();
+        if (!m) return;
 
-      // Step 9: Register a listener for incoming FCM messages.
-      const unsubscribe = onMessage(m, (payload) => {
-        if (Notification.permission !== "granted") return;
+        const unsubscribe = onMessage(m, (payload) => {
+            if (Notification.permission !== "granted") return;
 
-        console.log("Foreground push notification received:", payload);
-        const link = payload.fcmOptions?.link || payload.data?.link;
+            console.log("Foreground push notification received:", payload);
+            const link = payload.fcmOptions?.link || payload.data?.link;
 
-        if (link) {
-          // toast.info(
-          //   `${payload.notification?.title}: ${payload.notification?.body}`,
-          //   {
-          //     action: {
-          //       label: "Visit",
-          //       onClick: () => {
-          //         const link = payload.fcmOptions?.link || payload.data?.link;
-          //         if (link) {
-          //           router.push(link);
-          //         }
-          //       },
-          //     },
-          //   }
-          // );
-          console.log("toast from custom toaster")
-          toast({
-            title: `${payload.notification?.title}`,
-            description: `${payload.notification?.body}`,
-            // action: (
-            //   // <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            // ),
-          })
-        } else {
-          // toast.info(
-          //   `${payload.notification?.title}: ${payload.notification?.body}`
-          // );
-          console.log("toast from custom toaster else condition")
-          toast({
-            title: `${payload.notification?.title}`,
-            description: `${payload.notification?.body}`,
-          })
-        }
+            // Ensure the notification title and body are available
+            toast({
+                title: payload.notification?.title || "New Message",
+                description: payload.notification?.body || "You have a new message.",
+            });
 
-        // --------------------------------------------
-        // Disable this if you only want toast notifications.
-        const n = new Notification(
-          payload.notification?.title || "New message",
-          {
-            body: payload.notification?.body || "This is a new message",
-            data: link ? { url: link } : undefined,
-          }
-        );
+            // Create a notification if needed
+            if (link) {
+                const notificationOptions = {
+                    body: payload.notification?.body || "This is a new message",
+                    data: link ? { url: link } : undefined,
+                };
 
-        // Step 10: Handle notification click event to navigate to a link if present.
-        n.onclick = (event) => {
-          event.preventDefault();
-          const link = (event.target as any)?.data?.url;
-          if (link) {
-            router.push(link);
-          } else {
-            console.log("No link found in the notification payload");
-          }
-        };
-        // --------------------------------------------
-      });
+                if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+                    navigator.serviceWorker.ready.then((registration) => {
+                        registration.showNotification(
+                            payload.notification?.title || "New message",
+                            notificationOptions
+                        );
+                    });
+                }
+            }
+        });
 
-      return unsubscribe;
+        return unsubscribe;
     };
 
     let unsubscribe: Unsubscribe | null = null;
 
     setupListener().then((unsub) => {
-      if (unsub) {
-        unsubscribe = unsub;
-      }
+        if (unsub) {
+            unsubscribe = unsub;
+        }
     });
 
-    // Step 11: Cleanup the listener when the component unmounts.
     return () => unsubscribe?.();
-  }, [token, router, toast]);
+}, [token, router, toast]);
+
 
   return { token, notificationPermissionStatus }; // Return the token and permission status.
 };

@@ -543,6 +543,7 @@ const NewOrderBox = () => {
 
   const handleConfirmRequestSheet = async () => {
     try {
+      setDisabled(true)
       const res = await fetch('/api/sendUpdateInChat', {
         method: 'POST',
         headers: {
@@ -562,6 +563,9 @@ const NewOrderBox = () => {
     }
     catch {
 
+    }
+    finally{
+      setDisabled(false);
     }
   }
 
@@ -1674,7 +1678,7 @@ const NewOrderBox = () => {
                     <button onClick={() => handleDownload(requestSheetLink.split("?")[0], `RequestSheet.{$fileType}`)} disabled={disabled} className={`${disabled ? "opacity-75" : ""}`}>
                       <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] text-[#333333] font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]">{t("requestSheet.download")}</button>
                     </button>
-                    <button className="h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]" onClick={handleConfirmRequestSheet}>{t("requestSheet.confirm")}</button>
+                    <button disabled={disabled} className={`${disabled ? "opacity-75" : ""} h-[40px] md:h-[48px] w-[96px] md:w-[126px] rounded-[6px] flex items-center justify-center gap-[10px] border-[2px] border-[#E2E8F0] [background:linear-gradient(180deg,_#60b7cf_10%,_#3e8da7_74.5%,_rgba(0,_62,_92,_0.6))] text-white font-DM-Sans font-medium text-[12px] md:text-[16px] text-center leading-[24px]`} onClick={handleConfirmRequestSheet}>{t("requestSheet.confirm")}</button>
                   </div>
                 </div>
               )}
